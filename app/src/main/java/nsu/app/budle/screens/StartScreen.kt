@@ -48,7 +48,7 @@ fun StartScreen(navController: NavHostController) {
                 text = "Бронируйте места в пару кликов!",
                 modifier = Modifier
                     .padding(bottom = 51.dp)
-                    .width(200.dp),
+                    .width(180.dp),
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.titleLarge
@@ -58,7 +58,8 @@ fun StartScreen(navController: NavHostController) {
                     navController.navigate(route = NavRoute.Number.route)
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF654DF6)),
-            ) {
+
+                ) {
                 Text(
                     text = "Зарегистрироваться",
                     fontSize = 16.sp,
@@ -66,7 +67,7 @@ fun StartScreen(navController: NavHostController) {
                     style = MaterialTheme.typography.labelSmall
                 )
             }
-            Row () {
+            Row {
                 Text(
                     text = "Уже есть аккаунт? ",
                     modifier = Modifier.padding(top = 20.dp),
