@@ -1,7 +1,6 @@
 package nsu.app.budle.screens
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -32,20 +31,25 @@ fun NumberScreen(navController: NavHostController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Row {
-                Icon(painter = painterResource(id = R.drawable.ic_arrow_left),
-                    contentDescription = "Arrow Left",
-                    modifier = Modifier
-                        .padding(end = 20.dp)
-                        .clickable { navController.navigate(route = NavRoute.Start.route) })
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(end = 64.dp)
+            ) {
+                IconButton(
+                    onClick = { navController.navigate(route = NavRoute.Start.route) },
+                    modifier = Modifier.padding(end = 40.dp)
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_arrow_left_gray),
+                        contentDescription = "Arrow Left",
+                        tint = Color(0xFFB6C1CE),
+                    )
+                }
+
                 Image(
                     painter = painterResource(
                         id = R.drawable.logo_big
-                    ),
-                    contentDescription = "Logo",
-                    modifier = Modifier
-                        .width(148.dp)
-                        .padding(end = 20.dp)
+                    ), contentDescription = "Logo", modifier = Modifier.width(148.dp)
                 )
             }
             Column(
@@ -104,7 +108,11 @@ fun SimpleTextField() {
             containerColor = Color(0xFFEEF5F9),
         ),
         visualTransformation = MaskVisualTransformation(MASK),
-        placeholder = { Text(text = "+7", style = MaterialTheme.typography.labelSmall, color = Color(0xFFB6C1CE))},
+        placeholder = {
+            Text(
+                text = "+7", style = MaterialTheme.typography.labelSmall, color = Color(0xFFB6C1CE)
+            )
+        },
         textStyle = MaterialTheme.typography.labelSmall
     )
 }
