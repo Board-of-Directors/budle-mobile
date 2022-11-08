@@ -51,7 +51,8 @@ fun StartScreen(navController: NavHostController) {
                     .width(180.dp),
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleLarge,
+                lineHeight = 24.sp
             )
             Button(
                 onClick = {

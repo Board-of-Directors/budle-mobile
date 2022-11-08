@@ -78,7 +78,7 @@ fun NumberScreen(navController: NavHostController) {
                     .padding(top = 240.dp)
             ) {
                 Text(
-                    text = "Подвтердить",
+                    text = "Подтвердить",
                     fontSize = 16.sp,
                     modifier = Modifier.padding(vertical = 8.dp, horizontal = 40.dp),
                     style = MaterialTheme.typography.labelSmall
