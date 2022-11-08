@@ -18,8 +18,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.budle.R
 import nsu.app.budle.navigation.NavRoute
+import nsu.app.budle.screens.NumberDefaults.INPUT_LENGTH
+import nsu.app.budle.screens.NumberDefaults.MASK
+import kotlin.math.absoluteValue
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NumberScreen(navController: NavHostController) {
     Surface(
@@ -57,24 +59,9 @@ fun NumberScreen(navController: NavHostController) {
                     fontSize = 16.sp,
                     style = MaterialTheme.typography.labelSmall,
                     color = Color(0xFFB6C1CE),
-                    modifier = Modifier.padding(bottom = 4.dp)
+                    modifier = Modifier.padding(bottom = 6.dp)
                 )
-                var text by remember { mutableStateOf(TextFieldValue("")) }
-                TextField(
-                    value = text,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    onValueChange = {
-                        text = it
-                    },
-                    shape = RoundedCornerShape(10.dp),
-                    colors = TextFieldDefaults.textFieldColors(
-                        focusedIndicatorColor = Color.Transparent,
-                        unfocusedIndicatorColor = Color.Transparent,
-                        disabledIndicatorColor = Color.Transparent,
-                        containerColor = Color(0xFFEEF5F9)
-                    ),
-                    visualTransformation = MaskTransformation()
-                )
+                SimpleTextField()
             }
             Button(
                 onClick = {
@@ -97,38 +84,68 @@ fun NumberScreen(navController: NavHostController) {
     }
 }
 
-class MaskTransformation : VisualTransformation {
-    override fun filter(text: AnnotatedString): TransformedText {
-        return maskFilter(text)
-    }
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SimpleTextField() {
+    var text by remember { mutableStateOf("") }
+    TextField(
+        value = text,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        onValueChange = { it ->
+            if (it.length <= INPUT_LENGTH) {
+                text = it.filter { it.isDigit() }
+            }
+        },
+        shape = RoundedCornerShape(10.dp),
+        colors = TextFieldDefaults.textFieldColors(
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            disabledIndicatorColor = Color.Transparent,
+            containerColor = Color(0xFFEEF5F9),
+        ),
+        visualTransformation = MaskVisualTransformation(MASK),
+        placeholder = { Text(text = "+7", style = MaterialTheme.typography.labelSmall, color = Color(0xFFB6C1CE))},
+        textStyle = MaterialTheme.typography.labelSmall
+    )
 }
 
+class MaskVisualTransformation(private val mask: String) : VisualTransformation {
 
-fun maskFilter(text: AnnotatedString): TransformedText {
+    private val specialSymbolsIndices = mask.indices.filter { mask[it] != '#' }
 
-    val trimmed = if (text.text.length >= 10) text.text.substring(0..9) else text.text
-    var out = "+7-"
-    for (i in trimmed.indices) {
-        out += trimmed[i]
-        if (i == 2) out += "-"
-        if (i == 5) out += "-"
+    override fun filter(text: AnnotatedString): TransformedText {
+        var out = ""
+        var maskIndex = 0
+        text.forEach { char ->
+            while (specialSymbolsIndices.contains(maskIndex)) {
+                out += mask[maskIndex]
+                maskIndex++
+            }
+            out += char
+            maskIndex++
+        }
+        return TransformedText(AnnotatedString(out), offsetTranslator())
     }
 
-    val numberOffsetTranslator = object : OffsetMapping {
+    private fun offsetTranslator() = object : OffsetMapping {
         override fun originalToTransformed(offset: Int): Int {
-            if (offset <= 2) return offset + 3
-            if (offset <= 5) return offset + 4
-            if (offset <= 10) return offset + 5
-            return 15
+            val offsetValue = offset.absoluteValue
+            if (offsetValue == 0) return 0
+            var numberOfHashtags = 0
+            val masked = mask.takeWhile {
+                if (it == '#') numberOfHashtags++
+                numberOfHashtags < offsetValue
+            }
+            return masked.length + 1
         }
 
         override fun transformedToOriginal(offset: Int): Int {
-            if (offset <= 3) return offset - 3
-            if (offset <= 6) return offset - 4
-            if (offset <= 11) return offset - 5
-            return 15
+            return mask.take(offset.absoluteValue).count { it == '#' }
         }
     }
+}
 
-    return TransformedText(AnnotatedString(out), numberOffsetTranslator)
+object NumberDefaults {
+    const val MASK = "+7 (###) ###-##-##"
+    const val INPUT_LENGTH = 10
 }
