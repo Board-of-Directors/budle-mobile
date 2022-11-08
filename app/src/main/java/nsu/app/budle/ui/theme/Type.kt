@@ -21,13 +21,9 @@ val Typography = Typography(
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
-    ),
-    titleLarge = TextStyle(
-        fontFamily = fonts,
-        fontWeight = FontWeight.SemiBold,
-        fontStyle = FontStyle.Italic
-    ),
-    labelSmall = TextStyle(
+    ), titleLarge = TextStyle(
+        fontFamily = fonts, fontWeight = FontWeight.SemiBold, fontStyle = FontStyle.Italic
+    ), labelSmall = TextStyle(
         fontFamily = fonts,
         fontWeight = FontWeight.SemiBold,
     )
