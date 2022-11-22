@@ -27,7 +27,9 @@ fun NumberScreen(navController: NavHostController) {
         modifier = Modifier.fillMaxSize()
     ) {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top  = 80.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -67,6 +69,7 @@ fun NumberScreen(navController: NavHostController) {
                 )
                 SimpleTextField()
             }
+            Spacer(Modifier.weight(1f))
             Button(
                 onClick = {
                     navController.navigate(route = NavRoute.Code.route)
@@ -75,7 +78,7 @@ fun NumberScreen(navController: NavHostController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 40.dp)
-                    .padding(top = 240.dp)
+                    .padding(bottom = 90.dp)
             ) {
                 Text(
                     text = "Подтвердить",
