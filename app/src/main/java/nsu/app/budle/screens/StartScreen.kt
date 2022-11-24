@@ -16,10 +16,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.budle.R
 import nsu.app.budle.navigation.NavRoute
+import nsu.app.budle.rawJSON
 import nsu.app.budle.ui.theme.BudleTheme
 
 @Composable
 fun StartScreen(navController: NavHostController) {
+    rawJSON()
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -84,7 +86,6 @@ fun StartScreen(navController: NavHostController) {
                     style = MaterialTheme.typography.labelSmall
                 )
             }
-
         }
     }
 }
