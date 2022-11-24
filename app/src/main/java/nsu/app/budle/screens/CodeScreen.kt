@@ -56,7 +56,6 @@ fun CodeScreen(navController: NavHostController) {
                         tint = Color(0xFFB6C1CE),
                     )
                 }
-
                 Image(
                     painter = painterResource(
                         id = R.drawable.logo_big
@@ -94,9 +93,6 @@ fun CodeScreen(navController: NavHostController) {
                                 states[i] = it
                                 focusManager.moveFocus(FocusDirection.Right)
                             },
-                            colors = TextFieldDefaults.textFieldColors(
-                                containerColor = Color(0x00FFFFFF),
-                            ),
                             textStyle = MaterialTheme.typography.titleSmall
                         )
                     }
