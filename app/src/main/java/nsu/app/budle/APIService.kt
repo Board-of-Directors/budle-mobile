@@ -35,10 +35,10 @@ fun rawJSON() {
     // Create JSON using JSONObject
 
     val jsonObject = JSONObject()
-    jsonObject.put("firstName", "Nick")
-    jsonObject.put("lastName", "Hui")
-    jsonObject.put("phoneNumber", "+79833218879")
-    jsonObject.put("password", "uasdada")
+    jsonObject.put("firstName", "Oleg")
+    jsonObject.put("lastName", "Veber")
+    jsonObject.put("phoneNumber", "+71234567809")
+    jsonObject.put("password", "12345")
 
     // Convert JSONObject to String
     val jsonObjectString = jsonObject.toString()
