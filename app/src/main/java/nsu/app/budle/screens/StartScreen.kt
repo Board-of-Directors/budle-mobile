@@ -6,7 +6,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -18,6 +17,8 @@ import com.example.budle.R
 import nsu.app.budle.navigation.NavRoute
 import nsu.app.budle.rawJSON
 import nsu.app.budle.ui.theme.BudleTheme
+import nsu.app.budle.ui.theme.fillPurple
+import nsu.app.budle.ui.theme.textGray
 
 @Composable
 fun StartScreen(navController: NavHostController) {
@@ -52,13 +53,13 @@ fun StartScreen(navController: NavHostController) {
                     .padding(bottom = 51.dp)
                     .width(180.dp),
                 style = MaterialTheme.typography.displayMedium,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
             Button(
                 onClick = {
                     navController.navigate(route = NavRoute.Number.route)
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF654DF6)),
+                colors = ButtonDefaults.buttonColors(containerColor = fillPurple),
 
                 ) {
                 Text(
@@ -72,13 +73,13 @@ fun StartScreen(navController: NavHostController) {
                 Text(
                     text = "Уже есть аккаунт? ",
                     modifier = Modifier.padding(top = 20.dp),
-                    color = Color(0xFFB6C1CE),
+                    color = textGray,
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Text(
                     text = "Войти",
                     modifier = Modifier.padding(top = 20.dp),
-                    color = Color(0xFF654DF6),
+                    color = fillPurple,
                     style = MaterialTheme.typography.bodyMedium
                 )
             }

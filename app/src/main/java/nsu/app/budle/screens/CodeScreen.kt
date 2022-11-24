@@ -20,6 +20,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.budle.R
 import nsu.app.budle.navigation.NavRoute
+import nsu.app.budle.ui.theme.backgroundLightBlue
+import nsu.app.budle.ui.theme.fillPurple
+import nsu.app.budle.ui.theme.textGray
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,7 +55,7 @@ fun CodeScreen(navController: NavHostController) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_arrow_left_gray),
                         contentDescription = "Arrow Left",
-                        tint = Color(0xFFB6C1CE),
+                        tint = textGray
                     )
                 }
                 Image(
@@ -92,6 +95,12 @@ fun CodeScreen(navController: NavHostController) {
                                 states[i] = it
                                 focusManager.moveFocus(FocusDirection.Right)
                             },
+                            colors = TextFieldDefaults.textFieldColors(
+                                focusedIndicatorColor = fillPurple,
+                                unfocusedIndicatorColor = backgroundLightBlue,
+                                disabledIndicatorColor = Color.Transparent,
+                                containerColor = Color.Transparent
+                            ),
                             textStyle = MaterialTheme.typography.displayLarge
                         )
                     }
@@ -102,7 +111,7 @@ fun CodeScreen(navController: NavHostController) {
                 onClick = {
 
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEEF5F9)),
+                colors = ButtonDefaults.buttonColors(containerColor = backgroundLightBlue),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 40.dp)
@@ -112,14 +121,14 @@ fun CodeScreen(navController: NavHostController) {
                     text = "Новый код - 2:56",
                     modifier = Modifier.padding(vertical = 8.dp, horizontal = 40.dp),
                     style = MaterialTheme.typography.bodyMedium,
-                    color = Color(0xFFB6C1CE)
+                    color = textGray
                 )
             }
             Button(
                 onClick = {
                     navController.navigate(route = NavRoute.End.route)
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF654DF6)),
+                colors = ButtonDefaults.buttonColors(containerColor = fillPurple),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 40.dp)
