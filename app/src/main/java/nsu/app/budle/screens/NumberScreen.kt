@@ -13,7 +13,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.budle.R
 import nsu.app.budle.navigation.NavRoute
@@ -29,7 +28,7 @@ fun NumberScreen(navController: NavHostController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top  = 80.dp),
+                .padding(top = 80.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -62,8 +61,7 @@ fun NumberScreen(navController: NavHostController) {
             ) {
                 Text(
                     text = "Номер телефона",
-                    fontSize = 16.sp,
-                    style = MaterialTheme.typography.labelSmall,
+                    style = MaterialTheme.typography.bodyMedium,
                     color = Color(0xFFB6C1CE),
                     modifier = Modifier.padding(bottom = 6.dp)
                 )
@@ -82,9 +80,8 @@ fun NumberScreen(navController: NavHostController) {
             ) {
                 Text(
                     text = "Подтвердить",
-                    fontSize = 16.sp,
                     modifier = Modifier.padding(vertical = 8.dp, horizontal = 40.dp),
-                    style = MaterialTheme.typography.labelSmall
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
         }
@@ -113,10 +110,10 @@ fun SimpleTextField() {
         visualTransformation = MaskVisualTransformation(MASK),
         placeholder = {
             Text(
-                text = "+7", style = MaterialTheme.typography.labelSmall, color = Color(0xFFB6C1CE)
+                text = "+7", style = MaterialTheme.typography.bodyMedium, color = Color(0xFFB6C1CE)
             )
         },
-        textStyle = MaterialTheme.typography.labelSmall
+        textStyle = MaterialTheme.typography.bodyMedium
     )
 }
 

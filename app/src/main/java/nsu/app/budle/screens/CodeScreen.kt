@@ -17,7 +17,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.budle.R
 import nsu.app.budle.navigation.NavRoute
@@ -74,7 +73,7 @@ fun CodeScreen(navController: NavHostController) {
                 )
                 Text(
                     text = "На Ваш телефон придёт СМС.\n" + "Введите его в поле ниже.",
-                    style = MaterialTheme.typography.labelSmall,
+                    style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(bottom = 60.dp),
                     textAlign = TextAlign.Center
                 )
@@ -93,7 +92,7 @@ fun CodeScreen(navController: NavHostController) {
                                 states[i] = it
                                 focusManager.moveFocus(FocusDirection.Right)
                             },
-                            textStyle = MaterialTheme.typography.titleSmall
+                            textStyle = MaterialTheme.typography.displayLarge
                         )
                     }
                 }
@@ -111,9 +110,8 @@ fun CodeScreen(navController: NavHostController) {
             ) {
                 Text(
                     text = "Новый код - 2:56",
-                    fontSize = 16.sp,
                     modifier = Modifier.padding(vertical = 8.dp, horizontal = 40.dp),
-                    style = MaterialTheme.typography.labelSmall,
+                    style = MaterialTheme.typography.bodyMedium,
                     color = Color(0xFFB6C1CE)
                 )
             }
@@ -129,9 +127,8 @@ fun CodeScreen(navController: NavHostController) {
             ) {
                 Text(
                     text = "Подтвердить",
-                    fontSize = 16.sp,
                     modifier = Modifier.padding(vertical = 8.dp, horizontal = 40.dp),
-                    style = MaterialTheme.typography.labelSmall
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
         }

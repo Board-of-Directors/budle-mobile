@@ -51,10 +51,8 @@ fun StartScreen(navController: NavHostController) {
                 modifier = Modifier
                     .padding(bottom = 51.dp)
                     .width(180.dp),
-                fontSize = 20.sp,
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.titleLarge,
-                lineHeight = 24.sp
+                style = MaterialTheme.typography.displayMedium,
+                textAlign = TextAlign.Center
             )
             Button(
                 onClick = {
@@ -67,23 +65,21 @@ fun StartScreen(navController: NavHostController) {
                     text = "Зарегистрироваться",
                     fontSize = 16.sp,
                     modifier = Modifier.padding(vertical = 8.dp, horizontal = 40.dp),
-                    style = MaterialTheme.typography.labelSmall
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
             Row {
                 Text(
                     text = "Уже есть аккаунт? ",
                     modifier = Modifier.padding(top = 20.dp),
-                    fontSize = 16.sp,
                     color = Color(0xFFB6C1CE),
-                    style = MaterialTheme.typography.labelSmall
+                    style = MaterialTheme.typography.bodyMedium
                 )
                 Text(
                     text = "Войти",
                     modifier = Modifier.padding(top = 20.dp),
-                    fontSize = 16.sp,
                     color = Color(0xFF654DF6),
-                    style = MaterialTheme.typography.labelSmall
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
         }
