@@ -6,7 +6,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,10 +15,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.budle.R
 import nsu.app.budle.navigation.NavRoute
+import nsu.app.budle.rawJSON
 import nsu.app.budle.ui.theme.BudleTheme
+import nsu.app.budle.ui.theme.fillPurple
+import nsu.app.budle.ui.theme.textGray
 
 @Composable
 fun StartScreen(navController: NavHostController) {
+    rawJSON()
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -49,41 +52,37 @@ fun StartScreen(navController: NavHostController) {
                 modifier = Modifier
                     .padding(bottom = 51.dp)
                     .width(180.dp),
-                fontSize = 20.sp,
+                style = MaterialTheme.typography.displayMedium,
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.titleLarge
             )
             Button(
                 onClick = {
                     navController.navigate(route = NavRoute.Number.route)
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF654DF6)),
+                colors = ButtonDefaults.buttonColors(containerColor = fillPurple),
 
                 ) {
                 Text(
                     text = "Зарегистрироваться",
                     fontSize = 16.sp,
                     modifier = Modifier.padding(vertical = 8.dp, horizontal = 40.dp),
-                    style = MaterialTheme.typography.labelSmall
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
             Row {
                 Text(
                     text = "Уже есть аккаунт? ",
                     modifier = Modifier.padding(top = 20.dp),
-                    fontSize = 16.sp,
-                    color = Color(0xFFB6C1CE),
-                    style = MaterialTheme.typography.labelSmall
+                    color = textGray,
+                    style = MaterialTheme.typography.bodyMedium
                 )
                 Text(
                     text = "Войти",
                     modifier = Modifier.padding(top = 20.dp),
-                    fontSize = 16.sp,
-                    color = Color(0xFF654DF6),
-                    style = MaterialTheme.typography.labelSmall
+                    color = fillPurple,
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
-
         }
     }
 }

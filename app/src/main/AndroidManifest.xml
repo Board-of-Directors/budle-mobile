@@ -17,6 +17,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:windowSoftInputMode="adjustResize"
             android:name="nsu.app.budle.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Budle">

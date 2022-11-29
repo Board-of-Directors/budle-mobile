@@ -1,6 +1,8 @@
 package nsu.app.budle.navigation
 
+import androidx.compose.animation.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -19,9 +21,29 @@ fun BudleNavHost() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = NavRoute.Start.route) {
         composable(NavRoute.Start.route) { StartScreen(navController = navController) }
-        composable(NavRoute.Number.route) { NumberScreen(navController = navController) }
+        composable(NavRoute.Number.route) {
+            EnterAnimation {
+                NumberScreen(navController = navController)
+            }
+        }
         composable(NavRoute.Code.route) { CodeScreen(navController = navController) }
         composable(NavRoute.Data.route) { DataScreen(navController = navController) }
         composable(NavRoute.End.route) { EndScreen(navController = navController) }
     }
+}
+
+@OptIn(ExperimentalAnimationApi::class)
+@Composable
+fun EnterAnimation(content: @Composable () -> Unit) {
+    AnimatedVisibility(
+        visible = true,
+        enter = slideInVertically(
+            initialOffsetY = { -40 }
+        ) + expandVertically(
+            expandFrom = Alignment.Top
+        ) + fadeIn(initialAlpha = 0.3f),
+        exit = slideOutVertically() + shrinkVertically() + fadeOut(),
+        content = content,
+        initiallyVisible = false
+    )
 }

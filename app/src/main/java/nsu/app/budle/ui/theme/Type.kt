@@ -11,24 +11,36 @@ import com.example.budle.R
 
 val fonts = FontFamily(
     Font(R.font.gilroy_semibold, weight = FontWeight.SemiBold),
-    Font(R.font.gilroy_semibolditalic, weight = FontWeight.SemiBold, style = FontStyle.Italic)
+    Font(R.font.gilroy_semibolditalic, weight = FontWeight.SemiBold, style = FontStyle.Italic),
+    Font(R.font.gilroy_bold, weight = FontWeight.Bold)
 )
 
 val Typography = Typography(
-    bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
+    displayMedium = TextStyle(
+        //Text/Message
+        fontFamily = fonts,
+        fontWeight = FontWeight.SemiBold,
+        fontStyle = FontStyle.Italic,
+        fontSize = 20.sp,
+        lineHeight = 24.sp
+    ),
+    bodyMedium = TextStyle(
+        //Text/Plain
+        fontFamily = fonts,
+        fontWeight = FontWeight.SemiBold,
         fontSize = 16.sp,
         lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
     ),
-    titleLarge = TextStyle(
+    titleMedium = TextStyle(
+        //Headings/Heading 1
         fontFamily = fonts,
-        fontWeight = FontWeight.SemiBold,
-        fontStyle = FontStyle.Italic
+        fontWeight = FontWeight.Bold,
+        fontSize = 24.sp,
     ),
-    labelSmall = TextStyle(
+    displayLarge = TextStyle(
+        //Form/Numbers
         fontFamily = fonts,
-        fontWeight = FontWeight.SemiBold,
+        fontWeight = FontWeight.Bold,
+        fontSize = 48.sp
     )
 )
