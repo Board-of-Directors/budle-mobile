@@ -23,6 +23,7 @@ import nsu.app.budle.ui.theme.fillPurple
 import nsu.app.budle.ui.theme.textGray
 import kotlin.math.absoluteValue
 
+
 @Composable
 fun NumberScreen(navController: NavHostController) {
     Surface(
@@ -56,6 +57,7 @@ fun NumberScreen(navController: NavHostController) {
                     ), contentDescription = "Logo", modifier = Modifier.width(148.dp)
                 )
             }
+            var text by remember { mutableStateOf("") }
             Column(
                 horizontalAlignment = Alignment.Start,
                 modifier = Modifier
@@ -68,7 +70,7 @@ fun NumberScreen(navController: NavHostController) {
                     color = textGray,
                     modifier = Modifier.padding(bottom = 6.dp)
                 )
-                SimpleTextField()
+                text = simpleTextField()
             }
             Spacer(Modifier.weight(1f))
             Button(
@@ -93,7 +95,7 @@ fun NumberScreen(navController: NavHostController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SimpleTextField() {
+fun simpleTextField(): String {
     var text by remember { mutableStateOf("") }
     TextField(
         value = text,
@@ -118,6 +120,7 @@ fun SimpleTextField() {
         },
         textStyle = MaterialTheme.typography.bodyMedium
     )
+    return text
 }
 
 class MaskVisualTransformation(private val mask: String) : VisualTransformation {
