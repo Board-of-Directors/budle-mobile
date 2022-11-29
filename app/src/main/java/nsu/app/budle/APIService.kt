@@ -18,16 +18,14 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface APIService {
-    @POST("register")
+    @POST("getcode")
     suspend fun createGuy(@Body requestBody: RequestBody): Response<ResponseBody>
 }
 
 fun rawJSON() {
 
     // Create Retrofit
-    val retrofit = Retrofit.Builder()
-        .baseUrl("https://budle-app.herokuapp.com/")
-        .build()
+    val retrofit = Retrofit.Builder().baseUrl("https://budle-app.herokuapp.com/").build()
 
     // Create Service
     val service = retrofit.create(APIService::class.java)
@@ -35,10 +33,7 @@ fun rawJSON() {
     // Create JSON using JSONObject
 
     val jsonObject = JSONObject()
-    jsonObject.put("firstName", "Oleg")
-    jsonObject.put("lastName", "Veber")
-    jsonObject.put("phoneNumber", "+71234567809")
-    jsonObject.put("password", "12345")
+    jsonObject.put("phoneNumber", "+79231095499")
 
     // Convert JSONObject to String
     val jsonObjectString = jsonObject.toString()
