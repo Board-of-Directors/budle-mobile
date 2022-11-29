@@ -6,6 +6,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,7 +23,7 @@ import nsu.app.budle.ui.theme.textGray
 
 @Composable
 fun StartScreen(navController: NavHostController) {
-    rawJSON()
+    //rawJSON()
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -32,10 +33,11 @@ fun StartScreen(navController: NavHostController) {
             verticalArrangement = Arrangement.Center
         ) {
             Image(
-                painter = painterResource(id = R.drawable.start_picture),
+                painter = painterResource(id = R.drawable.start_screen_icon),
                 contentDescription = "Start Picture",
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .width(323.dp)
+                    .width(230.dp)
                     .padding(bottom = 60.dp)
             )
             Image(
