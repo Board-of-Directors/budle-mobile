@@ -49,7 +49,6 @@ fun NumberScreen(navController: NavHostController) {
                         tint = textGray
                     )
                 }
-
                 Image(
                     painter = painterResource(
                         id = R.drawable.logo_big

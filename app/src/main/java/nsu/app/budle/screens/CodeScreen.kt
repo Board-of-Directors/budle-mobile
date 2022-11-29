@@ -107,12 +107,15 @@ fun CodeScreen(navController: NavHostController) {
                                             true
                                         } else false
                                     },
+                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                 onValueChange = {
-                                    if (i == 0 || states[i - 1] != "") {
-                                        states[i] = it
-                                        if (states[i] != "") focusManager.moveFocus(FocusDirection.Right)
-                                        else focusManager.moveFocus(FocusDirection.Left)
-                                    }
+                                    if (it.length <= 1){
+                                        if (i == 0 || states[i - 1] != "") {
+                                            states[i] = it
+                                            if (states[i] != "") focusManager.moveFocus(FocusDirection.Right)
+                                            else focusManager.moveFocus(FocusDirection.Left)
+                                        }
+                                    } else focusManager.moveFocus(FocusDirection.Right)
                                 },
                                 colors = TextFieldDefaults.textFieldColors(
                                     focusedIndicatorColor = fillPurple,

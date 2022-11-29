@@ -3,18 +3,17 @@ package nsu.app.budle.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.OffsetMapping
-import androidx.compose.ui.text.input.TransformedText
-import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.budle.R
@@ -42,7 +41,7 @@ fun DataScreen(navController: NavHostController) {
                 modifier = Modifier.padding(end = 64.dp)
             ) {
                 IconButton(
-                    onClick = { navController.navigate(route = NavRoute.End.route) },
+                    onClick = { navController.navigate(route = NavRoute.Code.route) },
                     modifier = Modifier.padding(end = 40.dp)
                 ) {
                     Icon(
@@ -68,7 +67,7 @@ fun DataScreen(navController: NavHostController) {
                     text = "Имя пользователя",
                     style = MaterialTheme.typography.bodyMedium,
                     color = textGray,
-                    modifier = Modifier.padding(bottom = 6.dp)
+                    modifier = Modifier.padding(bottom = 10.dp)
                 )
                 DataTextField("Введите Ваше имя")
             }
@@ -82,9 +81,16 @@ fun DataScreen(navController: NavHostController) {
                     text = "Пароль",
                     style = MaterialTheme.typography.bodyMedium,
                     color = textGray,
-                    modifier = Modifier.padding(bottom = 6.dp)
+                    modifier = Modifier.padding(bottom = 10.dp)
                 )
-                DataTextField("Введите пароль")
+                PasswordTextField("Введите пароль")
+                Text(
+                    text = "Придумайте пароль от 8 знаков из\n" +
+                            "цифр и латинских букв",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = textGray,
+                    modifier = Modifier.padding(top = 10.dp)
+                )
             }
             Spacer(Modifier.weight(1f))
             Button(
@@ -109,12 +115,14 @@ fun DataScreen(navController: NavHostController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DataTextField(hint: String) {
+fun DataTextField(placeholder: String) {
     var text by remember { mutableStateOf("") }
     TextField(
         value = text,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-        onValueChange = {it -> run { text = it } },
+        onValueChange = {
+            if (it.length <= INPUT_LENGTH) text = it
+        },
         shape = RoundedCornerShape(10.dp),
         colors = TextFieldDefaults.textFieldColors(
             focusedIndicatorColor = Color.Transparent,
@@ -124,13 +132,73 @@ fun DataTextField(hint: String) {
         ),
         placeholder = {
             Text(
-                text = hint, style = MaterialTheme.typography.bodyMedium, color = textGray
+                text = placeholder, style = MaterialTheme.typography.bodyMedium, color = textGray
             )
         },
         textStyle = MaterialTheme.typography.bodyMedium
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun PasswordTextField(placeholder: String) {
+
+    val focusManager = LocalFocusManager.current
+    val showPassword = remember { mutableStateOf(false) }
+    var text by remember { mutableStateOf("") }
+
+    TextField(
+        value = text,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+        onValueChange = {
+            if (it.length <= INPUT_LENGTH) text = it
+        },
+        shape = RoundedCornerShape(10.dp),
+        colors = TextFieldDefaults.textFieldColors(
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            disabledIndicatorColor = Color.Transparent,
+            containerColor = backgroundLightBlue,
+        ),
+        placeholder = {
+            Text(
+                text = placeholder, style = MaterialTheme.typography.bodyMedium, color = textGray
+            )
+        },
+        keyboardActions = KeyboardActions(
+            onDone = {
+                focusManager.clearFocus()
+            }
+        ),
+        trailingIcon = {
+
+            if (showPassword.value) {
+                Icon(
+                    painter = painterResource(id = R.drawable.eye_off),
+                    contentDescription = "Password Eye Off Icon",
+                    tint = textGray
+                )
+            } else {
+                Icon(
+                    painter = painterResource(id = R.drawable.eye),
+                    contentDescription = "Password Eye Off Icon",
+                    tint = textGray
+                )
+            }
+
+            IconButton(onClick = { showPassword.value = !showPassword.value }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.eye),
+                    contentDescription = "Password Eye Icon",
+                    tint = textGray
+                )
+            }
+        },
+        visualTransformation = if (showPassword.value) VisualTransformation.None else PasswordVisualTransformation(),
+        textStyle = MaterialTheme.typography.bodyMedium
+    )
+}
+
 object DataDefaults {
-    const val INPUT_LENGTH = 15
+    const val INPUT_LENGTH = 30
 }
