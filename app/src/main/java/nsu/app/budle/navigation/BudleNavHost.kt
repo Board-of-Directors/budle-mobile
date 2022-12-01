@@ -14,12 +14,13 @@ sealed class NavRoute(val route: String) {
     object Code : NavRoute("code_screen")
     object Data : NavRoute("data_screen/{button_name}")
     object End : NavRoute("end_screen")
+    object MainList : NavRoute("mainList_screen")
 }
 
 @Composable
 fun BudleNavHost() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = NavRoute.Start.route) {
+    NavHost(navController = navController, startDestination = NavRoute.MainList.route) {
         composable(NavRoute.Start.route) { StartScreen(navController = navController) }
         composable(NavRoute.Number.route) {
             EnterAnimation {
@@ -34,6 +35,7 @@ fun BudleNavHost() {
             )
         }
         composable(NavRoute.End.route) { EndScreen(navController = navController) }
+        composable(NavRoute.MainList.route) { MainListScreen(navController = navController) }
     }
 }
 
