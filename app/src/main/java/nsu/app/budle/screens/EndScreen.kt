@@ -45,11 +45,11 @@ fun EndScreen(navController: NavHostController) {
                     .padding(bottom = 21.dp)
             )
             Text(
-                text = "Регистрация прошла успешно! Приступаем к бронированию",
+                text = "Регистрация прошла успешно!\nПриступаем к бронированию",
                 modifier = Modifier
                     .padding(bottom = 51.dp)
-                    .width(300.dp),
-                style = MaterialTheme.typography.displaySmall,
+                    .width(330.dp),
+                style = MaterialTheme.typography.titleMedium,
                 textAlign = TextAlign.Center,
             )
             Button(
