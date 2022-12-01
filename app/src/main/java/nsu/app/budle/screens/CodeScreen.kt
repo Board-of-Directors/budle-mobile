@@ -22,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.core.text.isDigitsOnly
 import androidx.navigation.NavHostController
 import com.example.budle.R
 import kotlinx.coroutines.CoroutineScope
@@ -38,7 +39,6 @@ import nsu.app.budle.ui.theme.textGray
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun CodeScreen(navController: NavHostController, phoneNumber: String?) {
-
     val focusManager = LocalFocusManager.current
     val states = remember {
         mutableStateListOf(
@@ -78,84 +78,63 @@ fun CodeScreen(navController: NavHostController, phoneNumber: String?) {
                     ), contentDescription = "Logo", modifier = Modifier.width(148.dp)
                 )
             }
+            Spacer(Modifier.weight(0.5f))
+            Text(
+                text = "Подтверждение номера",
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(bottom = 16.dp),
+                textAlign = TextAlign.Center
+            )
+            Text(
+                text = "На Ваш телефон придёт СМС.\n" + "Введите его в поле ниже.",
+                style = MaterialTheme.typography.bodyMedium,
+                textAlign = TextAlign.Center
+            )
+            Spacer(Modifier.weight(0.5f))
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(top = 60.dp),
             ) {
-                Text(
-                    text = "Подтверждение номера",
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(bottom = 16.dp),
-                    textAlign = TextAlign.Center
-                )
-                Text(
-                    text = "На Ваш телефон придёт СМС.\n" + "Введите его в поле ниже.",
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(bottom = 60.dp),
-                    textAlign = TextAlign.Center
-                )
                 LazyRow(
                     state = listState,
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center
                 ) {
                     itemsIndexed(states) { i, _ ->
-                        val inputColor = if (!errorState.value || states[i].isNotEmpty())
-                            backgroundLightBlue else backgroundError
-                        // start from first input
-                        if (i == 0 || states[i - 1] != "") {
-                            TextField(
-                                value = states[i],
-                                modifier = Modifier
-                                    .padding(top = 16.dp, start = 8.dp, end = 8.dp)
-                                    .width(60.dp)
-                                    // change focus when backspace
-                                    .onKeyEvent { event: KeyEvent ->
-                                        if (event.type == KeyEventType.KeyUp &&
-                                            event.key == Key.Backspace &&
-                                            states[i].isEmpty()
-                                        ) {
-                                            focusManager.moveFocus(FocusDirection.Left)
-                                            true
-                                        } else false
-                                    },
-                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                                onValueChange = {
-                                    if (it.length <= 1) {
-                                        if (i == 0 || states[i - 1] != "") {
-                                            if (errorState.value) errorState.value = false
-                                            states[i] = it
+                        TextField(
+                            value = states[i],
+                            modifier = Modifier
+                                .padding(start = 8.dp, end = 8.dp)
+                                .width(60.dp)
+                                .onKeyEvent { event: KeyEvent ->
+                                    if (event.type == KeyEventType.KeyUp &&
+                                        event.key == Key.Backspace &&
+                                        states[i].isEmpty()
+                                    ) {
+                                        focusManager.moveFocus(FocusDirection.Left)
+                                        true
+                                    } else false
+                                },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                            onValueChange = { text ->
+                                if (text.length <= 1) {
+                                    if (i == 0 || states[i - 1] != "") {
+                                        if(text.isDigitsOnly()) {
+                                            states[i] = text
                                             if (states[i] != "") {
                                                 focusManager.moveFocus(FocusDirection.Right)
                                             } else focusManager.moveFocus(FocusDirection.Left)
                                         }
-                                    } else focusManager.moveFocus(FocusDirection.Right)
-                                },
-                                colors = TextFieldDefaults.textFieldColors(
-                                    focusedIndicatorColor = fillPurple,
-                                    unfocusedIndicatorColor = inputColor,
-                                    disabledIndicatorColor = Color.Transparent,
-                                    containerColor = Color.Transparent
-                                ),
-                                textStyle = MaterialTheme.typography.displayLarge
-                            )
-                        } else if (states[i - 1] == "") {
-                            TextField(
-                                value = "",
-                                modifier = Modifier
-                                    .padding(top = 16.dp, start = 8.dp, end = 8.dp)
-                                    .width(60.dp),
-                                onValueChange = {},
-                                colors = TextFieldDefaults.textFieldColors(
-                                    focusedIndicatorColor = inputColor,
-                                    unfocusedIndicatorColor = inputColor,
-                                    disabledIndicatorColor = Color.Transparent,
-                                    containerColor = Color.Transparent,
-                                ),
-                                textStyle = MaterialTheme.typography.displayLarge,
-                                readOnly = true
-                            )
-                        }
+                                    }
+                                } else focusManager.moveFocus(FocusDirection.Right)
+                            },
+                            colors = TextFieldDefaults.textFieldColors(
+                                focusedIndicatorColor = fillPurple,
+                                disabledIndicatorColor = Color.Transparent,
+                                containerColor = Color.Transparent,
+                                unfocusedIndicatorColor = backgroundLightBlue
+                            ),
+                            textStyle = MaterialTheme.typography.displayLarge
+                        )
                     }
                 }
                 if (errorState.value) {
@@ -167,10 +146,9 @@ fun CodeScreen(navController: NavHostController, phoneNumber: String?) {
                     )
                 }
             }
-            Spacer(Modifier.weight(1f))
+            Spacer(Modifier.weight(0.5f))
             Button(
-                onClick = {
-                },
+                onClick = {},
                 colors = ButtonDefaults.buttonColors(containerColor = backgroundLightBlue),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -207,7 +185,6 @@ fun CodeScreen(navController: NavHostController, phoneNumber: String?) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 40.dp)
-                    .padding(bottom = 90.dp)
             ) {
                 Text(
                     text = "Подтвердить",
@@ -215,6 +192,7 @@ fun CodeScreen(navController: NavHostController, phoneNumber: String?) {
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
+            Spacer(Modifier.weight(0.5f))
         }
     }
 }
