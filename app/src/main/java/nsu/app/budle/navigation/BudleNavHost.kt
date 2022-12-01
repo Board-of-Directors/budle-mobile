@@ -11,7 +11,7 @@ import nsu.app.budle.screens.*
 sealed class NavRoute(val route: String) {
     object Start : NavRoute("start_screen")
     object Number : NavRoute("number_screen")
-    object Code : NavRoute("code_screen")
+    object Code : NavRoute("code_screen/{phoneNumber}")
     object Data : NavRoute("data_screen/{button_name}")
     object End : NavRoute("end_screen")
 }
@@ -26,7 +26,12 @@ fun BudleNavHost() {
                 NumberScreen(navController = navController)
             }
         }
-        composable(NavRoute.Code.route) { CodeScreen(navController = navController) }
+        composable(NavRoute.Code.route) { backStackEntry ->
+            CodeScreen(
+                navController = navController,
+                backStackEntry.arguments?.getString("phoneNumber")
+            )
+        }
         composable(NavRoute.Data.route) { backStackEntry ->
             DataScreen(
                 navController = navController,

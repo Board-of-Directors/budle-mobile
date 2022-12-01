@@ -1,6 +1,5 @@
 package nsu.app.budle.screens
 
-import android.widget.TextView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -8,24 +7,23 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.*
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.budle.R
-import kotlinx.coroutines.delay
 import nsu.app.budle.navigation.NavRoute
 import nsu.app.budle.ui.theme.backgroundError
 import nsu.app.budle.ui.theme.backgroundLightBlue
@@ -34,7 +32,7 @@ import nsu.app.budle.ui.theme.textGray
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
-fun CodeScreen(navController: NavHostController) {
+fun CodeScreen(navController: NavHostController, phoneNumber: String?) {
 
     val focusManager = LocalFocusManager.current
     val states = remember {
@@ -122,10 +120,9 @@ fun CodeScreen(navController: NavHostController) {
                                         if (i == 0 || states[i - 1] != "") {
                                             if (errorState.value) errorState.value = false
                                             states[i] = it
-                                            if (states[i] != ""){
+                                            if (states[i] != "") {
                                                 focusManager.moveFocus(FocusDirection.Right)
-                                            }
-                                            else focusManager.moveFocus(FocusDirection.Left)
+                                            } else focusManager.moveFocus(FocusDirection.Left)
                                         }
                                     } else focusManager.moveFocus(FocusDirection.Right)
                                 },
@@ -177,7 +174,7 @@ fun CodeScreen(navController: NavHostController) {
             Button(
                 onClick = {
                     errorState.value = states.contains("")
-                    if (!errorState.value){
+                    if (!errorState.value) {
                         navController.navigate("data_screen/Подтвердить")
                     }
                 },

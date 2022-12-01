@@ -2,7 +2,6 @@ package nsu.app.budle.screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -17,6 +16,11 @@ import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.budle.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import nsu.app.budle.CheckNumber
+import nsu.app.budle.getCode
 import nsu.app.budle.navigation.NavRoute
 import nsu.app.budle.screens.NumberDefaults.INPUT_LENGTH
 import nsu.app.budle.screens.NumberDefaults.MASK
@@ -63,7 +67,6 @@ fun NumberScreen(navController: NavHostController) {
                     ), contentDescription = "Logo", modifier = Modifier.width(148.dp)
                 )
             }
-            var text by remember { mutableStateOf("") }
             Column(
                 horizontalAlignment = Alignment.Start,
                 modifier = Modifier
@@ -80,9 +83,9 @@ fun NumberScreen(navController: NavHostController) {
                 Card(border = BorderStroke(2.dp, stateColor)) {
                     numberState = simpleTextField(error)
                 }
-                if(error.value){
+                if (error.value) {
                     Text(
-                        text = "Это поле не может быть пустым",
+                        text = "Error",
                         style = MaterialTheme.typography.bodyMedium,
                         color = backgroundError,
                         modifier = Modifier.padding(top = 10.dp)
@@ -93,8 +96,18 @@ fun NumberScreen(navController: NavHostController) {
             Button(
                 onClick = {
                     error.value = numberState.length != 10
-                    if (!error.value)
-                        navController.navigate(route = NavRoute.Code.route)
+                    var data: CheckNumber?
+                    CoroutineScope(Dispatchers.Main).launch {
+                        data = getCode("7$numberState")
+                        if (data != null) {
+                            error.value = !data!!.success
+                        } else {
+                            error.value = true
+                        }
+                        if (!error.value) {
+                            navController.navigate("code_screen/$numberState")
+                        }
+                    }
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = fillPurple),
                 modifier = Modifier

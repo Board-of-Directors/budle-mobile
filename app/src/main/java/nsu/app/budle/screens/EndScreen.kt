@@ -15,7 +15,6 @@ import androidx.navigation.NavHostController
 import com.example.budle.R
 import nsu.app.budle.navigation.NavRoute
 import nsu.app.budle.ui.theme.fillPurple
-import nsu.app.budle.ui.theme.textGray
 
 @Composable
 fun EndScreen(navController: NavHostController) {

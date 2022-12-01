@@ -25,7 +25,6 @@ import nsu.app.budle.ui.theme.backgroundError
 import nsu.app.budle.ui.theme.backgroundLightBlue
 import nsu.app.budle.ui.theme.fillPurple
 import nsu.app.budle.ui.theme.textGray
-import org.jetbrains.annotations.NotNull
 
 @Composable
 fun DataScreen(navController: NavHostController, buttonText: String?) {
@@ -81,7 +80,7 @@ fun DataScreen(navController: NavHostController, buttonText: String?) {
                     modifier = Modifier.padding(bottom = 10.dp)
                 )
                 textInputState = dataTextField("Введите Ваше имя", textError)
-                if (textError.value){
+                if (textError.value) {
                     Text(
                         text = "Это поле не может быть пустым",
                         style = MaterialTheme.typography.bodyMedium,
@@ -193,8 +192,8 @@ fun passwordTextField(placeholder: String, error: MutableState<Boolean>): String
     val strokeColor = if (!error.value) Color.Transparent else backgroundError
 
     Card(
-        border = BorderStroke(2.dp,strokeColor)
-    ){
+        border = BorderStroke(2.dp, strokeColor)
+    ) {
         TextField(
             value = text,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
@@ -202,7 +201,7 @@ fun passwordTextField(placeholder: String, error: MutableState<Boolean>): String
                 if (it.length <= INPUT_LENGTH) {
                     if (it.isNotEmpty()) {
                         if (it[it.length - 1] != '\n') {
-                            if (it.length >= PASSWORD_LENGTH){
+                            if (it.length >= PASSWORD_LENGTH) {
                                 error.value = false
                             }
                             text = it
@@ -219,7 +218,9 @@ fun passwordTextField(placeholder: String, error: MutableState<Boolean>): String
             ),
             placeholder = {
                 Text(
-                    text = placeholder, style = MaterialTheme.typography.bodyMedium, color = textGray
+                    text = placeholder,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = textGray
                 )
             },
             keyboardActions = KeyboardActions(

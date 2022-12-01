@@ -76,9 +76,9 @@ fun StartScreen(navController: NavHostController) {
                     text = "Войти",
                     modifier = Modifier
                         .padding(top = 20.dp)
-                        .clickable{
-                        navController.navigate("data_screen/Войти")
-                    },
+                        .clickable {
+                            navController.navigate("data_screen/Войти")
+                        },
                     color = fillPurple,
                     style = MaterialTheme.typography.bodyMedium
                 )
