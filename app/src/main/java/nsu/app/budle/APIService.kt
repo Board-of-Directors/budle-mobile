@@ -1,8 +1,6 @@
 package nsu.app.budle
 
 import android.util.Log
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonParser
 import kotlinx.coroutines.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.*
@@ -27,16 +25,16 @@ interface APIService {
 }
 
 @Serializable
-data class CheckNumber(val success: Boolean, val result: Boolean?, val exception: Exception?)
+data class Answer(val success: Boolean, val result: Boolean?, val exception: Exception?)
 
 @Serializable
 data class Exception(val message: String, val type: String)
 
-suspend fun getCode(number: String): CheckNumber? {
+suspend fun getCode(number: String): Answer? {
     val retrofit = Retrofit.Builder().baseUrl("https://budle-app.herokuapp.com/").build()
     val service = retrofit.create(APIService::class.java)
-    var result: CheckNumber? = null
-    val message: CheckNumber? = CoroutineScope(Dispatchers.IO).async {
+    var result: Answer? = null
+    val message: Answer? = CoroutineScope(Dispatchers.IO).async {
         val response = service.getCodeRequest(number)
         withContext(Dispatchers.IO) {
             if (response.isSuccessful) {
@@ -51,7 +49,7 @@ suspend fun getCode(number: String): CheckNumber? {
     return message
 }
 
-fun checkCode(number: String, code: String) {
+suspend fun checkCode(number: String, code: String): Answer? {
     val retrofit = Retrofit.Builder().baseUrl("https://budle-app.herokuapp.com/").build()
     val service = retrofit.create(APIService::class.java)
     val jsonObject = JSONObject()
@@ -59,20 +57,18 @@ fun checkCode(number: String, code: String) {
     jsonObject.put("code", code)
     val jsonObjectString = jsonObject.toString()
     val requestBody = jsonObjectString.toRequestBody("application/json".toMediaTypeOrNull())
-    CoroutineScope(Dispatchers.IO).launch {
+    var result: Answer? = null
+    val message: Answer? = CoroutineScope(Dispatchers.IO).async {
         val response = service.checkCodeRequest(requestBody)
-        withContext(Dispatchers.Main) {
+        withContext(Dispatchers.IO) {
             if (response.isSuccessful) {
-                val gson = GsonBuilder().setPrettyPrinting().create()
-                val prettyJson = gson.toJson(
-                    JsonParser.parseString(
-                        response.body()?.string()
-                    )
-                )
-                Log.d("Pretty Printed JSON :", prettyJson)
+                val jsonData = Json.parseToJsonElement(response.body()!!.string())
+                result = Json.decodeFromJsonElement(jsonData)
             } else {
                 Log.e("RETROFIT_ERROR", response.code().toString())
             }
         }
-    }
+        return@async result
+    }.await()
+    return message
 }

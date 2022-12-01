@@ -24,6 +24,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.budle.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import nsu.app.budle.Answer
+import nsu.app.budle.checkCode
 import nsu.app.budle.navigation.NavRoute
 import nsu.app.budle.ui.theme.backgroundError
 import nsu.app.budle.ui.theme.backgroundLightBlue
@@ -153,6 +158,14 @@ fun CodeScreen(navController: NavHostController, phoneNumber: String?) {
                         }
                     }
                 }
+                if (errorState.value) {
+                    Text(
+                        text = "Error",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = backgroundError,
+                        modifier = Modifier.padding(top = 10.dp)
+                    )
+                }
             }
             Spacer(Modifier.weight(1f))
             Button(
@@ -174,8 +187,20 @@ fun CodeScreen(navController: NavHostController, phoneNumber: String?) {
             Button(
                 onClick = {
                     errorState.value = states.contains("")
-                    if (!errorState.value) {
-                        navController.navigate("data_screen/Подтвердить")
+                    var data: Answer?
+                    CoroutineScope(Dispatchers.Main).launch {
+                        data = checkCode(phoneNumber!!, states.joinToString(""))
+                        if (data != null) {
+                            errorState.value = !data!!.success
+                            if (!errorState.value) {
+                                errorState.value = !data!!.result!!
+                            }
+                        } else {
+                            errorState.value = true
+                        }
+                        if (!errorState.value) {
+                            navController.navigate("data_screen/Подтвердить")
+                        }
                     }
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = fillPurple),

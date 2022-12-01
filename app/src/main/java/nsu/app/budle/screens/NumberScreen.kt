@@ -19,7 +19,7 @@ import com.example.budle.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import nsu.app.budle.CheckNumber
+import nsu.app.budle.Answer
 import nsu.app.budle.getCode
 import nsu.app.budle.navigation.NavRoute
 import nsu.app.budle.screens.NumberDefaults.INPUT_LENGTH
@@ -96,7 +96,7 @@ fun NumberScreen(navController: NavHostController) {
             Button(
                 onClick = {
                     error.value = numberState.length != 10
-                    var data: CheckNumber?
+                    var data: Answer?
                     CoroutineScope(Dispatchers.Main).launch {
                         data = getCode("7$numberState")
                         if (data != null) {
@@ -105,7 +105,7 @@ fun NumberScreen(navController: NavHostController) {
                             error.value = true
                         }
                         if (!error.value) {
-                            navController.navigate("code_screen/$numberState")
+                            navController.navigate("code_screen/7$numberState")
                         }
                     }
                 },
