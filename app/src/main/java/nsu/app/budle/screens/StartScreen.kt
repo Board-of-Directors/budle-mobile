@@ -1,6 +1,7 @@
 package nsu.app.budle.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -8,21 +9,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.budle.R
 import nsu.app.budle.navigation.NavRoute
-import nsu.app.budle.rawJSON
-import nsu.app.budle.ui.theme.BudleTheme
 import nsu.app.budle.ui.theme.fillPurple
 import nsu.app.budle.ui.theme.textGray
 
 @Composable
 fun StartScreen(navController: NavHostController) {
-    rawJSON()
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -78,19 +74,15 @@ fun StartScreen(navController: NavHostController) {
                 )
                 Text(
                     text = "Войти",
-                    modifier = Modifier.padding(top = 20.dp),
+                    modifier = Modifier
+                        .padding(top = 20.dp)
+                        .clickable{
+                        navController.navigate("data_screen/Войти")
+                    },
                     color = fillPurple,
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PrevStartScreen() {
-    BudleTheme {
-        StartScreen(navController = rememberNavController())
     }
 }

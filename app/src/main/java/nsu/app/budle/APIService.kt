@@ -15,59 +15,60 @@ import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface APIService {
-    @POST("register")
-    suspend fun createGuy(@Body requestBody: RequestBody): Response<ResponseBody>
+    @POST("checkCode")
+    suspend fun checkCodeRequest(@Body requestBody: RequestBody): Response<ResponseBody>
+
+    @GET("getCode")
+    suspend fun getCodeRequest(@Query("phoneNumber") phoneNumber: String?): Response<ResponseBody>
 }
 
-fun rawJSON() {
-
-    // Create Retrofit
-    val retrofit = Retrofit.Builder()
-        .baseUrl("https://budle-app.herokuapp.com/")
-        .build()
-
-    // Create Service
+fun getCode(number: String) {
+    val retrofit = Retrofit.Builder().baseUrl("https://budle-app.herokuapp.com/").build()
     val service = retrofit.create(APIService::class.java)
-
-    // Create JSON using JSONObject
-
-    val jsonObject = JSONObject()
-    jsonObject.put("firstName", "Oleg")
-    jsonObject.put("lastName", "Veber")
-    jsonObject.put("phoneNumber", "+71234567809")
-    jsonObject.put("password", "12345")
-
-    // Convert JSONObject to String
-    val jsonObjectString = jsonObject.toString()
-
-    // Create RequestBody ( We're not using any converter, like GsonConverter, MoshiConverter e.t.c, that's why we use RequestBody )
-    val requestBody = jsonObjectString.toRequestBody("application/json".toMediaTypeOrNull())
-
     CoroutineScope(Dispatchers.IO).launch {
-        // Do the POST request and get response
-        val response = service.createGuy(requestBody)
-
+        val response = service.getCodeRequest("+79231095499")
         withContext(Dispatchers.Main) {
             if (response.isSuccessful) {
-
-                // Convert raw JSON to pretty JSON using GSON library
                 val gson = GsonBuilder().setPrettyPrinting().create()
                 val prettyJson = gson.toJson(
                     JsonParser.parseString(
-                        response.body()
-                            ?.string() // About this thread blocking annotation : https://github.com/square/retrofit/issues/3255
+                        response.body()?.string()
                     )
                 )
-
                 Log.d("Pretty Printed JSON :", prettyJson)
-
             } else {
-
                 Log.e("RETROFIT_ERROR", response.code().toString())
+            }
+        }
+    }
+}
 
+fun checkCode(number: String, code: String) {
+    val retrofit = Retrofit.Builder().baseUrl("https://budle-app.herokuapp.com/").build()
+    val service = retrofit.create(APIService::class.java)
+    val jsonObject = JSONObject()
+    jsonObject.put("phoneNumber", number)
+    jsonObject.put("code", code)
+    val jsonObjectString = jsonObject.toString()
+    val requestBody = jsonObjectString.toRequestBody("application/json".toMediaTypeOrNull())
+    CoroutineScope(Dispatchers.IO).launch {
+        val response = service.checkCodeRequest(requestBody)
+        withContext(Dispatchers.Main) {
+            if (response.isSuccessful) {
+                val gson = GsonBuilder().setPrettyPrinting().create()
+                val prettyJson = gson.toJson(
+                    JsonParser.parseString(
+                        response.body()?.string()
+                    )
+                )
+                Log.d("Pretty Printed JSON :", prettyJson)
+            } else {
+                Log.e("RETROFIT_ERROR", response.code().toString())
             }
         }
     }

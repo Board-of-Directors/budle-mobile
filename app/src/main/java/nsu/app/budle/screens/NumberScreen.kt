@@ -1,6 +1,8 @@
 package nsu.app.budle.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -18,13 +20,19 @@ import com.example.budle.R
 import nsu.app.budle.navigation.NavRoute
 import nsu.app.budle.screens.NumberDefaults.INPUT_LENGTH
 import nsu.app.budle.screens.NumberDefaults.MASK
+import nsu.app.budle.ui.theme.backgroundError
 import nsu.app.budle.ui.theme.backgroundLightBlue
 import nsu.app.budle.ui.theme.fillPurple
 import nsu.app.budle.ui.theme.textGray
 import kotlin.math.absoluteValue
 
+
 @Composable
 fun NumberScreen(navController: NavHostController) {
+
+    val error = remember { mutableStateOf(false) }
+    var numberState by remember { mutableStateOf("") }
+
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -49,31 +57,44 @@ fun NumberScreen(navController: NavHostController) {
                         tint = textGray
                     )
                 }
-
                 Image(
                     painter = painterResource(
                         id = R.drawable.logo_big
                     ), contentDescription = "Logo", modifier = Modifier.width(148.dp)
                 )
             }
+            var text by remember { mutableStateOf("") }
             Column(
                 horizontalAlignment = Alignment.Start,
                 modifier = Modifier
                     .padding(horizontal = 40.dp)
                     .padding(top = 60.dp)
             ) {
+                val stateColor = if (!error.value) Color.Transparent else backgroundError
                 Text(
                     text = "Номер телефона",
                     style = MaterialTheme.typography.bodyMedium,
                     color = textGray,
                     modifier = Modifier.padding(bottom = 6.dp)
                 )
-                SimpleTextField()
+                Card(border = BorderStroke(2.dp, stateColor)) {
+                    numberState = simpleTextField(error)
+                }
+                if(error.value){
+                    Text(
+                        text = "Это поле не может быть пустым",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = backgroundError,
+                        modifier = Modifier.padding(top = 10.dp)
+                    )
+                }
             }
             Spacer(Modifier.weight(1f))
             Button(
                 onClick = {
-                    navController.navigate(route = NavRoute.Code.route)
+                    error.value = numberState.length != 10
+                    if (!error.value)
+                        navController.navigate(route = NavRoute.Code.route)
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = fillPurple),
                 modifier = Modifier
@@ -93,13 +114,15 @@ fun NumberScreen(navController: NavHostController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SimpleTextField() {
+fun simpleTextField(error: MutableState<Boolean>): String {
     var text by remember { mutableStateOf("") }
     TextField(
         value = text,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         onValueChange = { it ->
             if (it.length <= INPUT_LENGTH) {
+                if (error.value && it.length == INPUT_LENGTH)
+                    error.value = false
                 text = it.filter { it.isDigit() }
             }
         },
@@ -118,6 +141,7 @@ fun SimpleTextField() {
         },
         textStyle = MaterialTheme.typography.bodyMedium
     )
+    return text
 }
 
 class MaskVisualTransformation(private val mask: String) : VisualTransformation {
