@@ -12,7 +12,7 @@ sealed class NavRoute(val route: String) {
     object Start : NavRoute("start_screen")
     object Number : NavRoute("number_screen")
     object Code : NavRoute("code_screen")
-    object Data : NavRoute("data_screen")
+    object Data : NavRoute("data_screen/{button_name}")
     object End : NavRoute("end_screen")
 }
 
@@ -27,7 +27,12 @@ fun BudleNavHost() {
             }
         }
         composable(NavRoute.Code.route) { CodeScreen(navController = navController) }
-        composable(NavRoute.Data.route) { DataScreen(navController = navController) }
+        composable(NavRoute.Data.route) { backStackEntry ->
+            DataScreen(
+                navController = navController,
+                backStackEntry.arguments?.getString("button_name")
+            )
+        }
         composable(NavRoute.End.route) { EndScreen(navController = navController) }
     }
 }

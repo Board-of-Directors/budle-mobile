@@ -178,7 +178,7 @@ fun CodeScreen(navController: NavHostController) {
                 onClick = {
                     errorState.value = states.contains("")
                     if (!errorState.value){
-                        navController.navigate(route = NavRoute.Data.route)
+                        navController.navigate("data_screen/Подтвердить")
                     }
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = fillPurple),

@@ -9,7 +9,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.*
@@ -26,9 +25,10 @@ import nsu.app.budle.ui.theme.backgroundError
 import nsu.app.budle.ui.theme.backgroundLightBlue
 import nsu.app.budle.ui.theme.fillPurple
 import nsu.app.budle.ui.theme.textGray
+import org.jetbrains.annotations.NotNull
 
 @Composable
-fun DataScreen(navController: NavHostController) {
+fun DataScreen(navController: NavHostController, buttonText: String?) {
 
     var textInputState = ""
     var passwordInputState = ""
@@ -49,8 +49,11 @@ fun DataScreen(navController: NavHostController) {
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(end = 64.dp)
             ) {
+                val navScreen =
+                    if (buttonText == "Войти") NavRoute.Start.route
+                    else NavRoute.Code.route
                 IconButton(
-                    onClick = { navController.navigate(route = NavRoute.Code.route) },
+                    onClick = { navController.navigate(route = navScreen) },
                     modifier = Modifier.padding(end = 40.dp)
                 ) {
                     Icon(
@@ -124,11 +127,13 @@ fun DataScreen(navController: NavHostController) {
                     .padding(horizontal = 40.dp)
                     .padding(bottom = 90.dp)
             ) {
-                Text(
-                    text = "Подтвердить",
-                    modifier = Modifier.padding(vertical = 8.dp, horizontal = 40.dp),
-                    style = MaterialTheme.typography.bodyMedium
-                )
+                buttonText?.let {
+                    Text(
+                        text = it,
+                        modifier = Modifier.padding(vertical = 8.dp, horizontal = 40.dp),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
             }
         }
     }
