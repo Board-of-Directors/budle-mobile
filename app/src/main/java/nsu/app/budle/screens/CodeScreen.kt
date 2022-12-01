@@ -7,10 +7,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -27,14 +24,17 @@ import androidx.navigation.NavHostController
 import com.example.budle.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import nsu.app.budle.Answer
 import nsu.app.budle.checkCode
+import nsu.app.budle.getCode
 import nsu.app.budle.navigation.NavRoute
 import nsu.app.budle.ui.theme.backgroundError
 import nsu.app.budle.ui.theme.backgroundLightBlue
 import nsu.app.budle.ui.theme.fillPurple
 import nsu.app.budle.ui.theme.textGray
+import kotlin.time.Duration.Companion.seconds
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
@@ -118,7 +118,7 @@ fun CodeScreen(navController: NavHostController, phoneNumber: String?) {
                             onValueChange = { text ->
                                 if (text.length <= 1) {
                                     if (i == 0 || states[i - 1] != "") {
-                                        if(text.isDigitsOnly()) {
+                                        if (text.isDigitsOnly()) {
                                             states[i] = text
                                             if (states[i] != "") {
                                                 focusManager.moveFocus(FocusDirection.Right)
@@ -147,19 +147,40 @@ fun CodeScreen(navController: NavHostController, phoneNumber: String?) {
                 }
             }
             Spacer(Modifier.weight(0.5f))
+            var ticks by remember { mutableStateOf(30) }
+            var run by remember { mutableStateOf(true) }
+            if (ticks == 0) {
+                run = false
+            }
+            LaunchedEffect(key1 = run) {
+                while (run) {
+                    delay(1.seconds)
+                    ticks--
+                }
+            }
             Button(
-                onClick = {},
-                colors = ButtonDefaults.buttonColors(containerColor = backgroundLightBlue),
+                onClick = {
+                    if (!run) {
+                        ticks = 30
+                        run = true
+                        CoroutineScope(Dispatchers.Main).launch {
+                            getCode(phoneNumber!!)
+                        }
+                    }
+                },
+                colors = if (ticks == 0) (ButtonDefaults.buttonColors(containerColor = fillPurple)) else ButtonDefaults.buttonColors(
+                    containerColor = backgroundLightBlue
+                ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 40.dp)
                     .padding(bottom = 20.dp)
             ) {
                 Text(
-                    text = "Новый код - 2:56",
+                    text = if (ticks != 0) "Новый код - $ticks" else "Отправить код",
                     modifier = Modifier.padding(vertical = 8.dp, horizontal = 40.dp),
                     style = MaterialTheme.typography.bodyMedium,
-                    color = textGray
+                    color = if (ticks != 0) textGray else Color.White
                 )
             }
             Button(
