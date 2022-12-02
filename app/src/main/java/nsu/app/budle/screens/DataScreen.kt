@@ -18,13 +18,27 @@ import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.budle.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromJsonElement
+import nsu.app.budle.Answer
+import nsu.app.budle.Exception
+import nsu.app.budle.checkCode
 import nsu.app.budle.navigation.NavRoute
 import nsu.app.budle.screens.DataDefaults.INPUT_LENGTH
 import nsu.app.budle.screens.DataDefaults.PASSWORD_LENGTH
+import nsu.app.budle.sendUser
 import nsu.app.budle.ui.theme.backgroundError
 import nsu.app.budle.ui.theme.backgroundLightBlue
 import nsu.app.budle.ui.theme.fillPurple
 import nsu.app.budle.ui.theme.textGray
+import org.json.JSONObject
+
+@Serializable
+data class Data(val buttonName: String, val phoneNumber: String)
 
 @Composable
 fun DataScreen(navController: NavHostController, buttonText: String?) {
@@ -33,6 +47,8 @@ fun DataScreen(navController: NavHostController, buttonText: String?) {
     var passwordInputState = ""
     val passError = remember { mutableStateOf(false) }
     val textError = remember { mutableStateOf(false) }
+    val jsonData = Json.parseToJsonElement(buttonText!!)
+    val result: Data = Json.decodeFromJsonElement(jsonData)
 
     Surface(
         modifier = Modifier.fillMaxSize()
@@ -49,7 +65,7 @@ fun DataScreen(navController: NavHostController, buttonText: String?) {
                 modifier = Modifier.padding(end = 64.dp)
             ) {
                 val navScreen =
-                    if (buttonText == "Войти") NavRoute.Start.route
+                    if (result.buttonName == "Войти") NavRoute.Start.route
                     else NavRoute.Code.route
                 IconButton(
                     onClick = { navController.navigate(route = navScreen) },
@@ -114,10 +130,13 @@ fun DataScreen(navController: NavHostController, buttonText: String?) {
             Spacer(Modifier.weight(1f))
             Button(
                 onClick = {
-                    textError.value = textInputState.isEmpty()
-                    passError.value = passwordInputState.length < 8
-                    if (!textError.value && !passError.value) {
-                        navController.navigate(route = NavRoute.End.route)
+                    CoroutineScope(Dispatchers.Main).launch {
+                        textError.value = textInputState.isEmpty()
+                        passError.value = passwordInputState.length < 8
+                        if (!textError.value && !passError.value) {
+                            sendUser(result.phoneNumber, textInputState, passwordInputState)
+                            navController.navigate(route = NavRoute.End.route)
+                        }
                     }
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = fillPurple),
@@ -126,13 +145,11 @@ fun DataScreen(navController: NavHostController, buttonText: String?) {
                     .padding(horizontal = 40.dp)
                     .padding(bottom = 90.dp)
             ) {
-                buttonText?.let {
-                    Text(
-                        text = it,
-                        modifier = Modifier.padding(vertical = 8.dp, horizontal = 40.dp),
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                }
+                Text(
+                    text = result.buttonName,
+                    modifier = Modifier.padding(vertical = 8.dp, horizontal = 40.dp),
+                    style = MaterialTheme.typography.bodyMedium
+                )
             }
         }
     }

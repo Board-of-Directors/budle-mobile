@@ -34,6 +34,7 @@ import nsu.app.budle.ui.theme.backgroundError
 import nsu.app.budle.ui.theme.backgroundLightBlue
 import nsu.app.budle.ui.theme.fillPurple
 import nsu.app.budle.ui.theme.textGray
+import org.json.JSONObject
 import kotlin.time.Duration.Companion.seconds
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
@@ -198,7 +199,10 @@ fun CodeScreen(navController: NavHostController, phoneNumber: String?) {
                             errorState.value = true
                         }
                         if (!errorState.value) {
-                            navController.navigate("data_screen/Подтвердить")
+                            val jsonObject = JSONObject()
+                            jsonObject.put("buttonName", "Подтвердить")
+                            jsonObject.put("phoneNumber", phoneNumber)
+                            navController.navigate("data_screen/$jsonObject")
                         }
                     }
                 },
