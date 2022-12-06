@@ -34,7 +34,7 @@ data class Answer(val success: Boolean, val result: Boolean?, val exception: Exc
 data class Exception(val message: String, val type: String)
 
 suspend fun getCode(number: String): Answer? {
-    val retrofit = Retrofit.Builder().baseUrl("https://budle-app.herokuapp.com/").build()
+    val retrofit = Retrofit.Builder().baseUrl("http://192.168.43.224:30555/").build()
     val service = retrofit.create(APIService::class.java)
     var result: Answer? = null
     val message: Answer? = CoroutineScope(Dispatchers.IO).async {
@@ -53,7 +53,7 @@ suspend fun getCode(number: String): Answer? {
 }
 
 suspend fun checkCode(number: String, code: String): Answer? {
-    val retrofit = Retrofit.Builder().baseUrl("https://budle-app.herokuapp.com/").build()
+    val retrofit = Retrofit.Builder().baseUrl("http://192.168.43.224:30555/").build()
     val service = retrofit.create(APIService::class.java)
     val jsonObject = JSONObject()
     jsonObject.put("phoneNumber", number)
@@ -77,7 +77,7 @@ suspend fun checkCode(number: String, code: String): Answer? {
 }
 
 suspend fun sendUser(number: String, name: String, password: String): Answer? {
-    val retrofit = Retrofit.Builder().baseUrl("https://budle-app.herokuapp.com/").build()
+    val retrofit = Retrofit.Builder().baseUrl("http://192.168.43.224:30555/").build()
     val service = retrofit.create(APIService::class.java)
     val jsonObject = JSONObject()
     jsonObject.put("name", name)

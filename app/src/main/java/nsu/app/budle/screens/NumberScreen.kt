@@ -34,7 +34,7 @@ import kotlin.math.absoluteValue
 @Composable
 fun NumberScreen(navController: NavHostController) {
 
-    val error = remember { mutableStateOf(false) }
+    val error = remember { mutableStateOf("") }
     var numberState by remember { mutableStateOf("") }
 
     Surface(
@@ -73,7 +73,8 @@ fun NumberScreen(navController: NavHostController) {
                     .padding(horizontal = 40.dp)
                     .padding(top = 60.dp)
             ) {
-                val stateColor = if (!error.value) Color.Transparent else backgroundError
+                val stateColor =
+                    if (error.value.isNotEmpty()) backgroundError else Color.Transparent
                 Text(
                     text = "Номер телефона",
                     style = MaterialTheme.typography.bodyMedium,
@@ -83,9 +84,9 @@ fun NumberScreen(navController: NavHostController) {
                 Card(border = BorderStroke(2.dp, stateColor)) {
                     numberState = simpleTextField(error)
                 }
-                if (error.value) {
+                if (error.value.isNotEmpty()) {
                     Text(
-                        text = "Error",
+                        text = error.value,
                         style = MaterialTheme.typography.bodyMedium,
                         color = backgroundError,
                         modifier = Modifier.padding(top = 10.dp)
@@ -95,17 +96,23 @@ fun NumberScreen(navController: NavHostController) {
             Spacer(Modifier.weight(1f))
             Button(
                 onClick = {
-                    error.value = numberState.length != 10
-                    var data: Answer?
-                    CoroutineScope(Dispatchers.Main).launch {
-                        data = getCode("7$numberState")
-                        if (data != null) {
-                            error.value = !data!!.success
-                        } else {
-                            error.value = true
-                        }
-                        if (!error.value) {
-                            navController.navigate("code_screen/7$numberState")
+                    if (numberState.length != 10) {
+                        error.value = "Введите номер полностью"
+                    }
+                    if (error.value.isEmpty()) {
+                        var data: Answer?
+                        CoroutineScope(Dispatchers.Main).launch {
+                            data = getCode("7$numberState")
+                            if (data != null) {
+                                if (!data!!.success) {
+                                    error.value = "Ошибка сервера"
+                                }
+                            } else {
+                                error.value = "Ошибка сервера"
+                            }
+                            if (error.value.isEmpty()) {
+                                navController.navigate("code_screen/7$numberState")
+                            }
                         }
                     }
                 },
@@ -127,15 +134,15 @@ fun NumberScreen(navController: NavHostController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun simpleTextField(error: MutableState<Boolean>): String {
+fun simpleTextField(error: MutableState<String>): String {
     var text by remember { mutableStateOf("") }
     TextField(
         value = text,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         onValueChange = { it ->
             if (it.length <= INPUT_LENGTH) {
-                if (error.value && it.length == INPUT_LENGTH)
-                    error.value = false
+                if (error.value.isNotEmpty() && it.length == INPUT_LENGTH)
+                    error.value = ""
                 text = it.filter { it.isDigit() }
             }
         },
