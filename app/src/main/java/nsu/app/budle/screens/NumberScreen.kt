@@ -105,7 +105,7 @@ fun NumberScreen(navController: NavHostController) {
                             data = getCode("7$numberState")
                             if (data != null) {
                                 if (!data!!.success) {
-                                    error.value = "Ошибка сервера"
+                                    error.value = data!!.exception?.message ?: "Неизвестная ошибка"
                                 }
                             } else {
                                 error.value = "Ошибка сервера"

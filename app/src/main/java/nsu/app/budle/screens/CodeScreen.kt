@@ -47,7 +47,7 @@ fun CodeScreen(navController: NavHostController, phoneNumber: String?) {
         )
     }
     val listState = rememberLazyListState()
-    val errorState = remember { mutableStateOf(false) }
+    val errorState = remember { mutableStateOf("") }
 
     Surface(
         modifier = Modifier.fillMaxSize()
@@ -138,9 +138,10 @@ fun CodeScreen(navController: NavHostController, phoneNumber: String?) {
                         )
                     }
                 }
-                if (errorState.value) {
+                if (errorState.value.isNotEmpty()) {
                     Text(
-                        text = "Error",
+                        textAlign = TextAlign.Left,
+                        text = errorState.value,
                         style = MaterialTheme.typography.bodyMedium,
                         color = backgroundError,
                         modifier = Modifier.padding(top = 10.dp)
@@ -186,19 +187,18 @@ fun CodeScreen(navController: NavHostController, phoneNumber: String?) {
             }
             Button(
                 onClick = {
-                    errorState.value = states.contains("")
+                    errorState.value = ""
                     var data: Answer?
                     CoroutineScope(Dispatchers.Main).launch {
                         data = checkCode(phoneNumber!!, states.joinToString(""))
                         if (data != null) {
-                            errorState.value = !data!!.success
-                            if (!errorState.value) {
-                                errorState.value = !data!!.result!!
+                            if (!data!!.success) {
+                                errorState.value = data!!.exception?.message ?: "Неизвестная ошибка"
                             }
                         } else {
-                            errorState.value = true
+                            errorState.value = "Ошибка сервера"
                         }
-                        if (!errorState.value) {
+                        if (errorState.value.isEmpty()) {
                             val jsonObject = JSONObject()
                             jsonObject.put("buttonName", "Подтвердить")
                             jsonObject.put("phoneNumber", phoneNumber)

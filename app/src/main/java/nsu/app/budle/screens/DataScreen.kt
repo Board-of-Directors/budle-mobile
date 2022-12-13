@@ -134,7 +134,13 @@ fun DataScreen(navController: NavHostController, buttonText: String?) {
                         textError.value = textInputState.isEmpty()
                         passError.value = passwordInputState.length < 8
                         if (!textError.value && !passError.value) {
-                            sendUser(result.phoneNumber, textInputState, passwordInputState)
+                            val data = sendUser(result.phoneNumber, textInputState, passwordInputState)
+                            if (data != null) {
+                                if (!data.success) {
+                                    passError.value = true
+                                    textError.value = true
+                                }
+                            }
                             navController.navigate(route = NavRoute.End.route)
                         }
                     }
