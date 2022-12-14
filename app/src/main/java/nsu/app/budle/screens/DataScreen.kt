@@ -47,8 +47,11 @@ fun DataScreen(navController: NavHostController, buttonText: String?) {
     var passwordInputState = ""
     val passError = remember { mutableStateOf(false) }
     val textError = remember { mutableStateOf(false) }
-    val jsonData = Json.parseToJsonElement(buttonText!!)
-    val result: Data = Json.decodeFromJsonElement(jsonData)
+    var result = Data("Войти", "")
+    if (buttonText != "Войти") {
+        val jsonData = Json.parseToJsonElement(buttonText!!)
+        result = Json.decodeFromJsonElement(jsonData)
+    }
 
     Surface(
         modifier = Modifier.fillMaxSize()
@@ -66,7 +69,7 @@ fun DataScreen(navController: NavHostController, buttonText: String?) {
             ) {
                 val navScreen =
                     if (result.buttonName == "Войти") NavRoute.Start.route
-                    else NavRoute.Code.route
+                    else NavRoute.Number.route
                 IconButton(
                     onClick = { navController.navigate(route = navScreen) },
                     modifier = Modifier.padding(end = 40.dp)

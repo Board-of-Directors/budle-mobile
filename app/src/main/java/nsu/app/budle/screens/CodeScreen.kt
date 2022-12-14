@@ -187,22 +187,31 @@ fun CodeScreen(navController: NavHostController, phoneNumber: String?) {
             }
             Button(
                 onClick = {
-                    errorState.value = ""
-                    var data: Answer?
-                    CoroutineScope(Dispatchers.Main).launch {
-                        data = checkCode(phoneNumber!!, states.joinToString(""))
-                        if (data != null) {
-                            if (!data!!.success) {
-                                errorState.value = data!!.exception?.message ?: "Неизвестная ошибка"
+                    if (states.contains("")) {
+                        errorState.value = "Введите код полностью"
+                    } else {
+                        errorState.value = ""
+                        var data: Answer?
+                        CoroutineScope(Dispatchers.Main).launch {
+                            data = checkCode(phoneNumber!!, states.joinToString(""))
+                            if (data != null) {
+                                if (!data!!.success) {
+                                    errorState.value = data!!.exception?.message ?: "Неизвестная ошибка"
+                                }
+                                if (errorState.value.isEmpty()) {
+                                    if (!data!!.result!!) {
+                                        errorState.value = data!!.exception?.message ?: "Неправильный код"
+                                    }
+                                }
+                            } else {
+                                errorState.value = "Ошибка сервера"
                             }
-                        } else {
-                            errorState.value = "Ошибка сервера"
-                        }
-                        if (errorState.value.isEmpty()) {
-                            val jsonObject = JSONObject()
-                            jsonObject.put("buttonName", "Подтвердить")
-                            jsonObject.put("phoneNumber", phoneNumber)
-                            navController.navigate("data_screen/$jsonObject")
+                            if (errorState.value.isEmpty()) {
+                                val jsonObject = JSONObject()
+                                jsonObject.put("buttonName", "Подтвердить")
+                                jsonObject.put("phoneNumber", phoneNumber)
+                                navController.navigate("data_screen/$jsonObject")
+                            }
                         }
                     }
                 },

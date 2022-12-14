@@ -108,7 +108,7 @@ fun NumberScreen(navController: NavHostController) {
                                     error.value = data!!.exception?.message ?: "Неизвестная ошибка"
                                 }
                             } else {
-                                error.value = "Ошибка сервера"
+                                error.value = "Некорректный номер"
                             }
                             if (error.value.isEmpty()) {
                                 navController.navigate("code_screen/7$numberState")
