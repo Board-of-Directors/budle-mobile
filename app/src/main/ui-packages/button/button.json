@@ -5,7 +5,7 @@
     "type": "figma",
     "file": "nZNkCaT337Afnpau43ygYR",
     "node": "434:1121",
-    "version": "2975234591",
+    "version": "2978009254",
     "component-id": "a2025490ca3aca677d537d15d09b13dbb22100bd"
   },
   "default": "Status=Active, Shadow=True, Icon=False",
@@ -62,6 +62,7 @@
               "spread": "0.0",
               "blend-mode": "normal"
             },
+            "tap-handler": "$tapped",
             "arrangement": "row",
             "children": [
               "Забронировать"
@@ -84,7 +85,7 @@
               "saturation": "0.0",
               "value": "1.0"
             },
-            "text-content": "$Забронировать text content",
+            "text-content": "Забронировать",
             "overflow": "visible",
             "text-size": "16.0",
             "line-height": "1.2000000762939453",
@@ -103,6 +104,7 @@
               "bottom": "15.0"
             },
             "border-radius": "10.0",
+            "tap-handler": "$tapped",
             "arrangement": "row",
             "children": [
               "Забронировать"
@@ -125,7 +127,7 @@
               "saturation": "0.0",
               "value": "1.0"
             },
-            "text-content": "$Забронировать text content",
+            "text-content": "Забронировать",
             "overflow": "visible",
             "text-size": "16.0",
             "line-height": "1.2000000762939453",
@@ -144,6 +146,7 @@
               "bottom": "15.0"
             },
             "border-radius": "10.0",
+            "tap-handler": "$tapped",
             "arrangement": "row",
             "children": [
               "map",
@@ -186,7 +189,7 @@
               "saturation": "0.0",
               "value": "1.0"
             },
-            "text-content": "$Забронировать text content",
+            "text-content": "Забронировать",
             "overflow": "visible",
             "text-size": "16.0",
             "line-height": "1.2000000762939453",
@@ -276,6 +279,7 @@
               "spread": "0.0",
               "blend-mode": "normal"
             },
+            "tap-handler": "$tapped",
             "arrangement": "row",
             "children": [
               "Забронировать"
@@ -298,7 +302,7 @@
               "saturation": "0.0",
               "value": "1.0"
             },
-            "text-content": "$Забронировать text content",
+            "text-content": "Забронировать",
             "overflow": "visible",
             "text-size": "16.0",
             "line-height": "1.2000000762939453",
@@ -317,6 +321,7 @@
               "bottom": "15.0"
             },
             "border-radius": "10.0",
+            "tap-handler": "$tapped",
             "arrangement": "row",
             "children": [
               "Забронировать"
@@ -339,7 +344,7 @@
               "saturation": "0.11650485436893203",
               "value": "0.807843137254902"
             },
-            "text-content": "$Забронировать text content",
+            "text-content": "Забронировать",
             "overflow": "visible",
             "text-size": "16.0",
             "line-height": "1.2000000762939453",
@@ -358,6 +363,7 @@
               "bottom": "15.0"
             },
             "border-radius": "10.0",
+            "tap-handler": "$tapped",
             "arrangement": "row",
             "children": [
               "map",
@@ -400,7 +406,7 @@
               "saturation": "0.11650485436893203",
               "value": "0.807843137254902"
             },
-            "text-content": "$Забронировать text content",
+            "text-content": "Забронировать",
             "overflow": "visible",
             "text-size": "16.0",
             "line-height": "1.2000000762939453",
@@ -469,10 +475,10 @@
     }
   },
   "parameters": {
-    "Забронировать text content": {
-      "data-type": "text",
+    "tapped": {
+      "data-type": "void-callback",
       "required": false,
-      "description": ""
+      "description": "tapped button"
     }
   },
   "previews": [
@@ -481,9 +487,6 @@
       "size": {
         "width": 314.0,
         "height": 50.0
-      },
-      "parameters": {
-        "Забронировать text content": "Забронировать"
       }
     },
     {
@@ -491,9 +494,6 @@
       "size": {
         "width": 314.0,
         "height": 50.0
-      },
-      "parameters": {
-        "Забронировать text content": "Забронировать"
       }
     },
     {
@@ -501,9 +501,6 @@
       "size": {
         "width": 314.0,
         "height": 50.0
-      },
-      "parameters": {
-        "Забронировать text content": "Забронировать"
       }
     },
     {
@@ -511,9 +508,6 @@
       "size": {
         "width": 314.0,
         "height": 50.0
-      },
-      "parameters": {
-        "Забронировать text content": "Забронировать"
       }
     },
     {
@@ -521,9 +515,6 @@
       "size": {
         "width": 314.0,
         "height": 50.0
-      },
-      "parameters": {
-        "Забронировать text content": "Забронировать"
       }
     },
     {
@@ -531,9 +522,6 @@
       "size": {
         "width": 314.0,
         "height": 50.0
-      },
-      "parameters": {
-        "Забронировать text content": "Забронировать"
       }
     }
   ],

@@ -1,6 +1,6 @@
-package fit.budle.mobile.network
+package fit.budle.network
 
-import fit.budle.mobile.model.Answer
+import fit.budle.model.Answer
 import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET

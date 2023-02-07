@@ -1,7 +1,7 @@
-package fit.budle.mobile.repository
+package fit.budle.repository
 
 import android.util.Log
-import fit.budle.mobile.network.BudleAPIRequests
+import fit.budle.network.BudleAPIRequests
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject

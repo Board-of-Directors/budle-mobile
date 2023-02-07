@@ -1,4 +1,4 @@
-package fit.budle.mobile.network
+package fit.budle.network
 
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory

@@ -1,27 +1,24 @@
-package fit.budle.mobile
+package fit.budle
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import fit.budle.mobile.ui.details.BudleTest
-import fit.budle.mobile.ui.theme.BudleMobileTheme
-import fit.budle.mobile.viewmodel.MainViewModel
+import fit.budle.ui.details.BudleTest
+import fit.budle.ui.theme.BudleTheme
+import fit.budle.viewmodel.MainViewModel
 
 class MainActivity : ComponentActivity() {
     val mainViewModel = MainViewModel("79231095499")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            BudleMobileTheme {
+            BudleTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background
                 ) {
                     BudleTest(mainViewModel.result)
                 }
