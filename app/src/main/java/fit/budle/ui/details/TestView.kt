@@ -24,5 +24,11 @@ fun BudleTest(result: String) {
     }
 
     val status = remember { mutableStateOf(Status.Active) }
-    TestButton(modifier = Modifier.padding(10.dp, 320.dp), status = status.value, onClick = {}, text = "Крутой текст!")
+    TestButton(modifier = Modifier.padding(10.dp, 320.dp).pointerInteropFilter {
+        if (it.action == MotionEvent.ACTION_DOWN) {
+            status.value = Status.Pressed
+        } else {
+            status.value = Status.Active
+        }
+        true}, status = status.value, onClick = {}, text = "Крутой текст!")
 }
