@@ -1,0 +1,543 @@
+{
+  "name": "button",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "nZNkCaT337Afnpau43ygYR",
+    "node": "434:1121",
+    "version": "2975234591",
+    "component-id": "a2025490ca3aca677d537d15d09b13dbb22100bd"
+  },
+  "default": "Status=Active, Shadow=True, Icon=False",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "text",
+        "id": "Забронировать"
+      },
+      {
+        "type": "group",
+        "id": "map"
+      },
+      {
+        "type": "vector",
+        "id": "Vector"
+      },
+      {
+        "type": "vector",
+        "id": "Vector1"
+      },
+      {
+        "type": "vector",
+        "id": "Vector2"
+      }
+    ],
+    "modes": {
+      "Status=Active, Shadow=True, Icon=False": {
+        "rules": [
+          {
+            "id": "top_level",
+            "padding": {
+              "left": "70.0",
+              "top": "15.0",
+              "right": "70.0",
+              "bottom": "15.0"
+            },
+            "border-radius": "10.0",
+            "drop-shadow": {
+              "color": {
+                "alpha": "0.2",
+                "hue": "212.3076923076923",
+                "saturation": "0.4193548387096774",
+                "value": "0.36470588235294116"
+              },
+              "blur": "10.0",
+              "offset-x": "0.0",
+              "offset-y": "2.0",
+              "spread": "0.0",
+              "blend-mode": "normal"
+            },
+            "arrangement": "row",
+            "children": [
+              "Забронировать"
+            ],
+            "item-spacing": "10.0",
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "248.5207100591716",
+              "saturation": "0.6869918699186993",
+              "value": "0.9647058823529412"
+            },
+            "clip-content": "false"
+          },
+          {
+            "id": "Забронировать",
+            "font-weight": "600.0",
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            },
+            "text-content": "$Забронировать text content",
+            "overflow": "visible",
+            "text-size": "16.0",
+            "line-height": "1.2000000762939453",
+            "typeface": "Gilroy"
+          }
+        ]
+      },
+      "Status=Active, Shadow=False, Icon=False": {
+        "rules": [
+          {
+            "id": "top_level",
+            "padding": {
+              "left": "70.0",
+              "top": "15.0",
+              "right": "70.0",
+              "bottom": "15.0"
+            },
+            "border-radius": "10.0",
+            "arrangement": "row",
+            "children": [
+              "Забронировать"
+            ],
+            "item-spacing": "10.0",
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "248.5207100591716",
+              "saturation": "0.6869918699186993",
+              "value": "0.9647058823529412"
+            },
+            "clip-content": "false"
+          },
+          {
+            "id": "Забронировать",
+            "font-weight": "600.0",
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            },
+            "text-content": "$Забронировать text content",
+            "overflow": "visible",
+            "text-size": "16.0",
+            "line-height": "1.2000000762939453",
+            "typeface": "Gilroy"
+          }
+        ]
+      },
+      "Status=Active, Shadow=False, Icon=True": {
+        "rules": [
+          {
+            "id": "top_level",
+            "padding": {
+              "left": "70.0",
+              "top": "15.0",
+              "right": "70.0",
+              "bottom": "15.0"
+            },
+            "border-radius": "10.0",
+            "arrangement": "row",
+            "children": [
+              "map",
+              "Забронировать"
+            ],
+            "item-spacing": "10.0",
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "248.5207100591716",
+              "saturation": "0.6869918699186993",
+              "value": "0.9647058823529412"
+            },
+            "clip-content": "false"
+          },
+          {
+            "id": "map",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "16.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "16.0"
+              }
+            },
+            "is-structured": "false",
+            "children": [
+              "Vector",
+              "Vector1",
+              "Vector2"
+            ]
+          },
+          {
+            "id": "Забронировать",
+            "font-weight": "600.0",
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            },
+            "text-content": "$Забронировать text content",
+            "overflow": "visible",
+            "text-size": "16.0",
+            "line-height": "1.2000000762939453",
+            "typeface": "Gilroy"
+          },
+          {
+            "id": "Vector",
+            "margin": {
+              "left": "0.66668701171875",
+              "top": "1.333251953125",
+              "right": "0.6666259765625",
+              "bottom": "1.33349609375"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "vector-content": "vector.svg"
+          },
+          {
+            "id": "Vector1",
+            "margin": {
+              "left": "5.33331298828125",
+              "top": "1.333251953125",
+              "right": "10.66668701171875",
+              "bottom": "4.0"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            }
+          },
+          {
+            "id": "Vector2",
+            "margin": {
+              "left": "10.66668701171875",
+              "top": "4.0",
+              "right": "5.33331298828125",
+              "bottom": "1.333251953125"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            }
+          }
+        ]
+      },
+      "Status=Pressed, Shadow=False, Icon=False": {
+        "rules": [
+          {
+            "id": "top_level",
+            "padding": {
+              "left": "70.0",
+              "top": "15.0",
+              "right": "70.0",
+              "bottom": "15.0"
+            },
+            "border-radius": "10.0",
+            "drop-shadow": {
+              "color": {
+                "alpha": "0.09803921568627451",
+                "hue": "212.3076923076923",
+                "saturation": "0.4193548387096774",
+                "value": "0.36470588235294116"
+              },
+              "blur": "10.0",
+              "offset-x": "0.0",
+              "offset-y": "2.0",
+              "spread": "0.0",
+              "blend-mode": "normal"
+            },
+            "arrangement": "row",
+            "children": [
+              "Забронировать"
+            ],
+            "item-spacing": "10.0",
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "259.3103448275862",
+              "saturation": "0.8877551020408163",
+              "value": "0.7686274509803922"
+            },
+            "clip-content": "false"
+          },
+          {
+            "id": "Забронировать",
+            "font-weight": "600.0",
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            },
+            "text-content": "$Забронировать text content",
+            "overflow": "visible",
+            "text-size": "16.0",
+            "line-height": "1.2000000762939453",
+            "typeface": "Gilroy"
+          }
+        ]
+      },
+      "Status=Inactive, Shadow=False, Icon=False": {
+        "rules": [
+          {
+            "id": "top_level",
+            "padding": {
+              "left": "70.0",
+              "top": "15.0",
+              "right": "70.0",
+              "bottom": "15.0"
+            },
+            "border-radius": "10.0",
+            "arrangement": "row",
+            "children": [
+              "Забронировать"
+            ],
+            "item-spacing": "10.0",
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "201.81818181818176",
+              "saturation": "0.04435483870967738",
+              "value": "0.9725490196078431"
+            },
+            "clip-content": "false"
+          },
+          {
+            "id": "Забронировать",
+            "font-weight": "600.0",
+            "color": {
+              "alpha": "1.0",
+              "hue": "212.50000000000003",
+              "saturation": "0.11650485436893203",
+              "value": "0.807843137254902"
+            },
+            "text-content": "$Забронировать text content",
+            "overflow": "visible",
+            "text-size": "16.0",
+            "line-height": "1.2000000762939453",
+            "typeface": "Gilroy"
+          }
+        ]
+      },
+      "Status=Inactive, Shadow=False, Icon=True": {
+        "rules": [
+          {
+            "id": "top_level",
+            "padding": {
+              "left": "70.0",
+              "top": "15.0",
+              "right": "70.0",
+              "bottom": "15.0"
+            },
+            "border-radius": "10.0",
+            "arrangement": "row",
+            "children": [
+              "map",
+              "Забронировать"
+            ],
+            "item-spacing": "10.0",
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "201.81818181818176",
+              "saturation": "0.04435483870967738",
+              "value": "0.9725490196078431"
+            },
+            "clip-content": "false"
+          },
+          {
+            "id": "map",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "16.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "16.0"
+              }
+            },
+            "is-structured": "false",
+            "children": [
+              "Vector",
+              "Vector1",
+              "Vector2"
+            ]
+          },
+          {
+            "id": "Забронировать",
+            "font-weight": "600.0",
+            "color": {
+              "alpha": "1.0",
+              "hue": "212.50000000000003",
+              "saturation": "0.11650485436893203",
+              "value": "0.807843137254902"
+            },
+            "text-content": "$Забронировать text content",
+            "overflow": "visible",
+            "text-size": "16.0",
+            "line-height": "1.2000000762939453",
+            "typeface": "Gilroy"
+          },
+          {
+            "id": "Vector",
+            "margin": {
+              "left": "0.66668701171875",
+              "top": "1.333251953125",
+              "right": "0.6666259765625",
+              "bottom": "1.33349609375"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "vector-content": "vector1.svg"
+          },
+          {
+            "id": "Vector1",
+            "margin": {
+              "left": "5.33331298828125",
+              "top": "1.333251953125",
+              "right": "10.66668701171875",
+              "bottom": "4.0"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            }
+          },
+          {
+            "id": "Vector2",
+            "margin": {
+              "left": "10.66668701171875",
+              "top": "4.0",
+              "right": "5.33331298828125",
+              "bottom": "1.333251953125"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "Забронировать text content": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "Status=Active, Shadow=True, Icon=False",
+      "size": {
+        "width": 314.0,
+        "height": 50.0
+      },
+      "parameters": {
+        "Забронировать text content": "Забронировать"
+      }
+    },
+    {
+      "design": "Status=Active, Shadow=False, Icon=False",
+      "size": {
+        "width": 314.0,
+        "height": 50.0
+      },
+      "parameters": {
+        "Забронировать text content": "Забронировать"
+      }
+    },
+    {
+      "design": "Status=Active, Shadow=False, Icon=True",
+      "size": {
+        "width": 314.0,
+        "height": 50.0
+      },
+      "parameters": {
+        "Забронировать text content": "Забронировать"
+      }
+    },
+    {
+      "design": "Status=Pressed, Shadow=False, Icon=False",
+      "size": {
+        "width": 314.0,
+        "height": 50.0
+      },
+      "parameters": {
+        "Забронировать text content": "Забронировать"
+      }
+    },
+    {
+      "design": "Status=Inactive, Shadow=False, Icon=False",
+      "size": {
+        "width": 314.0,
+        "height": 50.0
+      },
+      "parameters": {
+        "Забронировать text content": "Забронировать"
+      }
+    },
+    {
+      "design": "Status=Inactive, Shadow=False, Icon=True",
+      "size": {
+        "width": 314.0,
+        "height": 50.0
+      },
+      "parameters": {
+        "Забронировать text content": "Забронировать"
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

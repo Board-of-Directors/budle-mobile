@@ -1,4 +1,4 @@
-package com.example.budle.ui.theme
+package fit.budle.mobile.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

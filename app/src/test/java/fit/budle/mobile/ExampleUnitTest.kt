@@ -1,4 +1,4 @@
-package com.example.budle
+package fit.budle.mobile
 
 import org.junit.Test
 
