@@ -22,18 +22,7 @@ fun BudleTest(result: String) {
     Column {
         Text(text = result)
     }
-    val interactionSource = remember { MutableInteractionSource() }
-    val isPressed by interactionSource.collectIsPressedAsState()
 
-    val color = if (isPressed) Status.Active else Status.Pressed
     val status = remember { mutableStateOf(Status.Active) }
-    TestButton(modifier = Modifier.padding(10.dp, 320.dp).pointerInteropFilter {
-        when (it.action) {
-            MotionEvent.ACTION_DOWN -> {
-                status.value = Status.Pressed }
-
-            MotionEvent.ACTION_UP  -> {
-                status.value = Status.Active }
-        }
-        true}, status = status.value, onClick = {}, text = "Трахать!")
+    TestButton(modifier = Modifier.padding(10.dp, 320.dp), status = status.value, onClick = {}, text = "Крутой текст!")
 }
