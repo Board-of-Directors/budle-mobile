@@ -7,20 +7,20 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
-import fit.budle.ui.details.BudleTest
+import androidx.navigation.compose.rememberNavController
+import fit.budle.navigation.NavigationComponent
 import fit.budle.ui.theme.BudleTheme
-import fit.budle.viewmodel.MainViewModel
 
 class MainActivity : ComponentActivity() {
-    val mainViewModel = MainViewModel("79231095499")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val navController = rememberNavController()
             BudleTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background
                 ) {
-                    BudleTest(mainViewModel.result)
+                    NavigationComponent(navController)
                 }
             }
         }

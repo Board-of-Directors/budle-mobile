@@ -10,18 +10,12 @@ import fit.budle.network.BudleAPIClient
 import fit.budle.repository.BudleRepository
 import kotlinx.coroutines.launch
 
-class MainViewModel(phoneNumber: String) : ViewModel() {
+class MainViewModel : ViewModel() {
     private val apiService = BudleAPIClient.service
     private lateinit var repository: BudleRepository
     var result: String by mutableStateOf("")
 
-    //lateinit var clickedItem: MovieItem
-
-    init {
-        getCode(phoneNumber)
-    }
-
-    fun getCode(phoneNumber: String) {
+    fun getCode(phoneNumber: String): String {
         repository = BudleRepository(apiService)
         viewModelScope.launch {
             when (val response = repository.getCode(phoneNumber)) {
@@ -34,13 +28,11 @@ class MainViewModel(phoneNumber: String) : ViewModel() {
                     Log.e("MAINVIEWMODEL", "FAILURE")
                     response.throwable.message?.let { Log.e("MAINVIEWMODEL", it) }
                 }
+                else -> {
+                    Log.e("CRITICAL_ERROR", "UNDEFINED RESPONSE")
+                }
             }
         }
+        return result
     }
-/*
-    fun itemClicked(item: MovieItem) {
-        clickedItem = item
-    }
-
- */
 }
