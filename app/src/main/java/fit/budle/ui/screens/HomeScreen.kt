@@ -1,16 +1,32 @@
 package fit.budle.ui.screens
 
-import androidx.compose.material.Button
-import androidx.compose.material.Text
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.navigation.NavController
-import fit.budle.ui.details.BudleTest
+import fit.budle.model.Establishment
+import fit.budle.model.EstablishmentResult
+import fit.budle.model.EstablishmentStructure
+import fit.budle.model.EstablishmentsRequest
+import fit.budle.ui.details.InstitutionsRow
 
 @Composable
-fun HomeScreen(navController: NavController, numberProvider: (String) -> String) {
-    val number = "+79231095499"
-    Button(onClick = { navController.navigate("detail") }) {
-        Text(text = "Go to detail")
-    }
-    BudleTest(numberProvider(number))
+fun HomeScreen(
+    navController: NavController, establishmentProvider: (
+        category: String?, limit: Int?, offset: Int?, sortValue: String?, name: String?, hasCardPayment: Boolean, hasMap: Boolean
+    ) -> (EstablishmentStructure)
+) {
+    val establishmentRequest: EstablishmentsRequest =
+        remember { EstablishmentsRequest(null, null, null, null, null, false, false) }
+    InstitutionsRow(
+        establishments = establishmentProvider(
+            establishmentRequest.category,
+            establishmentRequest.limit,
+            establishmentRequest.offset,
+            establishmentRequest.sortValue,
+            establishmentRequest.name,
+            establishmentRequest.hasCardPayment,
+            establishmentRequest.hasMap
+        )
+    )
 }

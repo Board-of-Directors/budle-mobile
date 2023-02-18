@@ -1,6 +1,7 @@
 package fit.budle.network
 
-import fit.budle.model.Answer
+import fit.budle.model.AnswerEstablishment
+import fit.budle.model.AnswerRegistration
 import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -9,11 +10,22 @@ import retrofit2.http.Query
 
 interface BudleAPIRequests {
     @POST("register")
-    suspend fun sendUserRequest(@Body requestBody: RequestBody): Answer
+    suspend fun sendUserRequest(@Body requestBody: RequestBody): AnswerRegistration
 
     @POST("code")
-    suspend fun checkCodeRequest(@Body requestBody: RequestBody): Answer
+    suspend fun checkCodeRequest(@Body requestBody: RequestBody): AnswerRegistration
 
     @GET("code")
-    suspend fun getCodeRequest(@Query("phoneNumber") phoneNumber: String?): Answer
+    suspend fun getCodeRequest(@Query("phoneNumber") phoneNumber: String?): AnswerRegistration
+
+    @GET("establishment")
+    suspend fun getEstablishment(
+        @Query("category") category: String?,
+        @Query("limit") limit: Int?,
+        @Query("offset") offset: Int?,
+        @Query("sortValue") sortValue: String?,
+        @Query("name") name: String?,
+        @Query("hasCardPayment") hasCardPayment: Boolean,
+        @Query("hasMap") hasMap: Boolean
+    ): AnswerEstablishment
 }

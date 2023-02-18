@@ -5,9 +5,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import fit.budle.ui.screens.DetailScreen
 import fit.budle.ui.screens.HomeScreen
-import fit.budle.viewmodel.DetailViewModel
 import fit.budle.viewmodel.MainViewModel
 
 
@@ -18,11 +16,7 @@ fun NavigationComponent(navController: NavHostController) {
     ) {
         composable("home") {
             val mainViewModel = viewModel<MainViewModel>()
-            HomeScreen(navController, mainViewModel::getCode)
-        }
-        composable("details") {
-            val detailsViewModel = viewModel<DetailViewModel>()
-            DetailScreen(detailsViewModel::getDetailText)
+            HomeScreen(navController, mainViewModel::getListOfEstablishments)
         }
     }
 }

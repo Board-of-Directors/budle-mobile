@@ -2,7 +2,16 @@ package fit.budle.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple200 = Color(0xFFBB86FC)
-val Purple500 = Color(0xFF6200EE)
-val Purple700 = Color(0xFF3700B3)
-val Teal200 = Color(0xFF03DAC5)
+val fillPurple = Color(0xFF654DF6)
+
+val textGray = Color(0xFFB6C1CE)
+
+val backgroundLightBlue = Color(0xFFEEF5F9)
+
+val backgroundError = Color(0xFFFF406E)
+
+val mainBlack = Color(0xFF181818)
+
+val alphaBlack = Color(0x33181818)
+
+val mainWhite = Color(0xFFFFFFFF)

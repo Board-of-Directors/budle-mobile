@@ -1,6 +1,7 @@
 package fit.budle.repository
 
 import android.util.Log
+import fit.budle.model.EstablishmentResult
 import fit.budle.network.BudleAPIRequests
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -11,6 +12,14 @@ class BudleRepository(val budleAPIRequests: BudleAPIRequests) {
         object LOADING : Result()
         data class Success(val result: Boolean?, val exceptionMessage: String?) : Result()
         data class Failure(val throwable: Throwable) : Result()
+    }
+
+    sealed class ResultList {
+        object LOADING : ResultList()
+        data class Success(val result: EstablishmentResult, val exceptionMessage: String?) :
+            ResultList()
+
+        data class Failure(val throwable: Throwable) : ResultList()
     }
 
     suspend fun getCode(phoneNumber: String): Result {
@@ -54,6 +63,27 @@ class BudleRepository(val budleAPIRequests: BudleAPIRequests) {
         } catch (exception: Exception) {
             Log.e("SENDUSER", "FAILURE")
             Result.Failure(exception)
+        }
+    }
+
+    suspend fun getEstablishmentsRequest(
+        category: String?,
+        limit: Int?,
+        offset: Int?,
+        sortValue: String?,
+        name: String?,
+        hasCardPayment: Boolean,
+        hasMap: Boolean
+    ): ResultList {
+        return try {
+            val result = budleAPIRequests.getEstablishment(
+                category, limit, offset, sortValue, name, hasCardPayment, hasMap
+            )
+            Log.d("GETESTABLISHMENT", "SUCCESS")
+            ResultList.Success(result = result.result, exceptionMessage = result.exception?.message)
+        } catch (exception: Exception) {
+            Log.e("GETESTABLISHMENT", "FAILURE")
+            ResultList.Failure(exception)
         }
     }
 }
