@@ -1,5 +1,6 @@
 package fit.budle.network
 
+import fit.budle.model.AnswerCategories
 import fit.budle.model.AnswerEstablishment
 import fit.budle.model.AnswerRegistration
 import okhttp3.RequestBody
@@ -25,7 +26,11 @@ interface BudleAPIRequests {
         @Query("offset") offset: Int?,
         @Query("sortValue") sortValue: String?,
         @Query("name") name: String?,
-        @Query("hasCardPayment") hasCardPayment: Boolean,
-        @Query("hasMap") hasMap: Boolean
+        @Query("hasCardPayment") hasCardPayment: Boolean?,
+        @Query("hasMap") hasMap: Boolean?
     ): AnswerEstablishment
+
+    @GET("establishment/category")
+    suspend fun getCategories(
+    ): AnswerCategories
 }

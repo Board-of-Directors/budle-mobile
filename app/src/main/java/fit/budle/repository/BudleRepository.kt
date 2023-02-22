@@ -22,6 +22,14 @@ class BudleRepository(val budleAPIRequests: BudleAPIRequests) {
         data class Failure(val throwable: Throwable) : ResultList()
     }
 
+    sealed class ResultList2 {
+        object LOADING : ResultList2()
+        data class Success(val result: Array<String>, val exceptionMessage: String?) :
+            ResultList2()
+
+        data class Failure(val throwable: Throwable) : ResultList2()
+    }
+
     suspend fun getCode(phoneNumber: String): Result {
         return try {
             val result = budleAPIRequests.getCodeRequest(phoneNumber)
@@ -72,8 +80,8 @@ class BudleRepository(val budleAPIRequests: BudleAPIRequests) {
         offset: Int?,
         sortValue: String?,
         name: String?,
-        hasCardPayment: Boolean,
-        hasMap: Boolean
+        hasCardPayment: Boolean?,
+        hasMap: Boolean?
     ): ResultList {
         return try {
             val result = budleAPIRequests.getEstablishment(
@@ -84,6 +92,17 @@ class BudleRepository(val budleAPIRequests: BudleAPIRequests) {
         } catch (exception: Exception) {
             Log.e("GETESTABLISHMENT", "FAILURE")
             ResultList.Failure(exception)
+        }
+    }
+
+    suspend fun getCategoriesRequest(): ResultList2 {
+        return try {
+            val result = budleAPIRequests.getCategories()
+            Log.d("GETCATEGORIES", "SUCCESS")
+            ResultList2.Success(result = result.result, exceptionMessage = result.exception?.message)
+        } catch (exception: Exception) {
+            Log.e("GETCATEGORIES", "FAILURE")
+            ResultList2.Failure(exception)
         }
     }
 }

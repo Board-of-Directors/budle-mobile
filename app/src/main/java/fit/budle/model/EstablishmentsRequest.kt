@@ -6,6 +6,6 @@ data class EstablishmentsRequest(
     val offset: Int?,
     val sortValue: String?,
     val name: String?,
-    val hasCardPayment: Boolean,
-    val hasMap: Boolean,
+    val hasCardPayment: Boolean?,
+    val hasMap: Boolean?,
 )
