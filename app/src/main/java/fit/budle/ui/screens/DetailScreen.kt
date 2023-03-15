@@ -4,7 +4,6 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
-import fit.budle.ui.details.BudleTest
 
 @Composable
 fun DetailScreen(navController: NavController, numberProvider: (String) -> String) {
@@ -12,5 +11,4 @@ fun DetailScreen(navController: NavController, numberProvider: (String) -> Strin
     Button(onClick = { navController.navigate("detail") }) {
         Text(text = "Go to detail")
     }
-    BudleTest(numberProvider(number))
 }
