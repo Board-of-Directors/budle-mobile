@@ -1,17 +1,15 @@
 package fit.budle.ui.details
 
-import androidx.annotation.Dimension
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -42,12 +40,12 @@ fun InstitutionCard(i: Int, institutionCardState: Array<EstablishmentWithImage>)
             Column(Modifier.padding(15.dp), verticalArrangement = Arrangement.Bottom) {
                 Text(
                     text = institutionCardState[i].name,
-                    style = MaterialTheme.typography.body1,
+                    style =  MaterialTheme.typography.bodyMedium,
                     color = mainWhite,
                     modifier = Modifier.padding(bottom = 5.dp)
                 )
                 Card(
-                    backgroundColor = MaterialTheme.colors.background,
+                    colors = CardDefaults.cardColors(Color.White),
                     modifier = Modifier
                         .width(38.dp)
                         .height(20.dp),
@@ -55,7 +53,7 @@ fun InstitutionCard(i: Int, institutionCardState: Array<EstablishmentWithImage>)
                 ) {
                     Text(
                         text = institutionCardState[i].rating.toString(),
-                        style = MaterialTheme.typography.body1,
+                        style = MaterialTheme.typography.bodyMedium,
                         color = mainBlack,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.align(Alignment.CenterHorizontally).wrapContentWidth()
