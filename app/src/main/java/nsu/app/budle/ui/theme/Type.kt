@@ -48,5 +48,11 @@ val Typography = Typography(
         fontStyle = FontStyle.Italic,
         fontSize = 20.sp,
         lineHeight = 24.sp
-    )
+    ),
+    labelSmall = TextStyle(
+        // Label/Label 2
+        fontFamily = fonts,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 14.sp
+    ),
 )

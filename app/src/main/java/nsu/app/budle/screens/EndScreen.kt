@@ -54,7 +54,7 @@ fun EndScreen(navController: NavHostController) {
             )
             Button(
                 onClick = {
-                    navController.navigate(route = NavRoute.Start.route)
+                    navController.navigate(route = NavRoute.MainList.route)
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = fillPurple),
 

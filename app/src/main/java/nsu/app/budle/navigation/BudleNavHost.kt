@@ -7,20 +7,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import nsu.app.budle.screens.*
-
-sealed class NavRoute(val route: String) {
-    object Start : NavRoute("start_screen")
-    object Number : NavRoute("number_screen")
-    object Code : NavRoute("code_screen")
-    object Data : NavRoute("data_screen/{button_name}")
-    object End : NavRoute("end_screen")
-    object MainList : NavRoute("mainList_screen")
-}
+import nsu.app.budle.screens.user_profile.*
 
 @Composable
 fun BudleNavHost() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = NavRoute.MainList.route) {
+    NavHost(navController = navController, startDestination = NavRoute.UserProfile.route) {
         composable(NavRoute.Start.route) { StartScreen(navController = navController) }
         composable(NavRoute.Number.route) {
             EnterAnimation {
@@ -36,6 +28,11 @@ fun BudleNavHost() {
         }
         composable(NavRoute.End.route) { EndScreen(navController = navController) }
         composable(NavRoute.MainList.route) { MainListScreen(navController = navController) }
+        composable(NavRoute.UserProfile.route) { UserProfileScreen(navController = navController) }
+        composable(NavRoute.UserProfileSettings.route) { UserProfileSettingsScreen(navController = navController) }
+        composable(NavRoute.UserProfileFavorites.route) { UserProfileFavoritesScreen(navController = navController) }
+        composable(NavRoute.UserProfileBookings.route) { UserProfileBookingsScreen(navController = navController) }
+        composable(NavRoute.UserProfileReviews.route) { UserProfileReviewsScreen(navController = navController) }
     }
 }
 

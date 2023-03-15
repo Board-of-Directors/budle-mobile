@@ -1,6 +1,5 @@
 package nsu.app.budle.screens
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -11,22 +10,19 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
-import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.VerticalAlignmentLine
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.budle.R
 import nsu.app.budle.models.Institutions
 import nsu.app.budle.models.*
+import nsu.app.budle.navigation.NavRoute
 import nsu.app.budle.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
@@ -43,7 +39,7 @@ fun MainListScreen(navController: NavHostController) {
         Column(
             horizontalAlignment = Alignment.Start
         ) {
-            ShowSearchBar()
+            ShowSearchBar(navController)
             // List of institutions
             LazyColumn(
                 state = columnState,
@@ -59,7 +55,7 @@ fun MainListScreen(navController: NavHostController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ShowSearchBar() {
+fun ShowSearchBar(navController: NavHostController) {
     val text by remember { mutableStateOf("") }
     Row(
         modifier = Modifier
@@ -106,7 +102,7 @@ fun ShowSearchBar() {
             )
         }
         IconButton(
-            onClick = { }
+            onClick = { navController.navigate(route = NavRoute.UserProfile.route) }
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.burger),
@@ -163,7 +159,10 @@ fun ShowInstitution(institution: Institutions) {
                             modifier = Modifier.width(140.dp),
                             contentScale = ContentScale.Crop
                         )
-                        Box(Modifier.matchParentSize().background(gradient))
+                        Box(
+                            Modifier
+                                .matchParentSize()
+                                .background(gradient))
                         Column(Modifier.padding(15.dp)) {
                             Text(
                                 text = institutionCardState[i].name,
