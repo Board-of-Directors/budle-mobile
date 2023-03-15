@@ -1,4 +1,4 @@
-package fit.budle.ui.theme
+package nsu.app.budle.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
@@ -17,3 +17,4 @@ val mainBlack = Color(0xFF181818)
 val alphaBlack = Color(0x33181818)
 
 val mainWhite = Color(0xFFFFFFFF)
+
