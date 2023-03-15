@@ -16,15 +16,23 @@ val fonts = FontFamily(
 )
 
 val Typography = Typography(
+    displayMedium = TextStyle(
+        //Text/Message
+        fontFamily = fonts,
+        fontWeight = FontWeight.SemiBold,
+        fontStyle = FontStyle.Italic,
+        fontSize = 20.sp,
+        lineHeight = 24.sp
+    ),
     bodyMedium = TextStyle(
-        // Text/Plain
+        //Text/Plain
         fontFamily = fonts,
         fontWeight = FontWeight.SemiBold,
         fontSize = 16.sp,
         lineHeight = 24.sp,
     ),
     titleMedium = TextStyle(
-        // Headings/Heading 1
+        //Headings/Heading 1
         fontFamily = fonts,
         fontWeight = FontWeight.Bold,
         fontSize = 24.sp,
@@ -36,7 +44,7 @@ val Typography = Typography(
         fontSize = 18.sp
     ),
     displayLarge = TextStyle(
-        // Form/Numbers
+        //Form/Numbers
         fontFamily = fonts,
         fontWeight = FontWeight.Bold,
         fontSize = 48.sp
