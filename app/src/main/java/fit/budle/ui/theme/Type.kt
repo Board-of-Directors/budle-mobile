@@ -7,7 +7,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.example.budle.R
+import fit.budle.R
 
 val fonts = FontFamily(
     Font(R.font.gilroy_semibold, weight = FontWeight.SemiBold),
@@ -15,7 +15,7 @@ val fonts = FontFamily(
     Font(R.font.gilroy_bold, weight = FontWeight.Bold)
 )
 
-val Typography = Typography(
+val typography = Typography(
     displayMedium = TextStyle(
         //Text/Message
         fontFamily = fonts,
@@ -48,14 +48,6 @@ val Typography = Typography(
         fontFamily = fonts,
         fontWeight = FontWeight.Bold,
         fontSize = 48.sp
-    ),
-    displayMedium = TextStyle(
-        // Text/Message
-        fontFamily = fonts,
-        fontWeight = FontWeight.SemiBold,
-        fontStyle = FontStyle.Italic,
-        fontSize = 20.sp,
-        lineHeight = 24.sp
     ),
     labelSmall = TextStyle(
         // Label/Label 2
