@@ -36,6 +36,7 @@ import nsu.app.budle.ui.theme.textGray
 @Composable
 fun CodeScreen(navController: NavHostController) {
 
+
     val focusManager = LocalFocusManager.current
     val states = remember {
         mutableStateListOf(
