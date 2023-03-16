@@ -10,6 +10,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.budle.R
+import fit.budle.ui.theme.backgroundError
+import fit.budle.ui.theme.textGray
 import nsu.app.budle.components.dataTextField
 import nsu.app.budle.components.passwordTextField
 import nsu.app.budle.navigation.NavRoute
