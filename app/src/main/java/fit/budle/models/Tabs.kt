@@ -9,33 +9,33 @@ import fit.budle.navigation.NavRoute
 data class Tab(
     val iconID: Int,
     val text: String,
-    val color: Color?,
-    val route: String
+    val route: String,
+    val color: Color?
 )
 
 val tabs = mutableStateListOf(
     Tab(
         R.drawable.heart,
         "Избранное",
-        backgroundError,
-        NavRoute.UserProfileFavorites.route
+        "user_profile_favorites",
+        backgroundError
     ),
     Tab(
         R.drawable.settings,
         "Настройки",
-        null,
-        NavRoute.UserProfileSettings.route
+        "user_profile_settings",
+        null
     ),
     Tab(
         R.drawable.list,
         "Мои брони",
-        null,
-        NavRoute.UserProfileBookings.route
+        "user_profile_bookings",
+        null
     ),
     Tab(
         R.drawable.message_circle,
         "Мои отзывы",
-        null,
-        NavRoute.UserProfileReviews.route
+        "user_profile_reviews",
+        null
     )
 )

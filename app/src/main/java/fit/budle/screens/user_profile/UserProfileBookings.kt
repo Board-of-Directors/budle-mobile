@@ -21,7 +21,7 @@ fun UserProfileBookingsScreen(navController: NavHostController) {
         ) {
             ShowNavigationHeader(
                 textMessage = "Мои брони",
-                route = NavRoute.UserProfile.route,
+                route = "user_profile",
                 navController = navController
             )
         }

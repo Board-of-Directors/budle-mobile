@@ -1,5 +1,7 @@
 package fit.budle.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -7,8 +9,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import fit.budle.screens.*
+import fit.budle.screens.main_page.MainListScreen
+import fit.budle.screens.onboarding.StartScreen
 import fit.budle.screens.user_profile.*
 
+@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun BudleNavHost() {
     val navController = rememberNavController()

@@ -25,7 +25,7 @@ fun UserProfileSettingsScreen(navController: NavHostController) {
                 .padding(start = 30.dp, end = 30.dp, top = 20.dp)
             ShowNavigationHeader(
                 textMessage = "Настройки",
-                route = NavRoute.UserProfile.route,
+                route = "user_profile",
                 navController = navController
             )
             BudleInputTextField(

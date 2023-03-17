@@ -16,12 +16,12 @@ import fit.budle.repository.BudleRepository
 import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
+
     private val apiService = BudleAPIClient.service
     private lateinit var repository: BudleRepository
     var result2: Array<String> by mutableStateOf(emptyArray())
     var result: EstablishmentStructure by mutableStateOf(EstablishmentStructure(emptyArray(), 0))
     var result3: HashMap<String, MutableState<EstablishmentStructure>> = hashMapOf()
-
 
     fun getListOfEstablishments(
         category: String?,
@@ -40,9 +40,10 @@ class MainViewModel : ViewModel() {
                 is BudleRepository.ResultList.Success -> {
                     Log.d("MAINVIEWMODEL", "SUCCESS")
                     if (category != null) {
-                        result3[category] = mutableStateOf(EstablishmentStructure(response.result.establishments.map {
-                            convertEstablishment(it)
-                        }.toTypedArray(), response.result.count))
+                        result3[category] =
+                            mutableStateOf(EstablishmentStructure(response.result.establishments.map {
+                                convertEstablishment(it)
+                            }.toTypedArray(), response.result.count))
                     }
                 }
                 is BudleRepository.ResultList.Failure -> {
@@ -55,7 +56,7 @@ class MainViewModel : ViewModel() {
             }
         }
         if (category != null) {
-                return result3[category]?.value ?: result
+            return result3[category]?.value ?: result
         } else {
             return result
         }
@@ -87,7 +88,9 @@ fun convertEstablishment(establishment: Establishment): EstablishmentWithImage {
     var decodedImage: BitmapPainter? = null;
     if (establishment.image != null) {
         imageBytes = Base64.decode(establishment.image, Base64.DEFAULT)
-        decodedImage = BitmapPainter(BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size).asImageBitmap())
+        decodedImage = BitmapPainter(
+            BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size).asImageBitmap()
+        )
     }
 
     return EstablishmentWithImage(

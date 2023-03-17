@@ -4,39 +4,39 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import fit.budle.R
 
-data class Institutions(
+data class Establishments(
     val type: String,
     val amount: String,
-    val institutionsList: SnapshotStateList<InstitutionCard>
+    val establishmentList: SnapshotStateList<EstablishmentCard>
 )
 
-data class InstitutionCard(
-    val type: String,
-    val name: String,
-    val imgID: Int,
-    val rate: Double,
-)
+data class EstablishmentCard(
+    override val type: String,
+    override val name: String,
+    override val imgID: Int,
+    override val rate: Double,
+) : Establishment
 
 val restaurants = mutableStateListOf(
-    InstitutionCard(
+    EstablishmentCard(
         "Ресторан",
         "Горячий цех",
         R.drawable.institutions_restaurants_1,
         4.7
     ),
-    InstitutionCard(
+    EstablishmentCard(
         "Ресторан",
         "Мама, я дома!",
         R.drawable.institutions_restaurants_2,
         4.8
     ),
-    InstitutionCard(
+    EstablishmentCard(
         "Ресторан",
         "Аджикинежаль",
         R.drawable.institutions_restaurants_3,
         4.8
     ),
-    InstitutionCard(
+    EstablishmentCard(
         "Ресторан",
         "Дядя Дёнер",
         R.drawable.institutions_restaurants_2,
@@ -45,25 +45,25 @@ val restaurants = mutableStateListOf(
 )
 
 val hotels = mutableStateListOf(
-    InstitutionCard(
+    EstablishmentCard(
         "Гостиница",
         "Mariott",
         R.drawable.institutions_hotels_1,
         3.2
     ),
-    InstitutionCard(
+    EstablishmentCard(
         "Гостиница",
         "River Plaza",
         R.drawable.institutions_hotels_2,
         4.7
     ),
-    InstitutionCard(
+    EstablishmentCard(
         "Гостиница",
         "Mirotel",
         R.drawable.institutions_hotels_3,
         4.8
     ),
-    InstitutionCard(
+    EstablishmentCard(
         "Гостиница",
         "Double Tree",
         R.drawable.institutions_hotels_2,
@@ -71,13 +71,13 @@ val hotels = mutableStateListOf(
     ),
 )
 
-val institutions = mutableStateListOf(
-    Institutions(
+val establishments = mutableStateListOf(
+    Establishments(
         "Рестораны",
         "Все 182",
         restaurants
     ),
-    Institutions(
+    Establishments(
         "Гостиницы",
         "Все 381",
         hotels

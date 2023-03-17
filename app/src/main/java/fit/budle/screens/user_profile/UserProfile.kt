@@ -85,7 +85,7 @@ fun ShowHeader(navController: NavHostController) {
         }
         IconButton(
             onClick = {
-                navController.navigate(route = NavRoute.MainList.route)
+                navController.navigate(route = "main_page")
             }
         ) {
             Icon(
