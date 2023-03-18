@@ -1,13 +1,12 @@
 package fit.budle.components.atoms
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,12 +14,12 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import fit.budle.R
 import fit.budle.models.EstablishmentDescription
-import fit.budle.ui.theme.alphaBlack
-import fit.budle.ui.theme.mainBlack
-import fit.budle.ui.theme.mainWhite
-import fit.budle.ui.theme.textGray
+import fit.budle.models.establishmentDescriptionList
+import fit.budle.ui.theme.*
 
 @Composable
 fun BudleEstablishmentCardDescription(establishmentDescription: EstablishmentDescription) {
@@ -50,7 +49,9 @@ fun BudleEstablishmentCardDescription(establishmentDescription: EstablishmentDes
                         .matchParentSize()
                         .background(gradient)
                 )
-                Column(Modifier.padding(15.dp)) {
+                Row(
+                    modifier = Modifier.padding(start = 15.dp, bottom = 15.dp)
+                ) {
                     Card(
                         colors = CardDefaults.cardColors(Color.White),
                         modifier = Modifier
@@ -65,6 +66,14 @@ fun BudleEstablishmentCardDescription(establishmentDescription: EstablishmentDes
                                 color = mainBlack,
                             )
                         }
+                    }
+                    if (establishmentDescription.isFavorite){
+                        Icon(
+                            modifier = Modifier.padding(start = 23.dp),
+                            painter = painterResource(id = R.drawable.heart),
+                            contentDescription = "Favorite establishment",
+                            tint = backgroundError
+                        )
                     }
                 }
             }
@@ -105,4 +114,13 @@ fun BudleEstablishmentCardDescription(establishmentDescription: EstablishmentDes
             )
         }
     }
+}
+
+@RequiresApi(Build.VERSION_CODES.N)
+@Preview
+@Composable
+fun PreivewBudleEstablishmentCardDescription() {
+    BudleEstablishmentCardDescription(
+        establishmentDescription = establishmentDescriptionList[0]
+    )
 }

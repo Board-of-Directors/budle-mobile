@@ -17,3 +17,5 @@ val mainBlack = Color(0xFF181818)
 val alphaBlack = Color(0x33181818)
 
 val mainWhite = Color(0xFFFFFFFF)
+
+val backgroundSuccess = Color(0xFF0ACF1E)

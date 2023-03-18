@@ -2,7 +2,8 @@ package fit.budle.models
 
 data class Tag(
     val name: String,
-    var tagId: Int
+    var tagId: Int,
+    val iconId: Int? = null
 )
 
 val tagList = mutableListOf(

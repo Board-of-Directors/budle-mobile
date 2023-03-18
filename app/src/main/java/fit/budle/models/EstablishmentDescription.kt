@@ -10,7 +10,8 @@ data class EstablishmentDescription(
     override val type: String,
     override val name: String,
     override val imgID: Int,
-    override val rate: Double
+    override val rate: Double,
+    val isFavorite: Boolean
 ) : Establishment
 
 val establishmentDescriptionList = mutableStateListOf(
@@ -19,9 +20,10 @@ val establishmentDescriptionList = mutableStateListOf(
         "ул. Пирогова, д. 2",
         "Грузинская",
         "Ресторан",
-        "Аджикиннежаль",
+        "Аджикинежаль",
         R.drawable.institutions_restaurants_3,
-        4.8
+        4.8,
+        true
     ),
     EstablishmentDescription(
         "Площадь Ленина",
@@ -30,7 +32,8 @@ val establishmentDescriptionList = mutableStateListOf(
         "Ресторан",
         "Горячий цех",
         R.drawable.institutions_restaurants_1,
-        4.7
+        4.7,
+        true
     ),
     EstablishmentDescription(
         "Маршала Покрышкина",
@@ -39,6 +42,7 @@ val establishmentDescriptionList = mutableStateListOf(
         "Ресторан",
         "Мама, я дома!",
         R.drawable.institutions_restaurants_2,
-        4.8
+        4.8,
+        true
     ),
 )

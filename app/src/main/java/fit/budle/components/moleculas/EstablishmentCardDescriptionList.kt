@@ -18,7 +18,7 @@ fun BudleEstablishmentCardDescriptionList(
     val listState = remember { establishmentDescription }
     LazyColumn(
         modifier = Modifier
-            .padding(start = 20.dp)
+            .padding(start = 10.dp)
             .fillMaxSize()
     ) {
         itemsIndexed(listState) { _, establishment ->

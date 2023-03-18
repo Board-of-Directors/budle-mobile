@@ -10,7 +10,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
-import fit.budle.components.moleculas.dataTextField
+import fit.budle.components.atoms.inputs.dataTextField
 import fit.budle.navigation.NavRoute
 import fit.budle.ui.theme.backgroundError
 import fit.budle.ui.theme.fillPurple

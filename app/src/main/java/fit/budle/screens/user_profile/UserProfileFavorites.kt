@@ -10,12 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import fit.budle.components.moleculas.BudleEstablishmentCardDescriptionList
-import fit.budle.components.moleculas.BudleSearchBar
-import fit.budle.components.moleculas.BudleTagList
-import fit.budle.components.moleculas.ShowNavigationHeader
+import fit.budle.components.atoms.BudleSearchBar
+import fit.budle.components.moleculas.*
 import fit.budle.models.establishmentDescriptionList
-import fit.budle.navigation.NavRoute
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
@@ -26,7 +23,7 @@ fun UserProfileFavoritesScreen(navController: NavHostController) {
                 .fillMaxSize()
                 .padding(top = 30.dp)
         ) {
-            ShowNavigationHeader(
+            BudleNavigationHeader(
                 textMessage = "Избраное",
                 route = "user_profile",
                 navController = navController
