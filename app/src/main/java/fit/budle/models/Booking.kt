@@ -1,11 +1,16 @@
 package fit.budle.models
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.viewmodel.compose.viewModel
 import fit.budle.R
 
 data class Booking(
     val establishmentDescription: EstablishmentDescription,
     val tags: MutableList<InfoTag>,
-    val infoList: MutableList<Pair<String, Any>>
+    val infoList: MutableList<Pair<String, Any>>,
+    val isRejected: MutableState<Boolean> = mutableStateOf(false)
 )
 
 data class InfoTag(
@@ -24,7 +29,7 @@ val bookingTagList = mutableListOf(
     )
 )
 
-val bookingList = mutableListOf(
+val bookingList = mutableStateListOf(
     Booking(
         establishmentDescriptionList[0],
         bookingTagList,
@@ -39,7 +44,7 @@ val bookingList = mutableListOf(
         establishmentDescriptionList[1],
         bookingTagList,
         mutableListOf(
-            "Статус" to BookingStatus.WAIT,
+            "Статус" to BookingStatus.REJECT,
             "Время" to "21:00, 23 ноября",
             "Кол-во гостей" to 3,
             "Бронь на имя" to "Иван"

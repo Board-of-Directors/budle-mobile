@@ -29,7 +29,7 @@ val establishmentDescriptionList = mutableStateListOf(
         "Площадь Ленина",
         "ул. Советская, д. 50",
         "Европейская",
-        "Ресторан",
+        "Гостиница",
         "Горячий цех",
         R.drawable.institutions_restaurants_1,
         4.7,

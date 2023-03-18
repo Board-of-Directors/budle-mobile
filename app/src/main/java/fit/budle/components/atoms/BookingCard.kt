@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -34,16 +35,36 @@ import fit.budle.ui.theme.*
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun BudleBookingCard(booking: Booking) {
+
     BookingCard(booking = booking)
     InfoTagList(tagList = booking.tags)
     BookingInformation(booking = booking)
+
+    if (booking.infoList[0].second as BookingStatus
+        != BookingStatus.REJECT
+    ) {
+        BudleButton(
+            onClick = {
+                booking.isRejected.value = !booking.isRejected.value
+            },
+            topPadding = 0.dp,
+            horizontalPadding = 0.dp,
+            buttonText = "Отменить бронь",
+            disabledButtonColor = lightBlue,
+            activeButtonColor = fillPurple,
+            disabledTextColor = fillPurple,
+            activeTextColor = mainWhite
+        )
+    }
 }
 
 @Composable
 fun BookingCard(booking: Booking) {
     val gradient = Brush.verticalGradient(listOf(alphaBlack, alphaBlack))
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 15.dp),
         shape = RoundedCornerShape(15.dp)
     ) {
         Box(

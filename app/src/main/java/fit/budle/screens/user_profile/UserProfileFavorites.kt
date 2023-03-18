@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -17,6 +19,11 @@ import fit.budle.models.establishmentDescriptionList
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun UserProfileFavoritesScreen(navController: NavHostController) {
+
+    val currentType = remember {
+        mutableStateOf("Все")
+    }
+
     Surface(Modifier.fillMaxSize()) {
         Column(
             Modifier
@@ -29,9 +36,10 @@ fun UserProfileFavoritesScreen(navController: NavHostController) {
                 navController = navController
             )
             BudleSearchBar()
-            BudleTagList()
+            currentType.value = budleTagList()
             BudleEstablishmentCardDescriptionList(
-                establishmentDescription = establishmentDescriptionList
+                establishmentDescription = establishmentDescriptionList,
+                filter = currentType.value
             )
         }
     }

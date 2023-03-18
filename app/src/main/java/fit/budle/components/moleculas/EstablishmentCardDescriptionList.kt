@@ -13,7 +13,8 @@ import fit.budle.models.EstablishmentDescription
 
 @Composable
 fun BudleEstablishmentCardDescriptionList(
-    establishmentDescription: MutableList<EstablishmentDescription>
+    establishmentDescription: MutableList<EstablishmentDescription>,
+    filter: String = "Все"
 ) {
     val listState = remember { establishmentDescription }
     LazyColumn(
@@ -22,9 +23,17 @@ fun BudleEstablishmentCardDescriptionList(
             .fillMaxSize()
     ) {
         itemsIndexed(listState) { _, establishment ->
-            BudleEstablishmentCardDescription(
-                establishmentDescription = establishment
-            )
+            if (filter == "Все") {
+                BudleEstablishmentCardDescription(
+                    establishmentDescription = establishment
+                )
+            } else if (establishment.type.startsWith(
+                    filter.substring(0, filter.length - 2), true
+                )) {
+                BudleEstablishmentCardDescription(
+                    establishmentDescription = establishment
+                )
+            }
         }
     }
 }

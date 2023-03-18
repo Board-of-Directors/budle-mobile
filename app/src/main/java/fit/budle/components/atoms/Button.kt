@@ -25,6 +25,7 @@ fun BudleButton(
     onClick: () -> Unit,
     iconId: Int? = null,
     topPadding: Dp = 20.dp,
+    horizontalPadding: Dp = 30.dp,
     buttonText: String,
     disabledButtonColor: Color,
     activeButtonColor: Color,
@@ -38,12 +39,12 @@ fun BudleButton(
 
     Button(
         modifier = Modifier
-            .padding(horizontal = 30.dp)
+            .padding(horizontal = horizontalPadding)
             .padding(top = topPadding)
             .fillMaxWidth()
             .height(IntrinsicSize.Max),
         shape = RoundedCornerShape(10.dp),
-        onClick = { onClick },
+        onClick = onClick,
         interactionSource = interactionSource,
         colors = ButtonDefaults.buttonColors(buttonColor)
     ) {
