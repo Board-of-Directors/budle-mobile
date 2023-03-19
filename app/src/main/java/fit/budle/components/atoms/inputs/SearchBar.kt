@@ -1,4 +1,4 @@
-package fit.budle.components.moleculas
+package fit.budle.components.atoms
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth

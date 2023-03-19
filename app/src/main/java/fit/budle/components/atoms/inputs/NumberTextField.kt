@@ -1,4 +1,4 @@
-package fit.budle.components.moleculas
+package fit.budle.components.atoms.inputs
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column

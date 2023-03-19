@@ -15,7 +15,7 @@ import fit.budle.models.tagList
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun BudleTagList() {
+fun budleTagList(): String {
 
     var selectedItem by remember { mutableStateOf(0) }
     val isSelectedItem: (Int) -> Boolean = { selectedItem == it }
@@ -37,4 +37,5 @@ fun BudleTagList() {
             )
         }
     }
+    return tagList.first { tag -> tag.tagId == selectedItem }.name
 }

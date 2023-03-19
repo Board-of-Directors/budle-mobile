@@ -18,7 +18,7 @@ import fit.budle.R
 import fit.budle.ui.theme.textGray
 
 @Composable
-fun ShowNavigationHeader(
+fun BudleNavigationHeader(
     textMessage: String,
     route: String,
     navController: NavHostController

@@ -1,4 +1,4 @@
-package fit.budle.screens
+package fit.budle.screens.onboarding
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

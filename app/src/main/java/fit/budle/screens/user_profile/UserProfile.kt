@@ -25,6 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import fit.budle.R
+import fit.budle.components.atoms.BudleApplicationPattern
+import fit.budle.components.atoms.BudleButton
 import fit.budle.navigation.NavRoute
 import fit.budle.models.Tab
 import fit.budle.models.tabs
@@ -40,8 +42,28 @@ fun UserProfileScreen(navController: NavHostController) {
         ) {
             ShowHeader(navController)
             ShowColumn(navController)
-            ShowButton(navController)
-            ShowBudlePattern()
+            BudleButton(
+                onClick = {
+                    navController.navigate("main_page")
+                },
+                iconId = R.drawable.log_out,
+                buttonText = "Выйти",
+                disabledButtonColor = lightBlue,
+                activeButtonColor = fillPurple,
+                disabledTextColor = fillPurple,
+                activeTextColor = mainWhite
+            )
+            BudleButton(
+                onClick = {},
+                topPadding = 15.dp,
+                iconId = R.drawable.zap,
+                buttonText = "Создать бизнес-аккаунт",
+                disabledButtonColor = lightBlue,
+                activeButtonColor = fillPurple,
+                disabledTextColor = textGray,
+                activeTextColor = mainWhite
+            )
+            BudleApplicationPattern()
         }
     }
 }
@@ -85,7 +107,7 @@ fun ShowHeader(navController: NavHostController) {
         }
         IconButton(
             onClick = {
-                navController.navigate(route = NavRoute.MainList.route)
+                navController.navigate(route = "main_page")
             }
         ) {
             Icon(
@@ -136,64 +158,6 @@ fun ShowTab(
             text = tab.text,
             modifier = Modifier.padding(start = 15.dp),
             style = MaterialTheme.typography.bodyMedium
-        )
-    }
-}
-
-@Composable
-fun ShowButton(navController: NavHostController) {
-
-    val interactionSource = remember { MutableInteractionSource() }
-    val isPressed by interactionSource.collectIsPressedAsState()
-    val buttonColor = if (isPressed) fillPurple else lightBlue
-    val contentColor = if (isPressed) mainWhite else textGray
-
-    Button(
-        modifier = Modifier
-            .padding(horizontal = 30.dp, vertical = 20.dp)
-            .fillMaxWidth(),
-        shape = RoundedCornerShape(10.dp),
-        onClick = {
-            navController.navigate(route = NavRoute.UserProfileSettings.route)
-        },
-        interactionSource = interactionSource,
-        colors = ButtonDefaults.buttonColors(buttonColor)
-    ) {
-        Row(
-            modifier = Modifier
-                .padding(start = 10.dp)
-                .width(IntrinsicSize.Max),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.zap),
-                contentDescription = "Button icon",
-                tint = contentColor
-            )
-            Text(
-                text = "Создать бизнес-аккаунт",
-                fontSize = 16.sp,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 10.dp, horizontal = 10.dp),
-                style = MaterialTheme.typography.bodyMedium,
-                color = contentColor
-            )
-        }
-    }
-}
-
-@Composable
-fun ShowBudlePattern() {
-    Box(
-        modifier = Modifier
-            .padding(top = 40.dp)
-            .fillMaxWidth()
-    ) {
-        Image(
-            modifier = Modifier.align(Center),
-            imageVector = ImageVector.vectorResource(id = R.drawable.budle_pattern),
-            contentDescription = "Budle pattern"
         )
     }
 }

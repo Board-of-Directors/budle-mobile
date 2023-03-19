@@ -1,34 +1,29 @@
 package fit.budle.screens
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
-import fit.budle.components.data.NumberDefaults.INPUT_LENGTH
-import fit.budle.components.data.NumberDefaults.MASK
-import fit.budle.components.moleculas.MaskVisualTransformation
+import fit.budle.components.atoms.inputs.dataTextField
 import fit.budle.navigation.NavRoute
 import fit.budle.ui.theme.backgroundError
-import fit.budle.ui.theme.backgroundLightBlue
 import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.textGray
+import nsu.app.budle.components.passwordTextField
 
 @Composable
-fun NumberScreen(navController: NavHostController) {
+fun DataScreen(navController: NavHostController, buttonText: String?) {
 
-    val error = remember { mutableStateOf(false) }
-    var numberState by remember { mutableStateOf("") }
+    var textInputState = ""
+    var passwordInputState = ""
+    val passError = remember { mutableStateOf(false) }
+    val textError = remember { mutableStateOf(false) }
 
     Surface(
         modifier = Modifier.fillMaxSize()
@@ -44,8 +39,11 @@ fun NumberScreen(navController: NavHostController) {
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(end = 64.dp)
             ) {
+                val navScreen =
+                    if (buttonText == "Войти") NavRoute.Start.route
+                    else NavRoute.Code.route
                 IconButton(
-                    onClick = { navController.navigate(route = NavRoute.Start.route) },
+                    onClick = { navController.navigate(route = navScreen) },
                     modifier = Modifier.padding(end = 40.dp)
                 ) {
                     Icon(
@@ -60,24 +58,20 @@ fun NumberScreen(navController: NavHostController) {
                     ), contentDescription = "Logo", modifier = Modifier.width(148.dp)
                 )
             }
-            var text by remember { mutableStateOf("") }
             Column(
                 horizontalAlignment = Alignment.Start,
                 modifier = Modifier
                     .padding(horizontal = 40.dp)
                     .padding(top = 60.dp)
             ) {
-                val stateColor = if (!error.value) Color.Transparent else backgroundError
                 Text(
-                    text = "Номер телефона",
+                    text = "Имя пользователя",
                     style = MaterialTheme.typography.bodyMedium,
                     color = textGray,
-                    modifier = Modifier.padding(bottom = 6.dp)
+                    modifier = Modifier.padding(bottom = 10.dp)
                 )
-                Card(border = BorderStroke(2.dp, stateColor)) {
-                    numberState = simpleTextField(error)
-                }
-                if(error.value){
+                textInputState = dataTextField("","Введите Ваше имя", textError)
+                if (textError.value){
                     Text(
                         text = "Это поле не может быть пустым",
                         style = MaterialTheme.typography.bodyMedium,
@@ -86,12 +80,36 @@ fun NumberScreen(navController: NavHostController) {
                     )
                 }
             }
+            Column(
+                horizontalAlignment = Alignment.Start,
+                modifier = Modifier
+                    .padding(horizontal = 40.dp)
+                    .padding(top = 20.dp)
+            ) {
+                val hintColor = if (!passError.value) textGray else backgroundError
+                Text(
+                    text = "Пароль",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = textGray,
+                    modifier = Modifier.padding(bottom = 10.dp)
+                )
+                passwordInputState = passwordTextField("","Введите пароль", passError)
+                Text(
+                    text = "Придумайте пароль от 8 знаков из\n" +
+                            "цифр и латинских букв",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = hintColor,
+                    modifier = Modifier.padding(top = 10.dp)
+                )
+            }
             Spacer(Modifier.weight(1f))
             Button(
                 onClick = {
-                    error.value = numberState.length != 10
-                    if (!error.value)
-                        navController.navigate(route = NavRoute.Code.route)
+                    textError.value = textInputState.isEmpty()
+                    passError.value = passwordInputState.length < 8
+                    if (!textError.value && !passError.value) {
+                        navController.navigate(route = NavRoute.End.route)
+                    }
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = fillPurple),
                 modifier = Modifier
@@ -99,44 +117,14 @@ fun NumberScreen(navController: NavHostController) {
                     .padding(horizontal = 40.dp)
                     .padding(bottom = 90.dp)
             ) {
-                Text(
-                    text = "Подтвердить",
-                    modifier = Modifier.padding(vertical = 8.dp, horizontal = 40.dp),
-                    style = MaterialTheme.typography.bodyMedium
-                )
+                buttonText?.let {
+                    Text(
+                        text = it,
+                        modifier = Modifier.padding(vertical = 8.dp, horizontal = 40.dp),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
             }
         }
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun simpleTextField(error: MutableState<Boolean>): String {
-    var text by remember { mutableStateOf("") }
-    TextField(
-        value = text,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        onValueChange = { it ->
-            if (it.length <= INPUT_LENGTH) {
-                if (error.value && it.length == INPUT_LENGTH)
-                    error.value = false
-                text = it.filter { it.isDigit() }
-            }
-        },
-        shape = RoundedCornerShape(10.dp),
-        colors = TextFieldDefaults.textFieldColors(
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
-            disabledIndicatorColor = Color.Transparent,
-            containerColor = backgroundLightBlue,
-        ),
-        visualTransformation = MaskVisualTransformation(MASK),
-        placeholder = {
-            Text(
-                text = "+7", style = MaterialTheme.typography.bodyMedium, color = textGray
-            )
-        },
-        textStyle = MaterialTheme.typography.bodyMedium
-    )
-    return text
 }

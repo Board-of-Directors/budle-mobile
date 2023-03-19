@@ -6,11 +6,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import fit.budle.components.moleculas.BudleInputTextField
+import fit.budle.R
+import fit.budle.components.atoms.BudleButton
+import fit.budle.components.atoms.inputs.BudleInputTextField
+import fit.budle.components.atoms.inputs.BudleNumberField
+import fit.budle.components.moleculas.BudleNavigationHeader
 import nsu.app.budle.components.BudlePasswordTextField
-import fit.budle.components.moleculas.BudleNumberField
-import fit.budle.components.moleculas.ShowNavigationHeader
-import fit.budle.navigation.NavRoute
+import fit.budle.ui.theme.fillPurple
+import fit.budle.ui.theme.lightBlue
+import fit.budle.ui.theme.mainWhite
 
 @Composable
 fun UserProfileSettingsScreen(navController: NavHostController) {
@@ -23,9 +27,9 @@ fun UserProfileSettingsScreen(navController: NavHostController) {
             val screenModifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 30.dp, end = 30.dp, top = 20.dp)
-            ShowNavigationHeader(
+            BudleNavigationHeader(
                 textMessage = "Настройки",
-                route = NavRoute.UserProfile.route,
+                route = "user_profile",
                 navController = navController
             )
             BudleInputTextField(
@@ -44,6 +48,14 @@ fun UserProfileSettingsScreen(navController: NavHostController) {
                 placeHolder = "Пароль",
                 startMessage = "Feodaloff2003",
                 textFieldMessage = "Введите пароль"
+            )
+            BudleButton(
+                onClick = {},
+                buttonText = "Сохранить изменения",
+                disabledButtonColor = fillPurple,
+                activeButtonColor = fillPurple,
+                disabledTextColor = mainWhite,
+                activeTextColor = mainWhite
             )
         }
     }

@@ -1,4 +1,4 @@
-package fit.budle.screens
+package fit.budle.screens.main_page
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -10,7 +10,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -20,16 +19,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
-import fit.budle.models.Institutions
-import fit.budle.models.institutions
-import fit.budle.navigation.NavRoute
+import fit.budle.models.Establishments
+import fit.budle.models.establishments
 import fit.budle.ui.theme.*
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun MainListScreen(navController: NavHostController) {
 
-    val institutionStates = remember { institutions }
+    val establishmentState = remember { establishments }
     val columnState = rememberLazyListState()
 
     Surface(
@@ -45,8 +42,8 @@ fun MainListScreen(navController: NavHostController) {
                 state = columnState,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                itemsIndexed(institutionStates) { i, _ ->
-                    ShowInstitution(institutionStates[i])
+                itemsIndexed(establishmentState) { i, _ ->
+                    ShowInstitution(establishmentState[i])
                 }
             }
         }
@@ -102,7 +99,9 @@ fun ShowSearchBar(navController: NavHostController) {
             )
         }
         IconButton(
-            onClick = { navController.navigate(route = NavRoute.UserProfile.route) }
+            onClick = {
+                navController.navigate(route = "user_profile")
+            }
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.burger),
@@ -115,22 +114,22 @@ fun ShowSearchBar(navController: NavHostController) {
 }
 
 @Composable
-fun ShowInstitution(institution: Institutions) {
+fun ShowInstitution(establishments: Establishments) {
 
-    val institutionCardState = remember { institution.institutionsList }
+    val institutionCardState = remember { establishments.establishmentList }
     val rowState = rememberLazyListState()
 
     Column(Modifier.padding(top = 20.dp)) {
         // current block of institutions
         Row(Modifier.padding(start = 20.dp)) {
             Text(
-                text = institution.type,
+                text = establishments.type,
                 style = MaterialTheme.typography.titleSmall,
                 color = mainBlack
             )
             Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = institution.amount,
+                text = establishments.amount,
                 style = MaterialTheme.typography.titleSmall,
                 color = textGray,
                 modifier = Modifier.padding(end = 20.dp)
@@ -162,7 +161,8 @@ fun ShowInstitution(institution: Institutions) {
                         Box(
                             Modifier
                                 .matchParentSize()
-                                .background(gradient))
+                                .background(gradient)
+                        )
                         Column(Modifier.padding(15.dp)) {
                             Text(
                                 text = institutionCardState[i].name,
