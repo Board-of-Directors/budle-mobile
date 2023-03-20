@@ -67,7 +67,7 @@ fun BudleEstablishmentCardDescription(establishmentDescription: EstablishmentDes
                             )
                         }
                     }
-                    if (establishmentDescription.isFavorite){
+                    if (establishmentDescription.isFavorite.value){
                         Icon(
                             modifier = Modifier.padding(start = 23.dp),
                             painter = painterResource(id = R.drawable.heart),

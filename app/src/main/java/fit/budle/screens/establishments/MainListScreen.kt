@@ -1,7 +1,8 @@
-package fit.budle.screens.main_page
+package fit.budle.screens.establishments
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,10 +18,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.core.os.bundleOf
 import androidx.navigation.NavHostController
 import fit.budle.R
 import fit.budle.models.Establishments
 import fit.budle.models.establishments
+import fit.budle.navigation.navigate
 import fit.budle.ui.theme.*
 
 @Composable
@@ -43,7 +46,10 @@ fun MainListScreen(navController: NavHostController) {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 itemsIndexed(establishmentState) { i, _ ->
-                    ShowInstitution(establishmentState[i])
+                    ShowInstitution(
+                        navController = navController,
+                        establishmentState[i]
+                    )
                 }
             }
         }
@@ -114,7 +120,10 @@ fun ShowSearchBar(navController: NavHostController) {
 }
 
 @Composable
-fun ShowInstitution(establishments: Establishments) {
+fun ShowInstitution(
+    navController: NavHostController,
+    establishments: Establishments
+) {
 
     val institutionCardState = remember { establishments.establishmentList }
     val rowState = rememberLazyListState()
@@ -145,7 +154,16 @@ fun ShowInstitution(establishments: Establishments) {
             itemsIndexed(institutionCardState) { i, _ ->
                 val gradient = Brush.verticalGradient(listOf(alphaBlack, alphaBlack))
                 Card(
-                    modifier = Modifier.padding(start = 10.dp),
+                    modifier = Modifier
+                        .padding(start = 10.dp)
+                        .clickable(
+                            onClick = {
+                                navController.navigate(
+                                    "establishment_card",
+                                    bundleOf("EST_KEY" to institutionCardState[i])
+                                )
+                            }
+                        ),
                     shape = RoundedCornerShape(15.dp)
                 ) {
                     Box(

@@ -1,8 +1,14 @@
 package fit.budle.models
 
+import android.os.Parcelable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import fit.budle.R
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
+@Parcelize
 data class EstablishmentDescription(
     val subway: String,
     val place: String,
@@ -11,8 +17,8 @@ data class EstablishmentDescription(
     override val name: String,
     override val imgID: Int,
     override val rate: Double,
-    val isFavorite: Boolean
-) : Establishment
+    val isFavorite: @RawValue MutableState<Boolean> = mutableStateOf(false)
+) : Establishment, Parcelable
 
 val establishmentDescriptionList = mutableStateListOf(
     EstablishmentDescription(
@@ -23,7 +29,6 @@ val establishmentDescriptionList = mutableStateListOf(
         "Аджикинежаль",
         R.drawable.institutions_restaurants_3,
         4.8,
-        true
     ),
     EstablishmentDescription(
         "Площадь Ленина",
@@ -33,7 +38,6 @@ val establishmentDescriptionList = mutableStateListOf(
         "Горячий цех",
         R.drawable.institutions_restaurants_1,
         4.7,
-        true
     ),
     EstablishmentDescription(
         "Маршала Покрышкина",
@@ -43,6 +47,5 @@ val establishmentDescriptionList = mutableStateListOf(
         "Мама, я дома!",
         R.drawable.institutions_restaurants_2,
         4.8,
-        true
     ),
 )

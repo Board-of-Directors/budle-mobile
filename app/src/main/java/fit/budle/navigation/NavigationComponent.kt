@@ -10,8 +10,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import fit.budle.models.EstablishmentCard
 import fit.budle.screens.*
-import fit.budle.screens.main_page.MainListScreen
+import fit.budle.screens.establishments.EstablishmentCard
+import fit.budle.screens.establishments.MainListScreen
 import fit.budle.screens.onboarding.StartScreen
 import fit.budle.screens.user_profile.*
 import fit.budle.ui.screens.HomeScreen
@@ -49,6 +51,12 @@ fun NavigationComponent(navController: NavHostController) {
 
         //<editor-fold desc="user_profile">
         composable("main_page") { MainListScreen(navController) }
+        composable("establishment_card") {
+            navController.previousBackStackEntry?.arguments?.getParcelable<EstablishmentCard>("EST_KEY")
+                ?.let {
+                    EstablishmentCard(navController, it)
+                }
+        }
         //</editor-fold>
 
         //<editor-fold desc="user_profile">
