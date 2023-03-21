@@ -15,6 +15,7 @@ import androidx.navigation.NavHostController
 import fit.budle.components.atoms.BudleSearchBar
 import fit.budle.components.moleculas.*
 import fit.budle.models.establishmentDescriptionList
+import fit.budle.models.tagList
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
@@ -36,7 +37,10 @@ fun UserProfileFavoritesScreen(navController: NavHostController) {
                 navController = navController
             )
             BudleSearchBar()
-            currentType.value = budleTagList()
+            currentType.value = budleTagList(
+                initialState = 0,
+                tagList = tagList
+            )
             BudleEstablishmentCardDescriptionList(
                 establishmentDescription = establishmentDescriptionList,
                 filter = currentType.value

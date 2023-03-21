@@ -29,7 +29,10 @@ val sampleEstablishmentCardModel = EstablishmentCardModel(
             R.drawable.establishment_photo_4,
             R.drawable.establishment_photo_5,
             R.drawable.establishment_photo_6,
-            R.drawable.establishment_photo_6
+            R.drawable.establishment_photo_1,
+            R.drawable.establishment_photo_2,
+            R.drawable.establishment_photo_3,
+            R.drawable.establishment_photo_4,
         ),
         "Часы работы" to mutableMapOf(
             "Пн-Пт" to "10:00 — 21:00",

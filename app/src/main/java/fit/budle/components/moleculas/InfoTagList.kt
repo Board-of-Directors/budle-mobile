@@ -6,15 +6,19 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import fit.budle.components.atoms.BudleInfoTag
 import fit.budle.models.InfoTag
 
 @Composable
-fun BudleInfoTagList(tags: MutableList<InfoTag>) {
+fun BudleInfoTagList(
+    tags: MutableList<InfoTag>,
+    horizontalPadding: Dp = 20.dp
+) {
     LazyRow(
         modifier = Modifier
-            .padding(horizontal = 20.dp)
+            .padding(horizontal = horizontalPadding)
             .padding(top = 10.dp)
             .fillMaxWidth()
     ) {

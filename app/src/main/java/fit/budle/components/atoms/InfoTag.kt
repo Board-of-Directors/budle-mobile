@@ -43,13 +43,13 @@ fun BudleInfoTag(
         ) {
             Icon(
                 modifier = Modifier.size(16.dp),
-                painter = painterResource(id = infoTag.iconId),
+                painter = painterResource(id = infoTag.tagId),
                 contentDescription = "Tag icon",
                 tint = contentColor
             )
             Text(
                 modifier = Modifier.padding(start = 10.dp),
-                text = infoTag.name,
+                text = infoTag.tagName,
                 style = MaterialTheme.typography.labelSmall,
                 color = contentColor
             )

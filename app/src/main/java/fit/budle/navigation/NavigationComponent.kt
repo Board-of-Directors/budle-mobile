@@ -12,7 +12,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import fit.budle.models.EstablishmentCard
 import fit.budle.screens.*
-import fit.budle.screens.establishments.EstablishmentCard
+import fit.budle.screens.establishments.BookingProcessScreen
+import fit.budle.screens.establishments.EstablishmentCardScreen
 import fit.budle.screens.establishments.MainListScreen
 import fit.budle.screens.onboarding.StartScreen
 import fit.budle.screens.user_profile.*
@@ -49,12 +50,18 @@ fun NavigationComponent(navController: NavHostController) {
         composable("end_screen") { EndScreen(navController) }
         //</editor-fold>
 
-        //<editor-fold desc="user_profile">
+        //<editor-fold desc="establishments">
         composable("main_page") { MainListScreen(navController) }
         composable("establishment_card") {
             navController.previousBackStackEntry?.arguments?.getParcelable<EstablishmentCard>("EST_KEY")
                 ?.let {
-                    EstablishmentCard(navController, it)
+                    EstablishmentCardScreen(navController, it)
+                }
+        }
+        composable("booking_process") {
+            navController.previousBackStackEntry?.arguments?.getParcelable<EstablishmentCard>("EST_KEY")
+                ?.let {
+                    BookingProcessScreen(navController, it)
                 }
         }
         //</editor-fold>

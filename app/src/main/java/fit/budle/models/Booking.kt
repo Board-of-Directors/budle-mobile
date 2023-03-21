@@ -13,9 +13,9 @@ data class Booking(
 )
 
 data class InfoTag(
-    val name: String,
-    val iconId: Int
-)
+    override val tagName: String,
+    override val tagId: Int
+) : Tag
 
 val bookingTagList = mutableListOf(
     InfoTag(

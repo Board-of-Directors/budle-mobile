@@ -1,25 +1,25 @@
 package fit.budle.models
 
-data class Tag(
-    val name: String,
-    var tagId: Int,
-    val iconId: Int? = null
-)
+data class RectangleTag(
+    override val tagName: String,
+    override var tagId: Int,
+    val iconId: Int? = null,
+): Tag
 
 val tagList = mutableListOf(
-    Tag(
+    RectangleTag(
         "Все",
         0
     ),
-    Tag(
+    RectangleTag(
         "Рестораны",
         1
     ),
-    Tag(
+    RectangleTag(
         "Гостиницы",
         2
     ),
-    Tag(
+    RectangleTag(
         "Развлечения",
         3
     ),
