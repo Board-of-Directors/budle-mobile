@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import fit.budle.components.atoms.BudleEstablishmentCardDescription
 import fit.budle.models.EstablishmentDescription
+import java.util.function.Predicate
 
 @Composable
 fun BudleEstablishmentCardDescriptionList(
@@ -23,16 +24,19 @@ fun BudleEstablishmentCardDescriptionList(
             .fillMaxSize()
     ) {
         itemsIndexed(listState) { _, establishment ->
-            if (filter == "Все") {
-                BudleEstablishmentCardDescription(
-                    establishmentDescription = establishment
-                )
-            } else if (establishment.type.startsWith(
-                    filter.substring(0, filter.length - 2), true
-                )) {
-                BudleEstablishmentCardDescription(
-                    establishmentDescription = establishment
-                )
+            if (establishment.isFavorite.value) {
+                if (filter == "Все") {
+                    BudleEstablishmentCardDescription(
+                        establishmentDescription = establishment
+                    )
+                } else if (establishment.type.startsWith(
+                        filter.substring(0, filter.length - 2), true
+                    )
+                ) {
+                    BudleEstablishmentCardDescription(
+                        establishmentDescription = establishment
+                    )
+                }
             }
         }
     }

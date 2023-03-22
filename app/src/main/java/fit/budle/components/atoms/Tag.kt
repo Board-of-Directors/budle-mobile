@@ -40,7 +40,7 @@ fun BudleTag(
         shape = RoundedCornerShape(5.dp)
     ) {
         Text(
-            text = tag.name,
+            text = tag.tagName,
             style = MaterialTheme.typography.labelSmall,
             color = textColor
         )

@@ -22,6 +22,7 @@ import fit.budle.ui.theme.mainWhite
 
 @Composable
 fun BudleButton(
+    modifier: Modifier = Modifier,
     onClick: () -> Unit,
     iconId: Int? = null,
     topPadding: Dp = 20.dp,
@@ -38,7 +39,7 @@ fun BudleButton(
     val contentColor = if (isPressed) activeTextColor else disabledTextColor
 
     Button(
-        modifier = Modifier
+        modifier = modifier
             .padding(horizontal = horizontalPadding)
             .padding(top = topPadding)
             .fillMaxWidth()
@@ -49,7 +50,7 @@ fun BudleButton(
         colors = ButtonDefaults.buttonColors(buttonColor)
     ) {
         Row(
-            modifier = Modifier
+            modifier = modifier
                 .width(IntrinsicSize.Max),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -63,7 +64,7 @@ fun BudleButton(
             Text(
                 text = buttonText,
                 fontSize = 16.sp,
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
                     .padding(top = 10.dp,bottom = 10.dp, start = 10.dp),
                 style = MaterialTheme.typography.bodyMedium,

@@ -55,4 +55,10 @@ val typography = Typography(
         fontWeight = FontWeight.SemiBold,
         fontSize = 14.sp
     ),
+    displaySmall = TextStyle(
+        // Label/Label low
+        fontFamily = fonts,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 12.sp
+    ),
 )

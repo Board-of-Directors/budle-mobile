@@ -26,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import fit.budle.components.moleculas.BudleInfoTagList
 import fit.budle.models.Booking
 import fit.budle.models.BookingStatus
 import fit.budle.models.InfoTag
@@ -37,7 +38,7 @@ import fit.budle.ui.theme.*
 fun BudleBookingCard(booking: Booking) {
 
     BookingCard(booking = booking)
-    InfoTagList(tagList = booking.tags)
+    BudleInfoTagList(tags = booking.tags)
     BookingInformation(booking = booking)
 
     if (booking.infoList[0].second as BookingStatus
@@ -123,7 +124,7 @@ fun BookingCard(booking: Booking) {
                         color = mainWhite,
                     )
                 }
-                RateCard(rate = booking.establishmentDescription.rate)
+                BudlePhotoTag(tag = booking.establishmentDescription.rate.toString())
             }
         }
     }
@@ -133,42 +134,6 @@ fun BookingCard(booking: Booking) {
 @Composable
 fun ShowBookingcard() {
     BookingCard(booking = bookingList[0])
-}
-
-@Composable
-fun RateCard(rate: Double) {
-    Card(
-        colors = CardDefaults.cardColors(Color.White),
-        modifier = Modifier
-            .width(55.dp)
-            .height(28.dp),
-        shape = RoundedCornerShape(5.dp),
-    ) {
-        Box(
-            Modifier.fillMaxSize(),
-            contentAlignment = Center
-        ) {
-            Text(
-                textAlign = TextAlign.Center,
-                text = rate.toString(),
-                style = MaterialTheme.typography.bodyMedium,
-                color = mainBlack,
-            )
-        }
-    }
-}
-
-@Composable
-fun InfoTagList(tagList: MutableList<InfoTag>) {
-    LazyRow(
-        modifier = Modifier
-            .padding(horizontal = 20.dp, vertical = 20.dp)
-            .fillMaxWidth()
-    ) {
-        itemsIndexed(tagList) { _, tag ->
-            BudleInfoTag(infoTag = tag)
-        }
-    }
 }
 
 @RequiresApi(Build.VERSION_CODES.N)

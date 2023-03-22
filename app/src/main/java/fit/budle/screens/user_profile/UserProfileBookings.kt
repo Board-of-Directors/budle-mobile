@@ -15,6 +15,7 @@ import fit.budle.components.moleculas.BudleBookingCardList
 import fit.budle.components.moleculas.BudleNavigationHeader
 import fit.budle.components.moleculas.budleTagList
 import fit.budle.models.bookingList
+import fit.budle.models.tagList
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
@@ -37,7 +38,10 @@ fun UserProfileBookingsScreen(navController: NavHostController) {
                 navController = navController
             )
             BudleSearchBar()
-            currentType.value = budleTagList()
+            currentType.value = budleTagList(
+                initialState = 0,
+                tagList = tagList
+            )
             BudleBookingCardList(
                 bookingList = bookingsState,
                 filter = currentType.value

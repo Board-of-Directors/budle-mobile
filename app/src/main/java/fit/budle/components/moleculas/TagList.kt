@@ -10,14 +10,21 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import fit.budle.components.atoms.BudleDayTag
 import fit.budle.components.atoms.BudleTag
-import fit.budle.models.tagList
+import fit.budle.components.data.TagType
+import fit.budle.models.RectangleTag
+import fit.budle.models.Tag
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun budleTagList(): String {
+fun budleTagList(
+    initialState: Int = -1,
+    tagList: List<Tag>,
+    tagType: TagType = TagType.RECTANGLE
+): String {
 
-    var selectedItem by remember { mutableStateOf(0) }
+    var selectedItem by remember { mutableStateOf(initialState) }
     val isSelectedItem: (Int) -> Boolean = { selectedItem == it }
     val onChangeState: (Int) -> Unit = {
         selectedItem = if (!isSelectedItem(it)) it else selectedItem
@@ -26,16 +33,25 @@ fun budleTagList(): String {
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp, vertical = 20.dp)
             .selectableGroup()
     ) {
         itemsIndexed(tagList) { _, tag ->
-            BudleTag(
-                isSelected = isSelectedItem,
-                onChangeState = onChangeState,
-                tag = tag
-            )
+            if (tagType == TagType.RECTANGLE) {
+                BudleTag(
+                    isSelected = isSelectedItem,
+                    onChangeState = onChangeState,
+                    tag = tag
+                )
+            } else {
+                BudleDayTag(
+                    isSelected = isSelectedItem,
+                    onChangeState = onChangeState,
+                    tag = tag
+                )
+            }
         }
     }
-    return tagList.first { tag -> tag.tagId == selectedItem }.name
+    return if (selectedItem != -1){
+        tagList.first { tag -> tag.tagId == selectedItem }.tagName
+    } else ""
 }

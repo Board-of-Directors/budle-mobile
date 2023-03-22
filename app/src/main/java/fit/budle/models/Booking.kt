@@ -3,7 +3,6 @@ package fit.budle.models
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.viewmodel.compose.viewModel
 import fit.budle.R
 
 data class Booking(
@@ -14,9 +13,9 @@ data class Booking(
 )
 
 data class InfoTag(
-    val name: String,
-    val iconId: Int
-)
+    override val tagName: String,
+    override val tagId: Int
+) : Tag
 
 val bookingTagList = mutableListOf(
     InfoTag(
@@ -26,6 +25,10 @@ val bookingTagList = mutableListOf(
     InfoTag(
         "Телевизор",
         R.drawable.tv
+    ),
+    InfoTag(
+        "Около окна",
+        R.drawable.sun
     )
 )
 

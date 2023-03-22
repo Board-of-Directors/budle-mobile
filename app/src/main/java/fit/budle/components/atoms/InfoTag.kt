@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,7 +21,10 @@ import fit.budle.ui.theme.mainBlack
 import fit.budle.ui.theme.textGray
 
 @Composable
-fun BudleInfoTag(infoTag: InfoTag) {
+fun BudleInfoTag(
+    infoTag: InfoTag,
+    contentColor: Color = textGray
+) {
     Button(
         modifier = Modifier
             .width(IntrinsicSize.Max)
@@ -36,18 +40,18 @@ fun BudleInfoTag(infoTag: InfoTag) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
-        ){
+        ) {
             Icon(
                 modifier = Modifier.size(16.dp),
-                painter = painterResource(id = infoTag.iconId),
+                painter = painterResource(id = infoTag.tagId),
                 contentDescription = "Tag icon",
-                tint = textGray
+                tint = contentColor
             )
             Text(
                 modifier = Modifier.padding(start = 10.dp),
-                text = infoTag.name,
+                text = infoTag.tagName,
                 style = MaterialTheme.typography.labelSmall,
-                color = textGray
+                color = contentColor
             )
         }
     }
@@ -56,6 +60,6 @@ fun BudleInfoTag(infoTag: InfoTag) {
 @RequiresApi(Build.VERSION_CODES.N)
 @Preview
 @Composable
-fun PreviewBudleInfoTag(){
+fun PreviewBudleInfoTag() {
     BudleInfoTag(bookingTagList[0])
 }
