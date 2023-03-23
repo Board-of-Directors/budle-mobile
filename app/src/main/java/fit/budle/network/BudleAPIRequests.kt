@@ -2,6 +2,7 @@ package fit.budle.network
 
 import fit.budle.model.AnswerCategories
 import fit.budle.model.AnswerEstablishment
+import fit.budle.model.AnswerOrders
 import fit.budle.model.AnswerRegistration
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -37,5 +38,5 @@ interface BudleAPIRequests {
     @GET("order")
     suspend fun getOrders(
         @Query("userId") userId: Long?
-    )
+    ) : AnswerOrders
 }

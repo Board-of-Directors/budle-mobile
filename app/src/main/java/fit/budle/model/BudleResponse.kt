@@ -5,3 +5,7 @@ data class Exception(val message: String, val type: String)
 data class AnswerEstablishment(val result: EstablishmentResult, val exception: Exception?)
 
 data class AnswerCategories(val result: Array<String>, val exception: Exception?)
+
+data class AnswerOrders(val result: Array<Booking>, val exception: Exception?)
+
+
