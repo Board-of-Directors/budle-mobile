@@ -33,4 +33,9 @@ interface BudleAPIRequests {
     @GET("establishment/category")
     suspend fun getCategories(
     ): AnswerCategories
+
+    @GET("order")
+    suspend fun getOrders(
+        @Query("userId") userId: Long?
+    )
 }
