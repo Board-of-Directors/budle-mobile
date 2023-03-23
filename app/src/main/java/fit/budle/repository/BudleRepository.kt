@@ -1,6 +1,7 @@
 package fit.budle.repository
 
 import android.util.Log
+import fit.budle.model.Booking
 import fit.budle.model.EstablishmentResult
 import fit.budle.network.BudleAPIRequests
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -28,6 +29,14 @@ class BudleRepository(val budleAPIRequests: BudleAPIRequests) {
             ResultList2()
 
         data class Failure(val throwable: Throwable) : ResultList2()
+    }
+
+    sealed class ResultList3 {
+        object LOADING : ResultList3()
+        data class Success(val result: Array<Booking>, val exceptionMessage: String?) :
+            ResultList3()
+
+        data class Failure(val throwable: Throwable) : ResultList3()
     }
 
     suspend fun getCode(phoneNumber: String): Result {
@@ -103,6 +112,18 @@ class BudleRepository(val budleAPIRequests: BudleAPIRequests) {
         } catch (exception: Exception) {
             Log.e("GETCATEGORIES", "FAILURE")
             ResultList2.Failure(exception)
+        }
+    }
+
+    suspend fun getOrdersRequest(userId: Long?): ResultList3 {
+        return try{
+            val result = budleAPIRequests.getOrders(userId)
+            Log.d("GETORDERS", "SUCCESS")
+            ResultList3.Success(result = result.result, exceptionMessage = result.exception?.message)
+        }
+        catch(exception: Exception){
+            Log.d("GETORDERS", "FAILURE")
+            ResultList3.Failure(exception)
         }
     }
 }
