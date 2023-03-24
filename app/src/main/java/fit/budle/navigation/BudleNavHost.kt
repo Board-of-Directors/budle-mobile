@@ -36,7 +36,7 @@ fun BudleNavHost() {
         composable(NavRoute.UserProfile.route) { UserProfileScreen(navController = navController) }
         composable(NavRoute.UserProfileSettings.route) { UserProfileSettingsScreen(navController = navController) }
         composable(NavRoute.UserProfileFavorites.route) { UserProfileFavoritesScreen(navController = navController) }
-        composable(NavRoute.UserProfileBookings.route) { UserProfileBookingsScreen(navController = navController) }
+       // composable(NavRoute.UserProfileBookings.route) { UserProfileBookingsScreen(navController = navController) }
         composable(NavRoute.UserProfileReviews.route) { UserProfileReviewsScreen(navController = navController) }
     }
 }
