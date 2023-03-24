@@ -116,8 +116,8 @@ class BudleRepository(val budleAPIRequests: BudleAPIRequests) {
     }
 
     suspend fun getOrdersRequest(userId: Long?): ResultList3 {
-        return try{
-            val result = budleAPIRequests.getOrders(userId)
+        return try {
+            val result = budleAPIRequests.getOrders(1)
             Log.d("GETORDERS", "SUCCESS")
             ResultList3.Success(result = result.result, exceptionMessage = result.exception?.message)
         }

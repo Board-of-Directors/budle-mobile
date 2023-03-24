@@ -8,9 +8,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import fit.budle.model.Establishment
-import fit.budle.model.EstablishmentStructure
-import fit.budle.model.EstablishmentWithImage
+import fit.budle.model.*
 import fit.budle.network.BudleAPIClient
 import fit.budle.repository.BudleRepository
 import kotlinx.coroutines.launch
@@ -22,6 +20,7 @@ class MainViewModel : ViewModel() {
     var result2: Array<String> by mutableStateOf(emptyArray())
     var result: EstablishmentStructure by mutableStateOf(EstablishmentStructure(emptyArray(), 0))
     var result3: HashMap<String, MutableState<EstablishmentStructure>> = hashMapOf()
+    var result4: Array<Booking> by mutableStateOf(emptyArray())
 
     fun getListOfEstablishments(
         category: String?,
@@ -81,29 +80,51 @@ class MainViewModel : ViewModel() {
         }
         return result2
     }
-}
 
-fun convertEstablishment(establishment: Establishment): EstablishmentWithImage {
-    val imageBytes: ByteArray?
-    var decodedImage: BitmapPainter? = null;
-    if (establishment.image != null) {
-        imageBytes = Base64.decode(establishment.image, Base64.DEFAULT)
-        decodedImage = BitmapPainter(
-            BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size).asImageBitmap()
-        )
+    fun getListOfOrders(): Array<Booking> {
+        repository = BudleRepository(apiService)
+        viewModelScope.launch {
+            when (val response = repository.getOrdersRequest(1)) {
+                is BudleRepository.ResultList3.Success -> {
+                    Log.d("MAINVIEWMODEL", "SUCCESS")
+                    response.result.map { it.establishmentImage = convertEstablishment(it.establishment) }
+                    result4 = response.result
+                }
+                is BudleRepository.ResultList3.Failure -> {
+                    Log.e("MAINVIEWMODEL", "FAILURE")
+                    response.throwable.message?.let { Log.e("MAINVIEWMODEL", it) }
+                }
+                else -> {
+                    Log.e("CRITICAL_ERROR", "UNDEFINED RESPONSE")
+                }
+            }
+        }
+        return result4
     }
 
-    return EstablishmentWithImage(
-        establishment.id,
-        establishment.name,
-        establishment.description,
-        establishment.address,
-        establishment.owner,
-        establishment.hasCardPayment,
-        establishment.hasMap,
-        establishment.category,
-        decodedImage,
-        establishment.rating,
-        establishment.price
-    )
+
+    fun convertEstablishment(establishment: Establishment): EstablishmentWithImage {
+        val imageBytes: ByteArray?
+        var decodedImage: BitmapPainter? = null
+        if (establishment.image != null) {
+            imageBytes = Base64.decode(establishment.image, Base64.DEFAULT)
+            decodedImage = BitmapPainter(
+                BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size).asImageBitmap()
+            )
+        }
+
+        return EstablishmentWithImage(
+            establishment.id,
+            establishment.name,
+            establishment.description,
+            establishment.address,
+            establishment.owner,
+            establishment.hasCardPayment,
+            establishment.hasMap,
+            establishment.category,
+            decodedImage,
+            establishment.rating,
+            establishment.price
+        )
+    }
 }
