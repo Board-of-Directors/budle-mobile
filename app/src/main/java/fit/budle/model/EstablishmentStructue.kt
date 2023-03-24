@@ -14,6 +14,6 @@ data class EstablishmentWithImage(
     val hasMap: Boolean?,
     val category: String,
     val image: BitmapPainter?,
-    val rating: Int?,
+    val rating: Double?,
     val price: Int?
 )
