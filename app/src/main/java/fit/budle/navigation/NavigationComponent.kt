@@ -36,6 +36,14 @@ fun NavigationComponent(navController: NavHostController) {
                 mainViewModel::getListOfCategories
             )
         }
+        composable("user_profile_bookings") {
+            val mainViewModel = viewModel<MainViewModel>()
+            UserProfileBookingsScreenBackendConnected(
+                navController,
+                mainViewModel::getListOfOrders
+            )
+        }
+
 
         //<editor-fold desc="onboarding">
         composable("start_screen") { StartScreen(navController) }
@@ -70,7 +78,6 @@ fun NavigationComponent(navController: NavHostController) {
         composable("user_profile") { UserProfileScreen(navController) }
         composable("user_profile_settings") { UserProfileSettingsScreen(navController) }
         composable("user_profile_favorites") { UserProfileFavoritesScreen(navController) }
-        composable("user_profile_bookings") { UserProfileBookingsScreen(navController) }
         composable("user_profile_reviews") { UserProfileReviewsScreen(navController) }
         //</editor-fold>
     }
