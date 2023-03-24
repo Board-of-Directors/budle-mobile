@@ -5,9 +5,12 @@ import java.time.LocalTime
 
 data class Booking(
     val userId: Long,
-    val establishmentId: Long,
+    val status: Int,
+    val establishment: Establishment,
+    @Transient
+    var establishmentImage: EstablishmentWithImage,
     val guestCount: Int,
-    val date: LocalDate,
-    val time: LocalTime
+    val date: String,
+    val time: String
 
 )
