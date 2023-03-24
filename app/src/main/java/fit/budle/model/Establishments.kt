@@ -1,9 +1,5 @@
 package fit.budle.model
 
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.snapshots.SnapshotStateList
-import fit.budle.R
-
 data class Establishment(
     val id: Int,
     val name: String,
@@ -14,6 +10,6 @@ data class Establishment(
     val hasMap: Boolean?,
     val category: String,
     val image: String?,
-    val rating: Int?,
+    val rating: Double?,
     val price: Int?
 )
