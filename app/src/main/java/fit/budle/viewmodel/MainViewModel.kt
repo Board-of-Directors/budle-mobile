@@ -81,10 +81,10 @@ class MainViewModel : ViewModel() {
         return result2
     }
 
-    fun getListOfOrders(): Array<Booking> {
+    fun getListOfOrders(userId: Long?): Array<Booking> {
         repository = BudleRepository(apiService)
         viewModelScope.launch {
-            when (val response = repository.getOrdersRequest(1)) {
+            when (val response = repository.getOrdersRequest(userId)) {
                 is BudleRepository.ResultList3.Success -> {
                     Log.d("MAINVIEWMODEL", "SUCCESS")
                     response.result.map { it.establishmentImage = convertEstablishment(it.establishment) }

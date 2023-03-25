@@ -36,13 +36,13 @@ fun NavigationComponent(navController: NavHostController) {
                 mainViewModel::getListOfCategories
             )
         }
-          /*   composable("user_profile_bookings") {
+             composable("user_profile_bookings") {
             val mainViewModel = viewModel<MainViewModel>()
             UserProfileBookingsScreenBackendConnected(
                 navController,
                 mainViewModel::getListOfOrders
             )
-        }*/
+        }
 
 
         //<editor-fold desc="onboarding">
