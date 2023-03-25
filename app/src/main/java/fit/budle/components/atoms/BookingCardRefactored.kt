@@ -27,21 +27,19 @@ fun BudleBookingCard(booking: Booking) {
     BookingCard(booking = booking)
     BookingInformation(booking = booking)
 
-    if (booking.status != BookingStatus.REJECT.value
-    ) {
-        BudleButton(
-            onClick = {
-                      // FIXME: make something here
-            },
-            topPadding = 0.dp,
-            horizontalPadding = 0.dp,
-            buttonText = "Отменить бронь",
-            disabledButtonColor = lightBlue,
-            activeButtonColor = fillPurple,
-            disabledTextColor = fillPurple,
-            activeTextColor = mainWhite
-        )
-    }
+    BudleButton(
+        onClick = {
+            // FIXME: make delete user request here
+        },
+        topPadding = 0.dp,
+        horizontalPadding = 0.dp,
+        buttonText = "Удалить бронь",
+        disabledButtonColor = lightBlue,
+        activeButtonColor = fillPurple,
+        disabledTextColor = fillPurple,
+        activeTextColor = mainWhite
+    )
+
 }
 
 @Composable
@@ -84,7 +82,7 @@ fun BookingCard(booking: Booking) {
                             .padding(bottom = 2.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                       Text(
+                        Text(
                             text = booking.establishment.category,
                             style = MaterialTheme.typography.labelSmall,
                             color = mainWhite,
@@ -111,20 +109,19 @@ fun BookingCard(booking: Booking) {
                         color = mainWhite,
                     )
                 }
-                /*BudlePhotoTag(tag = booking.establishment?.rating.toString())*/
+                BudlePhotoTag(tag = booking.establishment.rating.toString())
             }
         }
     }
 }
 
 
-
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun BookingInformation(booking: Booking) {
 
-    val status = booking.status
-    val statusColor = when (status) {
+
+    val statusColor = when (booking.status) {
         0 -> textGray
         1 -> backgroundSuccess
         2 -> backgroundError
@@ -132,7 +129,7 @@ fun BookingInformation(booking: Booking) {
     }
 
     Column(Modifier.padding(horizontal = 20.dp)) {
-        val infoList = HashMap<String,Any>()
+        val infoList = HashMap<String, Any>()
         infoList["Статус"] = BookingStatus.create(booking.status)
         infoList["Дата"] = booking.date + booking.time
         infoList["Количество гостей"] = booking.guestCount
@@ -155,7 +152,7 @@ fun BookingInformation(booking: Booking) {
                         modifier = Modifier
                             .padding(start = 25.dp)
                             .fillMaxWidth(),
-                        text = BookingStatus.create((pair.value as BookingStatus).value),
+                        text = (pair.value as BookingStatus).message,
                         style = MaterialTheme.typography.labelSmall,
                         color = statusColor,
                     )

@@ -56,19 +56,22 @@ val bookingList = mutableStateListOf(
     )
 )
 
-enum class BookingStatus(val value: Int) {
+enum class BookingStatus(val value: Int, val message: String) {
 
-    WAIT(0),
-    CONFIRM(1),
-    REJECT(2);
+    WAIT(0, "Бронь в ожидании"),
+    CONFIRM(1, "Бронь подтверждена"),
+    REJECT(2, "Бронь отклонена");
 
     companion object {
-        fun create(x: Int): String {
-            return when (x) {
-                0 -> "Бронь в ожидании"
-                1 -> "Бронь подтверждена"
-                2 -> "Бронь отклонена"
+
+        fun create(x:Int) : BookingStatus{
+            return when(x){
+                0 -> WAIT
+                1 -> CONFIRM
+                2 -> REJECT
                 else -> throw IllegalStateException()
+
+
             }
         }
     }
