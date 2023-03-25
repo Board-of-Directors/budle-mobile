@@ -44,5 +44,6 @@ fun NavigationComponent(navHostController: NavHostController) {
         userProfileNavGraph(navHostController)
         businessProfileNavGraph(navHostController)
         establishmentCreationNavGraph(navHostController)
+
     }
 }
