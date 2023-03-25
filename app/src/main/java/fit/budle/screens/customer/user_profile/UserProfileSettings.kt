@@ -1,4 +1,4 @@
-package fit.budle.screens.user_profile
+package fit.budle.screens.customer.user_profile
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -11,6 +11,7 @@ import fit.budle.components.atoms.BudleButton
 import fit.budle.components.atoms.inputs.BudleInputTextField
 import fit.budle.components.atoms.inputs.BudleNumberField
 import fit.budle.components.moleculas.BudleNavigationHeader
+import fit.budle.navigation.routes.NavRoute
 import nsu.app.budle.components.BudlePasswordTextField
 import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.lightBlue
@@ -29,7 +30,7 @@ fun UserProfileSettingsScreen(navController: NavHostController) {
                 .padding(start = 30.dp, end = 30.dp, top = 20.dp)
             BudleNavigationHeader(
                 textMessage = "Настройки",
-                route = "user_profile",
+                route = NavRoute.UserProfile.route,
                 navController = navController
             )
             BudleInputTextField(

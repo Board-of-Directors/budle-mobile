@@ -22,6 +22,7 @@ import fit.budle.ui.theme.textGray
 fun BudleInputTextField(
     modifier: Modifier,
     placeHolder: String,
+    placeHolderColor: Color = textGray,
     startMessage: String,
     textFieldMessage: String,
 ) {
@@ -35,7 +36,7 @@ fun BudleInputTextField(
         Text(
             text = placeHolder,
             style = MaterialTheme.typography.bodyMedium,
-            color = textGray,
+            color = placeHolderColor,
             modifier = Modifier.padding(bottom = 10.dp)
         )
         textInputState = dataTextField(

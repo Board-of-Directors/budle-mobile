@@ -1,9 +1,6 @@
 package fit.budle.components.moleculas
 
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -15,36 +12,50 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
+import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.textGray
 
 @Composable
 fun BudleNavigationHeader(
+    percent: String? = null,
     textMessage: String,
     route: String,
     navController: NavHostController
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 20.dp, bottom = 20.dp),
-        verticalAlignment = Alignment.CenterVertically
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        IconButton(
-            onClick = {
-                navController.navigate(route = route)
-            }
+        Row(
+            modifier = Modifier.width(IntrinsicSize.Max),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                modifier = Modifier.size(20.dp),
-                painter = painterResource(id = R.drawable.ic_arrow_left_gray),
-                contentDescription = "Arrow Left",
-                tint = textGray
+            IconButton(
+                onClick = {
+                    navController.navigate(route = route)
+                }
+            ) {
+                Icon(
+                    modifier = Modifier.size(20.dp),
+                    painter = painterResource(id = R.drawable.ic_arrow_left_gray),
+                    contentDescription = "Arrow Left",
+                    tint = textGray
+                )
+            }
+            Text(
+                text = textMessage,
+                modifier = Modifier.padding(start = 10.dp),
+                style = MaterialTheme.typography.titleSmall
             )
         }
-        Text(
-            text = textMessage,
-            modifier = Modifier.padding(start = 10.dp),
-            style = MaterialTheme.typography.titleSmall
-        )
+        if (percent != null) {
+            Text(
+                text = percent,
+                style = MaterialTheme.typography.titleSmall,
+                color = fillPurple
+            )
+        }
+
     }
 }

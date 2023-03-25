@@ -25,8 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
-import kotlinx.coroutines.delay
-import fit.budle.navigation.NavRoute
+import fit.budle.navigation.routes.NavRoute
 import fit.budle.ui.theme.backgroundError
 import fit.budle.ui.theme.backgroundLightBlue
 import fit.budle.ui.theme.fillPurple
@@ -179,7 +178,7 @@ fun CodeScreen(navController: NavHostController) {
                 onClick = {
                     errorState.value = states.contains("")
                     if (!errorState.value){
-                        navController.navigate("data_screen/Подтвердить")
+                        navController.navigate(NavRoute.Data.route)
                     }
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = fillPurple),

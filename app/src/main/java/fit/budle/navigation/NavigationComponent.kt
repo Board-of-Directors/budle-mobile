@@ -2,76 +2,47 @@ package fit.budle.navigation
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import fit.budle.models.BusinessEstablishmentModel
 import fit.budle.models.EstablishmentCard
+import fit.budle.navigation.graphs.*
+import fit.budle.navigation.routes.NavRoute
+import fit.budle.navigation.routes.NestedGraphRoute
 import fit.budle.screens.*
-import fit.budle.screens.establishments.BookingProcessScreen
-import fit.budle.screens.establishments.EstablishmentCardScreen
-import fit.budle.screens.establishments.MainListScreen
-import fit.budle.screens.onboarding.StartScreen
-import fit.budle.screens.user_profile.*
+import fit.budle.screens.business.creator.CreatorMainScreen
+import fit.budle.screens.business.creator.creator_profile.EstablishmentOrdersScreen
+import fit.budle.screens.business.creator.creator_profile.EstablishmentWorkersScreen
+import fit.budle.screens.customer.establishments.BookingProcessScreen
+import fit.budle.screens.customer.establishments.EstablishmentCardScreen
+import fit.budle.screens.customer.establishments.MainListScreen
+import fit.budle.screens.customer.onboarding.StartScreen
+import fit.budle.screens.customer.user_profile.*
 import fit.budle.ui.screens.HomeScreen
 import fit.budle.viewmodel.MainViewModel
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun NavigationComponent(navController: NavHostController) {
+fun NavigationComponent(navHostController: NavHostController) {
     NavHost(
-        navController = navController,
-        startDestination = "user_profile",
-        modifier = Modifier.padding(10.dp)
+        navController = navHostController,
+        startDestination = NestedGraphRoute.BusinessProfile.route
     ) {
         composable("home") {
             val mainViewModel = viewModel<MainViewModel>()
             HomeScreen(
-                navController,
+                navHostController,
                 mainViewModel::getListOfEstablishments,
                 mainViewModel::getListOfCategories
             )
         }
-
-        //<editor-fold desc="onboarding">
-        composable("start_screen") { StartScreen(navController) }
-        composable("data_screen") { backStackEntry ->
-            DataScreen(
-                navController,
-                backStackEntry.arguments?.getString("button_name")
-            )
-        }
-        composable("number_screen") { NumberScreen(navController) }
-        composable("code_screen") { CodeScreen(navController) }
-        composable("end_screen") { EndScreen(navController) }
-        //</editor-fold>
-
-        //<editor-fold desc="establishments">
-        composable("main_page") { MainListScreen(navController) }
-        composable("establishment_card") {
-            navController.previousBackStackEntry?.arguments?.getParcelable<EstablishmentCard>("EST_KEY")
-                ?.let {
-                    EstablishmentCardScreen(navController, it)
-                }
-        }
-        composable("booking_process") {
-            navController.previousBackStackEntry?.arguments?.getParcelable<EstablishmentCard>("EST_KEY")
-                ?.let {
-                    BookingProcessScreen(navController, it)
-                }
-        }
-        //</editor-fold>
-
-        //<editor-fold desc="user_profile">
-        composable("user_profile") { UserProfileScreen(navController) }
-        composable("user_profile_settings") { UserProfileSettingsScreen(navController) }
-        composable("user_profile_favorites") { UserProfileFavoritesScreen(navController) }
-        composable("user_profile_bookings") { UserProfileBookingsScreen(navController) }
-        composable("user_profile_reviews") { UserProfileReviewsScreen(navController) }
-        //</editor-fold>
+        registrationNavGraph(navHostController)
+        establishmentsNavGraph(navHostController)
+        userProfileNavGraph(navHostController)
+        businessProfileNavGraph(navHostController)
+        establishmentCreationNavGraph(navHostController)
     }
 }

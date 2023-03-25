@@ -8,10 +8,11 @@ import androidx.compose.ui.Alignment
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import fit.budle.navigation.routes.NavRoute
 import fit.budle.screens.*
-import fit.budle.screens.establishments.MainListScreen
-import fit.budle.screens.onboarding.StartScreen
-import fit.budle.screens.user_profile.*
+import fit.budle.screens.customer.establishments.MainListScreen
+import fit.budle.screens.customer.onboarding.StartScreen
+import fit.budle.screens.customer.user_profile.*
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
@@ -32,7 +33,7 @@ fun BudleNavHost() {
             )
         }
         composable(NavRoute.End.route) { EndScreen(navController = navController) }
-        composable(NavRoute.MainList.route) { MainListScreen(navController = navController) }
+        composable(NavRoute.MainPage.route) { MainListScreen(navController = navController) }
         composable(NavRoute.UserProfile.route) { UserProfileScreen(navController = navController) }
         composable(NavRoute.UserProfileSettings.route) { UserProfileSettingsScreen(navController = navController) }
         composable(NavRoute.UserProfileFavorites.route) { UserProfileFavoritesScreen(navController = navController) }

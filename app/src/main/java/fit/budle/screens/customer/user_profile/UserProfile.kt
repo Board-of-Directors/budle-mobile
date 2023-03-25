@@ -1,50 +1,48 @@
-package fit.budle.screens.user_profile
+package fit.budle.screens.customer.user_profile
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import fit.budle.R
 import fit.budle.components.atoms.BudleApplicationPattern
 import fit.budle.components.atoms.BudleButton
-import fit.budle.navigation.NavRoute
+import fit.budle.components.atoms.BudleUserHeader
 import fit.budle.models.Tab
 import fit.budle.models.tabs
+import fit.budle.navigation.routes.NavRoute
 import fit.budle.ui.theme.*
 
 @Composable
 fun UserProfileScreen(navController: NavHostController) {
     Surface(Modifier.fillMaxSize()) {
         Column(
-            Modifier
-                .fillMaxSize()
-                .padding(top = 30.dp)
+            Modifier.fillMaxSize()
         ) {
-            ShowHeader(navController)
+            BudleUserHeader(
+                modifier = Modifier
+                    .padding(horizontal = 30.dp)
+                    .padding(top = 20.dp)
+                    .fillMaxWidth(),
+                title = "Артём Третьяков",
+                iconId = R.drawable.x,
+                iconDescription = "Close",
+                iconColor = mainBlack,
+                navController = navController,
+                route = NavRoute.MainPage.route
+            )
             ShowColumn(navController)
             BudleButton(
                 onClick = {
-                    navController.navigate("main_page")
+                    navController.navigate(NavRoute.MainPage.route)
                 },
                 iconId = R.drawable.log_out,
                 buttonText = "Выйти",
@@ -54,7 +52,9 @@ fun UserProfileScreen(navController: NavHostController) {
                 activeTextColor = mainWhite
             )
             BudleButton(
-                onClick = {},
+                onClick = {
+                      navController.navigate(NavRoute.BusinessMain.route)
+                },
                 topPadding = 15.dp,
                 iconId = R.drawable.zap,
                 buttonText = "Создать бизнес-аккаунт",
@@ -64,57 +64,6 @@ fun UserProfileScreen(navController: NavHostController) {
                 activeTextColor = mainWhite
             )
             BudleApplicationPattern()
-        }
-    }
-}
-
-@Composable
-fun ShowHeader(navController: NavHostController) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Card(
-                modifier = Modifier.size(40.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = lightBlue
-                ),
-                shape = CircleShape
-            ) {
-                Box(
-                    modifier = Modifier
-                        .size(40.dp)
-                        .background(Color.Transparent),
-                    contentAlignment = Center
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.user),
-                        contentDescription = "User icon",
-                        tint = textGray
-                    )
-                }
-            }
-            Text(
-                text = "Артём Третьяков",
-                modifier = Modifier.padding(start = 20.dp),
-                style = MaterialTheme.typography.titleSmall
-            )
-        }
-        IconButton(
-            onClick = {
-                navController.navigate(route = "main_page")
-            }
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.x),
-                contentDescription = "Close app",
-                tint = mainBlack
-            )
         }
     }
 }
