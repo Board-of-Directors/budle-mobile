@@ -9,7 +9,8 @@ import fit.budle.navigation.routes.NavRoute
 fun UserProfileReviewsScreen(navController: NavHostController) {
     BudleNavigationHeader(
         textMessage = "Мои отзывы",
-        route = NavRoute.UserProfile.route,
-        navController = navController
+        onClick = {
+            navController.popBackStack()
+        }
     )
 }

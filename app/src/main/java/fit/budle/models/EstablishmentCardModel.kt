@@ -8,7 +8,7 @@ import kotlinx.parcelize.RawValue
 @Parcelize
 data class EstablishmentCardModel(
     val establishmentDescription: EstablishmentDescription,
-    val tags: @RawValue MutableList<InfoTag>,
+    val tags: @RawValue MutableList<Tag>,
     val infoList: MutableList<Pair<String, Any>>
 ) : Parcelable
 

@@ -1,10 +1,9 @@
 package fit.budle.screens.customer.establishments
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.*
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
@@ -14,40 +13,28 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Blue
-import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.graphics.Color.Companion.Transparent
-import androidx.compose.ui.graphics.Color.Companion.Yellow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.core.os.bundleOf
 import androidx.navigation.NavHostController
 import fit.budle.R
 import fit.budle.components.atoms.*
+import fit.budle.components.atoms.tags.BudleRateTag
+import fit.budle.components.atoms.tags.BudleRectangleTag
 import fit.budle.components.moleculas.BudleBlockWithHeader
-import fit.budle.components.moleculas.BudleInfoTagList
+import fit.budle.components.moleculas.budleTagList
 import fit.budle.models.EstablishmentCard
-import fit.budle.models.InfoTag
-import fit.budle.models.restaurants
-import fit.budle.models.sampleEstablishmentCardModel
+import fit.budle.models.RectangleTag
 import fit.budle.navigation.navigate
 import fit.budle.navigation.routes.NavRoute
 import fit.budle.ui.theme.*
-import ru.ldralighieri.composites.fiberglass.column.FiberglassColumn
-import ru.ldralighieri.composites.fiberglass.model.FiberglassColumnItemSlot
-import ru.ldralighieri.composites.fiberglass.model.FiberglassColumnItemSlots
-import ru.ldralighieri.composites.fiberglass.model.FiberglassItem
-import ru.ldralighieri.composites.fiberglass.model.FiberglassLazyItemSlot
 
+@RequiresApi(Build.VERSION_CODES.N)
 @Suppress("UNCHECKED_CAST")
 @Composable
 fun EstablishmentCardScreen(
@@ -119,13 +106,16 @@ fun EstablishmentCardScreen(
             EstablishmentBanner(
                 establishmentCard = establishmentCard
             )
-            InfoBar(establishmentCard = establishmentCard)
-            BudleInfoTagList(tags = establishmentCard.establishmentCardModel.tags)
             Column(
                 modifier = Modifier
                     .padding(horizontal = 20.dp)
                     .fillMaxWidth()
             ) {
+                InfoBar(establishmentCard = establishmentCard)
+                budleTagList(
+                    tagList = establishmentCard.establishmentCardModel.tags,
+                    textColor = textGray
+                )
                 EstablishmentCardDescription(description = establishmentInfo[0] as Pair<String, String>)
                 EstablishmentCardPhoto(
                     photoInfo = establishmentInfo[1] as Pair<String, MutableList<Int>>,
@@ -209,7 +199,7 @@ fun EstablishmentBanner(
                     color = mainWhite,
                 )
             }
-            BudlePhotoTag(
+            BudleRateTag(
                 tag = "$photos фото",
                 width = 75.dp
             )
@@ -227,7 +217,7 @@ fun InfoBar(
 
     Row(
         modifier = Modifier
-            .padding(start = 20.dp, top = 10.dp, end = 10.dp)
+            .padding(top = 10.dp)
             .fillMaxWidth()
             .height(IntrinsicSize.Max),
         verticalAlignment = Alignment.CenterVertically,
@@ -237,7 +227,7 @@ fun InfoBar(
             modifier = Modifier.width(IntrinsicSize.Max),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            BudlePhotoTag(
+            BudleRateTag(
                 tag = establishmentCard.rate.toString(),
                 color = fillPurple,
                 textColor = mainWhite
@@ -399,6 +389,7 @@ fun WorkingTime(
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun EstablishmentAddress(
     addressInfo: Pair<String, MutableMap<String, String>>
@@ -436,12 +427,14 @@ fun EstablishmentAddress(
                     )
                 }
             }
-            BudleInfoTag(
-                infoTag = InfoTag(
+            BudleRectangleTag(
+                isSelected = { false },
+                onChangeState = {},
+                tag = RectangleTag(
                     tagName = "Карта",
                     tagId = R.drawable.map
                 ),
-                contentColor = fillPurple
+                color = fillPurple
             )
         }
     }

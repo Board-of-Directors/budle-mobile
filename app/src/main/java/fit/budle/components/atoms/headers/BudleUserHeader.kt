@@ -1,4 +1,4 @@
-package fit.budle.components.atoms
+package fit.budle.components.atoms.headers
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -8,10 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import fit.budle.R
-import fit.budle.navigation.routes.NavRoute
 import fit.budle.ui.theme.mainBlack
 import fit.budle.ui.theme.textGray
 
@@ -23,8 +20,7 @@ fun BudleUserHeader(
     iconId: Int,
     iconDescription: String,
     iconColor: Color,
-    navController: NavHostController,
-    route: String
+    onClick: () -> (Unit)
 ) {
     Row(
         modifier = modifier,
@@ -49,9 +45,7 @@ fun BudleUserHeader(
             }
         }
         IconButton(
-            onClick = {
-                navController.navigate(route = route)
-            }
+            onClick = onClick
         ) {
             Icon(
                 painter = painterResource(id = iconId),
@@ -70,7 +64,6 @@ fun PreviewBudleUserHeader(){
         iconId = R.drawable.x,
         iconDescription = "Close",
         iconColor = mainBlack,
-        navController = rememberNavController(),
-        route = NavRoute.MainPage.route
+        onClick = {}
     )
 }

@@ -1,4 +1,4 @@
-package fit.budle.components.atoms
+package fit.budle.components.atoms.tags
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -6,10 +6,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import fit.budle.models.RectangleTag
 import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.lightBlue
 import fit.budle.ui.theme.mainBlack
@@ -19,16 +22,18 @@ import fit.budle.models.tagList
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun BudleTag(
+fun BudleRectangleTag(
     isSelected: (Int) -> Boolean,
     onChangeState: (Int) -> Unit,
-    tag: Tag
+    tag: Tag,
+    color: Color = mainBlack,
 ) {
 
     val buttonColor = ButtonDefaults.buttonColors(
         if (isSelected(tag.tagId)) fillPurple else lightBlue
     )
-    val textColor = if (isSelected(tag.tagId)) mainWhite else mainBlack
+    val textColor = if (isSelected(tag.tagId)) mainWhite else color
+    val textPadding = if (tag.iconId != null) 10.dp else 0.dp
 
     Button(
         modifier = Modifier
@@ -39,11 +44,24 @@ fun BudleTag(
         onClick = { onChangeState(tag.tagId) },
         shape = RoundedCornerShape(5.dp)
     ) {
-        Text(
-            text = tag.tagName,
-            style = MaterialTheme.typography.labelSmall,
-            color = textColor
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            if (tag.iconId != null) {
+                Icon(
+                    modifier = Modifier.size(16.dp),
+                    painter = painterResource(id = tag.iconId!!),
+                    contentDescription = "Tag icon",
+                    tint = textColor
+                )
+            }
+            Text(
+                modifier = Modifier.padding(start = textPadding),
+                text = tag.tagName,
+                style = MaterialTheme.typography.labelSmall,
+                color = textColor
+            )
+        }
     }
 }
 
@@ -51,7 +69,7 @@ fun BudleTag(
 @Preview
 @Composable
 fun PreviewBudleTag() {
-    BudleTag(
+    BudleRectangleTag(
         isSelected = { true },
         onChangeState = {},
         tag = tagList[0]

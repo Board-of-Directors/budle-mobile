@@ -7,27 +7,31 @@ import fit.budle.R
 
 data class Booking(
     val establishmentDescription: EstablishmentDescription,
-    val tags: MutableList<InfoTag>,
+    val tags: MutableList<Tag>,
     val infoList: MutableList<Pair<String, Any>>,
     val isRejected: MutableState<Boolean> = mutableStateOf(false)
 )
 
 data class InfoTag(
     override val tagName: String,
-    override val tagId: Int
+    override val tagId: Int,
+    override val iconId: Int?
 ) : Tag
 
-val bookingTagList = mutableListOf(
+val bookingTagList = mutableListOf<Tag>(
     InfoTag(
         "С зарядкой",
+        1,
         R.drawable.zap
     ),
     InfoTag(
         "Телевизор",
+        2,
         R.drawable.tv
     ),
     InfoTag(
         "Около окна",
+        3,
         R.drawable.sun
     )
 )

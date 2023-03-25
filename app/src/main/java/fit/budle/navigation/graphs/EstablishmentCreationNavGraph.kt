@@ -6,8 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import fit.budle.navigation.routes.NavRoute
 import fit.budle.navigation.routes.NestedGraphRoute
-import fit.budle.screens.business.creator.ESTABLISHMENT_CREATION_FIRST
-import fit.budle.screens.business.creator.EstablishmentCreationFirstScreen
+import fit.budle.screens.business.creator.creation_process.EstablishmentCreationFirstScreen
 import fit.budle.screens.business.creator.creation_process.EstablishmentCreationFourthScreen
 import fit.budle.screens.business.creator.creation_process.EstablishmentCreationSecondScreen
 import fit.budle.screens.business.creator.creation_process.EstablishmentCreationThirdScreen

@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import fit.budle.components.atoms.BudleEstablishmentCardDescription
 import fit.budle.models.EstablishmentDescription
-import java.util.function.Predicate
 
 @Composable
 fun BudleEstablishmentCardDescriptionList(

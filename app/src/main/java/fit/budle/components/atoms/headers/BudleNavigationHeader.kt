@@ -10,7 +10,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import fit.budle.R
 import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.textGray
@@ -19,8 +18,7 @@ import fit.budle.ui.theme.textGray
 fun BudleNavigationHeader(
     percent: String? = null,
     textMessage: String,
-    route: String,
-    navController: NavHostController
+    onClick: () -> (Unit)
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -32,9 +30,7 @@ fun BudleNavigationHeader(
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(
-                onClick = {
-                    navController.navigate(route = route)
-                }
+                onClick = onClick
             ) {
                 Icon(
                     modifier = Modifier.size(20.dp),

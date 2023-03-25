@@ -1,35 +1,28 @@
-package fit.budle.components.atoms
+package fit.budle.components.atoms.cards
 
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import fit.budle.components.moleculas.BudleInfoTagList
+import fit.budle.components.atoms.BudleButton
+import fit.budle.components.atoms.tags.BudleRateTag
+import fit.budle.components.moleculas.budleTagList
 import fit.budle.models.Booking
 import fit.budle.models.BookingStatus
-import fit.budle.models.InfoTag
 import fit.budle.models.bookingList
 import fit.budle.ui.theme.*
 
@@ -38,7 +31,7 @@ import fit.budle.ui.theme.*
 fun BudleBookingCard(booking: Booking) {
 
     BookingCard(booking = booking)
-    BudleInfoTagList(tags = booking.tags)
+    budleTagList(tagList = booking.tags)
     BookingInformation(booking = booking)
 
     if (booking.infoList[0].second as BookingStatus
@@ -124,7 +117,7 @@ fun BookingCard(booking: Booking) {
                         color = mainWhite,
                     )
                 }
-                BudlePhotoTag(tag = booking.establishmentDescription.rate.toString())
+                BudleRateTag(tag = booking.establishmentDescription.rate.toString())
             }
         }
     }

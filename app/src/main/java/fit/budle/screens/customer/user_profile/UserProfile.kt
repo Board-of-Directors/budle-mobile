@@ -11,11 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import fit.budle.R
 import fit.budle.components.atoms.BudleApplicationPattern
 import fit.budle.components.atoms.BudleButton
-import fit.budle.components.atoms.BudleUserHeader
+import fit.budle.components.atoms.headers.BudleUserHeader
 import fit.budle.models.Tab
 import fit.budle.models.tabs
 import fit.budle.navigation.routes.NavRoute
@@ -36,8 +35,9 @@ fun UserProfileScreen(navController: NavHostController) {
                 iconId = R.drawable.x,
                 iconDescription = "Close",
                 iconColor = mainBlack,
-                navController = navController,
-                route = NavRoute.MainPage.route
+                onClick = {
+                    navController.navigate(NavRoute.MainPage.route)
+                }
             )
             ShowColumn(navController)
             BudleButton(
@@ -53,7 +53,7 @@ fun UserProfileScreen(navController: NavHostController) {
             )
             BudleButton(
                 onClick = {
-                      navController.navigate(NavRoute.BusinessMain.route)
+                    navController.navigate(NavRoute.BusinessMain.route)
                 },
                 topPadding = 15.dp,
                 iconId = R.drawable.zap,

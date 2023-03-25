@@ -1,4 +1,4 @@
-package fit.budle.components.atoms
+package fit.budle.components.atoms.tags
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,7 +20,7 @@ import fit.budle.ui.theme.mainBlack
 import fit.budle.ui.theme.mainWhite
 
 @Composable
-fun BudlePhotoTag(
+fun BudleRateTag(
     tag: String,
     width: Dp = 55.dp,
     color: Color = mainWhite,

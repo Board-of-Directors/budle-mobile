@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCompositionContext
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -12,11 +11,10 @@ import androidx.compose.ui.zIndex
 import androidx.navigation.NavHostController
 import fit.budle.R
 import fit.budle.components.atoms.BudleButton
-import fit.budle.components.atoms.BudleUserHeader
+import fit.budle.components.atoms.headers.BudleUserHeader
 import fit.budle.components.moleculas.BudleBlockWithHeader
 import fit.budle.components.moleculas.BudleCreatorEstablishmentCardList
 import fit.budle.models.businessEstablishmentList
-import fit.budle.models.sampleEstablishmentCardModel
 import fit.budle.navigation.routes.NavRoute
 import fit.budle.navigation.routes.NestedGraphRoute
 import fit.budle.ui.theme.fillPurple
@@ -70,8 +68,9 @@ fun CreatorMainScreen(
                 iconId = R.drawable.log_out,
                 iconDescription = "Log out",
                 iconColor = textGray,
-                navController = navHostController,
-                route = NavRoute.UserProfile.route
+                onClick = {
+                    navHostController.navigate(NavRoute.UserProfile.route)
+                }
             )
             Divider(
                 modifier = Modifier.padding(top = 20.dp),

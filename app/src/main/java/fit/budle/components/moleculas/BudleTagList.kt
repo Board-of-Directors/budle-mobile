@@ -3,55 +3,59 @@ package fit.budle.components.moleculas
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import fit.budle.components.atoms.BudleDayTag
-import fit.budle.components.atoms.BudleTag
+import androidx.compose.ui.graphics.Color
+import fit.budle.components.atoms.BudleCircleTag
+import fit.budle.components.atoms.tags.BudleRectangleTag
 import fit.budle.components.data.TagType
-import fit.budle.models.RectangleTag
 import fit.budle.models.Tag
+import fit.budle.ui.theme.mainBlack
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun budleTagList(
+    selectable: Boolean = false,
     initialState: Int = -1,
     tagList: List<Tag>,
-    tagType: TagType = TagType.RECTANGLE
+    tagType: TagType = TagType.RECTANGLE,
+    textColor: Color = mainBlack,
+    modifier: Modifier = Modifier
 ): String {
 
     var selectedItem by remember { mutableStateOf(initialState) }
-    val isSelectedItem: (Int) -> Boolean = { selectedItem == it }
+    val isSelectedItem: (Int) -> Boolean = { if (selectable) selectedItem == it else false }
     val onChangeState: (Int) -> Unit = {
         selectedItem = if (!isSelectedItem(it)) it else selectedItem
     }
 
     LazyRow(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .selectableGroup()
     ) {
         itemsIndexed(tagList) { _, tag ->
             if (tagType == TagType.RECTANGLE) {
-                BudleTag(
+                BudleRectangleTag(
                     isSelected = isSelectedItem,
                     onChangeState = onChangeState,
-                    tag = tag
+                    tag = tag,
+                    color = textColor
                 )
             } else {
-                BudleDayTag(
+                BudleCircleTag(
                     isSelected = isSelectedItem,
                     onChangeState = onChangeState,
-                    tag = tag
+                    tag = tag,
+                    color = textColor
                 )
             }
         }
     }
-    return if (selectedItem != -1){
+    return if (selectedItem != -1) {
         tagList.first { tag -> tag.tagId == selectedItem }.tagName
     } else ""
 }

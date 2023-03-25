@@ -8,7 +8,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import fit.budle.components.atoms.BudleBookingCard
+import fit.budle.components.atoms.cards.BudleBookingCard
 import fit.budle.models.Booking
 
 @RequiresApi(Build.VERSION_CODES.N)

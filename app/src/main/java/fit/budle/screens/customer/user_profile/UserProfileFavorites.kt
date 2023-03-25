@@ -34,8 +34,9 @@ fun UserProfileFavoritesScreen(navController: NavHostController) {
         ) {
             BudleNavigationHeader(
                 textMessage = "Избраное",
-                route = NavRoute.UserProfile.route,
-                navController = navController
+                onClick = {
+                    navController.popBackStack()
+                }
             )
             BudleSearchBar()
             currentType.value = budleTagList(

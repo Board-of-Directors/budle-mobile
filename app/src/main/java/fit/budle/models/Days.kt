@@ -2,7 +2,8 @@ package fit.budle.models
 
 data class CircleTag(
     override val tagId: Int,
-    override val tagName: String
+    override val tagName: String,
+    override val iconId: Int? = null
 ) : Tag
 
 val days = mutableListOf(

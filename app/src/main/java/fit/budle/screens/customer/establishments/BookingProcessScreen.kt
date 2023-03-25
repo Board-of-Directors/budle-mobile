@@ -3,7 +3,6 @@ package fit.budle.screens.customer.establishments
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -20,16 +19,13 @@ import androidx.navigation.NavHostController
 import fit.budle.R
 import fit.budle.components.atoms.BudleButton
 import fit.budle.components.atoms.BudleIconButton
-import fit.budle.components.atoms.BudleTag
 import fit.budle.components.data.TagType
 import fit.budle.components.moleculas.BudleBlockWithHeader
-import fit.budle.components.moleculas.BudleInfoTagList
 import fit.budle.components.moleculas.budleTagList
 import fit.budle.models.*
 import fit.budle.navigation.navigate
 import fit.budle.navigation.routes.NavRoute
 import fit.budle.ui.theme.*
-import org.xmlpull.v1.XmlPullParser
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
@@ -206,9 +202,9 @@ fun BookingPreferences() {
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            BudleInfoTagList(
-                horizontalPadding = 20.dp,
-                tags = bookingTagList
+            budleTagList(
+                tagList = bookingTagList,
+                textColor = textGray
             )
         }
     }

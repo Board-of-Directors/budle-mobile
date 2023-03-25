@@ -7,6 +7,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fit.budle.models.CircleTag
@@ -17,15 +18,16 @@ import fit.budle.ui.theme.mainBlack
 import fit.budle.ui.theme.mainWhite
 
 @Composable
-fun BudleDayTag(
+fun BudleCircleTag(
     isSelected: (Int) -> Boolean,
     onChangeState: (Int) -> Unit,
-    tag: Tag
+    tag: Tag,
+    color: Color = mainBlack
 ) {
     val tagColor = CardDefaults.cardColors(
         if (isSelected(tag.tagId)) fillPurple else lightBlue
     )
-    val textColor = if (isSelected(tag.tagId)) mainWhite else mainBlack
+    val textColor = if (isSelected(tag.tagId)) mainWhite else color
 
     Card(
         modifier = Modifier

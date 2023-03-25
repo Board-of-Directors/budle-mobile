@@ -30,8 +30,9 @@ fun UserProfileSettingsScreen(navController: NavHostController) {
                 .padding(start = 30.dp, end = 30.dp, top = 20.dp)
             BudleNavigationHeader(
                 textMessage = "Настройки",
-                route = NavRoute.UserProfile.route,
-                navController = navController
+                onClick = {
+                    navController.popBackStack()
+                }
             )
             BudleInputTextField(
                 modifier = screenModifier,

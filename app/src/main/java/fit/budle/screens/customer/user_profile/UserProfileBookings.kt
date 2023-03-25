@@ -35,8 +35,9 @@ fun UserProfileBookingsScreen(navController: NavHostController) {
         ) {
             BudleNavigationHeader(
                 textMessage = "Мои брони",
-                route = NavRoute.UserProfile.route,
-                navController = navController
+                onClick = {
+                    navController.popBackStack()
+                }
             )
             BudleSearchBar()
             currentType.value = budleTagList(
