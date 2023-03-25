@@ -57,12 +57,14 @@ fun BookingCard(booking: Booking) {
             modifier = Modifier.height(120.dp),
             contentAlignment = Alignment.BottomStart
         ) {
-            Image(
-                painter = booking.establishmentImage.image!!,
-                contentDescription = "Restaurant Card",
-                modifier = Modifier.fillMaxWidth(),
-                contentScale = ContentScale.Crop
-            )
+            if (booking.establishmentImage.image != null) {
+                Image(
+                    painter = booking.establishmentImage.image!!,
+                    contentDescription = "Restaurant Card",
+                    modifier = Modifier.fillMaxWidth(),
+                    contentScale = ContentScale.Crop
+                )
+            }
             Box(
                 Modifier
                     .matchParentSize()
@@ -130,7 +132,7 @@ fun BookingInformation(booking: Booking) {
     }
 
     Column(Modifier.padding(horizontal = 20.dp)) {
-        val infoList = HashMap<String,Any>();
+        val infoList = HashMap<String,Any>()
         infoList["Статус"] = BookingStatus.create(booking.status)
         infoList["Дата"] = booking.date + booking.time
         infoList["Количество гостей"] = booking.guestCount
