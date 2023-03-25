@@ -1,5 +1,6 @@
 package fit.budle.models
 
+
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -59,19 +60,22 @@ val bookingList = mutableStateListOf(
     )
 )
 
-enum class BookingStatus(val value: Int) {
+enum class BookingStatus(val value: Int, val message: String) {
 
-    WAIT(1),
-    CONFIRM(2),
-    REJECT(3);
+    WAIT(0, "Бронь в ожидании"),
+    CONFIRM(1, "Бронь подтверждена"),
+    REJECT(2, "Бронь отклонена");
 
     companion object {
-        fun create(x: Int): String {
-            return when (x) {
-                1 -> "Бронь в ожидании"
-                2 -> "Бронь подтверждена"
-                3 -> "Бронь отклонена"
+
+        fun create(x:Int) : BookingStatus{
+            return when(x){
+                0 -> WAIT
+                1 -> CONFIRM
+                2 -> REJECT
                 else -> throw IllegalStateException()
+
+
             }
         }
     }
