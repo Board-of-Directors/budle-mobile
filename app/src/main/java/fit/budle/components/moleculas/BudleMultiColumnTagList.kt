@@ -16,7 +16,7 @@ import fit.budle.ui.theme.textGray
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun BudleMultiColumnTagList(
-    selectable: Boolean = false,
+    selectable: Boolean = true,
     selectedItem: MutableState<String>,
     tags: MutableList<MutableList<Tag>>
 ){

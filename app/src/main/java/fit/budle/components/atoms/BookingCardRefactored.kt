@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import fit.budle.components.atoms.tags.BudleRateTag
 import fit.budle.model.Booking
 import fit.budle.models.BookingStatus
 import fit.budle.ui.theme.*
@@ -109,7 +110,7 @@ fun BookingCard(booking: Booking) {
                         color = mainWhite,
                     )
                 }
-                BudlePhotoTag(tag = booking.establishment.rating.toString())
+                BudleRateTag(tag = booking.establishment.rating.toString())
             }
         }
     }
@@ -119,7 +120,6 @@ fun BookingCard(booking: Booking) {
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun BookingInformation(booking: Booking) {
-
 
     val statusColor = when (booking.status) {
         0 -> textGray

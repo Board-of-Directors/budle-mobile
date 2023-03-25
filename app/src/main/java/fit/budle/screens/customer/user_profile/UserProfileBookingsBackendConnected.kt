@@ -40,8 +40,9 @@ fun UserProfileBookingsScreenBackendConnected(
         ) {
             BudleNavigationHeader(
                 textMessage = "Мои брони",
-                route = "user_profile",
-                navController = navController
+                onClick = {
+                    navController.popBackStack()
+                }
             )
             BudleSearchBar()
             Row(modifier = Modifier.padding(top = 12.dp)) {}

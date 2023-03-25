@@ -17,10 +17,12 @@ import fit.budle.components.moleculas.BudleBlockWithHeader
 import fit.budle.components.moleculas.BudleMultiColumnTagList
 import fit.budle.components.moleculas.BudleNavigationHeader
 import fit.budle.components.moleculas.budleTagList
+import fit.budle.components.moleculas.screens.BudleScreenWithButtonAndProgress
 import fit.budle.models.establishmentCreationTags
 import fit.budle.models.establishmentCreationType
 import fit.budle.models.restaurantsType
 import fit.budle.models.startsType
+import fit.budle.navigation.routes.NavRoute
 import fit.budle.ui.theme.textGray
 
 @RequiresApi(Build.VERSION_CODES.N)
@@ -28,23 +30,18 @@ import fit.budle.ui.theme.textGray
 fun EstablishmentCreationSecondScreen(
     navHostController: NavHostController
 ) {
-
     val selectedType = remember { mutableStateOf("") }
 
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 15.dp)
-                .padding(horizontal = 20.dp)
+        BudleScreenWithButtonAndProgress(
+            navHostController = navHostController,
+            buttonText = "Следующий шаг",
+            progress = "40%",
+            route = NavRoute.EstablishmentCreationThird.route,
+            textMessage = "Создание заведения"
         ) {
-            BudleNavigationHeader(
-                percent = "40%",
-                textMessage = "Создание заведения",
-                onClick = { navHostController.popBackStack() }
-            )
             SecondEstablishmentCreationType(
                 selectedType = selectedType
             )

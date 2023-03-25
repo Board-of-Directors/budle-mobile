@@ -18,7 +18,7 @@ import fit.budle.ui.theme.mainBlack
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun budleTagList(
-    selectable: Boolean = false,
+    selectable: Boolean = true,
     initialState: Int = -1,
     tagList: List<Tag>,
     tagType: TagType = TagType.RECTANGLE,
@@ -29,7 +29,7 @@ fun budleTagList(
     var selectedItem by remember { mutableStateOf(initialState) }
     val isSelectedItem: (Int) -> Boolean = { if (selectable) selectedItem == it else false }
     val onChangeState: (Int) -> Unit = {
-        selectedItem = if (!isSelectedItem(it)) it else selectedItem
+        selectedItem = if (!isSelectedItem(it) && selectable) it else selectedItem
     }
 
     LazyRow(

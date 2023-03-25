@@ -14,6 +14,8 @@ import fit.budle.components.atoms.BudleButton
 import fit.budle.components.atoms.headers.BudleUserHeader
 import fit.budle.components.moleculas.BudleBlockWithHeader
 import fit.budle.components.moleculas.BudleCreatorEstablishmentCardList
+import fit.budle.components.moleculas.BudleScreenWithButton
+import fit.budle.components.moleculas.screens.BudleScreenWithButtonAndProgress
 import fit.budle.models.businessEstablishmentList
 import fit.budle.navigation.routes.NavRoute
 import fit.budle.navigation.routes.NestedGraphRoute
@@ -26,37 +28,12 @@ import fit.budle.ui.theme.textGray
 fun CreatorMainScreen(
     navHostController: NavHostController
 ) {
-
-    val context = LocalContext.current
-
     Surface(modifier = Modifier.fillMaxSize()) {
-        Column(
-            modifier = Modifier
-                .padding(bottom = 30.dp)
-                .fillMaxSize()
-                .zIndex(10f),
-            verticalArrangement = Arrangement.Bottom
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f, false)
-            ) {
-                BudleButton(
-                    onClick = {
-                        navHostController.navigate(NestedGraphRoute.EstablishmentCreation.route)
-                    },
-                    iconId = R.drawable.plus,
-                    buttonText = "Добавить заведение",
-                    disabledButtonColor = fillPurple,
-                    disabledTextColor = mainWhite,
-                )
-            }
-        }
-        Column(
-            modifier = Modifier
-                .padding(horizontal = 20.dp)
-                .fillMaxSize()
+        BudleScreenWithButton(
+            navHostController = navHostController,
+            iconId = R.drawable.plus,
+            buttonText = "Добавить заведение",
+            route = NavRoute.EstablishmentCreationFirst.route,
         ) {
             BudleUserHeader(
                 modifier = Modifier

@@ -113,6 +113,7 @@ fun EstablishmentCardScreen(
             ) {
                 InfoBar(establishmentCard = establishmentCard)
                 budleTagList(
+                    selectable = false,
                     tagList = establishmentCard.establishmentCardModel.tags,
                     textColor = textGray
                 )
