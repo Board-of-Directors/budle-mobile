@@ -7,13 +7,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.components.atoms.BudleSearchBar
-import fit.budle.components.moleculas.BudleBookingCardList
 import fit.budle.components.moleculas.BudleBookingCardListBackendConnected
 import fit.budle.components.moleculas.BudleNavigationHeader
 import fit.budle.components.moleculas.budleTagList
@@ -25,10 +23,10 @@ import fit.budle.models.tagList
 @Composable
 fun UserProfileBookingsScreenBackendConnected(
     navController: NavHostController,
-    bookingsProvider: () -> (Array<Booking>)
+    bookingsProvider: (Long?) -> (Array<Booking>)
 ) {
-
-    val bookingsState = remember { bookingList }
+    
+    val tempUserId = 1L
     val currentType = remember {
         mutableStateOf("Все")
     }
@@ -53,7 +51,7 @@ fun UserProfileBookingsScreenBackendConnected(
             )
             Row(modifier = Modifier.padding(top = 12.dp)) {}
             BudleBookingCardListBackendConnected(
-                bookingList = bookingsProvider(),
+                bookingList = bookingsProvider(tempUserId),
                 filter = currentType.value
             )
 
