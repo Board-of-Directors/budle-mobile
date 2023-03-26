@@ -34,7 +34,8 @@ interface BudleAPIRequests {
 
     @GET("order")
     suspend fun getOrders(
-        @Query("userId") userId: Long?
+        @Query("userId") userId: Long,
+        @Query("status") status: Int?
     ) : AnswerOrders
 
     @DELETE("order")

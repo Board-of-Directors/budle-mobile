@@ -16,14 +16,13 @@ import fit.budle.components.moleculas.BudleBookingCardListBackendConnected
 import fit.budle.components.moleculas.BudleNavigationHeader
 import fit.budle.components.moleculas.budleTagList
 import fit.budle.model.Booking
-import fit.budle.models.bookingList
-import fit.budle.models.tagList
+import fit.budle.models.ordersTagList
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun UserProfileBookingsScreenBackendConnected(
     navController: NavHostController,
-    bookingsProvider: (Long?) -> (Array<Booking>)
+    bookingsProvider: (Long, String?) -> (Array<Booking>)
 ) {
     
     val tempUserId = 1L
@@ -47,11 +46,11 @@ fun UserProfileBookingsScreenBackendConnected(
             Row(modifier = Modifier.padding(top = 12.dp)) {}
             currentType.value = budleTagList(
                 initialState = 0,
-                tagList = tagList
+                tagList = ordersTagList
             )
             Row(modifier = Modifier.padding(top = 12.dp)) {}
             BudleBookingCardListBackendConnected(
-                bookingList = bookingsProvider(tempUserId),
+                bookingList = bookingsProvider(tempUserId, currentType.value),
                 filter = currentType.value
             )
 

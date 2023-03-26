@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import fit.budle.model.*
+import fit.budle.models.ordersTagList
 import fit.budle.network.BudleAPIClient
 import fit.budle.repository.BudleRepository
 import kotlinx.coroutines.launch
@@ -81,13 +82,20 @@ class MainViewModel : ViewModel() {
         return result2
     }
 
-    fun getListOfOrders(userId: Long?): Array<Booking> {
+    fun getListOfOrders(userId: Long, status: String?): Array<Booking> {
         repository = BudleRepository(apiService)
+        val map = HashMap<String, Int?>()
+        for (tag in ordersTagList) {
+            map[tag.tagName] = tag.tagId - 1
+        }
+        map["Все"] = null
         viewModelScope.launch {
-            when (val response = repository.getOrdersRequest(userId)) {
+            when (val response = repository.getOrdersRequest(userId, map[status])) {
                 is BudleRepository.ResultList3.Success -> {
                     Log.d("MAINVIEWMODEL", "SUCCESS")
-                    response.result.map { it.establishmentImage = convertEstablishment(it.establishment) }
+                    response.result.map {
+                        it.establishmentImage = convertEstablishment(it.establishment)
+                    }
                     result4 = response.result
                 }
                 is BudleRepository.ResultList3.Failure -> {
