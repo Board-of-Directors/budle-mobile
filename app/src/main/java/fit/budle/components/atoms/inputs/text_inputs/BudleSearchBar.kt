@@ -1,4 +1,4 @@
-package fit.budle.components.atoms
+package fit.budle.components.atoms.inputs
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth

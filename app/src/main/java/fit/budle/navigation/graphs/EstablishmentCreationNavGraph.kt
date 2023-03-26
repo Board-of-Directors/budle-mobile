@@ -1,21 +1,21 @@
 package fit.budle.navigation.graphs
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import fit.budle.navigation.routes.NavRoute
 import fit.budle.navigation.routes.NestedGraphRoute
-import fit.budle.screens.business.creator.creation_process.EstablishmentCreationFirstScreen
-import fit.budle.screens.business.creator.creation_process.EstablishmentCreationFourthScreen
-import fit.budle.screens.business.creator.creation_process.EstablishmentCreationSecondScreen
-import fit.budle.screens.business.creator.creation_process.EstablishmentCreationThirdScreen
+import fit.budle.screens.business.creator.creation_process.*
 
+@RequiresApi(Build.VERSION_CODES.N)
 fun NavGraphBuilder.establishmentCreationNavGraph(
     navHostController: NavHostController
 ) {
     navigation(
-        startDestination = NavRoute.EstablishmentCreationFirst.route,
+        startDestination = NavRoute.EstablishmentCreationFourth.route,
         route = NestedGraphRoute.EstablishmentCreation.route
     ) {
         composable(NavRoute.EstablishmentCreationFirst.route) {
@@ -29,6 +29,9 @@ fun NavGraphBuilder.establishmentCreationNavGraph(
         }
         composable(NavRoute.EstablishmentCreationFourth.route) {
             EstablishmentCreationFourthScreen(navHostController = navHostController)
+        }
+        composable(NavRoute.EstablishmentCreationFifth.route) {
+            EstablishmentCreationFifthScreen(navHostController = navHostController)
         }
     }
 }

@@ -27,4 +27,5 @@ sealed class NavRoute(val route: String) {
     object EstablishmentCreationSecond : NavRoute("establishment_creation_second")
     object EstablishmentCreationThird : NavRoute("establishment_creation_third")
     object EstablishmentCreationFourth : NavRoute("establishment_creation_fourth")
+    object EstablishmentCreationFifth : NavRoute("establishment_creation_fifth")
 }

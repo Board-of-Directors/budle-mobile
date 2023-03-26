@@ -11,12 +11,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import fit.budle.components.atoms.BudleSearchBar
+import fit.budle.components.atoms.inputs.BudleSearchBar
 import fit.budle.components.moleculas.BudleBookingCardListBackendConnected
 import fit.budle.components.moleculas.BudleNavigationHeader
 import fit.budle.components.moleculas.budleTagList
 import fit.budle.model.Booking
-import fit.budle.models.bookingList
 import fit.budle.models.tagList
 
 @RequiresApi(Build.VERSION_CODES.N)

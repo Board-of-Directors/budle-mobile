@@ -6,7 +6,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import fit.budle.components.atoms.inputs.BudleInputTextField
+import fit.budle.components.atoms.inputs.text_inputs.BudleSingleLineInput
 import fit.budle.components.atoms.inputs.photo_picker.BudleSingleSelectPhotoInput
 import fit.budle.components.moleculas.screens.BudleScreenWithButtonAndProgress
 import fit.budle.navigation.routes.NavRoute
@@ -27,7 +27,7 @@ fun EstablishmentCreationFirstScreen(
             progress = "20%"
         ) {
             BudleSingleSelectPhotoInput()
-            BudleInputTextField(
+            BudleSingleLineInput(
                 modifier = Modifier
                     .padding(top = 20.dp)
                     .fillMaxWidth(),

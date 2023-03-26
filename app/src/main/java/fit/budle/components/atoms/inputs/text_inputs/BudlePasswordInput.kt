@@ -26,7 +26,7 @@ import fit.budle.ui.theme.backgroundLightBlue
 import fit.budle.ui.theme.textGray
 
 @Composable
-fun BudlePasswordTextField(
+fun BudlePasswordInput(
     modifier: Modifier,
     placeHolder: String,
     startMessage: String,

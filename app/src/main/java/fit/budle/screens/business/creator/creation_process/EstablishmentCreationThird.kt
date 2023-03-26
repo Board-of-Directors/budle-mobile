@@ -6,9 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import fit.budle.components.atoms.inputs.BudleInputTextField
+import fit.budle.components.atoms.inputs.text_inputs.BudleMultipleLineInput
 import fit.budle.components.atoms.inputs.photo_picker.BudleMultiplePhotoInput
-import fit.budle.components.data.DataDefaults.LONG_INPUT_LENGTH
 import fit.budle.components.moleculas.screens.BudleScreenWithButtonAndProgress
 import fit.budle.navigation.routes.NavRoute
 import fit.budle.ui.theme.mainBlack
@@ -24,7 +23,7 @@ fun EstablishmentCreationThirdScreen(
         route = NavRoute.EstablishmentCreationFourth.route,
         textMessage = "Создание заведения"
     ) {
-        BudleInputTextField(
+        BudleMultipleLineInput(
             modifier = Modifier
                 .padding(top = 20.dp)
                 .fillMaxWidth(),
@@ -34,7 +33,6 @@ fun EstablishmentCreationThirdScreen(
             startMessage = "",
             textFieldMessage = "Опишите ваше заведение",
             description = "Макс. 300 символов",
-            textLength = LONG_INPUT_LENGTH
         )
         BudleMultiplePhotoInput()
     }

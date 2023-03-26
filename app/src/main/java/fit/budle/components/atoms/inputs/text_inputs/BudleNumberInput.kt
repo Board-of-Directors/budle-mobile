@@ -1,4 +1,4 @@
-package fit.budle.components.atoms.inputs
+package fit.budle.components.atoms.inputs.text_inputs
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
@@ -25,7 +25,7 @@ import fit.budle.ui.theme.textGray
 import kotlin.math.absoluteValue
 
 @Composable
-fun BudleNumberField(
+fun BudleNumberInput(
     modifier: Modifier,
     placeHolder: String,
     startMessage: String,

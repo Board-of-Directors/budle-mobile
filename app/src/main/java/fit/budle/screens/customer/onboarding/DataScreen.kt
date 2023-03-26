@@ -10,7 +10,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
-import fit.budle.components.atoms.inputs.dataTextField
+import fit.budle.components.atoms.inputs.text_fields.budleSingleLineTextField
 import fit.budle.navigation.routes.NavRoute
 import fit.budle.ui.theme.backgroundError
 import fit.budle.ui.theme.fillPurple
@@ -70,8 +70,12 @@ fun DataScreen(navController: NavHostController, buttonText: String?) {
                     color = textGray,
                     modifier = Modifier.padding(bottom = 10.dp)
                 )
-                textInputState = dataTextField("","Введите Ваше имя", textError)
-                if (textError.value){
+                textInputState = budleSingleLineTextField(
+                    "",
+                    "Введите Ваше имя",
+                    textError
+                )
+                if (textError.value) {
                     Text(
                         text = "Это поле не может быть пустым",
                         style = MaterialTheme.typography.bodyMedium,
@@ -93,7 +97,7 @@ fun DataScreen(navController: NavHostController, buttonText: String?) {
                     color = textGray,
                     modifier = Modifier.padding(bottom = 10.dp)
                 )
-                passwordInputState = passwordTextField("","Введите пароль", passError)
+                passwordInputState = passwordTextField("", "Введите пароль", passError)
                 Text(
                     text = "Придумайте пароль от 8 знаков из\n" +
                             "цифр и латинских букв",

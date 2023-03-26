@@ -15,7 +15,7 @@ import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
-import fit.budle.components.atoms.inputs.MaskVisualTransformation
+import fit.budle.components.atoms.inputs.text_inputs.MaskVisualTransformation
 import fit.budle.components.data.NumberDefaults.INPUT_LENGTH
 import fit.budle.components.data.NumberDefaults.MASK
 import fit.budle.navigation.routes.NavRoute

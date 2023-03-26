@@ -12,11 +12,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import fit.budle.components.atoms.BudleSearchBar
+import fit.budle.components.atoms.inputs.BudleSearchBar
 import fit.budle.components.moleculas.*
 import fit.budle.models.establishmentDescriptionList
 import fit.budle.models.tagList
-import fit.budle.navigation.routes.NavRoute
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
