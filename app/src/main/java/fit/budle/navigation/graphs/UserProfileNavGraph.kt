@@ -32,7 +32,8 @@ fun NavGraphBuilder.userProfileNavGraph(
             val mainViewModel = viewModel<MainViewModel>()
             UserProfileBookingsScreenBackendConnected(
                 navHostController,
-                mainViewModel::getListOfOrders
+                mainViewModel::getListOfOrders,
+                mainViewModel::deleteOrderFromUser
             )
         }
         composable(NavRoute.UserProfileReviews.route) { UserProfileReviewsScreen(navHostController) }

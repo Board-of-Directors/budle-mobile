@@ -42,5 +42,5 @@ interface BudleAPIRequests {
     suspend fun deleteOrder(
         @Query("userId") userId: Long,
         @Query("orderId") orderId: Long
-    )
+    ) : AnswerRegistration
 }

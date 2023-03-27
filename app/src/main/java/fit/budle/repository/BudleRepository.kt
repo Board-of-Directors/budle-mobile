@@ -108,7 +108,10 @@ class BudleRepository(val budleAPIRequests: BudleAPIRequests) {
         return try {
             val result = budleAPIRequests.getCategories()
             Log.d("GETCATEGORIES", "SUCCESS")
-            ResultList2.Success(result = result.result, exceptionMessage = result.exception?.message)
+            ResultList2.Success(
+                result = result.result,
+                exceptionMessage = result.exception?.message
+            )
         } catch (exception: Exception) {
             Log.e("GETCATEGORIES", "FAILURE")
             ResultList2.Failure(exception)
@@ -119,11 +122,24 @@ class BudleRepository(val budleAPIRequests: BudleAPIRequests) {
         return try {
             val result = budleAPIRequests.getOrders(userId, status)
             Log.d("GETORDERS", "SUCCESS")
-            ResultList3.Success(result = result.result, exceptionMessage = result.exception?.message)
-        }
-        catch(exception: Exception){
+            ResultList3.Success(
+                result = result.result,
+                exceptionMessage = result.exception?.message
+            )
+        } catch (exception: Exception) {
             Log.d("GETORDERS", "FAILURE")
             ResultList3.Failure(exception)
+        }
+    }
+
+    suspend fun deleteOrderFromUser(userId: Long, orderId: Long): Result {
+        return try {
+            val result = budleAPIRequests.deleteOrder(userId, orderId)
+            Log.d("DELETEORDER", "SUCCESS")
+            Result.Success(result = result.result, exceptionMessage = result.exception?.message)
+        } catch (exception: Exception) {
+            Log.d("GETORDER", "FAILURE")
+            Result.Failure(exception)
         }
     }
 }

@@ -19,17 +19,19 @@ import androidx.compose.ui.unit.dp
 import fit.budle.model.Booking
 import fit.budle.models.BookingStatus
 import fit.budle.ui.theme.*
+import java.util.*
+import kotlin.collections.HashMap
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun BudleBookingCard(booking: Booking) {
+fun BudleBookingCard(booking: Booking, deletingProvider: (Long, Long) -> Unit) {
 
     BookingCard(booking = booking)
     BookingInformation(booking = booking)
 
     BudleButton(
         onClick = {
-            // FIXME: make delete user request here
+            deletingProvider(1, booking.id)
         },
         topPadding = 0.dp,
         horizontalPadding = 0.dp,
@@ -131,7 +133,8 @@ fun BookingInformation(booking: Booking) {
     Column(Modifier.padding(horizontal = 20.dp)) {
         val infoList = HashMap<String, Any>()
         infoList["Статус"] = BookingStatus.create(booking.status)
-        infoList["Дата"] = booking.date + booking.time
+        infoList["Дата"] = booking.date
+        infoList["Время"] = booking.time
         infoList["Количество гостей"] = booking.guestCount
         infoList.forEach { pair ->
             Row(

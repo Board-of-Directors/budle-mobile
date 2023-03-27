@@ -22,9 +22,10 @@ import fit.budle.models.ordersTagList
 @Composable
 fun UserProfileBookingsScreenBackendConnected(
     navController: NavHostController,
-    bookingsProvider: (Long, String?) -> (Array<Booking>)
+    bookingsProvider: (Long, String?) -> (Array<Booking>),
+    deletingProvider: (Long, Long) -> Unit
 ) {
-    
+
     val tempUserId = 1L
     val currentType = remember {
         mutableStateOf("Все")
@@ -51,7 +52,8 @@ fun UserProfileBookingsScreenBackendConnected(
             Row(modifier = Modifier.padding(top = 12.dp)) {}
             BudleBookingCardListBackendConnected(
                 bookingList = bookingsProvider(tempUserId, currentType.value),
-                filter = currentType.value
+                deletingProvider = deletingProvider
+
             )
 
         }

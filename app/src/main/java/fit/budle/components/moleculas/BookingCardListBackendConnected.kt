@@ -15,14 +15,15 @@ import fit.budle.model.Booking
 @Composable
 fun BudleBookingCardListBackendConnected(
     bookingList: Array<Booking>,
-    filter: String = "Все"
+    deletingProvider: (Long, Long) -> Unit
 ) {
+    deletingProvider(1, 1)
     LazyColumn(
         modifier = Modifier
             .padding(horizontal = 20.dp)
     ) {
         itemsIndexed(bookingList) { i, _ ->
-            BudleBookingCard(booking = bookingList[i])
+            BudleBookingCard(booking = bookingList[i], deletingProvider = deletingProvider)
 
         }
     }
