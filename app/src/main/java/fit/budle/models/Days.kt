@@ -1,69 +1,69 @@
 package fit.budle.models
 
-data class CircleTag(
-    override val tagId: Int,
-    override val tagName: String,
-    override val iconId: Int? = null
-) : Tag
+data class Tag(
+    val tagId: Int,
+    val tagName: String,
+    val iconId: Int? = null
+)
 
 val days = mutableListOf(
-    CircleTag(
+    Tag(
         21,
         "Пн"
     ),
-    CircleTag(
+    Tag(
         22,
         "Вт"
     ),
-    CircleTag(
+    Tag(
         23,
         "Ср"
     ),
-    CircleTag(
+    Tag(
         24,
         "Чт"
     ),
-    CircleTag(
+    Tag(
         25,
         "Пт"
     ),
-    CircleTag(
+    Tag(
         26,
         "Сб"
     ),
-    CircleTag(
+    Tag(
         27,
         "Вс"
     )
 )
 
 val time = mutableListOf(
-    RectangleTag(
+    Tag(
+        0,
         "12:00",
-        0
-    ),
-    RectangleTag(
+        ),
+    Tag(
+        1,
         "12:30",
-        1
     ),
-    RectangleTag(
+    Tag(
+        2,
         "13:00",
-        2
     ),
-    RectangleTag(
+    Tag(
+        3,
         "13:30",
-        3
     ),
-    RectangleTag(
+    Tag(
+        4,
         "14:00",
-        4
     ),
-    RectangleTag(
+    Tag(
+        5,
         "14:30",
-        5
     ),
-    RectangleTag(
+    Tag(
+        6,
         "15:00",
-        6
     )
 )

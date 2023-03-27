@@ -1,11 +1,13 @@
 package fit.budle.components.moleculas
 
+import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,22 +17,26 @@ import fit.budle.components.data.TagType
 import fit.budle.models.Tag
 import fit.budle.ui.theme.mainBlack
 
+@SuppressLint("MutableCollectionMutableState")
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun budleTagList(
-    selectable: Boolean = true,
-    initialState: Tag = Tag(-1,""),
+fun budleMultiSelectableTagList(
+    modifier: Modifier = Modifier,
     tagList: List<Tag>,
     tagType: TagType = TagType.RECTANGLE,
     textColor: Color = mainBlack,
-    showDate: Boolean = true,
-    modifier: Modifier = Modifier
-): Tag {
+    showDate: Boolean = true
+): MutableSet<Tag> {
 
-    var selectedItem by remember { mutableStateOf(initialState) }
-    val isSelectedItem: (Tag) -> Boolean = { if (selectable) selectedItem == it else false }
+    val selectedItems = remember {
+        tagList.map{it to false}.toMutableStateMap()
+    }
+
+    val isSelectedItem: (Tag) -> (Boolean) = {
+        selectedItems[it] == true
+    }
     val onChangeState: (Tag) -> Unit = {
-        selectedItem = if (!isSelectedItem(it) && selectable) it else selectedItem
+        selectedItems[it] = !isSelectedItem(it)
     }
 
     LazyRow(
@@ -57,5 +63,5 @@ fun budleTagList(
             }
         }
     }
-    return selectedItem
+    return selectedItems.keys
 }

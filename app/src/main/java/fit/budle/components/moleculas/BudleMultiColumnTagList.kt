@@ -19,7 +19,7 @@ fun BudleMultiColumnTagList(
     selectable: Boolean = true,
     selectedItem: MutableState<String>,
     tags: MutableList<MutableList<Tag>>
-){
+) {
     LazyColumn(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -29,7 +29,7 @@ fun BudleMultiColumnTagList(
                 tagList = row,
                 textColor = textGray,
                 modifier = Modifier.padding(top = 10.dp)
-            )
+            ).tagName
         }
     }
 }

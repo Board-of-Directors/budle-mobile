@@ -46,9 +46,9 @@ fun UserProfileBookingsScreenBackendConnected(
             BudleSearchBar()
             Row(modifier = Modifier.padding(top = 12.dp)) {}
             currentType.value = budleTagList(
-                initialState = 0,
+                initialState = tagList[0],
                 tagList = tagList
-            )
+            ).tagName
             Row(modifier = Modifier.padding(top = 12.dp)) {}
             BudleBookingCardListBackendConnected(
                 bookingList = bookingsProvider(tempUserId),

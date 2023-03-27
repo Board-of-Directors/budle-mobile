@@ -3,134 +3,115 @@ package fit.budle.models
 import fit.budle.R
 
 val restaurantsType = mutableListOf(
-    mutableListOf<Tag>(
-        RectangleTag(
-            "Грузинская",
-            1
+    mutableListOf(
+        Tag(
+            1,
+            "Грузинская"
         ),
-        RectangleTag(
-            "Европейская",
-            2
+        Tag(
+            2,
+            "Европейская"
         )
     ),
-    mutableListOf<Tag>(
-        RectangleTag(
-            "Азиатская",
-            3
+    mutableListOf(
+        Tag(
+            3,
+            "Азиатская"
         ),
-        RectangleTag(
-            "Русская",
-            4
+        Tag(
+            4,
+            "Русская"
         ),
-        RectangleTag(
-            "Вьетнамская",
-            5
+        Tag(
+            6,
+            "Вьетнамская"
         )
     )
 )
 
 val startsType = mutableListOf(
-    mutableListOf<Tag>(
-        RectangleTag(
-            "1 звезда",
-            1
+    mutableListOf(
+        Tag(
+            1, "1 звезда"
         ),
-        RectangleTag(
-            "2 звезды",
-            2
+        Tag(
+            2, "2 звезды"
         )
     ),
-    mutableListOf<Tag>(
-        RectangleTag(
-            "3 звезды",
-            3
+    mutableListOf(
+        Tag(
+            3, "3 звезды"
         ),
-        RectangleTag(
-            "4 звезды",
-            4
+        Tag(
+            4, "4 звезды"
         ),
-        RectangleTag(
-            "5 звезд",
-            5
+        Tag(
+            5, "5 звезд"
         )
     )
 )
 
 val establishmentCreationType = mutableListOf(
-    mutableListOf<Tag>(
-        RectangleTag(
-            "Рестораны",
-            1
+    mutableListOf(
+        Tag(
+            1, "Рестораны"
         ),
-        RectangleTag(
-            "Гостиницы",
-            2
+        Tag(
+            2, "Гостиницы"
         ),
-        RectangleTag(
-            "Банки",
-            3
+        Tag(
+            3, "Банки"
         )
     ),
-    mutableListOf<Tag>(
-        RectangleTag(
-            "Медицина",
-            4
+    mutableListOf(
+        Tag(
+            4, "Медицина"
         ),
-        RectangleTag(
-            "Государство",
-            5
+        Tag(
+            5, "Государство"
         ),
-        RectangleTag(
-            "Авто",
-            6
+        Tag(
+            6, "Авто"
         )
     ),
-    mutableListOf<Tag>(
-        RectangleTag(
-            "Развлечения",
-            7
+    mutableListOf(
+        Tag(
+            7, "Развлечения"
         ),
-        RectangleTag(
-            "Стройка и ремонт",
-            8
+        Tag(
+            8, "Стройка и ремонт"
         )
     )
 )
 
 val establishmentCreationTags = mutableListOf(
-    mutableListOf<Tag>(
-        InfoTag(
-            "WI-FI",
-            1,
+    mutableListOf(
+        Tag(
+            1, "WI-FI",
             R.drawable.wifi
         ),
-        InfoTag(
-            "Розетки",
-            2,
+        Tag(
+            2, "Розетки",
             R.drawable.zap
         )
     ),
-    mutableListOf<Tag>(
-        InfoTag(
-            "Телевизоры",
-            3,
+    mutableListOf(
+        Tag(
+            3, "Телевизоры",
             R.drawable.tv
         ),
-        InfoTag(
-            "Тихое место",
-            4,
+        Tag(
+            4, "Тихое место",
             R.drawable.headphones
         ),
     ),
-    mutableListOf<Tag>(
-        InfoTag(
-            "Открытая кухня",
-            5,
+    mutableListOf(
+        Tag(
+            5, "Открытая кухня",
             R.drawable.eye
         ),
-        InfoTag(
-            "Танцпол",
-            6,
+        Tag(
+            6, "Танцпол",
             R.drawable.music
         ),
     ),

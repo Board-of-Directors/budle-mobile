@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import fit.budle.models.CircleTag
 import fit.budle.models.Tag
 import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.lightBlue
@@ -19,23 +18,24 @@ import fit.budle.ui.theme.mainWhite
 
 @Composable
 fun BudleCircleTag(
-    isSelected: (Int) -> Boolean,
-    onChangeState: (Int) -> Unit,
+    isSelected: (Tag) -> Boolean,
+    onChangeState: (Tag) -> Unit,
+    showDate: Boolean = true,
     tag: Tag,
     color: Color = mainBlack
 ) {
     val tagColor = CardDefaults.cardColors(
-        if (isSelected(tag.tagId)) fillPurple else lightBlue
+        if (isSelected(tag)) fillPurple else lightBlue
     )
-    val textColor = if (isSelected(tag.tagId)) mainWhite else color
+    val textColor = if (isSelected(tag)) mainWhite else color
 
     Card(
         modifier = Modifier
             .padding(end = 10.dp)
             .size(45.dp)
             .selectable(
-                selected = isSelected(tag.tagId),
-                onClick = { onChangeState(tag.tagId) },
+                selected = isSelected(tag),
+                onClick = { onChangeState(tag) },
             ),
         colors = tagColor,
         shape = CircleShape
@@ -45,11 +45,13 @@ fun BudleCircleTag(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = tag.tagId.toString(),
-                style = MaterialTheme.typography.displaySmall,
-                color = textColor
-            )
+            if (showDate){
+                Text(
+                    text = tag.tagId.toString(),
+                    style = MaterialTheme.typography.displaySmall,
+                    color = textColor
+                )
+            }
             Text(
                 text = tag.tagName,
                 style = MaterialTheme.typography.displaySmall,
@@ -57,38 +59,4 @@ fun BudleCircleTag(
             )
         }
     }
-
-    /*
-    Button(
-        modifier = Modifier
-            .width(IntrinsicSize.Max)
-            .height(45.dp)
-            .padding(end = 10.dp),
-        colors = buttonColor,
-        onClick = { onChangeState(tag.tagId) },
-        shape = CircleShape
-    ) {
-        Column(
-            modifier = Modifier.size(45.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = tag.tagId.toString(),
-                style = MaterialTheme.typography.displaySmall,
-                color = textColor
-            )
-            Text(
-                text = tag.tagName,
-                style = MaterialTheme.typography.displaySmall,
-                color = textColor
-            )
-        }
-    }*/
-}
-
-@Preview
-@Composable
-fun PreviewBudleCircleTag() {
-    CircleTag(21, "Пн")
 }

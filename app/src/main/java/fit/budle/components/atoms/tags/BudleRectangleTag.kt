@@ -12,27 +12,26 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import fit.budle.models.RectangleTag
+import fit.budle.models.Tag
 import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.lightBlue
 import fit.budle.ui.theme.mainBlack
 import fit.budle.ui.theme.mainWhite
-import fit.budle.models.Tag
 import fit.budle.models.tagList
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun BudleRectangleTag(
-    isSelected: (Int) -> Boolean,
-    onChangeState: (Int) -> Unit,
+    isSelected: (Tag) -> Boolean,
+    onChangeState: (Tag) -> Unit,
     tag: Tag,
     color: Color = mainBlack,
 ) {
 
     val buttonColor = ButtonDefaults.buttonColors(
-        if (isSelected(tag.tagId)) fillPurple else lightBlue
+        if (isSelected(tag)) fillPurple else lightBlue
     )
-    val textColor = if (isSelected(tag.tagId)) mainWhite else color
+    val textColor = if (isSelected(tag)) mainWhite else color
     val textPadding = if (tag.iconId != null) 10.dp else 0.dp
 
     Button(
@@ -41,7 +40,7 @@ fun BudleRectangleTag(
             .height(40.dp)
             .padding(end = 10.dp),
         colors = buttonColor,
-        onClick = { onChangeState(tag.tagId) },
+        onClick = { onChangeState(tag) },
         shape = RoundedCornerShape(5.dp)
     ) {
         Row(
@@ -50,7 +49,7 @@ fun BudleRectangleTag(
             if (tag.iconId != null) {
                 Icon(
                     modifier = Modifier.size(16.dp),
-                    painter = painterResource(id = tag.iconId!!),
+                    painter = painterResource(id = tag.iconId),
                     contentDescription = "Tag icon",
                     tint = textColor
                 )

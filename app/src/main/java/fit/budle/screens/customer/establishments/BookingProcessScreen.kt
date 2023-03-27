@@ -166,7 +166,7 @@ fun BookingDay() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             budleTagList(
-                initialState = days[0].tagId,
+                initialState = days[0],
                 tagList = days,
                 tagType = TagType.CIRCLE
             )
@@ -185,7 +185,7 @@ fun BookingTime() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             budleTagList(
-                initialState = time[0].tagId,
+                initialState = time[0],
                 tagList = time,
             )
         }

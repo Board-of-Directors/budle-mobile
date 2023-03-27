@@ -13,26 +13,17 @@ data class Booking(
     val isRejected: MutableState<Boolean> = mutableStateOf(false)
 )
 
-data class InfoTag(
-    override val tagName: String,
-    override val tagId: Int,
-    override val iconId: Int?
-) : Tag
-
-val bookingTagList = mutableListOf<Tag>(
-    InfoTag(
-        "С зарядкой",
-        1,
+val bookingTagList = mutableListOf (
+    Tag(
+        1,"С зарядкой",
         R.drawable.zap
     ),
-    InfoTag(
-        "Телевизор",
-        2,
+    Tag(
+        2,"Телевизор",
         R.drawable.tv
     ),
-    InfoTag(
-        "Около окна",
-        3,
+    Tag(
+        3,"Около окна",
         R.drawable.sun
     )
 )

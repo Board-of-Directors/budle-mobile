@@ -1,5 +1,7 @@
 package fit.budle.screens.business.creator.creation_process
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DropdownMenu
@@ -14,11 +16,17 @@ import fit.budle.R
 import fit.budle.components.atoms.inputs.BudleDropDownMenu
 import fit.budle.components.atoms.inputs.text_inputs.BudleSingleLineInput
 import fit.budle.components.atoms.inputs.photo_picker.BudleMultiplePhotoInput
+import fit.budle.components.data.TagType
+import fit.budle.components.moleculas.BudleBlockWithHeader
+import fit.budle.components.moleculas.budleMultiSelectableTagList
+import fit.budle.components.moleculas.budleTagList
 import fit.budle.components.moleculas.screens.BudleScreenWithButtonAndProgress
+import fit.budle.models.days
 import fit.budle.navigation.routes.NavRoute
 import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.mainBlack
 
+@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun EstablishmentCreationFourthScreen(
     navHostController: NavHostController
@@ -68,5 +76,13 @@ fun EstablishmentCreationFourthScreen(
             placeHolder = "Метро",
             startMessage = "Укажите станцию метро"
         )
+        BudleBlockWithHeader(headerText = "Дни работы") {
+            budleMultiSelectableTagList(
+                modifier = Modifier.padding(top = 10.dp),
+                showDate = false,
+                tagList = days,
+                tagType = TagType.CIRCLE
+            )
+        }
     }
 }

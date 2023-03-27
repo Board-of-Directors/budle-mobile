@@ -29,7 +29,7 @@ import fit.budle.components.atoms.tags.BudleRectangleTag
 import fit.budle.components.moleculas.BudleBlockWithHeader
 import fit.budle.components.moleculas.budleTagList
 import fit.budle.models.EstablishmentCard
-import fit.budle.models.RectangleTag
+import fit.budle.models.Tag
 import fit.budle.navigation.navigate
 import fit.budle.navigation.routes.NavRoute
 import fit.budle.ui.theme.*
@@ -431,7 +431,7 @@ fun EstablishmentAddress(
             BudleRectangleTag(
                 isSelected = { false },
                 onChangeState = {},
-                tag = RectangleTag(
+                tag = Tag(
                     tagName = "Карта",
                     tagId = R.drawable.map
                 ),

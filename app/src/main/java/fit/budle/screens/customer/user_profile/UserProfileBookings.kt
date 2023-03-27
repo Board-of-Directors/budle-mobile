@@ -40,9 +40,9 @@ fun UserProfileBookingsScreen(navController: NavHostController) {
             )
             BudleSearchBar()
             currentType.value = budleTagList(
-                initialState = 0,
+                initialState = tagList[0],
                 tagList = tagList
-            )
+            ).tagName
             BudleBookingCardList(
                 bookingList = bookingsState,
                 filter = currentType.value

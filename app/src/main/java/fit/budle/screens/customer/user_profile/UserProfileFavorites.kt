@@ -32,16 +32,16 @@ fun UserProfileFavoritesScreen(navController: NavHostController) {
                 .padding(top = 30.dp)
         ) {
             BudleNavigationHeader(
-                textMessage = "Избраное",
+                textMessage = "Избранное",
                 onClick = {
                     navController.popBackStack()
                 }
             )
             BudleSearchBar()
             currentType.value = budleTagList(
-                initialState = 0,
+                initialState = tagList[0],
                 tagList = tagList
-            )
+            ).tagName
             BudleEstablishmentCardDescriptionList(
                 establishmentDescription = establishmentDescriptionList,
                 filter = currentType.value

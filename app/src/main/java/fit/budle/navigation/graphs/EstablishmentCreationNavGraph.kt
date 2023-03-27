@@ -15,7 +15,7 @@ fun NavGraphBuilder.establishmentCreationNavGraph(
     navHostController: NavHostController
 ) {
     navigation(
-        startDestination = NavRoute.EstablishmentCreationFourth.route,
+        startDestination = NavRoute.EstablishmentCreationFirst.route,
         route = NestedGraphRoute.EstablishmentCreation.route
     ) {
         composable(NavRoute.EstablishmentCreationFirst.route) {
