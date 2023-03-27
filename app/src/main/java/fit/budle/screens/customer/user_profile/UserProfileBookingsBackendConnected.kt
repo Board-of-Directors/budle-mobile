@@ -17,6 +17,7 @@ import fit.budle.components.moleculas.BudleNavigationHeader
 import fit.budle.components.moleculas.budleTagList
 import fit.budle.model.Booking
 import fit.budle.models.ordersTagList
+import fit.budle.navigation.routes.NavRoute
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
@@ -40,7 +41,7 @@ fun UserProfileBookingsScreenBackendConnected(
         ) {
             BudleNavigationHeader(
                 textMessage = "Мои брони",
-                route = "user_profile",
+                route = NavRoute.UserProfile.route,
                 navController = navController
             )
             BudleSearchBar()
