@@ -73,12 +73,12 @@ fun BudleDropDownMenu(
             }
         }
         if (isExpanded) {
-            LazyColumn(
+            Column(
                 modifier = Modifier
                     .padding(horizontal = 20.dp)
                     .fillMaxWidth()
             ) {
-                itemsIndexed(items) { _, item ->
+                for (item in items) {
                     BudleDropDownMenuItem(
                         modifier = Modifier.padding(top = 15.dp),
                         item = item,

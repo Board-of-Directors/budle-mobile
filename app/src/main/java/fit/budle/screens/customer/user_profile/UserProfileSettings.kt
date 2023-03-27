@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import fit.budle.components.atoms.BudleButton
 import fit.budle.components.atoms.inputs.text_inputs.BudleNumberInput
 import fit.budle.components.atoms.inputs.text_inputs.BudleSingleLineInput
+import fit.budle.components.data.NumberDefaults
 import fit.budle.components.moleculas.BudleNavigationHeader
 import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.mainWhite
@@ -40,7 +41,9 @@ fun UserProfileSettingsScreen(navController: NavHostController) {
             BudleNumberInput(
                 modifier = screenModifier,
                 placeHolder = "Телефон",
-                startMessage = "9139391194"
+                startMessage = "9139391194",
+                inputLength = NumberDefaults.INPUT_LENGTH,
+                mask = NumberDefaults.MASK
             )
             BudlePasswordInput(
                 modifier = screenModifier,

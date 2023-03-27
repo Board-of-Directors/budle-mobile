@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -42,6 +43,7 @@ fun EstablishmentCreationSecondScreen(
             route = NavRoute.EstablishmentCreationThird.route,
             textMessage = "Создание заведения"
         ) {
+            Text(text = selectedType.value)
             SecondEstablishmentCreationType(
                 selectedType = selectedType
             )

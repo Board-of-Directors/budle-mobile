@@ -2,6 +2,7 @@ package fit.budle.components.moleculas
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -20,10 +21,10 @@ fun BudleMultiColumnTagList(
     selectedItem: MutableState<String>,
     tags: MutableList<MutableList<Tag>>
 ) {
-    LazyColumn(
+    Column(
         modifier = Modifier.fillMaxWidth()
     ) {
-        itemsIndexed(tags) { _, row ->
+        for (row in tags) {
             selectedItem.value = budleTagList(
                 selectable = selectable,
                 tagList = row,

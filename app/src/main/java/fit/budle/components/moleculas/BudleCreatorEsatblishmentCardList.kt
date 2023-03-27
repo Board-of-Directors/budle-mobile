@@ -1,5 +1,6 @@
 package fit.budle.components.moleculas
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -14,10 +15,10 @@ fun BudleCreatorEstablishmentCardList(
     cards: MutableList<BusinessEstablishmentModel>,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn(
+    Column(
         modifier = modifier.fillMaxWidth()
     ) {
-        itemsIndexed(cards) { _, card ->
+        for(card in cards){
             BudleCreatorEstablishmentCard(
                 navHostController = navHostController,
                 establishmentCard = card

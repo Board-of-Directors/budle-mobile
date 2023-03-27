@@ -11,16 +11,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
-import fit.budle.components.atoms.inputs.text_inputs.MaskVisualTransformation
-import fit.budle.components.data.NumberDefaults.INPUT_LENGTH
-import fit.budle.components.data.NumberDefaults.MASK
+import fit.budle.components.atoms.inputs.text_fields.budleNumberTextField
+import fit.budle.components.data.NumberDefaults
 import fit.budle.navigation.routes.NavRoute
 import fit.budle.ui.theme.backgroundError
-import fit.budle.ui.theme.backgroundLightBlue
 import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.textGray
 
@@ -75,9 +72,14 @@ fun NumberScreen(navController: NavHostController) {
                     modifier = Modifier.padding(bottom = 6.dp)
                 )
                 Card(border = BorderStroke(2.dp, stateColor)) {
-                    numberState = simpleTextField(error)
+                    numberState = budleNumberTextField(
+                        error = error,
+                        startMessage = "",
+                        inputLength = NumberDefaults.INPUT_LENGTH,
+                        mask = NumberDefaults.MASK
+                    )
                 }
-                if(error.value){
+                if (error.value) {
                     Text(
                         text = "Это поле не может быть пустым",
                         style = MaterialTheme.typography.bodyMedium,
@@ -107,36 +109,4 @@ fun NumberScreen(navController: NavHostController) {
             }
         }
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun simpleTextField(error: MutableState<Boolean>): String {
-    var text by remember { mutableStateOf("") }
-    TextField(
-        value = text,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        onValueChange = { it ->
-            if (it.length <= INPUT_LENGTH) {
-                if (error.value && it.length == INPUT_LENGTH)
-                    error.value = false
-                text = it.filter { it.isDigit() }
-            }
-        },
-        shape = RoundedCornerShape(10.dp),
-        colors = TextFieldDefaults.textFieldColors(
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
-            disabledIndicatorColor = Color.Transparent,
-            containerColor = backgroundLightBlue,
-        ),
-        visualTransformation = MaskVisualTransformation(MASK),
-        placeholder = {
-            Text(
-                text = "+7", style = MaterialTheme.typography.bodyMedium, color = textGray
-            )
-        },
-        textStyle = MaterialTheme.typography.bodyMedium
-    )
-    return text
 }
