@@ -15,6 +15,7 @@ import fit.budle.model.Establishment
 import fit.budle.model.EstablishmentStructure
 import fit.budle.model.EstablishmentWithImage
 import fit.budle.model.Tag
+import fit.budle.model.*
 import fit.budle.network.BudleAPIClient
 import fit.budle.repository.BudleRepository
 import kotlinx.coroutines.launch
@@ -26,6 +27,7 @@ class MainViewModel : ViewModel() {
     var result2: Array<String> by mutableStateOf(emptyArray())
     var result: EstablishmentStructure by mutableStateOf(EstablishmentStructure(emptyArray(), 0))
     var result3: HashMap<String, MutableState<EstablishmentStructure>> = hashMapOf()
+    var result4: Array<Booking> by mutableStateOf(emptyArray())
 
     fun getListOfEstablishments(
         category: String?,
@@ -88,7 +90,28 @@ class MainViewModel : ViewModel() {
         }
         return result2
     }
-}
+
+    fun getListOfOrders(userId: Long?): Array<Booking> {
+        repository = BudleRepository(apiService)
+        viewModelScope.launch {
+            when (val response = repository.getOrdersRequest(userId)) {
+                is BudleRepository.ResultList3.Success -> {
+                    Log.d("MAINVIEWMODEL", "SUCCESS")
+                    response.result.map { it.establishmentImage = convertEstablishment(it.establishment) }
+                    result4 = response.result
+                }
+                is BudleRepository.ResultList3.Failure -> {
+                    Log.e("MAINVIEWMODEL", "FAILURE")
+                    response.throwable.message?.let { Log.e("MAINVIEWMODEL", it) }
+                }
+                else -> {
+                    Log.e("CRITICAL_ERROR", "UNDEFINED RESPONSE")
+                }
+            }
+        }
+        return result4
+    }
+
 
 fun convertEstablishment(establishment: Establishment): EstablishmentWithImage {
     var decodedImage: BitmapPainter? = null

@@ -29,9 +29,9 @@ fun BudleButton(
     horizontalPadding: Dp = 30.dp,
     buttonText: String,
     disabledButtonColor: Color,
-    activeButtonColor: Color,
+    activeButtonColor: Color = disabledButtonColor,
     disabledTextColor: Color,
-    activeTextColor: Color
+    activeTextColor: Color = disabledTextColor
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()

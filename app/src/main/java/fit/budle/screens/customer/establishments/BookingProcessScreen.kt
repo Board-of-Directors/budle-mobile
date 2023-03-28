@@ -1,4 +1,4 @@
-package fit.budle.screens.establishments
+package fit.budle.screens.customer.establishments
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -27,6 +27,7 @@ import fit.budle.components.moleculas.BudleInfoTagList
 import fit.budle.components.moleculas.budleTagList
 import fit.budle.models.*
 import fit.budle.navigation.navigate
+import fit.budle.navigation.routes.NavRoute
 import fit.budle.ui.theme.*
 import org.xmlpull.v1.XmlPullParser
 
@@ -65,7 +66,7 @@ fun BookingProcessScreen(
                     elevation = 0.dp,
                     onClick = {
                         navHostController.navigate(
-                            "establishment_card",
+                            NavRoute.EstablishmentCard.route,
                             bundleOf("EST_KEY" to establishmentCard)
                         )
                     }
@@ -85,7 +86,7 @@ fun BookingProcessScreen(
                 iconId = R.drawable.map,
                 horizontalPadding = 0.dp,
                 onClick = {
-                    navHostController.navigate("main_page")
+                    navHostController.navigate(NavRoute.MainPage.route)
                 }
             )
             BudleButton(
@@ -97,7 +98,7 @@ fun BookingProcessScreen(
                 activeTextColor = mainWhite,
                 horizontalPadding = 0.dp,
                 onClick = {
-                    navHostController.navigate("main_page")
+                    navHostController.navigate(NavRoute.MainPage.route)
                 }
             )
         }

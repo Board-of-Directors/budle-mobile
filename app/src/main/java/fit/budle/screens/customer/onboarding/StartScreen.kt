@@ -1,6 +1,7 @@
-package fit.budle.screens
+package fit.budle.screens.customer.onboarding
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -13,11 +14,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import fit.budle.R
-import fit.budle.navigation.NavRoute
+import fit.budle.navigation.routes.NavRoute
 import fit.budle.ui.theme.fillPurple
+import fit.budle.ui.theme.textGray
 
 @Composable
-fun EndScreen(navController: NavHostController) {
+fun StartScreen(navController: NavHostController) {
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -27,11 +29,11 @@ fun EndScreen(navController: NavHostController) {
             verticalArrangement = Arrangement.Center
         ) {
             Image(
-                painter = painterResource(id = R.drawable.end_screen_icon),
-                contentDescription = "End Picture",
+                painter = painterResource(id = R.drawable.start_picture),
+                contentDescription = "Start Picture",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .width(210.dp)
+                    .width(230.dp)
                     .padding(bottom = 60.dp)
             )
             Image(
@@ -40,28 +42,46 @@ fun EndScreen(navController: NavHostController) {
                 ),
                 contentDescription = "Logo",
                 modifier = Modifier
-                    .width(180.dp)
+                    .width(148.dp)
                     .padding(bottom = 21.dp)
             )
             Text(
-                text = "Регистрация прошла успешно!\nПриступаем к бронированию",
+                text = "Бронируйте места в пару кликов!",
                 modifier = Modifier
                     .padding(bottom = 51.dp)
-                    .width(330.dp),
-                style = MaterialTheme.typography.titleMedium,
+                    .width(180.dp),
+                style = MaterialTheme.typography.displayMedium,
                 textAlign = TextAlign.Center,
             )
             Button(
                 onClick = {
-                    navController.navigate(route = NavRoute.MainList.route)
+                    navController.navigate(route = NavRoute.Number.route)
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = fillPurple),
 
                 ) {
                 Text(
-                    text = "Завершить регистрацию",
+                    text = "Зарегистрироваться",
                     fontSize = 16.sp,
                     modifier = Modifier.padding(vertical = 8.dp, horizontal = 40.dp),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+            Row {
+                Text(
+                    text = "Уже есть аккаунт? ",
+                    modifier = Modifier.padding(top = 20.dp),
+                    color = textGray,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                Text(
+                    text = "Войти",
+                    modifier = Modifier
+                        .padding(top = 20.dp)
+                        .clickable{
+                        navController.navigate(NavRoute.Data.route)
+                    },
+                    color = fillPurple,
                     style = MaterialTheme.typography.bodyMedium
                 )
             }

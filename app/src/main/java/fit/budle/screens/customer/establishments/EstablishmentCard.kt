@@ -1,4 +1,4 @@
-package fit.budle.screens.establishments
+package fit.budle.screens.customer.establishments
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.gestures.Orientation
@@ -40,6 +40,7 @@ import fit.budle.models.InfoTag
 import fit.budle.models.restaurants
 import fit.budle.models.sampleEstablishmentCardModel
 import fit.budle.navigation.navigate
+import fit.budle.navigation.routes.NavRoute
 import fit.budle.ui.theme.*
 
 @Suppress("UNCHECKED_CAST")
@@ -78,7 +79,7 @@ fun EstablishmentCardScreen(
                     iconDescription = "Close",
                     iconId = R.drawable.x,
                     onClick = {
-                        navHostController.navigate("main_page")
+                        navHostController.navigate(NavRoute.MainPage.route)
                     })
             }
             Row(
@@ -91,7 +92,7 @@ fun EstablishmentCardScreen(
                 BudleButton(
                     onClick = {
                         navHostController.navigate(
-                            "booking_process",
+                            NavRoute.BookingProcess.route,
                             bundleOf("EST_KEY" to establishmentCard)
                         )
                     },

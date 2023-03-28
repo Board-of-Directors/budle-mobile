@@ -18,7 +18,7 @@ import fit.budle.R
 import fit.budle.components.atoms.inputs.MaskVisualTransformation
 import fit.budle.components.data.NumberDefaults.INPUT_LENGTH
 import fit.budle.components.data.NumberDefaults.MASK
-import fit.budle.navigation.NavRoute
+import fit.budle.navigation.routes.NavRoute
 import fit.budle.ui.theme.backgroundError
 import fit.budle.ui.theme.backgroundLightBlue
 import fit.budle.ui.theme.fillPurple

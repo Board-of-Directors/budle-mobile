@@ -1,4 +1,4 @@
-package fit.budle.screens.establishments
+package fit.budle.screens.customer.establishments
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -24,6 +24,7 @@ import fit.budle.R
 import fit.budle.models.Establishments
 import fit.budle.models.establishments
 import fit.budle.navigation.navigate
+import fit.budle.navigation.routes.NavRoute
 import fit.budle.ui.theme.*
 
 @Composable
@@ -106,7 +107,7 @@ fun ShowSearchBar(navController: NavHostController) {
         }
         IconButton(
             onClick = {
-                navController.navigate(route = "user_profile")
+                navController.navigate(route = NavRoute.UserProfile.route)
             }
         ) {
             Icon(
@@ -159,7 +160,7 @@ fun ShowInstitution(
                         .clickable(
                             onClick = {
                                 navController.navigate(
-                                    "establishment_card",
+                                    NavRoute.EstablishmentCard.route,
                                     bundleOf("EST_KEY" to institutionCardState[i])
                                 )
                             }

@@ -2,13 +2,10 @@ package fit.budle.network
 
 import fit.budle.model.AnswerCategories
 import fit.budle.model.AnswerEstablishment
-import fit.budle.model.AnswerOrder
+import fit.budle.model.AnswerOrders
 import fit.budle.model.AnswerRegistration
 import okhttp3.RequestBody
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface BudleAPIRequests {
     @POST("register")
@@ -35,6 +32,14 @@ interface BudleAPIRequests {
     suspend fun getCategories(
     ): AnswerCategories
 
-    @POST("order")
-    suspend fun getCategories(@Body requestBody: RequestBody): AnswerOrder
+    @GET("order")
+    suspend fun getOrders(
+        @Query("userId") userId: Long?
+    ) : AnswerOrders
+
+    @DELETE("order")
+    suspend fun deleteOrder(
+        @Query("userId") userId: Long,
+        @Query("orderId") orderId: Long
+    )
 }

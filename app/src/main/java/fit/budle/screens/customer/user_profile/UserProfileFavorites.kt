@@ -1,4 +1,4 @@
-package fit.budle.screens.user_profile
+package fit.budle.screens.customer.user_profile
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -6,22 +6,22 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.components.atoms.BudleSearchBar
-import fit.budle.components.moleculas.BudleBookingCardList
-import fit.budle.components.moleculas.BudleNavigationHeader
-import fit.budle.components.moleculas.budleTagList
-import fit.budle.models.bookingList
+import fit.budle.components.moleculas.*
+import fit.budle.models.establishmentDescriptionList
 import fit.budle.models.tagList
+import fit.budle.navigation.routes.NavRoute
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun UserProfileBookingsScreen(navController: NavHostController) {
+fun UserProfileFavoritesScreen(navController: NavHostController) {
 
-    val bookingsState = remember { bookingList }
     val currentType = remember {
         mutableStateOf("Все")
     }
@@ -33,8 +33,8 @@ fun UserProfileBookingsScreen(navController: NavHostController) {
                 .padding(top = 30.dp)
         ) {
             BudleNavigationHeader(
-                textMessage = "Мои брони",
-                route = "user_profile",
+                textMessage = "Избраное",
+                route = NavRoute.UserProfile.route,
                 navController = navController
             )
             BudleSearchBar()
@@ -42,8 +42,8 @@ fun UserProfileBookingsScreen(navController: NavHostController) {
                 initialState = 0,
                 tagList = tagList
             )
-            BudleBookingCardList(
-                bookingList = bookingsState,
+            BudleEstablishmentCardDescriptionList(
+                establishmentDescription = establishmentDescriptionList,
                 filter = currentType.value
             )
         }

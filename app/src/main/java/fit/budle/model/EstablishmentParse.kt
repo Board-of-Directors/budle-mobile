@@ -1,7 +1,11 @@
 package fit.budle.model
 
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import fit.budle.R
+
 data class Establishment(
-    val id: Long,
+    val id: Int,
     val name: String,
     val description: String?,
     val address: String,
