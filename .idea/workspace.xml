@@ -9,30 +9,27 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a889eeb-4a07-4de4-9cda-8cbfa792dff6" name="Changes" comment="">
+    <list default="true" id="7a889eeb-4a07-4de4-9cda-8cbfa792dff6" name="Changes" comment="develop/build success">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/components/atoms/Button.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/components/atoms/Button.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/components/atoms/NavigationHeader.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/components/atoms/NavigationHeader.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/components/atoms/inputs/DataTextField.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/components/atoms/inputs/DataTextField.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/components/moleculas/BlockWithHeader.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/components/moleculas/BlockWithHeader.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/models/Tabs.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/models/Tabs.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/navigation/BudleNavHost.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/navigation/BudleNavHost.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/navigation/NavRoute.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/navigation/routes/NavRoute.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/components/atoms/BookingCard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/components/atoms/BookingCard.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/components/atoms/InfoTag.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/components/atoms/InfoTag.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/components/atoms/Tag.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/components/atoms/Tag.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/components/moleculas/InfoTagList.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/components/moleculas/InfoTagList.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/components/moleculas/TagList.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/components/moleculas/TagList.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/model/BudleResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/model/BudleResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/model/EstablishmentStructue.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/model/EstablishmentStructue.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/model/Establishments.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/model/EstablishmentParse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/model/EstablishmentsRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/model/EstablishmentRequest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/navigation/NavigationComponent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/navigation/NavigationComponent.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/establishments/BookingProcessScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/customer/establishments/BookingProcessScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/establishments/EstablishmentCard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/customer/establishments/EstablishmentCard.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/establishments/MainListScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/customer/establishments/MainListScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/onboarding/CodeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/customer/onboarding/CodeScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/onboarding/DataScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/customer/onboarding/DataScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/onboarding/EndScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/customer/onboarding/EndScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/onboarding/NumberScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/customer/onboarding/NumberScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/onboarding/StartScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/customer/onboarding/StartScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/user_profile/UserProfile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/customer/user_profile/UserProfile.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/user_profile/UserProfileBookings.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/customer/user_profile/UserProfileBookings.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/user_profile/UserProfileFavorites.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/customer/user_profile/UserProfileFavorites.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/user_profile/UserProfileReviews.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/customer/user_profile/UserProfileReviews.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/user_profile/UserProfileSettings.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/customer/user_profile/UserProfileSettings.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/network/BudleAPIRequests.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/network/BudleAPIRequests.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/BudleRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/BudleRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/establishments/BookingProcessScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/establishments/BookingProcessScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/establishments/EstablishmentCard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/screens/establishments/EstablishmentCard.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/details/InstitutionCard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/details/InstitutionCard.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/details/InstitutionsRow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/details/InstitutionsRow.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/HomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/HomeScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/DetailViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/BookViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/MainViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/MainViewModel.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,10 +62,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Kotlin Class" />
         <option value="Kotlin Interface" />
         <option value="Kotlin Enum" />
-        <option value="Kotlin Sealed Class" />
+        <option value="Kotlin Class" />
         <option value="Kotlin File" />
       </list>
     </option>
@@ -99,7 +95,7 @@
     <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectId" id="2N3yaDqtZwKdg5gAWi9kN9Y4nQP" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -112,7 +108,7 @@
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="ToolWindowLogcat.ShowToolbar" value="false" />
     <property name="cidr.known.project.marker" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/java/fit/budle/ui" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -124,15 +120,19 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Users\NikFive\BudleMaterial3\app\src\main\java\fit\budle\ui\screens" />
       <recent name="D:\Users\NikFive\BudleMaterial3\app\src\main\java\fit\budle\ui" />
       <recent name="D:\Users\NikFive\BudleMaterial3\app\src\main\java\fit\budle\ui\details" />
       <recent name="D:\Users\NikFive\BudleMaterial3\app\src\main\res" />
       <recent name="D:\Users\NikFive\BudleMaterial3\app\src\main\java\fit\budle" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\treti\IdeaProjects\budle-mobile\app\src\main\java\fit\budle\screens\business\creator" />
+      <recent name="D:\Users\NikFive\BudleMaterial3\app\src\main\res\drawable" />
       <recent name="C:\Users\treti\IdeaProjects\budle-mobile\app\src\main\res\drawable" />
       <recent name="C:\Users\treti\IdeaProjects\budle-mobile\app\src\main\res\drawable-v24" />
+    </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="fit.budle.model" />
     </key>
   </component>
   <component name="RunManager" selected="Android App.app">

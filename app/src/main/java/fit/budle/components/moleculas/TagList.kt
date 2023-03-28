@@ -23,7 +23,6 @@ fun budleTagList(
     tagList: List<Tag>,
     tagType: TagType = TagType.RECTANGLE
 ): String {
-
     var selectedItem by remember { mutableStateOf(initialState) }
     val isSelectedItem: (Int) -> Boolean = { selectedItem == it }
     val onChangeState: (Int) -> Unit = {

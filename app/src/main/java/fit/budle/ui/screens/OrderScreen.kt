@@ -1,9 +1,8 @@
-package fit.budle.screens.customer.establishments
+package fit.budle.ui.screens
 
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -15,31 +14,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.core.os.bundleOf
 import androidx.navigation.NavHostController
 import fit.budle.R
 import fit.budle.components.atoms.BudleButton
 import fit.budle.components.atoms.BudleIconButton
-import fit.budle.components.atoms.BudleTag
 import fit.budle.components.data.TagType
 import fit.budle.components.moleculas.BudleBlockWithHeader
-import fit.budle.components.moleculas.BudleInfoTagList
 import fit.budle.components.moleculas.budleTagList
 import fit.budle.models.*
-import fit.budle.navigation.navigate
-import fit.budle.navigation.routes.NavRoute
 import fit.budle.ui.theme.*
-import org.xmlpull.v1.XmlPullParser
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun BookingProcessScreen(
+fun OrderScreen(
     navHostController: NavHostController,
-    establishmentCard: EstablishmentCard
+    establishmentId: String?,
+    name: String?,
+    getOrder: (Long, Long) -> String,
+    sendGuestCount: (Int) -> Unit,
+    sendData: (String) -> Unit,
+    sendTime: (String) -> Unit
 ) {
-
     val userAmount = remember { mutableStateOf(1) }
-    val description = establishmentCard.establishmentCardModel.establishmentDescription
+    val userId:Long = 1 //FIXME Исправить костыль
 
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -52,11 +49,13 @@ fun BookingProcessScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(
-                    text = description.name,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = textGray
-                )
+                if (name != null) {
+                    Text(
+                        text = name,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = textGray
+                    )
+                }
                 BudleIconButton(
                     modifier = Modifier.size(26.dp),
                     iconDescription = "Close",
@@ -65,16 +64,13 @@ fun BookingProcessScreen(
                     crossColor = mainBlack,
                     elevation = 0.dp,
                     onClick = {
-                        navHostController.navigate(
-                            NavRoute.EstablishmentCard.route,
-                            bundleOf("EST_KEY" to establishmentCard)
-                        )
+                        navHostController.popBackStack()
                     }
                 )
             }
-            BookingAmount(amount = userAmount)
-            BookingDay()
-            BookingTime()
+            BookingAmount(amount = userAmount, sendGuestCount)
+            BookingDay(sendData)
+            BookingTime(sendTime)
             BookingPreferences()
             BudleButton(
                 topPadding = 40.dp,
@@ -86,7 +82,7 @@ fun BookingProcessScreen(
                 iconId = R.drawable.map,
                 horizontalPadding = 0.dp,
                 onClick = {
-                    navHostController.navigate(NavRoute.MainPage.route)
+                    navHostController.navigate("home")
                 }
             )
             BudleButton(
@@ -98,7 +94,10 @@ fun BookingProcessScreen(
                 activeTextColor = mainWhite,
                 horizontalPadding = 0.dp,
                 onClick = {
-                    navHostController.navigate(NavRoute.MainPage.route)
+                    if (establishmentId != null) {
+                        getOrder(establishmentId.toLong(), userId)
+                    }
+                    navHostController.navigate("home")
                 }
             )
         }
@@ -107,7 +106,8 @@ fun BookingProcessScreen(
 
 @Composable
 fun BookingAmount(
-    amount: MutableState<Int>
+    amount: MutableState<Int>,
+    sendGuestCount: (Int) -> Unit
 ) {
     val leftCondition = amount.value > 1
     val rightCondition = amount.value < 10
@@ -130,6 +130,7 @@ fun BookingAmount(
                 onClick = {
                     if (leftCondition) {
                         amount.value--
+                        sendGuestCount(amount.value)
                     }
                 }
             )
@@ -152,6 +153,7 @@ fun BookingAmount(
                 onClick = {
                     if (rightCondition) {
                         amount.value++
+                        sendGuestCount(amount.value)
                     }
                 }
             )
@@ -161,7 +163,7 @@ fun BookingAmount(
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun BookingDay() {
+fun BookingDay(sendData: (String) -> Unit) {
     BudleBlockWithHeader(headerText = "День") {
         Row(
             modifier = Modifier
@@ -169,18 +171,19 @@ fun BookingDay() {
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            budleTagList(
+            val data = budleTagList(
                 initialState = days[0].tagId,
                 tagList = days,
                 tagType = TagType.CIRCLE
             )
+            sendData(data)
         }
     }
 }
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun BookingTime() {
+fun BookingTime(sendTime: (String) -> Unit) {
     BudleBlockWithHeader(headerText = "Время") {
         Row(
             modifier = Modifier
@@ -188,10 +191,11 @@ fun BookingTime() {
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            budleTagList(
+            val time = budleTagList(
                 initialState = time[0].tagId,
                 tagList = time,
             )
+            sendTime(time)
         }
     }
 }

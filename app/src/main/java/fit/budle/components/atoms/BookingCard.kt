@@ -29,7 +29,7 @@ import fit.budle.ui.theme.*
 fun BudleBookingCard(booking: Booking) {
 
     BookingCard(booking = booking)
-    BudleInfoTagList(tags = booking.tags)
+    //BudleInfoTagList(tags = booking.tags)
     BookingInformation(booking = booking)
 
     if (booking.infoList[0].second as BookingStatus

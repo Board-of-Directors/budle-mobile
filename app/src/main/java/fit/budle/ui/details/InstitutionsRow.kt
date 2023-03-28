@@ -9,13 +9,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import fit.budle.model.EstablishmentStructure
 import fit.budle.ui.theme.mainBlack
 import fit.budle.ui.theme.textGray
 
 @Composable
 fun InstitutionsRow(
-    establishments: EstablishmentStructure
+    establishments: EstablishmentStructure,
+    navController: NavController
 ) {
     val rowState = rememberLazyListState()
     if (establishments.establishments.isNotEmpty()) {
@@ -43,7 +45,7 @@ fun InstitutionsRow(
             ) {
                 itemsIndexed(establishments.establishments) { i, _ ->
                     if (establishments.establishments.isNotEmpty()) {
-                        InstitutionCard(i = i, institutionCardState = establishments.establishments)
+                        InstitutionCard(i = i, institutionCardState = establishments.establishments, navController, category = establishments.establishments[i].category)
                     }
                 }
             }

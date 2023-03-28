@@ -1,10 +1,8 @@
-package fit.budle.screens.customer.establishments
+package fit.budle.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.*
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
@@ -14,53 +12,39 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Blue
-import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.graphics.Color.Companion.Transparent
-import androidx.compose.ui.graphics.Color.Companion.Yellow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import androidx.core.os.bundleOf
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import fit.budle.R
 import fit.budle.components.atoms.*
 import fit.budle.components.moleculas.BudleBlockWithHeader
 import fit.budle.components.moleculas.BudleInfoTagList
-import fit.budle.models.EstablishmentCard
+import fit.budle.model.EstablishmentWithImage
+import fit.budle.model.WorkingHour
 import fit.budle.models.InfoTag
-import fit.budle.models.restaurants
-import fit.budle.models.sampleEstablishmentCardModel
-import fit.budle.navigation.navigate
-import fit.budle.navigation.routes.NavRoute
 import fit.budle.ui.theme.*
 
-@Suppress("UNCHECKED_CAST")
 @Composable
-fun EstablishmentCardScreen(
-    navHostController: NavHostController,
-    establishmentCard: EstablishmentCard
+fun CardScreen(
+    navController: NavController, establishmentWithImage: EstablishmentWithImage?
 ) {
-    val establishmentInfo = establishmentCard.establishmentCardModel.infoList
-    val photos = (establishmentInfo[1] as Pair<String, MutableList<Int>>).second
-    val restPhotos = if (photos.size > 6) photos.subList(6, photos.size) else photos
+    //val establishmentInfo = establishmentCard.establishmentCardModel.infoList
+    //val photos = (establishmentInfo[1] as Pair<String, MutableList<Int>>).second
+    //val restPhotos = if (photos.size > 6) photos.subList(6, photos.size) else photos
     val isCLicked = remember { mutableStateOf(false) }
 
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
+        /*
         ShowPhotoGallery(
-            photoInfo = restPhotos,
-            isClicked = isCLicked
-        )
+            photoInfo = restPhotos, isClicked = isCLicked
+        )*/
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -74,12 +58,11 @@ fun EstablishmentCardScreen(
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.Top
             ) {
-                BudleIconButton(
-                    modifier = Modifier.size(26.dp),
+                BudleIconButton(modifier = Modifier.size(26.dp),
                     iconDescription = "Close",
                     iconId = R.drawable.x,
                     onClick = {
-                        navHostController.navigate(NavRoute.MainPage.route)
+                        navController.navigate("home")
                     })
             }
             Row(
@@ -91,10 +74,11 @@ fun EstablishmentCardScreen(
             ) {
                 BudleButton(
                     onClick = {
-                        navHostController.navigate(
-                            NavRoute.BookingProcess.route,
-                            bundleOf("EST_KEY" to establishmentCard)
-                        )
+                        if (establishmentWithImage != null) {
+                            navController.navigate(
+                                "order/${establishmentWithImage.id}/${establishmentWithImage.name}"
+                            )
+                        }
                     },
                     buttonText = "Забронировать место",
                     disabledButtonColor = fillPurple,
@@ -110,25 +94,37 @@ fun EstablishmentCardScreen(
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
         ) {
-            EstablishmentBanner(
-                establishmentCard = establishmentCard
-            )
-            InfoBar(establishmentCard = establishmentCard)
-            //BudleInfoTagList(tags = establishmentCard.establishmentCardModel.tags)
+            if (establishmentWithImage != null) {
+                EstablishmentBanner(
+                    establishmentCard = establishmentWithImage
+                )
+                Log.wtf("NULL", "NOT_NULL");
+            } else {
+                Log.wtf("NULL", "NULL");
+            }
+            InfoBar(establishmentCard = establishmentWithImage)
+            if (establishmentWithImage != null) {
+                BudleInfoTagList(tags = establishmentWithImage.tags)
+            }
             Column(
                 modifier = Modifier
                     .padding(horizontal = 20.dp)
                     .fillMaxWidth()
             ) {
-                EstablishmentCardDescription(description = establishmentInfo[0] as Pair<String, String>)
-                EstablishmentCardPhoto(
-                    photoInfo = establishmentInfo[1] as Pair<String, MutableList<Int>>,
+                if (establishmentWithImage != null) {
+                    establishmentWithImage.description?.let { EstablishmentCardDescription(description = it) }
+                }
+                /*
+                EstablishmentCardPhoto(photoInfo = establishmentInfo[1] as Pair<String, MutableList<Int>>,
                     onClick = {
                         isCLicked.value = true
-                    }
-                )
-                WorkingTime(cardDescription = establishmentInfo[2] as Pair<String, MutableMap<String, String>>)
-                EstablishmentAddress(addressInfo = establishmentInfo[3] as Pair<String, MutableMap<String, String>>)
+                    })*/
+                if (establishmentWithImage != null) {
+                    WorkingTime(cardDescription = establishmentWithImage.workingHours)
+                }
+                if (establishmentWithImage != null) {
+                    EstablishmentAddress(addressInfo = establishmentWithImage.address)
+                }
             }
         }
     }
@@ -136,12 +132,11 @@ fun EstablishmentCardScreen(
 
 @Composable
 fun EstablishmentBanner(
-    establishmentCard: EstablishmentCard
+    establishmentCard: EstablishmentWithImage
 ) {
     val gradient = Brush.verticalGradient(listOf(alphaBlack, alphaBlack))
-    val description = establishmentCard.establishmentCardModel.establishmentDescription
-    val photos =
-        (establishmentCard.establishmentCardModel.infoList[1].second as MutableList<*>).size
+    val description = establishmentCard.description
+    //val photos = establishmentCard.
     Box(
         modifier = Modifier
             .padding(0.dp)
@@ -149,14 +144,15 @@ fun EstablishmentBanner(
             .fillMaxWidth(),
         contentAlignment = Alignment.BottomStart
     ) {
-        Image(
-            painter = painterResource(
-                id = description.imgID
-            ),
-            contentDescription = "Restaurant Card",
-            modifier = Modifier.fillMaxWidth(),
-            contentScale = ContentScale.Crop
-        )
+        establishmentCard.image?.let {
+            Image(
+                painter =
+                it,
+                contentDescription = "Restaurant Card",
+                modifier = Modifier.fillMaxWidth(),
+                contentScale = ContentScale.Crop
+            )
+        }
         Box(
             Modifier
                 .matchParentSize()
@@ -177,13 +173,12 @@ fun EstablishmentBanner(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = description.type,
+                        text = establishmentCard.category,
                         style = MaterialTheme.typography.labelSmall,
                         color = mainWhite,
                     )
                     Card(
-                        modifier = Modifier.padding(horizontal = 7.dp),
-                        shape = CircleShape
+                        modifier = Modifier.padding(horizontal = 7.dp), shape = CircleShape
                     ) {
                         Box(
                             modifier = Modifier
@@ -191,34 +186,31 @@ fun EstablishmentBanner(
                                 .background(mainWhite)
                         )
                     }
-                    Text(
-                        text = description.subtype,
-                        style = MaterialTheme.typography.labelSmall,
-                        color = mainWhite
-                    )
+                    establishmentCard.cuisineCountry?.let {
+                        Text(
+                            text = it,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = mainWhite
+                        )
+                    }
                 }
                 Text(
-                    text = description.name,
+                    text = establishmentCard.name,
                     style = MaterialTheme.typography.titleMedium,
                     color = mainWhite,
                 )
-            }
+            }/*
             BudlePhotoTag(
-                tag = "$photos фото",
-                width = 75.dp
-            )
+                //tag = "$photos фото", width = 75.dp
+            )*/
         }
     }
 }
 
 @Composable
 fun InfoBar(
-    establishmentCard: EstablishmentCard
+    establishmentCard: EstablishmentWithImage?
 ) {
-
-    val isFavorite = establishmentCard.establishmentCardModel
-        .establishmentDescription.isFavorite.value
-
     Row(
         modifier = Modifier
             .padding(start = 20.dp, top = 10.dp, end = 10.dp)
@@ -231,11 +223,11 @@ fun InfoBar(
             modifier = Modifier.width(IntrinsicSize.Max),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            BudlePhotoTag(
-                tag = establishmentCard.rate.toString(),
-                color = fillPurple,
-                textColor = mainWhite
-            )
+            if (establishmentCard != null) {
+                BudlePhotoTag(
+                    tag = establishmentCard.rating.toString(), color = fillPurple, textColor = mainWhite
+                )
+            }
             Text(
                 modifier = Modifier.padding(start = 15.dp),
                 text = "Рейтинг",
@@ -244,25 +236,19 @@ fun InfoBar(
             )
         }
         Row(Modifier.width(IntrinsicSize.Max)) {
-            IconButton(
-                onClick = {}
-            ) {
+            IconButton(onClick = {}) {
                 Icon(
                     painter = painterResource(id = R.drawable.share),
                     contentDescription = "Share icon",
                     tint = textGray
                 )
             }
-            IconButton(
-                onClick = {
-                    establishmentCard.establishmentCardModel.establishmentDescription
-                        .isFavorite.value = !isFavorite
-                }
-            ) {
-                if (!establishmentCard.establishmentCardModel
-                        .establishmentDescription
-                        .isFavorite.value
-                ) {
+        /*
+            IconButton(onClick = {
+                establishmentCard.establishmentCardModel.establishmentDescription.isFavorite.value =
+                    !isFavorite
+            }) {
+                if (!establishmentCard.establishmentCardModel.establishmentDescription.isFavorite.value) {
                     Icon(
                         painter = painterResource(id = R.drawable.heart_outline),
                         contentDescription = "Add to favorites",
@@ -276,18 +262,19 @@ fun InfoBar(
                     )
                 }
             }
+            */
         }
     }
 }
 
 @Composable
 fun EstablishmentCardDescription(
-    description: Pair<String, String>
+    description: String
 ) {
-    BudleBlockWithHeader(headerText = description.first) {
+    BudleBlockWithHeader(headerText = "Описание") {
         Text(
             modifier = Modifier.padding(top = 10.dp),
-            text = description.second,
+            text = description,
             style = MaterialTheme.typography.bodyMedium,
             color = mainBlack
         )
@@ -296,8 +283,7 @@ fun EstablishmentCardDescription(
 
 @Composable
 fun EstablishmentCardPhoto(
-    onClick: () -> Unit = {},
-    photoInfo: Pair<String, MutableList<Int>>
+    onClick: () -> Unit = {}, photoInfo: Pair<String, MutableList<Int>>
 ) {
     val photos = photoInfo.second
     val restPhotos = photos.size - 6
@@ -361,14 +347,11 @@ fun EstablishmentCardPhoto(
 
 @Composable
 fun WorkingTime(
-    cardDescription: Pair<String, Map<String, String>>
+    cardDescription: Array<WorkingHour>
 ) {
-
-    val table = cardDescription.second
-
-    BudleBlockWithHeader(headerText = cardDescription.first) {
+    BudleBlockWithHeader(headerText = "Время работы") {
         Column {
-            for (i in 0 until table.size) {
+            for (i in 0 until cardDescription.size) {
                 Row(
                     modifier = Modifier
                         .padding(top = 10.dp)
@@ -377,13 +360,13 @@ fun WorkingTime(
                 ) {
                     Text(
                         modifier = Modifier.width(50.dp),
-                        text = table.keys.elementAt(i),
+                        text = cardDescription[i].dayOfWeek.toString(),
                         style = MaterialTheme.typography.bodyMedium,
                         color = mainBlack
                     )
                     Text(
                         modifier = Modifier.padding(start = 20.dp),
-                        text = table.values.elementAt(i),
+                        text = cardDescription[i].startTime + "-" + cardDescription[i].endTime,
                         style = MaterialTheme.typography.bodyMedium,
                         color = mainBlack
                     )
@@ -395,12 +378,10 @@ fun WorkingTime(
 
 @Composable
 fun EstablishmentAddress(
-    addressInfo: Pair<String, MutableMap<String, String>>
+    addressInfo: String
 ) {
-    val table = addressInfo.second
     BudleBlockWithHeader(
-        modifier = Modifier.padding(bottom = 100.dp),
-        headerText = addressInfo.first
+        modifier = Modifier.padding(bottom = 100.dp), headerText = "Адрес"
     ) {
         Row(
             modifier = Modifier
@@ -412,6 +393,11 @@ fun EstablishmentAddress(
             Column(
                 modifier = Modifier.height(IntrinsicSize.Max)
             ) {
+                Text(
+                    text = addressInfo,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = mainBlack
+                )/*
                 if (table["Метро"] != null) {
                     table["Метро"]?.let {
                         Text(
@@ -428,14 +414,12 @@ fun EstablishmentAddress(
                         style = MaterialTheme.typography.bodyMedium,
                         color = mainBlack
                     )
-                }
+                }*/
             }/*
             BudleInfoTag(
                 infoTag = InfoTag(
-                    tagName = "Карта",
-                    tagId = R.drawable.map
-                ),
-                contentColor = fillPurple
+                    tagName = "Карта", tagId = R.drawable.map
+                ), contentColor = fillPurple
             )*/
         }
     }
@@ -443,8 +427,7 @@ fun EstablishmentAddress(
 
 @Composable
 fun ShowPhotoGallery(
-    photoInfo: MutableList<Int>,
-    isClicked: MutableState<Boolean>
+    photoInfo: MutableList<Int>, isClicked: MutableState<Boolean>
 ) {
 
     val configuration = LocalConfiguration.current
@@ -468,8 +451,7 @@ fun ShowPhotoGallery(
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.Top
             ) {
-                BudleIconButton(
-                    modifier = Modifier.size(26.dp),
+                BudleIconButton(modifier = Modifier.size(26.dp),
                     iconDescription = "Close",
                     iconId = R.drawable.x,
                     onClick = {
@@ -487,8 +469,7 @@ fun ShowPhotoGallery(
                     shape = RoundedCornerShape(10.dp)
                 ) {
                     Box(
-                        modifier = Modifier.height(screenWidth),
-                        contentAlignment = Alignment.Center
+                        modifier = Modifier.height(screenWidth), contentAlignment = Alignment.Center
                     ) {
                         Image(
                             painter = painterResource(id = photoInfo[currentIndex.value]),
@@ -516,11 +497,9 @@ fun ShowPhotoGallery(
                         Card(
                             modifier = Modifier
                                 .padding(end = padding)
-                                .clickable(
-                                    onClick = {
-                                        currentIndex.value = i
-                                    }
-                                ),
+                                .clickable(onClick = {
+                                    currentIndex.value = i
+                                }),
                             shape = RoundedCornerShape(10.dp),
                             border = BorderStroke(2.dp, selectedColor)
                         ) {

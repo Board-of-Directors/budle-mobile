@@ -11,6 +11,10 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import fit.budle.model.Establishment
+import fit.budle.model.EstablishmentStructure
+import fit.budle.model.EstablishmentWithImage
+import fit.budle.model.Tag
 import fit.budle.model.*
 import fit.budle.models.ordersTagList
 import fit.budle.network.BudleAPIClient
@@ -66,6 +70,9 @@ class MainViewModel : ViewModel() {
             return result
         }
     }
+
+    fun getCard(category: String?, cardID: String?): EstablishmentWithImage? =
+        cardID?.let { result3[category]?.value?.establishments?.get(it.toInt()) }
 
     fun getListOfCategories(): Array<String> {
         repository = BudleRepository(apiService)
@@ -139,28 +146,42 @@ class MainViewModel : ViewModel() {
     }
 
 
-    fun convertEstablishment(establishment: Establishment): EstablishmentWithImage {
-        val imageBytes: ByteArray?
-        var decodedImage: BitmapPainter? = null
-        if (establishment.image != null) {
-            imageBytes = Base64.decode(establishment.image, Base64.DEFAULT)
-            decodedImage = BitmapPainter(
+fun convertEstablishment(establishment: Establishment): EstablishmentWithImage {
+    var decodedImage: BitmapPainter? = null
+    val decodedTagsIcons: ArrayList<Tag> = arrayListOf()
+    if (establishment.image != null) {
+        val imageBytes: ByteArray = Base64.decode(establishment.image, Base64.DEFAULT)
+        decodedImage = BitmapPainter(
+            BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size).asImageBitmap()
+        )
+    }
+
+    establishment.tags.forEach {
+        var decodedIcon: BitmapPainter? = null
+        if (it.image != null) {
+            val imageBytes: ByteArray = Base64.decode(it.image, Base64.DEFAULT)
+            decodedIcon = BitmapPainter(
                 BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size).asImageBitmap()
             )
         }
-
-        return EstablishmentWithImage(
-            establishment.id,
-            establishment.name,
-            establishment.description,
-            establishment.address,
-            establishment.owner,
-            establishment.hasCardPayment,
-            establishment.hasMap,
-            establishment.category,
-            decodedImage,
-            establishment.rating,
-            establishment.price
-        )
+        decodedTagsIcons.add(Tag(name = it.name, image = decodedIcon))
     }
+
+    return EstablishmentWithImage(
+        establishment.id,
+        establishment.name,
+        establishment.description,
+        establishment.address,
+        establishment.owner,
+        establishment.hasCardPayment,
+        establishment.hasMap,
+        establishment.category,
+        decodedImage,
+        establishment.rating,
+        establishment.price,
+        establishment.workingHours,
+        decodedTagsIcons,
+        establishment.cuisineCountry,
+        establishment.starsCount
+    )
 }
