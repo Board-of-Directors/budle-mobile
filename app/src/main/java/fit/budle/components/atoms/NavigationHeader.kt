@@ -33,7 +33,7 @@ fun BudleNavigationHeader(
         ) {
             IconButton(
                 onClick = {
-                    navController.navigate(route = route)
+                    navController.navigate(route = "home")
                 }
             ) {
                 Icon(

@@ -54,9 +54,7 @@ fun UserProfileBookingsScreenBackendConnected(
             BudleBookingCardListBackendConnected(
                 bookingList = bookingsProvider(tempUserId, currentType.value),
                 deletingProvider = deletingProvider
-
             )
-
         }
     }
 }

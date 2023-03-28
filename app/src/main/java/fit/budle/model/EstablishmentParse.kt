@@ -5,7 +5,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import fit.budle.R
 
 data class Establishment(
-    val id: Int,
+    val id: Long,
     val name: String,
     val description: String?,
     val address: String,

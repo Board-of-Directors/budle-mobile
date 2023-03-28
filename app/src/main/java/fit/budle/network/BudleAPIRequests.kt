@@ -38,6 +38,9 @@ interface BudleAPIRequests {
         @Query("status") status: Int?
     ) : AnswerOrders
 
+    @POST("order")
+    suspend fun postOrders(@Body requestBody: RequestBody): AnswerRegistration
+
     @DELETE("order")
     suspend fun deleteOrder(
         @Query("userId") userId: Long,

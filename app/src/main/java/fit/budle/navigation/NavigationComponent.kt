@@ -7,12 +7,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import fit.budle.models.EstablishmentCard
 import fit.budle.screens.*
-import fit.budle.screens.establishments.BookingProcessScreen
-import fit.budle.screens.establishments.EstablishmentCardScreen
-import fit.budle.screens.establishments.MainListScreen
-import fit.budle.screens.onboarding.StartScreen
+import fit.budle.screens.customer.user_profile.*
 import fit.budle.screens.user_profile.*
 import fit.budle.ui.screens.CardScreen
 import fit.budle.ui.screens.HomeScreen
@@ -59,6 +55,8 @@ fun NavigationComponent(navController: NavHostController) {
             )
         }
 
+        /*
+
         //<editor-fold desc="onboarding">
         composable("start_screen") { StartScreen(navController) }
         composable("data_screen") { backStackEntry ->
@@ -85,15 +83,21 @@ fun NavigationComponent(navController: NavHostController) {
                 ?.let {
                     BookingProcessScreen(navController, it)
                 }
-        }
+        }*/
         //</editor-fold>
 
         //<editor-fold desc="user_profile">
         composable("user_profile") { UserProfileScreen(navController) }
-        composable("user_profile_settings") { UserProfileSettingsScreen(navController) }
-        composable("user_profile_favorites") { UserProfileFavoritesScreen(navController) }
-        composable("user_profile_bookings") { UserProfileBookingsScreen(navController) }
-        composable("user_profile_reviews") { UserProfileReviewsScreen(navController) }
-        //</editor-fold>
+        //composable("user_profile_settings") { UserProfileSettingsScreen(navController) }
+        //composable("user_profile_favorites") { UserProfileFavoritesScreen(navController) }
+        composable("user_profile_bookings") {
+            UserProfileBookingsScreenBackendConnected(
+                navController,
+                mainViewModel::getListOfOrders,
+                mainViewModel::deleteOrderFromUser
+            )
+        }
+        //composable("user_profile_reviews") { UserProfileReviewsScreen(navController) }
+        //</editor-fold>*/
     }
 }

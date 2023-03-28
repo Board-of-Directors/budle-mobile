@@ -23,15 +23,18 @@ class BookViewModel : ViewModel() {
         repository = BudleRepository(apiService)
         viewModelScope.launch {
             if (dateVar.isNotEmpty() && timeVar.isNotEmpty() && guestCountVar != 0) {
+                dateVar = "1212-12-12"
+                timeVar += ":00"
                 when (val response = repository.orderRequest(establishmentId, userId, guestCountVar, timeVar, dateVar)) {
                     is BudleRepository.Result.Success -> {
                         Log.d("BOOKVIEWMODEL", "SUCCESS")
                         result =
                             if (response.result == null) "NULL" else if (response.result == true) "TRUE" else "FALSE"
+                        Log.e("BOOKSTATUS", result)
                     }
                     is BudleRepository.Result.Failure -> {
                         Log.e("BOOKVIEWMODEL", "FAILURE")
-                        response.throwable.message?.let { Log.e("MAINVIEWMODEL", it) }
+                        response.throwable.message?.let { Log.e("BOOKVIEWMODEL", it) }
                     }
                     else -> {
                         Log.e("CRITICAL_ERROR", "UNDEFINED RESPONSE")

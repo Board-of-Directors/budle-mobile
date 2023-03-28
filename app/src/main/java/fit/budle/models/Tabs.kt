@@ -13,7 +13,7 @@ data class Tab(
     val color: Color?
 )
 
-val tabs = mutableStateListOf(
+val tabs = mutableStateListOf(/*
     Tab(
         R.drawable.heart,
         "Избранное",
@@ -25,17 +25,17 @@ val tabs = mutableStateListOf(
         "Настройки",
         NavRoute.UserProfileSettings.route,
         null
-    ),
+    ),*/
     Tab(
         R.drawable.list,
         "Мои брони",
-        NavRoute.UserProfileBookings.route,
+        "user_profile_bookings",
         null
-    ),
+    ),/*
     Tab(
         R.drawable.message_circle,
         "Мои отзывы",
         NavRoute.UserProfileReviews.route,
         null
-    )
+    )*/
 )

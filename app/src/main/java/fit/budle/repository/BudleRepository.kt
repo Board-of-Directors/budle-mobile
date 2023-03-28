@@ -128,7 +128,7 @@ class BudleRepository(val budleAPIRequests: BudleAPIRequests) {
             jsonObject.put("date", date)
             val jsonObjectString = jsonObject.toString()
             val requestBody = jsonObjectString.toRequestBody("application/json".toMediaTypeOrNull())
-            val result = budleAPIRequests.checkCodeRequest(requestBody)
+            val result = budleAPIRequests.postOrders(requestBody)
             Log.d("OREDERREQUEST", "SUCCESS")
             Result.Success(result = result.result, exceptionMessage = result.exception?.message)
         } catch (exception: Exception) {
@@ -137,9 +137,9 @@ class BudleRepository(val budleAPIRequests: BudleAPIRequests) {
         }
     }
 
-    suspend fun getOrders(userId: Long?): ResultList3 {
+    suspend fun getOrders(userId: Long, status: Int): ResultList3 {
         return try {
-            val result = budleAPIRequests.getOrders(userId, status)
+            val result = budleAPIRequests.getOrders(userId, status = status)
             Log.d("GETORDERS", "SUCCESS")
             ResultList3.Success(
                 result = result.result,
