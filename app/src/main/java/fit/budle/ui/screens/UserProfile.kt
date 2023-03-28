@@ -12,9 +12,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
-import fit.budle.components.atoms.ApplicationPattern
-import fit.budle.components.atoms.BudleButton
-import fit.budle.components.atoms.UserHeader
+import fit.budle.ui.details.ApplicationPattern
+import fit.budle.ui.details.BudleButton
+import fit.budle.ui.details.UserHeader
 import fit.budle.model.Tab
 import fit.budle.model.tabs
 import fit.budle.navigation.NavRoute

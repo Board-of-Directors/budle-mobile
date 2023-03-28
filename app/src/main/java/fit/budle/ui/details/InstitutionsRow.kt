@@ -10,13 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import fit.budle.model.EstablishmentStructure
+import fit.budle.model.establishment.EstablishmentArray
 import fit.budle.ui.theme.mainBlack
 import fit.budle.ui.theme.textGray
 
 @Composable
 fun InstitutionsRow(
-    establishments: EstablishmentStructure,
+    establishments: EstablishmentArray,
     navController: NavController
 ) {
     val rowState = rememberLazyListState()

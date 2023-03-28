@@ -6,23 +6,24 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import fit.budle.network.BudleAPIClient
-import fit.budle.repository.BudleRepository
+import fit.budle.network.APIClient
+import fit.budle.repository.Repository
 import kotlinx.coroutines.launch
 
 class BookViewModel : ViewModel() {
-    private val apiService = BudleAPIClient.service
-    private lateinit var repository: BudleRepository
+    private val apiService = APIClient.service
+    private lateinit var repository: Repository
     private var result: String by mutableStateOf("")
     private var dateVar: String by mutableStateOf("")
     private var timeVar: String by mutableStateOf("")
-    private var guestCountVar: Int by mutableStateOf(0)
+    private var guestCountVar: Int by mutableStateOf(1)
 
     fun getOrder(establishmentId: Long, userId: Long): String {
-        repository = BudleRepository(apiService)
+        repository = Repository(apiService)
         viewModelScope.launch {
-            if (dateVar.isNotEmpty() && timeVar.isNotEmpty() && guestCountVar != 0) {
-                dateVar = "1212-12-12"
+            Log.e("GUEST", guestCountVar.toString())
+            if (dateVar.isNotEmpty() && timeVar.isNotEmpty()) {
+                dateVar = "2022-03-$dateVar"
                 timeVar += ":00"
 
                 when (val response = repository.orderRequest(
@@ -32,13 +33,13 @@ class BookViewModel : ViewModel() {
                     timeVar,
                     dateVar
                 )) {
-                    is BudleRepository.Result.Success -> {
+                    is Repository.Result.Success -> {
                         Log.d("BOOKVIEWMODEL", "SUCCESS")
                         result =
                             if (response.result == null) "NULL" else if (response.result == true) "TRUE" else "FALSE"
                         Log.e("BOOKSTATUS", result)
                     }
-                    is BudleRepository.Result.Failure -> {
+                    is Repository.Result.Failure -> {
                         Log.e("BOOKVIEWMODEL", "FAILURE")
                         response.throwable.message?.let { Log.e("BOOKVIEWMODEL", it) }
                     }

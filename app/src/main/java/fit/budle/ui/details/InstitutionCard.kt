@@ -16,7 +16,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import fit.budle.R
-import fit.budle.model.EstablishmentWithImage
+import fit.budle.model.establishment.Establishment
 import fit.budle.ui.theme.alphaBlack
 import fit.budle.ui.theme.mainBlack
 import fit.budle.ui.theme.mainWhite
@@ -25,7 +25,7 @@ import fit.budle.ui.theme.mainWhite
 @Composable
 fun InstitutionCard(
     i: Int,
-    institutionCardState: Array<EstablishmentWithImage>,
+    institutionCardState: Array<Establishment>,
     navController: NavController,
     category: String
 ) {
@@ -45,7 +45,7 @@ fun InstitutionCard(
                 ),
                 contentDescription = "Restaurant Card",
                 modifier = Modifier.width(140.dp),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.FillBounds
             )
             Box(
                 Modifier
@@ -73,7 +73,6 @@ fun InstitutionCard(
                         textAlign = TextAlign.Center,
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)
-                            .wrapContentWidth()
                     )
                 }
             }

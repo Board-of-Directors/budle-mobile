@@ -18,18 +18,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import fit.budle.R
-import fit.budle.components.atoms.BudleButton
-import fit.budle.components.atoms.IconButton
-import fit.budle.components.atoms.PhotoTag
-import fit.budle.components.moleculas.BlockWithHeader
-import fit.budle.components.moleculas.InfoTagList
-import fit.budle.model.EstablishmentWithImage
+import fit.budle.ui.details.BudleButton
+import fit.budle.ui.details.IconButton
+import fit.budle.ui.details.PhotoTag
+import fit.budle.ui.details.BlockWithHeader
+import fit.budle.ui.details.InfoTagList
+import fit.budle.model.establishment.Establishment
 import fit.budle.model.WorkingHour
 import fit.budle.ui.theme.*
 
 @Composable
 fun CardScreen(
-    navController: NavController, establishmentWithImage: EstablishmentWithImage?
+    navController: NavController, establishment: Establishment?
 ) {
     Surface(
         modifier = Modifier.fillMaxSize()
@@ -63,9 +63,9 @@ fun CardScreen(
             ) {
                 BudleButton(
                     onClick = {
-                        if (establishmentWithImage != null) {
+                        if (establishment != null) {
                             navController.navigate(
-                                "order/${establishmentWithImage.id}/${establishmentWithImage.name}"
+                                "order/${establishment.id}/${establishment.name}"
                             )
                         }
                     },
@@ -83,35 +83,35 @@ fun CardScreen(
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
         ) {
-            if (establishmentWithImage != null) {
+            if (establishment != null) {
                 EstablishmentBanner(
-                    establishmentCard = establishmentWithImage
+                    establishmentCard = establishment
                 )
                 Log.wtf("NULL", "NOT_NULL")
             } else {
                 Log.wtf("NULL", "NULL")
             }
-            InfoBar(establishmentCard = establishmentWithImage)
-            if (establishmentWithImage != null) {
-                InfoTagList(tags = establishmentWithImage.tags)
+            InfoBar(establishmentCard = establishment)
+            if (establishment != null) {
+                InfoTagList(tags = establishment.tags)
             }
             Column(
                 modifier = Modifier
                     .padding(horizontal = 20.dp)
                     .fillMaxWidth()
             ) {
-                if (establishmentWithImage != null) {
-                    establishmentWithImage.description?.let {
+                if (establishment != null) {
+                    establishment.description?.let {
                         EstablishmentCardDescription(
                             description = it
                         )
                     }
                 }
-                if (establishmentWithImage != null) {
-                    WorkingTime(cardDescription = establishmentWithImage.workingHours)
+                if (establishment != null) {
+                    WorkingTime(cardDescription = establishment.workingHours)
                 }
-                if (establishmentWithImage != null) {
-                    EstablishmentAddress(addressInfo = establishmentWithImage.address)
+                if (establishment != null) {
+                    EstablishmentAddress(addressInfo = establishment.address)
                 }
             }
         }
@@ -120,7 +120,7 @@ fun CardScreen(
 
 @Composable
 fun EstablishmentBanner(
-    establishmentCard: EstablishmentWithImage
+    establishmentCard: Establishment
 ) {
     val gradient = Brush.verticalGradient(listOf(alphaBlack, alphaBlack))
     Box(
@@ -192,7 +192,7 @@ fun EstablishmentBanner(
 
 @Composable
 fun InfoBar(
-    establishmentCard: EstablishmentWithImage?
+    establishmentCard: Establishment?
 ) {
     Row(
         modifier = Modifier

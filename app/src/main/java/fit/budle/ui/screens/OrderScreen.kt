@@ -16,13 +16,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
-import fit.budle.components.atoms.BudleButton
-import fit.budle.components.atoms.IconButton
-import fit.budle.components.moleculas.BlockWithHeader
-import fit.budle.components.moleculas.tagList
-import fit.budle.model.TagType
-import fit.budle.model.days
-import fit.budle.model.time
+import fit.budle.model.tag.active.ActiveTagType
+import fit.budle.model.tag.active.days
+import fit.budle.model.tag.active.time
+import fit.budle.ui.details.*
 import fit.budle.ui.theme.*
 
 @RequiresApi(Build.VERSION_CODES.N)
@@ -175,9 +172,9 @@ fun BookingDay(sendData: (String) -> Unit) {
             val data = tagList(
                 initialState = days[0].tagId,
                 tagList = days,
-                tagType = TagType.CIRCLE
+                tagType = ActiveTagType.CIRCLE
             )
-            sendData(data)
+            sendData(data.tagId.toString())
         }
     }
 }
@@ -196,7 +193,7 @@ fun BookingTime(sendTime: (String) -> Unit) {
                 initialState = time[0].tagId,
                 tagList = time,
             )
-            sendTime(time)
+            sendTime(time.tagName)
         }
     }
 }
@@ -211,7 +208,7 @@ fun BookingPreferences() {
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {/*
-            BudleInfoTagList(
+            InfoTagList(
                 horizontalPadding = 20.dp,
                 tags = bookingTagList
             )*/

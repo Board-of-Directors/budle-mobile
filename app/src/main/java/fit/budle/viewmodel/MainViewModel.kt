@@ -12,19 +12,24 @@ import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import fit.budle.model.*
-import fit.budle.network.BudleAPIClient
-import fit.budle.repository.BudleRepository
+import fit.budle.model.establishment.EstablishmentResponse
+import fit.budle.model.establishment.EstablishmentArray
+import fit.budle.model.establishment.Establishment
+import fit.budle.model.tag.active.ordersTagList
+import fit.budle.model.tag.standard.Tag
+import fit.budle.network.APIClient
+import fit.budle.repository.Repository
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
 class MainViewModel : ViewModel() {
 
-    private val apiService = BudleAPIClient.service
-    private lateinit var repository: BudleRepository
+    private val apiService = APIClient.service
+    private lateinit var repository: Repository
     var result2: Array<String> by mutableStateOf(emptyArray())
-    var result: EstablishmentStructure by mutableStateOf(EstablishmentStructure(emptyArray(), 0))
-    var result3: HashMap<String, MutableState<EstablishmentStructure>> = hashMapOf()
+    var result: EstablishmentArray by mutableStateOf(EstablishmentArray(emptyArray(), 0))
+    var result3: HashMap<String, MutableState<EstablishmentArray>> = hashMapOf()
     var result4: Array<Booking> by mutableStateOf(emptyArray())
 
     fun getListOfEstablishments(
@@ -35,22 +40,22 @@ class MainViewModel : ViewModel() {
         name: String?,
         hasCardPayment: Boolean?,
         hasMap: Boolean?,
-    ): EstablishmentStructure {
-        repository = BudleRepository(apiService)
+    ): EstablishmentArray {
+        repository = Repository(apiService)
         viewModelScope.launch {
             when (val response = repository.getEstablishmentsRequest(
                 category, limit, offset, sortValue, name, hasCardPayment, hasMap
             )) {
-                is BudleRepository.ResultList.Success -> {
+                is Repository.ResultList.Success -> {
                     Log.d("MAINVIEWMODEL", "SUCCESS")
                     if (category != null) {
                         result3[category] =
-                            mutableStateOf(EstablishmentStructure(response.result.establishments.map {
+                            mutableStateOf(EstablishmentArray(response.result.establishments.map {
                                 convertEstablishment(it)
                             }.toTypedArray(), response.result.count))
                     }
                 }
-                is BudleRepository.ResultList.Failure -> {
+                is Repository.ResultList.Failure -> {
                     Log.e("MAINVIEWMODEL", "FAILURE")
                     response.throwable.message?.let { Log.e("MAINVIEWMODEL", it) }
                 }
@@ -66,18 +71,18 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun getCard(category: String?, cardID: String?): EstablishmentWithImage? =
+    fun getCard(category: String?, cardID: String?): Establishment? =
         cardID?.let { result3[category]?.value?.establishments?.get(it.toInt()) }
 
     fun getListOfCategories(): Array<String> {
-        repository = BudleRepository(apiService)
+        repository = Repository(apiService)
         viewModelScope.launch {
             when (val response = repository.getCategoriesRequest()) {
-                is BudleRepository.ResultList2.Success -> {
+                is Repository.ResultList2.Success -> {
                     Log.d("MAINVIEWMODEL", "SUCCESS")
                     result2 = response.result
                 }
-                is BudleRepository.ResultList2.Failure -> {
+                is Repository.ResultList2.Failure -> {
                     Log.e("MAINVIEWMODEL", "FAILURE")
                     response.throwable.message?.let { Log.e("MAINVIEWMODEL", it) }
                 }
@@ -90,7 +95,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun getListOfOrders(userId: Long, status: String?): Array<Booking> {
-        repository = BudleRepository(apiService)
+        repository = Repository(apiService)
         val map = HashMap<String, Int?>()
         for (tag in ordersTagList) {
             map[tag.tagName] = tag.tagId - 1
@@ -98,7 +103,7 @@ class MainViewModel : ViewModel() {
         map["Все"] = null
         viewModelScope.launch {
             when (val response = map[status]?.let { repository.getOrders(userId, it) }) {
-                is BudleRepository.ResultList3.Success -> {
+                is Repository.ResultList3.Success -> {
                     Log.d("MAINVIEWMODEL", "SUCCESS")
                     response.result.map {
                         it.establishmentImage = convertEstablishment(it.establishment)
@@ -118,7 +123,7 @@ class MainViewModel : ViewModel() {
                     }
                     result4 = response.result
                 }
-                is BudleRepository.ResultList3.Failure -> {
+                is Repository.ResultList3.Failure -> {
                     Log.e("MAINVIEWMODEL", "FAILURE")
                     response.throwable.message?.let { Log.e("MAINVIEWMODEL", it) }
                 }
@@ -131,13 +136,13 @@ class MainViewModel : ViewModel() {
     }
 
     fun deleteOrderFromUser(userId: Long, orderId: Long) {
-        repository = BudleRepository(apiService)
+        repository = Repository(apiService)
         viewModelScope.launch {
             when (repository.deleteOrderFromUser(userId, orderId)) {
-                is BudleRepository.Result.Success -> {
+                is Repository.Result.Success -> {
                     Log.d("MAINVIEWMODEL", "SUCCESS")
                 }
-                is BudleRepository.Result.Failure -> {
+                is Repository.Result.Failure -> {
                     Log.e("MAINVIEWMODEL", "FAILURE")
                 }
                 else -> {
@@ -148,9 +153,9 @@ class MainViewModel : ViewModel() {
     }
 }
 
-fun convertEstablishment(establishment: Establishment): EstablishmentWithImage {
+fun convertEstablishment(establishment: EstablishmentResponse): Establishment {
     var decodedImage: BitmapPainter? = null
-    val decodedTagsIcons: ArrayList<TagWithIcon> = arrayListOf()
+    val decodedTagsIcons: ArrayList<Tag> = arrayListOf()
     if (establishment.image != null) {
         val imageBytes: ByteArray = Base64.decode(establishment.image, Base64.DEFAULT)
         decodedImage = BitmapPainter(
@@ -166,10 +171,10 @@ fun convertEstablishment(establishment: Establishment): EstablishmentWithImage {
                 BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size).asImageBitmap()
             )
         }
-        decodedTagsIcons.add(TagWithIcon(name = it.name, image = decodedIcon))
+        decodedTagsIcons.add(Tag(name = it.name, image = decodedIcon))
     }
 
-    return EstablishmentWithImage(
+    return Establishment(
         establishment.id,
         establishment.name,
         establishment.description,

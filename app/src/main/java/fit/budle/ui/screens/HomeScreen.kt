@@ -16,8 +16,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import fit.budle.R
-import fit.budle.model.EstablishmentRequest
-import fit.budle.model.EstablishmentStructure
+import fit.budle.model.establishment.EstablishmentRequest
+import fit.budle.model.establishment.EstablishmentArray
 import fit.budle.ui.details.InstitutionsRow
 import fit.budle.ui.theme.backgroundLightBlue
 import fit.budle.ui.theme.mainBlack
@@ -26,7 +26,7 @@ import fit.budle.ui.theme.mainBlack
 fun HomeScreen(
     navController: NavController, establishmentProvider: (
         category: String?, limit: Int?, offset: Int?, sortValue: String?, name: String?, hasCardPayment: Boolean?, hasMap: Boolean?
-    ) -> (EstablishmentStructure), categoriesProvider: () -> (Array<String>)
+    ) -> (EstablishmentArray), categoriesProvider: () -> (Array<String>)
 ) {
     val establishmentRequest =
         EstablishmentRequest(null, null, null, null, null, null, null)
