@@ -9,18 +9,19 @@ import kotlinx.parcelize.RawValue
 @Parcelize
 data class BusinessEstablishmentModel(
     val establishment: EstablishmentCard,
-    val workers: @RawValue MutableList<Worker>,
-    val orders: @RawValue MutableList<Booking>,
+    val workers: MutableList<Worker>,
+    val orders: MutableList<Booking>,
     val isOpened: @RawValue MutableState<Boolean> = mutableStateOf(false)
 ) : Parcelable
 
+@Parcelize
 data class Worker(
     val name: String,
     val status: WorkerStatus
-)
+) : Parcelable
 
-enum class WorkerStatus {
-    WORK, ABSENT
+enum class WorkerStatus(val message: String) {
+    WORK("На работе"), ABSENT("Отсутствует")
 }
 
 val workerFirstList = mutableListOf(

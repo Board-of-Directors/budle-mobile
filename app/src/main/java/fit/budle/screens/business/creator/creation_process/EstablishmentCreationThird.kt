@@ -23,7 +23,9 @@ fun EstablishmentCreationThirdScreen(
             navHostController = navHostController,
             buttonText = "Следующий шаг",
             progress = "60%",
-            route = NavRoute.EstablishmentCreationFourth.route,
+            onClick = {
+                navHostController.navigate(NavRoute.EstablishmentCreationFourth.route)
+            },
             textMessage = "Создание заведения"
         ) {
             BudleMultipleLineInput(

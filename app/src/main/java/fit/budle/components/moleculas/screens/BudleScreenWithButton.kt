@@ -17,11 +17,10 @@ import fit.budle.ui.theme.mainWhite
 
 @Composable
 fun BudleScreenWithButton(
-    navHostController: NavHostController,
+    onClick: () -> Unit,
     iconId: Int? = null,
     buttonText: String,
-    route: String,
-    content: @Composable() (() -> Unit)
+    content: @Composable () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -32,9 +31,7 @@ fun BudleScreenWithButton(
         verticalAlignment = Alignment.Bottom
     ) {
         BudleButton(
-            onClick = {
-                navHostController.navigate(route)
-            },
+            onClick = onClick,
             horizontalPadding = 0.dp,
             iconId = iconId,
             buttonText = buttonText,

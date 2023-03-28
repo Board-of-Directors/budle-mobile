@@ -1,10 +1,14 @@
 package fit.budle.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Tag(
     val tagId: Int,
     val tagName: String,
     val iconId: Int? = null
-)
+) : Parcelable
 
 val days = mutableListOf(
     Tag(

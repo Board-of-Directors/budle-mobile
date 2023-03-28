@@ -1,17 +1,21 @@
 package fit.budle.models
 
 
+import android.os.Parcelable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import fit.budle.R
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
+@Parcelize
 data class Booking(
     val establishmentDescription: EstablishmentDescription,
     val tags: MutableList<Tag>,
     val infoList: MutableList<Pair<String, Any>>,
-    val isRejected: MutableState<Boolean> = mutableStateOf(false)
-)
+    val isRejected: @RawValue MutableState<Boolean> = mutableStateOf(false)
+) : Parcelable
 
 val bookingTagList = mutableListOf (
     Tag(
@@ -58,15 +62,12 @@ enum class BookingStatus(val value: Int, val message: String) {
     REJECT(2, "Бронь отклонена");
 
     companion object {
-
         fun create(x:Int) : BookingStatus{
             return when(x){
                 0 -> WAIT
                 1 -> CONFIRM
                 2 -> REJECT
                 else -> throw IllegalStateException()
-
-
             }
         }
     }

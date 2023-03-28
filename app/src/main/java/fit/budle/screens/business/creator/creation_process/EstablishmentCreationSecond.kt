@@ -40,7 +40,9 @@ fun EstablishmentCreationSecondScreen(
             navHostController = navHostController,
             buttonText = "Следующий шаг",
             progress = "40%",
-            route = NavRoute.EstablishmentCreationThird.route,
+            onClick = {
+                navHostController.navigate(NavRoute.EstablishmentCreationThird.route)
+            },
             textMessage = "Создание заведения"
         ) {
             Text(text = selectedType.value)

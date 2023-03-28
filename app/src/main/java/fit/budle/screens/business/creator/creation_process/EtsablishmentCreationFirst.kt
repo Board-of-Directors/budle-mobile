@@ -21,7 +21,9 @@ fun EstablishmentCreationFirstScreen(
     ) {
         BudleScreenWithButtonAndProgress(
             navHostController = navHostController,
-            route = NavRoute.EstablishmentCreationSecond.route,
+            onClick = {
+                navHostController.navigate(NavRoute.EstablishmentCreationSecond.route)
+            },
             buttonText = "Следующий шаг",
             textMessage = "Создание заведения",
             progress = "20%"

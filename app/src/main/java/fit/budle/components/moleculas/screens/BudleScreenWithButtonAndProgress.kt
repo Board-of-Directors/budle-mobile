@@ -10,15 +10,14 @@ fun BudleScreenWithButtonAndProgress(
     navHostController: NavHostController,
     iconId: Int? = null,
     buttonText: String,
-    progress: String,
-    route: String,
+    progress: String? = null,
+    onClick: () -> Unit,
     textMessage: String,
     content: @Composable() (() -> Unit)
 ) {
     BudleScreenWithButton(
-        navHostController = navHostController,
+        onClick = onClick,
         buttonText = buttonText,
-        route = route,
         iconId = iconId
     ) {
         BudleNavigationHeader(

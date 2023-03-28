@@ -29,7 +29,7 @@ import fit.budle.viewmodel.MainViewModel
 fun NavigationComponent(navHostController: NavHostController) {
     NavHost(
         navController = navHostController,
-        startDestination = NestedGraphRoute.BusinessProfile.route
+        startDestination = NestedGraphRoute.UserProfile.route
     ) {
         composable("home") {
             val mainViewModel = viewModel<MainViewModel>()

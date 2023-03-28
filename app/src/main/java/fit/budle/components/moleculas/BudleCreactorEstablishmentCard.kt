@@ -9,10 +9,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.core.os.bundleOf
 import androidx.navigation.NavHostController
 import fit.budle.R
 import fit.budle.components.atoms.BudleEstablishmentSubdescription
 import fit.budle.models.BusinessEstablishmentModel
+import fit.budle.navigation.navigate
+import fit.budle.navigation.routes.NavRoute
 import fit.budle.ui.theme.*
 
 @Composable
@@ -77,22 +80,24 @@ fun BudleCreatorEstablishmentCard(
                 )
                 Column {
                     TextWithIcon(
-                        route = "main_page",
-                        navHostController = navHostController,
+                        onClick = {},
                         text = "Редактировать",
                         iconId = R.drawable.edit,
                         iconDescription = "Редактировать"
                     )
                     TextWithIcon(
-                        route = "main_page",
-                        navHostController = navHostController,
+                        onClick = {
+                            navHostController.navigate(
+                                NavRoute.EstablishmentWorkers.route,
+                                bundleOf("BUS_KEY" to establishmentCard)
+                            )
+                        },
                         text = "Сотрудники",
                         iconId = R.drawable.user,
                         iconDescription = "Сотрудники"
                     )
                     TextWithIcon(
-                        route = "main_page",
-                        navHostController = navHostController,
+                        onClick = {},
                         text = "Заказы",
                         iconId = R.drawable.file,
                         iconDescription = "Заказы"
@@ -105,8 +110,7 @@ fun BudleCreatorEstablishmentCard(
 
 @Composable
 fun TextWithIcon(
-    route: String,
-    navHostController: NavHostController,
+    onClick: () -> Unit,
     text: String,
     iconId: Int,
     iconDescription: String
@@ -133,9 +137,7 @@ fun TextWithIcon(
             )
         }
         IconButton(
-            onClick = {
-                navHostController.navigate(route)
-            }
+            onClick = onClick
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.arrow_right),

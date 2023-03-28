@@ -1,6 +1,7 @@
 package fit.budle.screens.business.creator
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -8,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import androidx.core.os.bundleOf
 import androidx.navigation.NavHostController
 import fit.budle.R
 import fit.budle.components.atoms.BudleButton
@@ -17,6 +19,7 @@ import fit.budle.components.moleculas.BudleCreatorEstablishmentCardList
 import fit.budle.components.moleculas.BudleScreenWithButton
 import fit.budle.components.moleculas.screens.BudleScreenWithButtonAndProgress
 import fit.budle.models.businessEstablishmentList
+import fit.budle.navigation.navigate
 import fit.budle.navigation.routes.NavRoute
 import fit.budle.navigation.routes.NestedGraphRoute
 import fit.budle.ui.theme.fillPurple
@@ -30,10 +33,11 @@ fun CreatorMainScreen(
 ) {
     Surface(modifier = Modifier.fillMaxSize()) {
         BudleScreenWithButton(
-            navHostController = navHostController,
             iconId = R.drawable.plus,
             buttonText = "Добавить заведение",
-            route = NavRoute.EstablishmentCreationFirst.route,
+            onClick = {
+                navHostController.navigate(NavRoute.EstablishmentCreationFirst.route)
+            },
         ) {
             BudleUserHeader(
                 modifier = Modifier
