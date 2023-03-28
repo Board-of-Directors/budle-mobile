@@ -20,7 +20,7 @@ import fit.budle.ui.theme.mainBlack
 import fit.budle.ui.theme.mainWhite
 
 @Composable
-fun BudlePhotoTag(
+fun PhotoTag(
     tag: String,
     width: Dp = 55.dp,
     color: Color = mainWhite,

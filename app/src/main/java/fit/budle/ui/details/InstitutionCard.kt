@@ -23,7 +23,12 @@ import fit.budle.ui.theme.mainWhite
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun InstitutionCard(i: Int, institutionCardState: Array<EstablishmentWithImage>, navController: NavController, category: String) {
+fun InstitutionCard(
+    i: Int,
+    institutionCardState: Array<EstablishmentWithImage>,
+    navController: NavController,
+    category: String
+) {
     val gradient = Brush.verticalGradient(listOf(alphaBlack, alphaBlack))
     Card(
         modifier = Modifier.padding(start = 10.dp), shape = RoundedCornerShape(15.dp), onClick = {

@@ -1,7 +1,8 @@
 package fit.budle.components.moleculas
 
-import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -11,9 +12,9 @@ import androidx.compose.ui.unit.dp
 import fit.budle.ui.theme.mainBlack
 
 @Composable
-fun BudleBlockWithHeader(
-    headerPadding: Dp = 0.dp,
+fun BlockWithHeader(
     modifier: Modifier = Modifier,
+    headerPadding: Dp = 0.dp,
     headerText: String,
     content: @Composable() (() -> Unit)
 ) {

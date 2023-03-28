@@ -17,11 +17,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
 import fit.budle.components.atoms.BudleButton
-import fit.budle.components.atoms.BudleIconButton
-import fit.budle.components.data.TagType
-import fit.budle.components.moleculas.BudleBlockWithHeader
-import fit.budle.components.moleculas.budleTagList
-import fit.budle.models.*
+import fit.budle.components.atoms.IconButton
+import fit.budle.components.moleculas.BlockWithHeader
+import fit.budle.components.moleculas.tagList
+import fit.budle.model.TagType
+import fit.budle.model.days
+import fit.budle.model.time
 import fit.budle.ui.theme.*
 
 @RequiresApi(Build.VERSION_CODES.N)
@@ -36,7 +37,7 @@ fun OrderScreen(
     sendTime: (String) -> Unit
 ) {
     val userAmount = remember { mutableStateOf(1) }
-    val userId:Long = 1 //FIXME Исправить костыль
+    val userId: Long = 1
 
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -56,7 +57,7 @@ fun OrderScreen(
                         color = textGray
                     )
                 }
-                BudleIconButton(
+                IconButton(
                     modifier = Modifier.size(26.dp),
                     iconDescription = "Close",
                     iconId = R.drawable.x,
@@ -112,7 +113,7 @@ fun BookingAmount(
     val leftCondition = amount.value > 1
     val rightCondition = amount.value < 10
 
-    BudleBlockWithHeader(headerText = "Количество гостей") {
+    BlockWithHeader(headerText = "Количество гостей") {
         Row(
             modifier = Modifier
                 .padding(top = 10.dp)
@@ -120,7 +121,7 @@ fun BookingAmount(
                 .height(IntrinsicSize.Max),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            BudleIconButton(
+            IconButton(
                 iconDescription = "Minus",
                 iconId = R.drawable.minus,
                 modifier = Modifier.size(45.dp),
@@ -143,7 +144,7 @@ fun BookingAmount(
                 style = MaterialTheme.typography.titleMedium,
                 color = mainBlack
             )
-            BudleIconButton(
+            IconButton(
                 iconDescription = "Plus",
                 iconId = R.drawable.plus,
                 modifier = Modifier.size(45.dp),
@@ -164,14 +165,14 @@ fun BookingAmount(
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun BookingDay(sendData: (String) -> Unit) {
-    BudleBlockWithHeader(headerText = "День") {
+    BlockWithHeader(headerText = "День") {
         Row(
             modifier = Modifier
                 .padding(top = 10.dp)
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            val data = budleTagList(
+            val data = tagList(
                 initialState = days[0].tagId,
                 tagList = days,
                 tagType = TagType.CIRCLE
@@ -184,14 +185,14 @@ fun BookingDay(sendData: (String) -> Unit) {
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun BookingTime(sendTime: (String) -> Unit) {
-    BudleBlockWithHeader(headerText = "Время") {
+    BlockWithHeader(headerText = "Время") {
         Row(
             modifier = Modifier
                 .padding(top = 10.dp)
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            val time = budleTagList(
+            val time = tagList(
                 initialState = time[0].tagId,
                 tagList = time,
             )
@@ -203,7 +204,7 @@ fun BookingTime(sendTime: (String) -> Unit) {
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun BookingPreferences() {
-    BudleBlockWithHeader(headerText = "Предпочтения") {
+    BlockWithHeader(headerText = "Предпочтения") {
         Row(
             modifier = Modifier
                 .padding(top = 10.dp)

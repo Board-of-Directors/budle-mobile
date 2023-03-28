@@ -15,12 +15,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import fit.budle.R
-import fit.budle.model.EstablishmentStructure
 import fit.budle.model.EstablishmentRequest
-import fit.budle.navigation.routes.NavRoute
-import fit.budle.screens.customer.establishments.ShowSearchBar
+import fit.budle.model.EstablishmentStructure
 import fit.budle.ui.details.InstitutionsRow
 import fit.budle.ui.theme.backgroundLightBlue
 import fit.budle.ui.theme.mainBlack
@@ -45,7 +42,6 @@ fun HomeScreen(
                 state = columnState,
                 horizontalAlignment = Alignment.Start
             ) {
-
                 itemsIndexed(categoriesProvider()) { _, i ->
                     InstitutionsRow(
                         establishmentProvider(
@@ -71,15 +67,15 @@ fun ShowSearchBar(navController: NavController) {
     var text by remember { mutableStateOf("") }
     Row(
         modifier = Modifier
-            .padding(horizontal = 20.dp)
-            .padding(top = 30.dp),
+            .padding(horizontal = 10.dp)
+            .padding(top = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         TextField(
             value = text,
             modifier = Modifier.width(244.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            onValueChange = {text = it},
+            onValueChange = { text = it },
             shape = RoundedCornerShape(10.dp),
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color.Transparent,
@@ -103,16 +99,17 @@ fun ShowSearchBar(navController: NavController) {
                 )
             }
         )
+        Spacer(Modifier.width(5.dp))
         IconButton(
             onClick = { },
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.map),
-                modifier = Modifier.padding(start = 20.dp),
                 contentDescription = "Map",
                 tint = mainBlack
             )
         }
+        Spacer(Modifier.width(5.dp))
         IconButton(
             onClick = {
                 navController.navigate(route = "user_profile")
@@ -120,7 +117,6 @@ fun ShowSearchBar(navController: NavController) {
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.burger),
-                modifier = Modifier.padding(start = 20.dp),
                 contentDescription = "Burger",
                 tint = mainBlack
             )

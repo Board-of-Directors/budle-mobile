@@ -1,7 +1,10 @@
 package fit.budle.components.atoms
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -11,20 +14,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import fit.budle.R
-import fit.budle.navigation.routes.NavRoute
 import fit.budle.ui.theme.mainBlack
 import fit.budle.ui.theme.textGray
 
 @Composable
-fun BudleUserHeader(
+fun UserHeader(
     modifier: Modifier = Modifier,
     title: String,
     subTitle: String? = null,
     iconId: Int,
     iconDescription: String,
     iconColor: Color,
-    navController: NavHostController,
-    route: String
+    navController: NavHostController
 ) {
     Row(
         modifier = modifier,
@@ -34,7 +35,7 @@ fun BudleUserHeader(
         Column(
             modifier = Modifier.height(IntrinsicSize.Max),
             horizontalAlignment = Alignment.Start
-        ){
+        ) {
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleSmall,
@@ -64,13 +65,12 @@ fun BudleUserHeader(
 
 @Preview
 @Composable
-fun PreviewBudleUserHeader(){
-    BudleUserHeader(
+fun PreviewBudleUserHeader() {
+    UserHeader(
         title = "Артём Третьяков",
         iconId = R.drawable.x,
         iconDescription = "Close",
         iconColor = mainBlack,
-        navController = rememberNavController(),
-        route = NavRoute.MainPage.route
+        navController = rememberNavController()
     )
 }

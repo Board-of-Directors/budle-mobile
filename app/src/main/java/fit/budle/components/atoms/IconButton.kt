@@ -1,6 +1,7 @@
 package fit.budle.components.atoms
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -17,7 +18,7 @@ import fit.budle.ui.theme.mainWhite
 import fit.budle.ui.theme.textGray
 
 @Composable
-fun BudleIconButton(
+fun IconButton(
     iconDescription: String,
     iconId: Int,
     modifier: Modifier = Modifier,
@@ -25,7 +26,7 @@ fun BudleIconButton(
     crossColor: Color = textGray,
     elevation: Dp = 4.dp,
     onClick: () -> Unit = {}
-){
+) {
     Card(
         colors = CardDefaults.cardColors(buttonColor),
         modifier = modifier,

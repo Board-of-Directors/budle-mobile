@@ -7,19 +7,16 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import fit.budle.model.Tag
 import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.lightBlue
 import fit.budle.ui.theme.mainBlack
 import fit.budle.ui.theme.mainWhite
-import fit.budle.models.Tag
-import fit.budle.models.tagList
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun BudleTag(
+fun Tag(
     isSelected: (Int) -> Boolean,
     onChangeState: (Int) -> Unit,
     tag: Tag

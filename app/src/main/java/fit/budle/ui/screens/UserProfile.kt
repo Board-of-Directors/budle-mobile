@@ -1,4 +1,4 @@
-package fit.budle.screens.customer.user_profile
+package fit.budle.ui.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -12,12 +12,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
-import fit.budle.components.atoms.BudleApplicationPattern
+import fit.budle.components.atoms.ApplicationPattern
 import fit.budle.components.atoms.BudleButton
-import fit.budle.components.atoms.BudleUserHeader
-import fit.budle.models.Tab
-import fit.budle.models.tabs
-import fit.budle.navigation.routes.NavRoute
+import fit.budle.components.atoms.UserHeader
+import fit.budle.model.Tab
+import fit.budle.model.tabs
+import fit.budle.navigation.NavRoute
 import fit.budle.ui.theme.*
 
 @Composable
@@ -26,7 +26,7 @@ fun UserProfileScreen(navController: NavHostController) {
         Column(
             Modifier.fillMaxSize()
         ) {
-            BudleUserHeader(
+            UserHeader(
                 modifier = Modifier
                     .padding(horizontal = 30.dp)
                     .padding(top = 20.dp)
@@ -35,8 +35,7 @@ fun UserProfileScreen(navController: NavHostController) {
                 iconId = R.drawable.x,
                 iconDescription = "Close",
                 iconColor = mainBlack,
-                navController = navController,
-                route = NavRoute.MainPage.route
+                navController = navController
             )
             ShowColumn(navController)
             BudleButton(
@@ -52,7 +51,6 @@ fun UserProfileScreen(navController: NavHostController) {
             )
             BudleButton(
                 onClick = {
-                      navController.navigate(NavRoute.BusinessMain.route)
                 },
                 topPadding = 15.dp,
                 iconId = R.drawable.zap,
@@ -62,7 +60,7 @@ fun UserProfileScreen(navController: NavHostController) {
                 disabledTextColor = textGray,
                 activeTextColor = mainWhite
             )
-            BudleApplicationPattern()
+            ApplicationPattern()
         }
     }
 }

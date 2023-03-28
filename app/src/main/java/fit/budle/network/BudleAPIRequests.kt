@@ -8,15 +8,6 @@ import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface BudleAPIRequests {
-    @POST("register")
-    suspend fun sendUserRequest(@Body requestBody: RequestBody): AnswerRegistration
-
-    @POST("code")
-    suspend fun checkCodeRequest(@Body requestBody: RequestBody): AnswerRegistration
-
-    @GET("code")
-    suspend fun getCodeRequest(@Query("phoneNumber") phoneNumber: String?): AnswerRegistration
-
     @GET("establishment")
     suspend fun getEstablishment(
         @Query("category") category: String?,
@@ -36,7 +27,7 @@ interface BudleAPIRequests {
     suspend fun getOrders(
         @Query("userId") userId: Long,
         @Query("status") status: Int?
-    ) : AnswerOrders
+    ): AnswerOrders
 
     @POST("order")
     suspend fun postOrders(@Body requestBody: RequestBody): AnswerRegistration
@@ -45,5 +36,5 @@ interface BudleAPIRequests {
     suspend fun deleteOrder(
         @Query("userId") userId: Long,
         @Query("orderId") orderId: Long
-    ) : AnswerRegistration
+    ): AnswerRegistration
 }

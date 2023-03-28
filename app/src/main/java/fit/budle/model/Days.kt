@@ -1,4 +1,4 @@
-package fit.budle.models
+package fit.budle.model
 
 data class CircleTag(
     override val tagId: Int,

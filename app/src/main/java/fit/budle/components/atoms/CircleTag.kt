@@ -3,21 +3,24 @@ package fit.budle.components.atoms
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import fit.budle.models.CircleTag
-import fit.budle.models.Tag
+import fit.budle.model.CircleTag
+import fit.budle.model.Tag
 import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.lightBlue
 import fit.budle.ui.theme.mainBlack
 import fit.budle.ui.theme.mainWhite
 
 @Composable
-fun BudleDayTag(
+fun CircleTag(
     isSelected: (Int) -> Boolean,
     onChangeState: (Int) -> Unit,
     tag: Tag

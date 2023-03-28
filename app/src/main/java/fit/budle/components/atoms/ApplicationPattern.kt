@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import fit.budle.R
 
 @Composable
-fun BudleApplicationPattern() {
+fun ApplicationPattern() {
     Box(
         modifier = Modifier
             .padding(top = 30.dp)

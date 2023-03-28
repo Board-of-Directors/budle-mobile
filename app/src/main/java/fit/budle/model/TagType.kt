@@ -1,4 +1,4 @@
-package fit.budle.components.data
+package fit.budle.model
 
 enum class TagType {
     RECTANGLE, CIRCLE

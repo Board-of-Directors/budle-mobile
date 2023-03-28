@@ -66,7 +66,7 @@ fun BudleButton(
                 fontSize = 16.sp,
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(top = 10.dp,bottom = 10.dp, start = 10.dp),
+                    .padding(top = 10.dp, bottom = 10.dp, start = 10.dp),
                 style = MaterialTheme.typography.bodyMedium,
                 color = contentColor
             )

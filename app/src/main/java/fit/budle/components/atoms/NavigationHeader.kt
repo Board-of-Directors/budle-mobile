@@ -16,10 +16,9 @@ import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.textGray
 
 @Composable
-fun BudleNavigationHeader(
+fun NavigationHeader(
     percent: String? = null,
     textMessage: String,
-    route: String,
     navController: NavHostController
 ) {
     Row(

@@ -15,39 +15,33 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import fit.budle.components.moleculas.BudleInfoTagList
-import fit.budle.models.Booking
-import fit.budle.models.BookingStatus
-import fit.budle.models.bookingList
+import fit.budle.model.Booking
+import fit.budle.model.BookingStatus
 import fit.budle.ui.theme.*
+import java.util.*
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun BudleBookingCard(booking: Booking) {
+fun BookingCard(booking: Booking, deletingProvider: (Long, Long) -> Unit) {
 
     BookingCard(booking = booking)
-    //BudleInfoTagList(tags = booking.tags)
+    Spacer(modifier = Modifier.height(12.dp))
     BookingInformation(booking = booking)
 
-    if (booking.infoList[0].second as BookingStatus
-        != BookingStatus.REJECT
-    ) {
-        BudleButton(
-            onClick = {
-                booking.isRejected.value = !booking.isRejected.value
-            },
-            topPadding = 0.dp,
-            horizontalPadding = 0.dp,
-            buttonText = "Отменить бронь",
-            disabledButtonColor = lightBlue,
-            activeButtonColor = fillPurple,
-            disabledTextColor = fillPurple,
-            activeTextColor = mainWhite
-        )
-    }
+    BudleButton(
+        onClick = {
+            deletingProvider(1, booking.id)
+        },
+        topPadding = 0.dp,
+        horizontalPadding = 0.dp,
+        buttonText = "Удалить бронь",
+        disabledButtonColor = lightBlue,
+        activeButtonColor = fillPurple,
+        disabledTextColor = fillPurple,
+        activeTextColor = mainWhite
+    )
+
 }
 
 @Composable
@@ -63,12 +57,14 @@ fun BookingCard(booking: Booking) {
             modifier = Modifier.height(120.dp),
             contentAlignment = Alignment.BottomStart
         ) {
-            Image(
-                painter = painterResource(id = booking.establishmentDescription.imgID),
-                contentDescription = "Restaurant Card",
-                modifier = Modifier.fillMaxWidth(),
-                contentScale = ContentScale.Crop
-            )
+            if (booking.establishmentImage.image != null) {
+                Image(
+                    painter = booking.establishmentImage.image!!,
+                    contentDescription = "Restaurant Card",
+                    modifier = Modifier.fillMaxWidth(),
+                    contentScale = ContentScale.Crop
+                )
+            }
             Box(
                 Modifier
                     .matchParentSize()
@@ -89,7 +85,7 @@ fun BookingCard(booking: Booking) {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = booking.establishmentDescription.type,
+                            text = booking.establishment.category,
                             style = MaterialTheme.typography.labelSmall,
                             color = mainWhite,
                         )
@@ -104,43 +100,43 @@ fun BookingCard(booking: Booking) {
                             )
                         }
                         Text(
-                            text = booking.establishmentDescription.subtype,
+                            text = booking.establishment.category,
                             style = MaterialTheme.typography.labelSmall,
                             color = mainWhite
                         )
                     }
                     Text(
-                        text = booking.establishmentDescription.name,
+                        text = booking.establishment.name,
                         style = MaterialTheme.typography.titleSmall,
                         color = mainWhite,
                     )
                 }
-                BudlePhotoTag(tag = booking.establishmentDescription.rate.toString())
+                PhotoTag(tag = booking.establishment.rating.toString())
             }
         }
     }
 }
 
-@Preview
-@Composable
-fun ShowBookingcard() {
-    BookingCard(booking = bookingList[0])
-}
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun BookingInformation(booking: Booking) {
 
-    val status = booking.infoList[0].second as BookingStatus
-    val statusColor = when (status.value) {
-        1 -> textGray
-        2 -> backgroundSuccess
-        3 -> backgroundError
+
+    val statusColor = when (booking.status) {
+        0 -> textGray
+        1 -> backgroundSuccess
+        2 -> backgroundError
         else -> throw IllegalStateException()
     }
 
     Column(Modifier.padding(horizontal = 20.dp)) {
-        booking.infoList.forEach { pair ->
+        val infoList = HashMap<String, Any>()
+        infoList["Статус"] = BookingStatus.create(booking.status)
+        infoList["Дата"] = booking.date
+        infoList["Время"] = booking.time
+        infoList["Количество гостей"] = booking.guestCount
+        infoList.forEach { pair ->
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -150,16 +146,16 @@ fun BookingInformation(booking: Booking) {
             ) {
                 Text(
                     modifier = Modifier.width(94.dp),
-                    text = pair.first,
+                    text = pair.key,
                     style = MaterialTheme.typography.labelSmall,
                     color = textGray
                 )
-                if (pair.second is BookingStatus) {
+                if (pair.value is BookingStatus) {
                     Text(
                         modifier = Modifier
                             .padding(start = 25.dp)
                             .fillMaxWidth(),
-                        text = (pair.second as BookingStatus).message,
+                        text = (pair.value as BookingStatus).message,
                         style = MaterialTheme.typography.labelSmall,
                         color = statusColor,
                     )
@@ -168,7 +164,7 @@ fun BookingInformation(booking: Booking) {
                         modifier = Modifier
                             .padding(start = 25.dp)
                             .fillMaxWidth(),
-                        text = pair.second.toString(),
+                        text = pair.value.toString(),
                         style = MaterialTheme.typography.labelSmall,
                         color = mainBlack
                     )

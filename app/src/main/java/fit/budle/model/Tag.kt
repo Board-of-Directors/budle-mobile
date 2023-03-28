@@ -1,5 +1,25 @@
 package fit.budle.model
 
-import androidx.compose.ui.graphics.painter.BitmapPainter
+interface Tag {
+    val tagId: Int
+    val tagName: String
+}
 
-data class Tag(val name: String, val image: BitmapPainter?)
+val ordersTagList = mutableListOf(
+    RectangleTag(
+        "Все",
+        0
+    ),
+    RectangleTag(
+        "Ожидающие",
+        1
+    ),
+    RectangleTag(
+        "Принятые",
+        2
+    ),
+    RectangleTag(
+        "Отклоненные",
+        3
+    )
+)

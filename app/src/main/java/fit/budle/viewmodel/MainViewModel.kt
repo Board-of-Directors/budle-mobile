@@ -11,19 +11,12 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import fit.budle.model.Establishment
-import fit.budle.model.EstablishmentStructure
-import fit.budle.model.EstablishmentWithImage
-import fit.budle.model.Tag
 import fit.budle.model.*
-import fit.budle.models.ordersTagList
 import fit.budle.network.BudleAPIClient
 import fit.budle.repository.BudleRepository
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 class MainViewModel : ViewModel() {
 
@@ -136,6 +129,7 @@ class MainViewModel : ViewModel() {
         }
         return result4
     }
+
     fun deleteOrderFromUser(userId: Long, orderId: Long) {
         repository = BudleRepository(apiService)
         viewModelScope.launch {
@@ -156,7 +150,7 @@ class MainViewModel : ViewModel() {
 
 fun convertEstablishment(establishment: Establishment): EstablishmentWithImage {
     var decodedImage: BitmapPainter? = null
-    val decodedTagsIcons: ArrayList<Tag> = arrayListOf()
+    val decodedTagsIcons: ArrayList<TagWithIcon> = arrayListOf()
     if (establishment.image != null) {
         val imageBytes: ByteArray = Base64.decode(establishment.image, Base64.DEFAULT)
         decodedImage = BitmapPainter(
@@ -172,7 +166,7 @@ fun convertEstablishment(establishment: Establishment): EstablishmentWithImage {
                 BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size).asImageBitmap()
             )
         }
-        decodedTagsIcons.add(Tag(name = it.name, image = decodedIcon))
+        decodedTagsIcons.add(TagWithIcon(name = it.name, image = decodedIcon))
     }
 
     return EstablishmentWithImage(
@@ -193,4 +187,3 @@ fun convertEstablishment(establishment: Establishment): EstablishmentWithImage {
         establishment.starsCount
     )
 }
-

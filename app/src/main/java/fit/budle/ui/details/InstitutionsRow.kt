@@ -41,11 +41,16 @@ fun InstitutionsRow(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 10.dp),
-                horizontalArrangement = Arrangement.Center
+                horizontalArrangement = Arrangement.Start
             ) {
                 itemsIndexed(establishments.establishments) { i, _ ->
                     if (establishments.establishments.isNotEmpty()) {
-                        InstitutionCard(i = i, institutionCardState = establishments.establishments, navController, category = establishments.establishments[i].category)
+                        InstitutionCard(
+                            i = i,
+                            institutionCardState = establishments.establishments,
+                            navController,
+                            category = establishments.establishments[i].category
+                        )
                     }
                 }
             }

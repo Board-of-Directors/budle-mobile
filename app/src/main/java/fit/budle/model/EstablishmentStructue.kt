@@ -2,7 +2,7 @@ package fit.budle.model
 
 import androidx.compose.ui.graphics.painter.BitmapPainter
 
-data class EstablishmentStructure (val establishments: Array<EstablishmentWithImage>, val count: Int)
+data class EstablishmentStructure(val establishments: Array<EstablishmentWithImage>, val count: Int)
 
 data class EstablishmentWithImage(
     val id: Long,
@@ -17,7 +17,7 @@ data class EstablishmentWithImage(
     val rating: Double?,
     val price: Int?,
     val workingHours: Array<WorkingHour>,
-    val tags: ArrayList<Tag>,
+    val tags: ArrayList<TagWithIcon>,
     val cuisineCountry: String?,
     val starsCount: Int?
 )

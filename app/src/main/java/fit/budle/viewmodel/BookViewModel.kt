@@ -3,7 +3,6 @@ package fit.budle.viewmodel
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -25,7 +24,14 @@ class BookViewModel : ViewModel() {
             if (dateVar.isNotEmpty() && timeVar.isNotEmpty() && guestCountVar != 0) {
                 dateVar = "1212-12-12"
                 timeVar += ":00"
-                when (val response = repository.orderRequest(establishmentId, userId, guestCountVar, timeVar, dateVar)) {
+
+                when (val response = repository.orderRequest(
+                    establishmentId,
+                    userId,
+                    guestCountVar,
+                    timeVar,
+                    dateVar
+                )) {
                     is BudleRepository.Result.Success -> {
                         Log.d("BOOKVIEWMODEL", "SUCCESS")
                         result =
@@ -48,9 +54,11 @@ class BookViewModel : ViewModel() {
     fun sendGuestCount(newGuestCount: Int) {
         guestCountVar = newGuestCount
     }
+
     fun sendTime(newTime: String) {
         timeVar = newTime
     }
+
     fun sendData(newData: String) {
         dateVar = newData
     }

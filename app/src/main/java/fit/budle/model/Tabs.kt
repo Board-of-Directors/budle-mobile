@@ -1,10 +1,8 @@
-package fit.budle.models
+package fit.budle.model
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.graphics.Color
 import fit.budle.R
-import fit.budle.navigation.routes.NavRoute
-import fit.budle.ui.theme.backgroundError
 
 data class Tab(
     val iconID: Int,
@@ -13,7 +11,8 @@ data class Tab(
     val color: Color?
 )
 
-val tabs = mutableStateListOf(/*
+val tabs = mutableStateListOf(
+/*
     Tab(
         R.drawable.heart,
         "Избранное",
