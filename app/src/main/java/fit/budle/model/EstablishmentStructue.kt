@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.painter.BitmapPainter
 data class EstablishmentStructure (val establishments: Array<EstablishmentWithImage>, val count: Int)
 
 data class EstablishmentWithImage(
-    val id: Int,
+    val id: Long,
     val name: String,
     val description: String?,
     val address: String,
@@ -14,6 +14,10 @@ data class EstablishmentWithImage(
     val hasMap: Boolean?,
     val category: String,
     val image: BitmapPainter?,
-    val rating: Int?,
-    val price: Int?
+    val rating: Double?,
+    val price: Int?,
+    val workingHours: Array<WorkingHour>,
+    val tags: ArrayList<Tag>,
+    val cuisineCountry: String?,
+    val starsCount: Int?
 )

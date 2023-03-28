@@ -2,6 +2,7 @@ package fit.budle.network
 
 import fit.budle.model.AnswerCategories
 import fit.budle.model.AnswerEstablishment
+import fit.budle.model.AnswerOrder
 import fit.budle.model.AnswerRegistration
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -33,4 +34,7 @@ interface BudleAPIRequests {
     @GET("establishment/category")
     suspend fun getCategories(
     ): AnswerCategories
+
+    @POST("order")
+    suspend fun getCategories(@Body requestBody: RequestBody): AnswerOrder
 }

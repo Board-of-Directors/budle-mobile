@@ -24,7 +24,6 @@ fun BudleTag(
     onChangeState: (Int) -> Unit,
     tag: Tag
 ) {
-
     val buttonColor = ButtonDefaults.buttonColors(
         if (isSelected(tag.tagId)) fillPurple else lightBlue
     )
@@ -45,15 +44,4 @@ fun BudleTag(
             color = textColor
         )
     }
-}
-
-@RequiresApi(Build.VERSION_CODES.N)
-@Preview
-@Composable
-fun PreviewBudleTag() {
-    BudleTag(
-        isSelected = { true },
-        onChangeState = {},
-        tag = tagList[0]
-    )
 }

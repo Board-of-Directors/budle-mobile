@@ -10,7 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import fit.budle.model.EstablishmentStructure
-import fit.budle.model.EstablishmentsRequest
+import fit.budle.model.EstablishmentRequest
 import fit.budle.ui.details.InstitutionsRow
 
 @Composable
@@ -20,7 +20,7 @@ fun HomeScreen(
     ) -> (EstablishmentStructure), categoriesProvider: () -> (Array<String>)
 ) {
     val establishmentRequest =
-        EstablishmentsRequest(null, null, null, null, null, null, null)
+        EstablishmentRequest(null, null, null, null, null, null, null)
 
     val columnState = rememberLazyListState()
 
@@ -41,7 +41,8 @@ fun HomeScreen(
                         establishmentRequest.name,
                         establishmentRequest.hasCardPayment,
                         establishmentRequest.hasMap
-                    )
+                    ),
+                    navController
                 )
             }
         }

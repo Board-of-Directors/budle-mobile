@@ -3,7 +3,10 @@ package fit.budle.viewmodel
 import android.graphics.BitmapFactory
 import android.util.Base64
 import android.util.Log
-import androidx.compose.runtime.*
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.lifecycle.ViewModel
@@ -11,6 +14,7 @@ import androidx.lifecycle.viewModelScope
 import fit.budle.model.Establishment
 import fit.budle.model.EstablishmentStructure
 import fit.budle.model.EstablishmentWithImage
+import fit.budle.model.Tag
 import fit.budle.network.BudleAPIClient
 import fit.budle.repository.BudleRepository
 import kotlinx.coroutines.launch
@@ -62,6 +66,9 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    fun getCard(category: String?, cardID: String?): EstablishmentWithImage? =
+        cardID?.let { result3[category]?.value?.establishments?.get(it.toInt()) }
+
     fun getListOfCategories(): Array<String> {
         repository = BudleRepository(apiService)
         viewModelScope.launch {
@@ -84,13 +91,24 @@ class MainViewModel : ViewModel() {
 }
 
 fun convertEstablishment(establishment: Establishment): EstablishmentWithImage {
-    val imageBytes: ByteArray?
-    var decodedImage: BitmapPainter? = null;
+    var decodedImage: BitmapPainter? = null
+    val decodedTagsIcons: ArrayList<Tag> = arrayListOf()
     if (establishment.image != null) {
-        imageBytes = Base64.decode(establishment.image, Base64.DEFAULT)
+        val imageBytes: ByteArray = Base64.decode(establishment.image, Base64.DEFAULT)
         decodedImage = BitmapPainter(
             BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size).asImageBitmap()
         )
+    }
+
+    establishment.tags.forEach {
+        var decodedIcon: BitmapPainter? = null
+        if (it.image != null) {
+            val imageBytes: ByteArray = Base64.decode(it.image, Base64.DEFAULT)
+            decodedIcon = BitmapPainter(
+                BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size).asImageBitmap()
+            )
+        }
+        decodedTagsIcons.add(Tag(name = it.name, image = decodedIcon))
     }
 
     return EstablishmentWithImage(
@@ -104,6 +122,10 @@ fun convertEstablishment(establishment: Establishment): EstablishmentWithImage {
         establishment.category,
         decodedImage,
         establishment.rating,
-        establishment.price
+        establishment.price,
+        establishment.workingHours,
+        decodedTagsIcons,
+        establishment.cuisineCountry,
+        establishment.starsCount
     )
 }

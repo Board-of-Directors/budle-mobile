@@ -2,10 +2,7 @@ package fit.budle.navigation
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -17,23 +14,48 @@ import fit.budle.screens.establishments.EstablishmentCardScreen
 import fit.budle.screens.establishments.MainListScreen
 import fit.budle.screens.onboarding.StartScreen
 import fit.budle.screens.user_profile.*
+import fit.budle.ui.screens.CardScreen
 import fit.budle.ui.screens.HomeScreen
+import fit.budle.ui.screens.OrderScreen
+import fit.budle.viewmodel.BookViewModel
 import fit.budle.viewmodel.MainViewModel
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun NavigationComponent(navController: NavHostController) {
+    val mainViewModel = viewModel<MainViewModel>()
     NavHost(
         navController = navController,
-        startDestination = "user_profile",
-        modifier = Modifier.padding(10.dp)
+        startDestination = "home"
     ) {
         composable("home") {
-            val mainViewModel = viewModel<MainViewModel>()
             HomeScreen(
                 navController,
                 mainViewModel::getListOfEstablishments,
                 mainViewModel::getListOfCategories
+            )
+        }
+
+        composable("card/{category}/{cardId}") {
+            CardScreen(
+                navController,
+                (mainViewModel::getCard)(
+                    it.arguments?.getString("category"),
+                    it.arguments?.getString("cardId")
+                )
+            )
+        }
+
+        composable("order/{id}/{name}") {
+            val bookViewModel = viewModel<BookViewModel>()
+            OrderScreen(
+                navController,
+                it.arguments?.getString("id"),
+                it.arguments?.getString("name"),
+                bookViewModel::getOrder,
+                bookViewModel::sendGuestCount,
+                bookViewModel::sendData,
+                bookViewModel::sendTime
             )
         }
 

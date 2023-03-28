@@ -1,6 +1,6 @@
 package fit.budle.model
 
-data class EstablishmentsRequest(
+data class EstablishmentRequest(
     val category: String?,
     val limit: Int?,
     val offset: Int?,

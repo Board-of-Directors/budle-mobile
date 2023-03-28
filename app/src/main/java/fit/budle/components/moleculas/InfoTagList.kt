@@ -9,11 +9,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import fit.budle.components.atoms.BudleInfoTag
+import fit.budle.model.Tag
 import fit.budle.models.InfoTag
 
 @Composable
 fun BudleInfoTagList(
-    tags: MutableList<InfoTag>,
+    tags: MutableList<Tag>,
     horizontalPadding: Dp = 20.dp
 ) {
     LazyRow(
