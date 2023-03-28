@@ -16,16 +16,17 @@ import fit.budle.components.moleculas.BudleBookingCardListBackendConnected
 import fit.budle.components.moleculas.BudleNavigationHeader
 import fit.budle.components.moleculas.budleTagList
 import fit.budle.model.Booking
-import fit.budle.models.bookingList
-import fit.budle.models.tagList
+import fit.budle.models.ordersTagList
+import fit.budle.navigation.routes.NavRoute
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun UserProfileBookingsScreenBackendConnected(
     navController: NavHostController,
-    bookingsProvider: (Long?) -> (Array<Booking>)
+    bookingsProvider: (Long, String?) -> (Array<Booking>),
+    deletingProvider: (Long, Long) -> Unit
 ) {
-    
+
     val tempUserId = 1L
     val currentType = remember {
         mutableStateOf("Все")
@@ -40,19 +41,20 @@ fun UserProfileBookingsScreenBackendConnected(
         ) {
             BudleNavigationHeader(
                 textMessage = "Мои брони",
-                route = "user_profile",
+                route = NavRoute.UserProfile.route,
                 navController = navController
             )
             BudleSearchBar()
             Row(modifier = Modifier.padding(top = 12.dp)) {}
             currentType.value = budleTagList(
                 initialState = 0,
-                tagList = tagList
+                tagList = ordersTagList
             )
             Row(modifier = Modifier.padding(top = 12.dp)) {}
             BudleBookingCardListBackendConnected(
-                bookingList = bookingsProvider(tempUserId),
-                filter = currentType.value
+                bookingList = bookingsProvider(tempUserId, currentType.value),
+                deletingProvider = deletingProvider
+
             )
 
         }

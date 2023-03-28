@@ -4,7 +4,7 @@ data class RectangleTag(
     override val tagName: String,
     override var tagId: Int,
     val iconId: Int? = null,
-): Tag
+) : Tag
 
 val tagList = mutableListOf(
     RectangleTag(
@@ -23,5 +23,26 @@ val tagList = mutableListOf(
         "Развлечения",
         3
     ),
+)
+
+val ordersTagList = mutableListOf(
+    RectangleTag(
+        "Все",
+        0
+    ),
+    RectangleTag(
+        "Ожидающие",
+        1
+    ),
+    RectangleTag(
+        "Принятые",
+        2
+    ),
+    RectangleTag(
+        "Отклоненные",
+        3
+    )
+
+
 )
 

@@ -1,12 +1,12 @@
 package fit.budle.viewmodel
 
 import android.graphics.BitmapFactory
+import android.icu.text.SimpleDateFormat
+import android.os.Build
 import android.util.Base64
 import android.util.Log
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+import androidx.annotation.RequiresApi
+import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.lifecycle.ViewModel
@@ -16,9 +16,12 @@ import fit.budle.model.EstablishmentStructure
 import fit.budle.model.EstablishmentWithImage
 import fit.budle.model.Tag
 import fit.budle.model.*
+import fit.budle.models.ordersTagList
 import fit.budle.network.BudleAPIClient
 import fit.budle.repository.BudleRepository
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.HashMap
 
 class MainViewModel : ViewModel() {
 
@@ -91,13 +94,26 @@ class MainViewModel : ViewModel() {
         return result2
     }
 
-    fun getListOfOrders(userId: Long?): Array<Booking> {
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun getListOfOrders(userId: Long, status: String?): Array<Booking> {
         repository = BudleRepository(apiService)
+        val map = HashMap<String, Int?>()
+        for (tag in ordersTagList) {
+            map[tag.tagName] = tag.tagId - 1
+        }
+        map["Все"] = null
         viewModelScope.launch {
-            when (val response = repository.getOrdersRequest(userId)) {
+            when (val response = repository.getOrdersRequest(userId, map[status])) {
                 is BudleRepository.ResultList3.Success -> {
                     Log.d("MAINVIEWMODEL", "SUCCESS")
-                    response.result.map { it.establishmentImage = convertEstablishment(it.establishment) }
+                    response.result.map {
+                        it.establishmentImage = convertEstablishment(it.establishment)
+                        it.time = it.time.subSequence(0, it.time.length - 3).toString()
+                        val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(it.date)
+                        val formattedDatesString = SimpleDateFormat("LLLL dd, yyyy", Locale.getDefault()).format(date)
+                        it.date = formattedDatesString
+
+                    }
                     result4 = response.result
                 }
                 is BudleRepository.ResultList3.Failure -> {
@@ -110,6 +126,23 @@ class MainViewModel : ViewModel() {
             }
         }
         return result4
+    }
+
+    fun deleteOrderFromUser(userId: Long, orderId: Long) {
+        repository = BudleRepository(apiService)
+        viewModelScope.launch {
+            when (repository.deleteOrderFromUser(userId, orderId)) {
+                is BudleRepository.Result.Success -> {
+                    Log.d("MAINVIEWMODEL", "SUCCESS")
+                }
+                is BudleRepository.Result.Failure -> {
+                    Log.e("MAINVIEWMODEL", "FAILURE")
+                }
+                else -> {
+                    Log.e("CRITICAL_ERROR", "UNDEFINED RESPONSE")
+                }
+            }
+        }
     }
 
 
