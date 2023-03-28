@@ -25,9 +25,7 @@ import fit.budle.ui.theme.mainBlack
 fun SearchBar() {
     val text by remember { mutableStateOf("") }
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp),
+        modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         TextField(

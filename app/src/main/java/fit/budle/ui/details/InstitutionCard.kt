@@ -36,17 +36,21 @@ fun InstitutionCard(
         }
     ) {
         Box(
-            modifier = Modifier.height(140.dp),
+            modifier = Modifier.size(140.dp),
             contentAlignment = Alignment.BottomStart
         ) {
-            Image(
-                painter = if (institutionCardState[i].image != null) institutionCardState[i].image!! else painterResource(
-                    id = R.drawable.carddefault
-                ),
-                contentDescription = "Restaurant Card",
-                modifier = Modifier.width(140.dp),
-                contentScale = ContentScale.FillBounds
-            )
+            Box(
+                modifier = Modifier.size(140.dp)
+            ){
+                Image(
+                    modifier = Modifier.fillMaxSize(),
+                    painter = if (institutionCardState[i].image != null) institutionCardState[i].image!! else painterResource(
+                        id = R.drawable.carddefault
+                    ),
+                    contentDescription = "Restaurant Card",
+                    contentScale = ContentScale.Crop
+                )
+            }
             Box(
                 Modifier
                     .matchParentSize()

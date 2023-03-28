@@ -14,6 +14,7 @@ import fit.budle.model.tag.active.Tag
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun tagList(
+    modifier: Modifier = Modifier,
     initialState: Int = -1,
     tagList: List<Tag>,
     tagType: ActiveTagType = ActiveTagType.RECTANGLE
@@ -24,7 +25,7 @@ fun tagList(
         selectedItem = if (!isSelectedItem(it)) it else selectedItem
     }
     LazyRow(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .selectableGroup()
     ) {

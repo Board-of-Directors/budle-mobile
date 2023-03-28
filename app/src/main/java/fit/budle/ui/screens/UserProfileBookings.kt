@@ -30,7 +30,7 @@ fun UserProfileBookingsScreenBackendConnected(
         Column(
             Modifier
                 .fillMaxSize()
-                .padding(top = 8.dp, bottom = 8.dp)
+                .padding(20.dp)
         ) {
             NavigationHeader(
                 textMessage = "Мои брони",
