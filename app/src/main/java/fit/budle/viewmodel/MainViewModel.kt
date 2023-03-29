@@ -102,7 +102,7 @@ class MainViewModel : ViewModel() {
         }
         map["Все"] = null
         viewModelScope.launch {
-            when (val response = map[status]?.let { repository.getOrders(userId, it) }) {
+            when (val response = repository.getOrders(userId, map[status])) {
                 is Repository.ResultList3.Success -> {
                     Log.d("MAINVIEWMODEL", "SUCCESS")
                     response.result.map {

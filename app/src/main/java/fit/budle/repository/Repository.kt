@@ -99,7 +99,7 @@ class Repository(val APIRequests: APIRequests) {
         }
     }
 
-    suspend fun getOrders(userId: Long, status: Int): ResultList3 {
+    suspend fun getOrders(userId: Long, status: Int?): ResultList3 {
         return try {
             val result = APIRequests.getOrders(userId, status = status)
             Log.d("GETORDERS", "SUCCESS")
