@@ -26,7 +26,7 @@ fun UserProfileBookingsScreenBackendConnected(
 ) {
     
     val tempUserId = 1L
-    val currentType = remember {
+    var currentType by remember {
         mutableStateOf("Все")
     }
 
@@ -45,14 +45,14 @@ fun UserProfileBookingsScreenBackendConnected(
             )
             BudleSearchBar()
             Row(modifier = Modifier.padding(top = 12.dp)) {}
-            currentType.value = budleTagList(
+            currentType = budleTagList(
                 initialState = tagList[0],
                 tagList = tagList
             ).tagName
             Row(modifier = Modifier.padding(top = 12.dp)) {}
             BudleBookingCardListBackendConnected(
                 bookingList = bookingsProvider(tempUserId),
-                filter = currentType.value
+                filter = currentType
             )
 
         }

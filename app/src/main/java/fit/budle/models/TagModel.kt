@@ -19,3 +19,18 @@ val tagList = mutableListOf(
     ),
 )
 
+val statusList = mutableListOf(
+        Tag(
+                1,
+                "В ожидании"
+        ),
+        Tag(
+                2,
+                "Принятые"
+        ),
+        Tag(
+                3,
+                "Отклонённые"
+        )
+)
+

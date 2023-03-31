@@ -97,7 +97,12 @@ fun BudleCreatorEstablishmentCard(
                         iconDescription = "Сотрудники"
                     )
                     TextWithIcon(
-                        onClick = {},
+                        onClick = {
+                            navHostController.navigate(
+                                    NavRoute.EstablishmentOrders.route,
+                                    bundleOf("BUS_KEY" to establishmentCard)
+                            )
+                        },
                         text = "Заказы",
                         iconId = R.drawable.file,
                         iconDescription = "Заказы"
