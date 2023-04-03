@@ -1,9 +1,6 @@
 package fit.budle.network
 
-import fit.budle.model.AnswerCategories
-import fit.budle.model.AnswerEstablishment
-import fit.budle.model.AnswerOrders
-import fit.budle.model.AnswerRegistration
+import fit.budle.model.*
 import okhttp3.RequestBody
 import retrofit2.http.*
 
@@ -17,24 +14,24 @@ interface APIRequests {
         @Query("name") name: String?,
         @Query("hasCardPayment") hasCardPayment: Boolean?,
         @Query("hasMap") hasMap: Boolean?
-    ): AnswerEstablishment
+    ): Response.AnswerEstablishment
 
     @GET("establishment/category")
     suspend fun getCategories(
-    ): AnswerCategories
+    ): Response.AnswerCategories
 
     @GET("order")
     suspend fun getOrders(
         @Query("userId") userId: Long,
         @Query("status") status: Int?
-    ): AnswerOrders
+    ): Response.AnswerOrders
 
     @POST("order")
-    suspend fun postOrders(@Body requestBody: RequestBody): AnswerRegistration
+    suspend fun postOrders(@Body requestBody: RequestBody): Response.AnswerRegistration
 
     @DELETE("order")
     suspend fun deleteOrder(
         @Query("userId") userId: Long,
         @Query("orderId") orderId: Long
-    ): AnswerRegistration
+    ): Response.AnswerRegistration
 }

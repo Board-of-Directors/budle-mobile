@@ -6,20 +6,22 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import fit.budle.network.APIClient
+import dagger.hilt.android.lifecycle.HiltViewModel
 import fit.budle.repository.Repository
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class BookViewModel : ViewModel() {
-    private val apiService = APIClient.service
-    private lateinit var repository: Repository
+@HiltViewModel
+class BookViewModel @Inject constructor(
+    private var repository: Repository
+): ViewModel() {
+
     private var result: String by mutableStateOf("")
     private var dateVar: String by mutableStateOf("")
     private var timeVar: String by mutableStateOf("")
     private var guestCountVar: Int by mutableStateOf(1)
 
     fun getOrder(establishmentId: Long, userId: Long): String {
-        repository = Repository(apiService)
         viewModelScope.launch {
             Log.e("GUEST", guestCountVar.toString())
             if (dateVar.isNotEmpty() && timeVar.isNotEmpty()) {

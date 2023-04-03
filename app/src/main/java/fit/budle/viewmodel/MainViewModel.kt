@@ -17,16 +17,19 @@ import fit.budle.model.establishment.EstablishmentArray
 import fit.budle.model.establishment.Establishment
 import fit.budle.model.tag.active.ordersTagList
 import fit.budle.model.tag.standard.Tag
-import fit.budle.network.APIClient
 import fit.budle.repository.Repository
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
+import dagger.Lazy
+import dagger.hilt.android.lifecycle.HiltViewModel
 
-class MainViewModel : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    private var repository: Lazy<Repository>
+) : ViewModel() {
 
-    private val apiService = APIClient.service
-    private lateinit var repository: Repository
     var result2: Array<String> by mutableStateOf(emptyArray())
     var result: EstablishmentArray by mutableStateOf(EstablishmentArray(emptyArray(), 0))
     var result3: HashMap<String, MutableState<EstablishmentArray>> = hashMapOf()
@@ -41,9 +44,8 @@ class MainViewModel : ViewModel() {
         hasCardPayment: Boolean?,
         hasMap: Boolean?,
     ): EstablishmentArray {
-        repository = Repository(apiService)
         viewModelScope.launch {
-            when (val response = repository.getEstablishmentsRequest(
+            when (val response = repository.get().getEstablishmentsRequest(
                 category, limit, offset, sortValue, name, hasCardPayment, hasMap
             )) {
                 is Repository.ResultList.Success -> {
@@ -75,9 +77,8 @@ class MainViewModel : ViewModel() {
         cardID?.let { result3[category]?.value?.establishments?.get(it.toInt()) }
 
     fun getListOfCategories(): Array<String> {
-        repository = Repository(apiService)
         viewModelScope.launch {
-            when (val response = repository.getCategoriesRequest()) {
+            when (val response = repository.get().getCategoriesRequest()) {
                 is Repository.ResultList2.Success -> {
                     Log.d("MAINVIEWMODEL", "SUCCESS")
                     result2 = response.result
@@ -95,14 +96,13 @@ class MainViewModel : ViewModel() {
     }
 
     fun getListOfOrders(userId: Long, status: String?): Array<Booking> {
-        repository = Repository(apiService)
         val map = HashMap<String, Int?>()
         for (tag in ordersTagList) {
             map[tag.tagName] = tag.tagId - 1
         }
         map["Все"] = null
         viewModelScope.launch {
-            when (val response = repository.getOrders(userId, map[status])) {
+            when (val response = repository.get().getOrders(userId, map[status])) {
                 is Repository.ResultList3.Success -> {
                     Log.d("MAINVIEWMODEL", "SUCCESS")
                     response.result.map {
@@ -136,9 +136,8 @@ class MainViewModel : ViewModel() {
     }
 
     fun deleteOrderFromUser(userId: Long, orderId: Long) {
-        repository = Repository(apiService)
         viewModelScope.launch {
-            when (repository.deleteOrderFromUser(userId, orderId)) {
+            when (repository.get().deleteOrderFromUser(userId, orderId)) {
                 is Repository.Result.Success -> {
                     Log.d("MAINVIEWMODEL", "SUCCESS")
                 }
@@ -151,44 +150,44 @@ class MainViewModel : ViewModel() {
             }
         }
     }
-}
 
-fun convertEstablishment(establishment: EstablishmentResponse): Establishment {
-    var decodedImage: BitmapPainter? = null
-    val decodedTagsIcons: ArrayList<Tag> = arrayListOf()
-    if (establishment.image != null) {
-        val imageBytes: ByteArray = Base64.decode(establishment.image, Base64.DEFAULT)
-        decodedImage = BitmapPainter(
-            BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size).asImageBitmap()
-        )
-    }
-
-    establishment.tags.forEach {
-        var decodedIcon: BitmapPainter? = null
-        if (it.image != null) {
-            val imageBytes: ByteArray = Base64.decode(it.image, Base64.DEFAULT)
-            decodedIcon = BitmapPainter(
+    fun convertEstablishment(establishment: EstablishmentResponse): Establishment {
+        var decodedImage: BitmapPainter? = null
+        val decodedTagsIcons: ArrayList<Tag> = arrayListOf()
+        if (establishment.image != null) {
+            val imageBytes: ByteArray = Base64.decode(establishment.image, Base64.DEFAULT)
+            decodedImage = BitmapPainter(
                 BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size).asImageBitmap()
             )
         }
-        decodedTagsIcons.add(Tag(name = it.name, image = decodedIcon))
-    }
 
-    return Establishment(
-        establishment.id,
-        establishment.name,
-        establishment.description,
-        establishment.address,
-        establishment.owner,
-        establishment.hasCardPayment,
-        establishment.hasMap,
-        establishment.category,
-        decodedImage,
-        establishment.rating,
-        establishment.price,
-        establishment.workingHours,
-        decodedTagsIcons,
-        establishment.cuisineCountry,
-        establishment.starsCount
-    )
+        establishment.tags.forEach {
+            var decodedIcon: BitmapPainter? = null
+            if (it.image != null) {
+                val imageBytes: ByteArray = Base64.decode(it.image, Base64.DEFAULT)
+                decodedIcon = BitmapPainter(
+                    BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size).asImageBitmap()
+                )
+            }
+            decodedTagsIcons.add(Tag(name = it.name, image = decodedIcon))
+        }
+
+        return Establishment(
+            establishment.id,
+            establishment.name,
+            establishment.description,
+            establishment.address,
+            establishment.owner,
+            establishment.hasCardPayment,
+            establishment.hasMap,
+            establishment.category,
+            decodedImage,
+            establishment.rating,
+            establishment.price,
+            establishment.workingHours,
+            decodedTagsIcons,
+            establishment.cuisineCountry,
+            establishment.starsCount
+        )
+    }
 }

@@ -8,7 +8,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 
-class Repository(val APIRequests: APIRequests) {
+class Repository(private val APIRequests: APIRequests) {
     sealed class Result {
         object LOADING : Result()
         data class Success(val result: Boolean?, val exceptionMessage: String?) : Result()
