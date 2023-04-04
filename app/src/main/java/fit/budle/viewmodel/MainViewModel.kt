@@ -22,18 +22,16 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-import dagger.Lazy
 import dagger.hilt.android.lifecycle.HiltViewModel
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private var repository: Lazy<Repository>
+    private var repository: Repository
 ) : ViewModel() {
 
-    var result2: Array<String> by mutableStateOf(emptyArray())
-    var result: EstablishmentArray by mutableStateOf(EstablishmentArray(emptyArray(), 0))
-    var result3: HashMap<String, MutableState<EstablishmentArray>> = hashMapOf()
-    var result4: Array<Booking> by mutableStateOf(emptyArray())
+    var categories: Array<String> by mutableStateOf(emptyArray())
+    var orders: Array<Booking> by mutableStateOf(emptyArray())
+    var categoryMap: HashMap<String, MutableState<EstablishmentArray>> = hashMapOf()
 
     fun getListOfEstablishments(
         category: String?,
@@ -45,19 +43,19 @@ class MainViewModel @Inject constructor(
         hasMap: Boolean?,
     ): EstablishmentArray {
         viewModelScope.launch {
-            when (val response = repository.get().getEstablishmentsRequest(
+            when (val response = repository.getEstablishment(
                 category, limit, offset, sortValue, name, hasCardPayment, hasMap
             )) {
-                is Repository.ResultList.Success -> {
+                is EstablishmentListResult.Success -> {
                     Log.d("MAINVIEWMODEL", "SUCCESS")
                     if (category != null) {
-                        result3[category] =
+                        categoryMap[category] =
                             mutableStateOf(EstablishmentArray(response.result.establishments.map {
                                 convertEstablishment(it)
                             }.toTypedArray(), response.result.count))
                     }
                 }
-                is Repository.ResultList.Failure -> {
+                is EstablishmentListResult.Failure -> {
                     Log.e("MAINVIEWMODEL", "FAILURE")
                     response.throwable.message?.let { Log.e("MAINVIEWMODEL", it) }
                 }
@@ -66,24 +64,24 @@ class MainViewModel @Inject constructor(
                 }
             }
         }
-        if (category != null) {
-            return result3[category]?.value ?: result
+        return if (category != null) {
+            categoryMap[category]?.value ?: EstablishmentArray()
         } else {
-            return result
+            EstablishmentArray()
         }
     }
 
     fun getCard(category: String?, cardID: String?): Establishment? =
-        cardID?.let { result3[category]?.value?.establishments?.get(it.toInt()) }
+        cardID?.let { categoryMap[category]?.value?.establishments?.get(it.toInt()) }
 
     fun getListOfCategories(): Array<String> {
         viewModelScope.launch {
-            when (val response = repository.get().getCategoriesRequest()) {
-                is Repository.ResultList2.Success -> {
+            when (val response = repository.getCategories()) {
+                is CategoriesListResult.Success -> {
                     Log.d("MAINVIEWMODEL", "SUCCESS")
-                    result2 = response.result
+                    categories = response.result
                 }
-                is Repository.ResultList2.Failure -> {
+                is CategoriesListResult.Failure -> {
                     Log.e("MAINVIEWMODEL", "FAILURE")
                     response.throwable.message?.let { Log.e("MAINVIEWMODEL", it) }
                 }
@@ -92,7 +90,7 @@ class MainViewModel @Inject constructor(
                 }
             }
         }
-        return result2
+        return categories
     }
 
     fun getListOfOrders(userId: Long, status: String?): Array<Booking> {
@@ -102,8 +100,8 @@ class MainViewModel @Inject constructor(
         }
         map["Все"] = null
         viewModelScope.launch {
-            when (val response = repository.get().getOrders(userId, map[status])) {
-                is Repository.ResultList3.Success -> {
+            when (val response = repository.getOrders(userId, map[status])) {
+                is OrderListResult.Success -> {
                     Log.d("MAINVIEWMODEL", "SUCCESS")
                     response.result.map {
                         it.establishmentImage = convertEstablishment(it.establishment)
@@ -121,9 +119,9 @@ class MainViewModel @Inject constructor(
                         }
 
                     }
-                    result4 = response.result
+                    orders = response.result
                 }
-                is Repository.ResultList3.Failure -> {
+                is OrderListResult.Failure -> {
                     Log.e("MAINVIEWMODEL", "FAILURE")
                     response.throwable.message?.let { Log.e("MAINVIEWMODEL", it) }
                 }
@@ -132,16 +130,16 @@ class MainViewModel @Inject constructor(
                 }
             }
         }
-        return result4
+        return orders
     }
 
     fun deleteOrderFromUser(userId: Long, orderId: Long) {
         viewModelScope.launch {
-            when (repository.get().deleteOrderFromUser(userId, orderId)) {
-                is Repository.Result.Success -> {
+            when (repository.deleteOrder(userId, orderId)) {
+                is OrderResult.Success -> {
                     Log.d("MAINVIEWMODEL", "SUCCESS")
                 }
-                is Repository.Result.Failure -> {
+                is OrderResult.Failure -> {
                     Log.e("MAINVIEWMODEL", "FAILURE")
                 }
                 else -> {
@@ -151,7 +149,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun convertEstablishment(establishment: EstablishmentResponse): Establishment {
+    private fun convertEstablishment(establishment: EstablishmentResponse): Establishment {
         var decodedImage: BitmapPainter? = null
         val decodedTagsIcons: ArrayList<Tag> = arrayListOf()
         if (establishment.image != null) {

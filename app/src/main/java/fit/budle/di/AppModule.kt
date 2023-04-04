@@ -1,11 +1,12 @@
-package fit.budle.model.di
+package fit.budle.di
 
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import fit.budle.network.APIRequests
+import fit.budle.dao.APIRequests
 import fit.budle.repository.Repository
+import fit.budle.repository.RepositoryImpl
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
@@ -26,6 +27,6 @@ object AppModule {
     @Provides
     @Singleton
     fun provideRepository(apiService: APIRequests) : Repository {
-        return Repository(apiService)
+        return RepositoryImpl(apiService)
     }
 }

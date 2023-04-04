@@ -29,7 +29,8 @@ import fit.budle.ui.theme.*
 
 @Composable
 fun CardScreen(
-    navController: NavController, establishment: Establishment?
+    navController: NavController,
+    establishment: Establishment?
 ) {
     Surface(
         modifier = Modifier.fillMaxSize()

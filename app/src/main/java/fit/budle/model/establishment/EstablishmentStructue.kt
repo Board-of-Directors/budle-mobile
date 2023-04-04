@@ -5,7 +5,7 @@ import fit.budle.model.Owner
 import fit.budle.model.tag.standard.Tag
 import fit.budle.model.WorkingHour
 
-data class EstablishmentArray(val establishments: Array<Establishment>, val count: Int)
+data class EstablishmentArray(val establishments: Array<Establishment> = emptyArray(), val count: Int = 0)
 
 data class Establishment(
     val id: Long,

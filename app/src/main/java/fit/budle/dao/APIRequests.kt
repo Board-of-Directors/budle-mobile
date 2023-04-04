@@ -1,4 +1,4 @@
-package fit.budle.network
+package fit.budle.dao
 
 import fit.budle.model.*
 import okhttp3.RequestBody

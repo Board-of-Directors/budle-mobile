@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import fit.budle.model.OrderResult
 import fit.budle.repository.Repository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,20 +29,20 @@ class BookViewModel @Inject constructor(
                 dateVar = "2022-03-$dateVar"
                 timeVar += ":00"
 
-                when (val response = repository.orderRequest(
+                when (val response = repository.postOrders(
                     establishmentId,
                     userId,
                     guestCountVar,
                     timeVar,
                     dateVar
                 )) {
-                    is Repository.Result.Success -> {
+                    is OrderResult.Success -> {
                         Log.d("BOOKVIEWMODEL", "SUCCESS")
                         result =
                             if (response.result == null) "NULL" else if (response.result == true) "TRUE" else "FALSE"
                         Log.e("BOOKSTATUS", result)
                     }
-                    is Repository.Result.Failure -> {
+                    is OrderResult.Failure -> {
                         Log.e("BOOKVIEWMODEL", "FAILURE")
                         response.throwable.message?.let { Log.e("BOOKVIEWMODEL", it) }
                     }
