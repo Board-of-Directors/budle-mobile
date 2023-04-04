@@ -29,5 +29,4 @@ interface Repository {
     ): OrderResult
 
     suspend fun deleteOrder(userId: Long, orderId: Long): OrderResult
-
 }

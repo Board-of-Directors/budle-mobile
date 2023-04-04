@@ -1,8 +1,8 @@
 package fit.budle.repository
 
 import android.util.Log
-import fit.budle.exeptions.EstablishmentExceptions
-import fit.budle.exeptions.OrderExceptions
+import fit.budle.exсeptions.EstablishmentExceptions
+import fit.budle.exсeptions.OrderExceptions
 import fit.budle.model.*
 import fit.budle.dao.APIRequests
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -70,7 +70,8 @@ class RepositoryImpl @Inject constructor(
             val requestBody = jsonObjectString.toRequestBody("application/json".toMediaTypeOrNull())
             val result = APIRequests.postOrders(requestBody)
             Log.d("OREDERREQUEST", "SUCCESS")
-            OrderResult.Success(result = result.result, exceptionMessage = result.exception?.message)
+            OrderResult.Success(result = result.result,
+                exceptionMessage = result.exception?.message)
         } catch (e: OrderExceptions.OrderRequestNotFoundException) {
             Log.e("OREDERREQUEST", "FAILURE")
             OrderResult.Failure(e)
@@ -95,10 +96,15 @@ class RepositoryImpl @Inject constructor(
         return try {
             val result = APIRequests.deleteOrder(userId, orderId)
             Log.d("DELETEORDER", "SUCCESS")
-            OrderResult.Success(result = result.result, exceptionMessage = result.exception?.message)
+            OrderResult.Success(result = result.result,
+                exceptionMessage = result.exception?.message)
         } catch (e: OrderExceptions.OrderNotFoundException) {
             Log.d("GETORDER", "FAILURE")
             OrderResult.Failure(e)
         }
+    }
+
+    private fun getJSON() {
+
     }
 }

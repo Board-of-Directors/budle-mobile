@@ -1,4 +1,4 @@
-package fit.budle.exeptions
+package fit.budle.exсeptions
 
 sealed class OrderExceptions(message: String) : Exception(message){
     class OrderRequestNotFoundException : EstablishmentExceptions("Order request not found")

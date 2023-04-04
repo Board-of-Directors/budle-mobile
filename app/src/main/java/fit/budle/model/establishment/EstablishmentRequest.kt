@@ -1,11 +1,11 @@
 package fit.budle.model.establishment
 
 data class EstablishmentRequest(
-    val category: String?,
-    val limit: Int?,
-    val offset: Int?,
-    val sortValue: String?,
-    val name: String?,
-    val hasCardPayment: Boolean?,
-    val hasMap: Boolean?,
+    val category: String? = null,
+    val limit: Int? = null,
+    val offset: Int? = null,
+    val sortValue: String? = null,
+    val name: String? = null,
+    val hasCardPayment: Boolean? = null,
+    val hasMap: Boolean? = null,
 )
