@@ -4,32 +4,27 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.core.os.bundleOf
 import androidx.navigation.NavHostController
 import fit.budle.R
+import fit.budle.dto.establishment.Establishment
+import fit.budle.dto.establishment.EstablishmentResponse
 import fit.budle.ui.components.atoms.BudleEstablishmentSubdescription
 import fit.budle.ui.theme.*
 
-// TODO: navigation and model integrating
-
-/*
 @Composable
 fun BudleCreatorEstablishmentCard(
     navHostController: NavHostController,
-    establishmentCard: BusinessEstablishmentModel
+    establishmentCard: EstablishmentResponse,
 ) {
 
-    val establishmentDescription = establishmentCard.establishment
-        .establishmentCardModel.establishmentDescription
-    val iconId = if (establishmentCard.isOpened.value)
-        R.drawable.minus else R.drawable.plus
-    val iconDescription = if (establishmentCard.isOpened.value)
-        "Close" else "Open"
+    var isOpened by remember { mutableStateOf(false) }
+    val iconId = if (isOpened) R.drawable.minus else R.drawable.plus
+    val iconDescription = if (isOpened) "Close" else "Open"
 
     Card(
         modifier = Modifier
@@ -50,20 +45,16 @@ fun BudleCreatorEstablishmentCard(
             ) {
                 Column {
                     Text(
-                        text = establishmentDescription.name,
+                        text = establishmentCard.name,
                         style = MaterialTheme.typography.bodyMedium,
                         color = mainBlack
                     )
                     BudleEstablishmentSubdescription(
-                        type = establishmentDescription.type,
-                        subtype = establishmentDescription.subtype
+                        type = establishmentCard.category
                     )
                 }
                 IconButton(
-                    onClick = {
-                        establishmentCard.isOpened.value =
-                            !establishmentCard.isOpened.value
-                    }
+                    onClick = { isOpened = !isOpened }
                 ) {
                     Icon(
                         painter = painterResource(id = iconId),
@@ -72,7 +63,7 @@ fun BudleCreatorEstablishmentCard(
                     )
                 }
             }
-            if (establishmentCard.isOpened.value) {
+            if (isOpened) {
                 Divider(
                     modifier = Modifier.padding(top = 20.dp),
                     thickness = 1.dp,
@@ -87,7 +78,7 @@ fun BudleCreatorEstablishmentCard(
                     )
                     TextWithIcon(
                         onClick = {
-                            // TODO: navigation
+                            navHostController.navigate("ownerMain/${establishmentCard.id}")
                         },
                         text = "Сотрудники",
                         iconId = R.drawable.user,
@@ -112,7 +103,7 @@ fun TextWithIcon(
     onClick: () -> Unit,
     text: String,
     iconId: Int,
-    iconDescription: String
+    iconDescription: String,
 ) {
     Row(
         modifier = Modifier
@@ -146,4 +137,3 @@ fun TextWithIcon(
         }
     }
 }
-*/

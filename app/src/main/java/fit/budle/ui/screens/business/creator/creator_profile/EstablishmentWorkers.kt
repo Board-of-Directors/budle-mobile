@@ -11,12 +11,13 @@ import fit.budle.dto.events.WorkerEvent
 import fit.budle.ui.components.atoms.BudleAddWorkerPopup
 import fit.budle.ui.components.moleculas.card_lists.BudleCreatorWorkerCardList
 import fit.budle.ui.components.moleculas.screens.BudleScreenWithButtonAndProgress
-import fit.budle.viewmodel.CreatorViewModel
+import fit.budle.viewmodel.WorkerListViewModel
 
 @Composable
 fun EstablishmentWorkersScreen(
     navHostController: NavHostController,
-    viewModel: CreatorViewModel = hiltViewModel()
+    establishmentId: Int,
+    viewModel: WorkerListViewModel = hiltViewModel()
 ) {
     var isPopup by remember { mutableStateOf(false) }
     val onClick: () -> Unit = { isPopup = false }
@@ -27,7 +28,7 @@ fun EstablishmentWorkersScreen(
                 onClose = onClick,
                 onValueChange = {
                     viewModel.onEvent(WorkerEvent.AddWorker(
-                        2, it
+                        establishmentId.toLong(), it
                     ))
                 }
             )
@@ -42,7 +43,7 @@ fun EstablishmentWorkersScreen(
             BudleCreatorWorkerCardList(
                 workerList = viewModel.state.toMutableList(),
                 onValueChange = {
-                    viewModel.onEvent(WorkerEvent.DeleteWorker(2, it.id))
+                    viewModel.onEvent(WorkerEvent.DeleteWorker(establishmentId.toLong(), it.id))
                 }
             )
             viewModel.onEvent(WorkerEvent.GetWorker)

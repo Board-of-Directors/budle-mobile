@@ -16,7 +16,7 @@ import fit.budle.ui.theme.textGray
 @Composable
 fun BudleEstablishmentSubdescription(
     type: String,
-    subtype: String
+    subtype: String? = null,
 ) {
     Row(
         modifier = Modifier.padding(top = 5.dp),
@@ -27,14 +27,16 @@ fun BudleEstablishmentSubdescription(
             style = MaterialTheme.typography.labelSmall,
             color = textGray
         )
-        Box(modifier = Modifier
-            .size(3.dp)
-            .padding(horizontal = 3.dp)
-            .background(textGray))
-        Text(
-            text = subtype,
-            style = MaterialTheme.typography.labelSmall,
-            color = textGray
-        )
+        if (subtype != null) {
+            Box(modifier = Modifier
+                .size(3.dp)
+                .padding(horizontal = 3.dp)
+                .background(textGray))
+            Text(
+                text = subtype,
+                style = MaterialTheme.typography.labelSmall,
+                color = textGray
+            )
+        }
     }
 }

@@ -1,6 +1,8 @@
 package fit.budle.dao
 
 import fit.budle.dto.response.WorkerResponse
+import fit.budle.dto.worker.Worker
+import retrofit2.Response
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PUT
