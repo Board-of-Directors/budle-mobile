@@ -9,19 +9,17 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import fit.budle.ui.screens.*
-import fit.budle.ui.screens.business.creator.creator_profile.EstablishmentWorkersScreen
+import fit.budle.viewmodel.BookViewModel
+import fit.budle.viewmodel.MainViewModel
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun NavigationComponent(navController: NavHostController) {
-    // val mainViewModel = viewModel<MainViewModel>()
+    val mainViewModel = viewModel<MainViewModel>()
     NavHost(
         navController = navController,
-        startDestination = "worker_list"
+        startDestination = "home"
     ) {
-        composable("worker_list") {
-            EstablishmentWorkersScreen(navHostController = navController)
-        }/*
         composable("home") {
             HomeScreen(
                 navController,
@@ -57,6 +55,6 @@ fun NavigationComponent(navController: NavHostController) {
                 mainViewModel::getListOfOrders,
                 mainViewModel::deleteOrderFromUser
             )
-        }*/
+        }
     }
 }

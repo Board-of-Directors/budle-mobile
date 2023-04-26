@@ -8,12 +8,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import fit.budle.ui.components.BudleSearchBar
-import fit.budle.ui.components.BudleBookingCardList
-import fit.budle.ui.components.budleTagList
-import fit.budle.dto.order.Booking
-import fit.budle.dto.tag.active.ordersTagList
-import fit.budle.ui.components.atoms.headers.BudleNavigationHeader
+import fit.budle.ui.details.SearchBar
+import fit.budle.ui.details.BookingCardList
+import fit.budle.ui.details.NavigationHeader
+import fit.budle.ui.details.tagList
+import fit.budle.model.Booking
+import fit.budle.model.tag.active.ordersTagList
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
@@ -32,20 +32,18 @@ fun UserProfileBookingsScreenBackendConnected(
                 .fillMaxSize()
                 .padding(20.dp)
         ) {
-            BudleNavigationHeader(
+            NavigationHeader(
                 textMessage = "Мои брони",
-                onClick = {
-                    navController.popBackStack()
-                }
+                navController = navController
             )
             Spacer(modifier = Modifier.height(12.dp))
-            BudleSearchBar()
+            SearchBar()
             Spacer(modifier = Modifier.height(12.dp))
-            currentType.value = budleTagList(
+            currentType.value = tagList(
                 initialState = 0,
                 tagList = ordersTagList
             ).tagName
-            BudleBookingCardList(
+            BookingCardList(
                 bookingList = bookingsProvider(tempUserId, currentType.value),
                 deletingProvider = deletingProvider
             )

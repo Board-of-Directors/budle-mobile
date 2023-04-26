@@ -12,12 +12,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
-import fit.budle.ui.components.BudleApplicationPattern
-import fit.budle.ui.components.atoms.BudleButton
-import fit.budle.dto.Tab
-import fit.budle.dto.tabs
+import fit.budle.ui.details.ApplicationPattern
+import fit.budle.ui.details.BudleButton
+import fit.budle.ui.details.UserHeader
+import fit.budle.model.Tab
+import fit.budle.model.tabs
 import fit.budle.navigation.NavRoute
-import fit.budle.ui.components.atoms.headers.BudleUserHeader
 import fit.budle.ui.theme.*
 
 @Composable
@@ -26,7 +26,7 @@ fun UserProfileScreen(navController: NavHostController) {
         Column(
             Modifier.fillMaxSize()
         ) {
-            BudleUserHeader(
+            UserHeader(
                 modifier = Modifier
                     .padding(horizontal = 30.dp)
                     .padding(top = 20.dp)
@@ -35,8 +35,7 @@ fun UserProfileScreen(navController: NavHostController) {
                 iconId = R.drawable.x,
                 iconDescription = "Close",
                 iconColor = mainBlack,
-                onClick = {}
-                //navController = navController
+                navController = navController
             )
             ShowColumn(navController)
             BudleButton(
@@ -61,7 +60,7 @@ fun UserProfileScreen(navController: NavHostController) {
                 disabledTextColor = textGray,
                 activeTextColor = mainWhite
             )
-            BudleApplicationPattern()
+            ApplicationPattern()
         }
     }
 }
