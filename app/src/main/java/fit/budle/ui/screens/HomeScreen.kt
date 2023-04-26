@@ -16,9 +16,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import fit.budle.R
-import fit.budle.model.establishment.EstablishmentRequest
-import fit.budle.model.establishment.EstablishmentArray
-import fit.budle.ui.details.InstitutionsRow
+import fit.budle.dto.establishment.EstablishmentRequest
+import fit.budle.dto.establishment.EstablishmentArray
 import fit.budle.ui.theme.backgroundLightBlue
 import fit.budle.ui.theme.mainBlack
 
@@ -43,7 +42,7 @@ fun HomeScreen(
                 horizontalAlignment = Alignment.Start
             ) {
                 itemsIndexed(categoriesProvider()) { _, i ->
-                    InstitutionsRow(
+                    /*InstitutionsRow(
                         establishmentProvider(
                             i,
                             establishmentRequest.limit,
@@ -55,6 +54,7 @@ fun HomeScreen(
                         ),
                         navController
                     )
+                    */
                 }
             }
         }

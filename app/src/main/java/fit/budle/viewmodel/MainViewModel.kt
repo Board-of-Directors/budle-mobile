@@ -11,22 +11,25 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import fit.budle.model.*
-import fit.budle.model.establishment.EstablishmentResponse
-import fit.budle.model.establishment.EstablishmentArray
-import fit.budle.model.establishment.Establishment
-import fit.budle.model.tag.active.ordersTagList
-import fit.budle.model.tag.standard.Tag
-import fit.budle.repository.Repository
+import fit.budle.dto.establishment.EstablishmentResponse
+import fit.budle.dto.establishment.EstablishmentArray
+import fit.budle.dto.establishment.Establishment
+import fit.budle.dto.tag.active.ordersTagList
+import fit.budle.dto.tag.standard.Tag
+import fit.budle.repository.EstablishmentRepository
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 import dagger.hilt.android.lifecycle.HiltViewModel
+import fit.budle.dto.establishment.CategoriesListResult
+import fit.budle.dto.establishment.EstablishmentListResult
+import fit.budle.dto.establishment.OrderListResult
+import fit.budle.dto.establishment.OrderResult
+import fit.budle.dto.order.Booking
 
-@HiltViewModel
-class MainViewModel @Inject constructor(
-    private var repository: Repository
+class MainViewModel (
+    private var repository: EstablishmentRepository
 ) : ViewModel() {
 
     var categories: Array<String> by mutableStateOf(emptyArray())
