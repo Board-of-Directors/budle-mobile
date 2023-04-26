@@ -14,11 +14,11 @@ class WorkerRepositoryImpl @Inject constructor(
 
     override suspend fun getWorkerArray(establishmentId: Long): GetWorkerArrayResult {
         return try {
-            val result = workerDAO.getWorkerArray(establishmentId)
-            Log.d("GET_WORKER_ARRAY", "SUCCESS")
+            val response = workerDAO.getWorkerArray(establishmentId)
+            Log.d("GET_WORKER_ARRAY", response.result.size.toString())
             GetWorkerArrayResult.Success(
-                result = result.result,
-                exception = result.exception
+                result = response.result,
+                exception = response.exception
             )
         } catch (e: Throwable) {
             Log.e("GET_WORKER_ARRAY", e.message!!)

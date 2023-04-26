@@ -3,7 +3,7 @@ package fit.budle.dto.worker
 import fit.budle.dto.Exception
 
 sealed class GetWorkerArrayResult {
-    data class Success(val result: Array<Worker>, val exception: Exception?) : GetWorkerArrayResult()
+    data class Success(val result: List<Worker>, val exception: Exception?) : GetWorkerArrayResult()
     data class Failure(val throwable: Throwable) : GetWorkerArrayResult()
 }
 

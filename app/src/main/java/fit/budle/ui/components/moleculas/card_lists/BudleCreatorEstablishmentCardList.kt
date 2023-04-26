@@ -5,16 +5,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-// import fit.budle.ui.components.moleculas.BudleCreatorEstablishmentCard
-
-// TODO: Create model
-
-/*
+import fit.budle.dto.establishment.Establishment
+import fit.budle.dto.establishment.EstablishmentResponse
+import fit.budle.ui.components.moleculas.BudleCreatorEstablishmentCard
 
 @Composable
 fun BudleCreatorEstablishmentCardList(
     navHostController: NavHostController,
-    cards: MutableList<BusinessEstablishmentModel>,
+    cards: List<EstablishmentResponse>,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -28,4 +26,3 @@ fun BudleCreatorEstablishmentCardList(
         }
     }
 }
-*/

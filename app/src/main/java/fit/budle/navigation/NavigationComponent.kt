@@ -9,18 +9,26 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import fit.budle.ui.screens.*
+import fit.budle.ui.screens.business.creator.CreatorMainScreen
 import fit.budle.ui.screens.business.creator.creator_profile.EstablishmentWorkersScreen
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun NavigationComponent(navController: NavHostController) {
-    // val mainViewModel = viewModel<MainViewModel>()
     NavHost(
         navController = navController,
-        startDestination = "worker_list"
+        startDestination = "ownerMain"
     ) {
-        composable("worker_list") {
-            EstablishmentWorkersScreen(navHostController = navController)
+        composable("ownerMain") {
+            CreatorMainScreen(navHostController = navController)
+        }
+        composable("ownerMain/{establishmentId}") {
+            it.arguments?.getString("establishmentId")?.let { string ->
+                EstablishmentWorkersScreen(
+                    navHostController = navController,
+                    establishmentId = string.toInt()
+                )
+            }
         }/*
         composable("home") {
             HomeScreen(

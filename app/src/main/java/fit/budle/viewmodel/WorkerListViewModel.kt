@@ -16,7 +16,7 @@ import fit.budle.dto.worker.GetWorkerArrayResult
 import javax.inject.Inject
 
 @HiltViewModel
-class CreatorViewModel @Inject constructor(
+class WorkerListViewModel @Inject constructor(
     private var workerRepository: WorkerRepository,
 ) : ViewModel() {
 
@@ -46,7 +46,7 @@ class CreatorViewModel @Inject constructor(
         viewModelScope.launch {
             when (val response = workerRepository.getWorkerArray(id)) {
                 is GetWorkerArrayResult.Success -> {
-                    state = response.result
+                    state = response.result.toTypedArray()
                 }
                 else -> {
                 }
