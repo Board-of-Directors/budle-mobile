@@ -7,14 +7,13 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import fit.budle.model.OrderResult
-import fit.budle.repository.Repository
+import fit.budle.dto.establishment.OrderResult
+import fit.budle.repository.EstablishmentRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class BookViewModel @Inject constructor(
-    private var repository: Repository
+class BookViewModel (
+    private var repository: EstablishmentRepository
 ): ViewModel() {
 
     private var result: String by mutableStateOf("")

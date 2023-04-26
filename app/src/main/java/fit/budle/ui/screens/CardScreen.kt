@@ -18,13 +18,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import fit.budle.R
-import fit.budle.ui.details.BudleButton
-import fit.budle.ui.details.IconButton
-import fit.budle.ui.details.PhotoTag
-import fit.budle.ui.details.BlockWithHeader
-import fit.budle.ui.details.InfoTagList
-import fit.budle.model.establishment.Establishment
-import fit.budle.model.WorkingHour
+import fit.budle.ui.components.atoms.BudleButton
+import fit.budle.dto.establishment.Establishment
+import fit.budle.dto.WorkingHour
+import fit.budle.ui.components.BudleIconButton
+import fit.budle.ui.components.BudlePhotoTag
+import fit.budle.ui.components.moleculas.BudleBlockWithHeader
 import fit.budle.ui.theme.*
 
 @Composable
@@ -48,7 +47,7 @@ fun CardScreen(
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.Top
             ) {
-                IconButton(modifier = Modifier.size(26.dp),
+                BudleIconButton(modifier = Modifier.size(26.dp),
                     iconDescription = "Close",
                     iconId = R.drawable.x,
                     onClick = {
@@ -94,7 +93,7 @@ fun CardScreen(
             }
             InfoBar(establishmentCard = establishment)
             if (establishment != null) {
-                InfoTagList(tags = establishment.tags)
+                // InfoTagList(tags = establishment.tags)
             }
             Column(
                 modifier = Modifier
@@ -208,7 +207,7 @@ fun InfoBar(
             verticalAlignment = Alignment.CenterVertically
         ) {
             if (establishmentCard != null) {
-                PhotoTag(
+                BudlePhotoTag(
                     tag = establishmentCard.rating.toString(),
                     color = fillPurple,
                     textColor = mainWhite
@@ -237,7 +236,7 @@ fun InfoBar(
 fun EstablishmentCardDescription(
     description: String
 ) {
-    BlockWithHeader(headerText = "Описание") {
+    BudleBlockWithHeader(headerText = "Описание") {
         Text(
             modifier = Modifier.padding(top = 10.dp),
             text = description,
@@ -251,7 +250,7 @@ fun EstablishmentCardDescription(
 fun WorkingTime(
     cardDescription: Array<WorkingHour>
 ) {
-    BlockWithHeader(headerText = "Время работы") {
+    BudleBlockWithHeader(headerText = "Время работы") {
         Column {
             for (i in cardDescription.indices) {
                 Row(
@@ -282,7 +281,7 @@ fun WorkingTime(
 fun EstablishmentAddress(
     addressInfo: String
 ) {
-    BlockWithHeader(
+    BudleBlockWithHeader(
         modifier = Modifier.padding(bottom = 100.dp), headerText = "Адрес"
     ) {
         Row(
