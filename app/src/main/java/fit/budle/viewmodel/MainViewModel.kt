@@ -11,9 +11,6 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import fit.budle.dto.establishment.EstablishmentResponse
-import fit.budle.dto.establishment.EstablishmentArray
-import fit.budle.dto.establishment.Establishment
 import fit.budle.dto.tag.active.ordersTagList
 import fit.budle.dto.tag.standard.Tag
 import fit.budle.repository.EstablishmentRepository
@@ -22,11 +19,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import fit.budle.dto.establishment.CategoriesListResult
-import fit.budle.dto.establishment.EstablishmentListResult
-import fit.budle.dto.establishment.OrderListResult
-import fit.budle.dto.establishment.OrderResult
+import fit.budle.dto.establishment.*
 import fit.budle.dto.order.Booking
+import fit.budle.dto.response.EstablishmentResponse
 
 class MainViewModel (
     private var repository: EstablishmentRepository
@@ -34,7 +29,7 @@ class MainViewModel (
 
     var categories: Array<String> by mutableStateOf(emptyArray())
     var orders: Array<Booking> by mutableStateOf(emptyArray())
-    var categoryMap: HashMap<String, MutableState<EstablishmentArray>> = hashMapOf()
+    var categoryMap: HashMap<String, MutableList<EstablishmentDTO>> = hashMapOf()
 
     fun getListOfEstablishments(
         category: String?,
@@ -44,7 +39,7 @@ class MainViewModel (
         name: String?,
         hasCardPayment: Boolean?,
         hasMap: Boolean?,
-    ): EstablishmentArray {
+    ): List<EstablishmentDTO> {
         viewModelScope.launch {
             when (val response = repository.getEstablishment(
                 category, limit, offset, sortValue, name, hasCardPayment, hasMap
