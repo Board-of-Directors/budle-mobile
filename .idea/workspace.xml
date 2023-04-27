@@ -9,28 +9,38 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a889eeb-4a07-4de4-9cda-8cbfa792dff6" name="Changes" comment="develop/delete useless files, refactoring">
+    <list default="true" id="7a889eeb-4a07-4de4-9cda-8cbfa792dff6" name="Changes" comment="backend-integration / connected CreatorMainScreen&#10;&#10;also made navigation between CreatorMainScreen and EstablishmentWorkersScreen">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/WorkerDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/WorkerDAO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/AppModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/AppModule.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/response/WorkerResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/response/WorkerResponse.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/worker/WorkerResults.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/worker/WorkerResults.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/AppModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/WorkerListModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/events/WorkerEvent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/events/WorkerEvent.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/order/Booking.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/order/Booking.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/tag/active/ActiveTag.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/tag/active/ActiveTag.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/navigation/NavigationComponent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/navigation/NavigationComponent.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/WorkerRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/WorkerRepositoryImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/BudleEstablishmentCardSubdescription.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/BudleEstablishmentCardSubdescription.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/BudleCircleTag.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/BudleCircleTag.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/BudleTag.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/BudleTag.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/BudleTagList.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/BudleTagList.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/BudleAddWorkerPopup.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/BudleAddWorkerPopup.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/BudleButton.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/BudleButton.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/text_fields/BudleNumberTextField.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/inputs/text_fields/BudleNumberTextField.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/text_fields/MaskVisualTransformation.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/inputs/text_fields/MaskVisualTransformation.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/text_inputs/BudleNumberInput.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/inputs/text_inputs/BudleNumberInput.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/BudleBlockWithHeader.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/BudleBlockWithHeader.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/BudleCreatorEstablishmentCard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/BudleCreatorEstablishmentCard.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/card_lists/BudleCreatorEstablishmentCardList.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/card_lists/BudleCreatorEstablishmentCardList.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/models/NumberDefaults.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/models/NumberDefaults.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/OrderScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/OrderScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/UserProfileBookings.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/UserProfileBookings.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/business/creator/CreatorMain.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/business/creator/CreatorMain.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/business/creator/creator_profile/EstablishmentWorkers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/business/creator/creator_profile/EstablishmentWorkers.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/CreatorViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/WorkerListViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/MainViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/MainViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/WorkerListViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/WorkerListViewModel.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[FPM4C18529002820]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\treti\.android\avd\Pixel_3a_API_33.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -58,11 +68,12 @@
       <list>
         <option value="Kotlin Sealed Class" />
         <option value="Kotlin Enum" />
-        <option value="Kotlin Object" />
-        <option value="Kotlin Class" />
-        <option value="Kotlin Interface" />
+        <option value="Class" />
         <option value="Kotlin Data Class" />
+        <option value="Kotlin Interface" />
         <option value="Kotlin Sealed Interface" />
+        <option value="Kotlin Class" />
+        <option value="Kotlin Object" />
         <option value="Kotlin File" />
       </list>
     </option>
@@ -74,6 +85,16 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitRewordedCommitMessages">
+    <option name="commitMessagesMapping">
+      <RewordedCommitMessageMapping>
+        <option name="originalMessage" value="backend-integration / connected CreatorMainScreen&#10;&#10;also made navigation between CreatorMainScreen and EstablishmentWorkersScreen" />
+        <option name="rewordedMessage" value="backend-integration / connected CreatorMainScreen&#10;&#10;also made navigation between CreatorMainScreen and EstablishmentWorkersScreen" />
+      </RewordedCommitMessageMapping>
+    </option>
+    <option name="currentCommit" value="1" />
+    <option name="onto" value="066eeda3a45fa9b66b37355bd81472d0fb3a233c" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -107,11 +128,12 @@
     <property name="ToolWindowLogcat.ShowToolbar" value="false" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="com.intellij.openapi.externalSystem.service.settings.ExternalSystemGroupConfigurable" value="ALL" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/business/creator/creator_process/EstablishmentCreationFirst.kt" />
     <property name="project.structure.last.edited" value="Variables" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
+    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/business/creator/creator_process/EstablishmentCreationFirst.kt" />
   </component>
   <component name="PsdUISettings">
     <option name="MODULE_TAB" value="Signing Configs" />
@@ -126,18 +148,18 @@
       <recent name="D:\Users\NikFive\BudleMaterial3\app\src\main\java\fit\budle" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\treti\IdeaProjects\budle-mobile\app\src\main\java\fit\budle\navigation\graphs" />
       <recent name="C:\Users\treti\IdeaProjects\budle-mobile\app\src\main\java\fit\budle\dto\business_user" />
       <recent name="C:\Users\treti\IdeaProjects\budle-mobile\app\src\main\java\fit\budle\dto\business_user\worker" />
       <recent name="C:\Users\treti\IdeaProjects\budle-mobile\app\src\main\java\fit\budle\dto" />
       <recent name="C:\Users\treti\IdeaProjects\budle-mobile\app\src\main\java\fit\budle\dto\establishment" />
-      <recent name="C:\Users\treti\IdeaProjects\budle-mobile\app\src\main\java\fit\budle\repository\etsablishment" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="fit.budle.viewmodel" />
       <recent name="fit.budle.dto.business_user" />
       <recent name="fit.budle.repository" />
       <recent name="fit.budle.repository_impl" />
       <recent name="fit.budle.model.business_user" />
-      <recent name="fit.budle.data.repository" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
       <recent name="fit.budle.model" />
@@ -426,7 +448,21 @@
       <option name="project" value="LOCAL" />
       <updated>1682523033082</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="backend-integration / connected CreatorMainScreen&#10;&#10;also made navigation between CreatorMainScreen and EstablishmentWorkersScreen">
+      <created>1682532998057</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1682532998058</updated>
+    </task>
+    <task id="LOCAL-00005" summary="backend-integration / connected CreatorMainScreen&#10;&#10;also made navigation between CreatorMainScreen and EstablishmentWorkersScreen">
+      <created>1682533068816</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1682533068816</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -445,6 +481,7 @@
     <MESSAGE value="develop/add deleting" />
     <MESSAGE value="develop/delete useless files, refactoring" />
     <MESSAGE value="backend-integration / reverting" />
-    <option name="LAST_COMMIT_MESSAGE" value="backend-integration / reverting" />
+    <MESSAGE value="backend-integration / connected CreatorMainScreen&#10;&#10;also made navigation between CreatorMainScreen and EstablishmentWorkersScreen" />
+    <option name="LAST_COMMIT_MESSAGE" value="backend-integration / connected CreatorMainScreen&#10;&#10;also made navigation between CreatorMainScreen and EstablishmentWorkersScreen" />
   </component>
 </project>

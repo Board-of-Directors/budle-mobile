@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import fit.budle.dto.tag.active.Tag
 import fit.budle.ui.theme.fillPurple
@@ -21,12 +22,13 @@ import fit.budle.ui.theme.mainWhite
 fun BudleCircleTag(
     isSelected: (Int) -> Boolean,
     onChangeState: (Int) -> Unit,
+    textColor: Color = mainBlack,
     tag: Tag
 ) {
     val tagColor = CardDefaults.cardColors(
         if (isSelected(tag.tagId)) fillPurple else lightBlue
     )
-    val textColor = if (isSelected(tag.tagId)) mainWhite else mainBlack
+    val color = if (isSelected(tag.tagId)) mainWhite else textColor
 
     Card(
         modifier = Modifier
@@ -47,12 +49,12 @@ fun BudleCircleTag(
             Text(
                 text = tag.tagId.toString(),
                 style = MaterialTheme.typography.displaySmall,
-                color = textColor
+                color = color
             )
             Text(
                 text = tag.tagName,
                 style = MaterialTheme.typography.displaySmall,
-                color = textColor
+                color = color
             )
         }
     }

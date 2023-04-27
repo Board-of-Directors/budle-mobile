@@ -33,7 +33,9 @@ fun CreatorMainScreen(
         BudleScreenWithButton(
             iconId = R.drawable.plus,
             buttonText = "Добавить заведение",
-            onClick = {},
+            onClick = {
+                  navHostController.navigate("ownerMain/establishmentCreation/")
+            },
         ) {
             BudleUserHeader(
                 modifier = Modifier

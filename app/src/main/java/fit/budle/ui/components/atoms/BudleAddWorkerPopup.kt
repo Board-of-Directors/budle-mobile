@@ -13,7 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import fit.budle.R
-import fit.budle.ui.components.atoms.text_inputs.budleNumberInput
+import fit.budle.ui.components.atoms.inputs.text_inputs.budleNumberInput
 import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.mainBlack
 import fit.budle.ui.theme.mainWhite

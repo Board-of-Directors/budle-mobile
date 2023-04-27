@@ -1,4 +1,4 @@
-package fit.budle.ui.components.atoms.text_fields
+package fit.budle.ui.components.atoms.inputs.text_fields
 
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.OffsetMapping

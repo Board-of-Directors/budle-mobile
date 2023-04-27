@@ -8,18 +8,18 @@ interface Tag {
 val ordersTagList = mutableListOf(
     RectangleActiveTag(
         "Все",
-        0
+        3
     ),
     RectangleActiveTag(
         "Ожидающие",
-        1
+        0
     ),
     RectangleActiveTag(
         "Принятые",
-        2
+        1
     ),
     RectangleActiveTag(
         "Отклоненные",
-        3
+        2
     )
 )

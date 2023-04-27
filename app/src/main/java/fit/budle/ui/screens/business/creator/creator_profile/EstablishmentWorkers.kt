@@ -46,7 +46,7 @@ fun EstablishmentWorkersScreen(
                     viewModel.onEvent(WorkerEvent.DeleteWorker(establishmentId.toLong(), it.id))
                 }
             )
-            viewModel.onEvent(WorkerEvent.GetWorker)
+            viewModel.onEvent(WorkerEvent.GetWorker(establishmentId.toLong()))
         }
     }
 }

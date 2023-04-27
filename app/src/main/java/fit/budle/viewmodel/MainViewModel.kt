@@ -108,7 +108,7 @@ class MainViewModel (
                     Log.d("MAINVIEWMODEL", "SUCCESS")
                     response.result.map {
                         it.establishmentImage = convertEstablishment(it.establishment)
-                        it.time = it.time.subSequence(0, it.time.length - 3).toString()
+                        //it.time = it.time.subSequence(0, it.time.length - 3).toString()
                         val date =
                             SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(it.date)
                         val formattedDatesString =

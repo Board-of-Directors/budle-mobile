@@ -25,6 +25,7 @@ fun BudleButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     iconId: Int? = null,
+    bottomPadding: Dp = 0.dp,
     topPadding: Dp = 20.dp,
     horizontalPadding: Dp = 30.dp,
     buttonText: String,
@@ -42,6 +43,7 @@ fun BudleButton(
         modifier = modifier
             .padding(horizontal = horizontalPadding)
             .padding(top = topPadding)
+            .padding(bottom = bottomPadding)
             .fillMaxWidth()
             .height(IntrinsicSize.Max),
         shape = RoundedCornerShape(10.dp),

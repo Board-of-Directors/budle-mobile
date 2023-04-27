@@ -4,10 +4,17 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import fit.budle.dao.EstCreationDAO
+import fit.budle.dao.EstOrderListDAO
 import fit.budle.dao.OwnerMainDAO
 import fit.budle.dao.WorkerDAO
+import fit.budle.di.RetrofitModule.retrofit
+import fit.budle.repository.EstCreationRepository
+import fit.budle.repository.EstOrderListRepository
 import fit.budle.repository.OwnerMainRepository
 import fit.budle.repository.WorkerRepository
+import fit.budle.repository_impl.EstCreationRepositoryImpl
+import fit.budle.repository_impl.EstOrderListRepositoryImpl
 import fit.budle.repository_impl.OwnerMainRepositoryImpl
 import fit.budle.repository_impl.WorkerRepositoryImpl
 import retrofit2.Retrofit
@@ -16,14 +23,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
-
-    private const val BASE_URL = "http://80.64.174.33:8080/"
-
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .addConverterFactory(MoshiConverterFactory.create())
-        .build()
+object WorkerListModule {
 
     @Provides
     @Singleton
@@ -33,19 +33,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideOwnerMainDAO(): OwnerMainDAO {
-        return retrofit.create(OwnerMainDAO::class.java)
-    }
-
-    @Provides
-    @Singleton
     fun provideWorkerRepository(workerDAO: WorkerDAO): WorkerRepository {
         return WorkerRepositoryImpl(workerDAO)
     }
 
-    @Provides
-    @Singleton
-    fun provideOwnerMainRepository(ownerMainDAO: OwnerMainDAO): OwnerMainRepository {
-        return OwnerMainRepositoryImpl(ownerMainDAO)
-    }
 }

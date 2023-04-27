@@ -12,7 +12,8 @@ data class Booking(
     var establishmentImage: Establishment,
     val guestCount: Int,
     var date: String,
-    var time: String
+    var startTime: String,
+    var endTime: String
 )
 
 enum class BookingStatus(val value: Int, val message: String) {

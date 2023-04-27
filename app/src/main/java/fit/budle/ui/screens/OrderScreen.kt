@@ -176,7 +176,7 @@ fun BookingDay(sendData: (String) -> Unit) {
                 tagList = days,
                 tagType = ActiveTagType.CIRCLE
             )
-            sendData(data.tagId.toString())
+            sendData(data.toString())
         }
     }
 }
@@ -195,7 +195,7 @@ fun BookingTime(sendTime: (String) -> Unit) {
                 initialState = time[0].tagId,
                 tagList = time,
             )
-            sendTime(time.tagName)
+            // sendTime(time.tagName)
         }
     }
 }

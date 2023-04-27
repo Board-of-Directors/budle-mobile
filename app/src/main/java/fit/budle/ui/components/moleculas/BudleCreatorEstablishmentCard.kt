@@ -78,7 +78,7 @@ fun BudleCreatorEstablishmentCard(
                     )
                     TextWithIcon(
                         onClick = {
-                            navHostController.navigate("ownerMain/${establishmentCard.id}")
+                            navHostController.navigate("ownerMain/workers/${establishmentCard.id}")
                         },
                         text = "Сотрудники",
                         iconId = R.drawable.user,
@@ -86,7 +86,7 @@ fun BudleCreatorEstablishmentCard(
                     )
                     TextWithIcon(
                         onClick = {
-                            // TODO: navigation
+                            navHostController.navigate("ownerMain/bookings/${establishmentCard.id}")
                         },
                         text = "Заказы",
                         iconId = R.drawable.file,

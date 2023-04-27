@@ -24,7 +24,7 @@ fun UserProfileBookingsScreenBackendConnected(
 ) {
     val tempUserId = 1L
     val currentType = remember {
-        mutableStateOf("Все")
+        mutableStateOf(0)
     }
     Surface(Modifier.fillMaxSize()) {
         Column(
@@ -44,11 +44,11 @@ fun UserProfileBookingsScreenBackendConnected(
             currentType.value = budleTagList(
                 initialState = 0,
                 tagList = ordersTagList
-            ).tagName
-            BudleBookingCardList(
+            )
+            /*BudleBookingCardList(
                 bookingList = bookingsProvider(tempUserId, currentType.value),
                 deletingProvider = deletingProvider
-            )
+            )*/
         }
     }
 }

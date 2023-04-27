@@ -36,7 +36,7 @@ class WorkerListViewModel @Inject constructor(
             }
             is WorkerEvent.GetWorker -> {
                 Handler(Looper.getMainLooper()).postDelayed({
-                    getWorkers(2)
+                    getWorkers(event.establishmentId)
                 }, 2000)
             }
         }

@@ -7,6 +7,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import fit.budle.dto.tag.active.Tag
 import fit.budle.ui.theme.fillPurple
@@ -19,12 +20,13 @@ import fit.budle.ui.theme.mainWhite
 fun BudleTag(
     isSelected: (Int) -> Boolean,
     onChangeState: (Int) -> Unit,
+    textColor: Color = mainBlack,
     tag: Tag
 ) {
     val buttonColor = ButtonDefaults.buttonColors(
         if (isSelected(tag.tagId)) fillPurple else lightBlue
     )
-    val textColor = if (isSelected(tag.tagId)) mainWhite else mainBlack
+    val color = if (isSelected(tag.tagId)) mainWhite else textColor
 
     Button(
         modifier = Modifier
@@ -38,7 +40,7 @@ fun BudleTag(
         Text(
             text = tag.tagName,
             style = MaterialTheme.typography.labelSmall,
-            color = textColor
+            color = color
         )
     }
 }

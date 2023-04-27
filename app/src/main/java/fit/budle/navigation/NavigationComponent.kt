@@ -8,11 +8,17 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import fit.budle.navigation.graphs.establishmentCreationNavGraph
 import fit.budle.ui.screens.*
 import fit.budle.ui.screens.business.creator.CreatorMainScreen
+import fit.budle.ui.screens.business.creator.creator_process.EstablishmentCreationFirstScreen
+import fit.budle.ui.screens.business.creator.creator_process.EstablishmentCreationFourthScreen
+import fit.budle.ui.screens.business.creator.creator_process.EstablishmentCreationSecondScreen
+import fit.budle.ui.screens.business.creator.creator_process.EstablishmentCreationThirdScreen
+import fit.budle.ui.screens.business.creator.creator_profile.EstablishmentOrdersScreen
 import fit.budle.ui.screens.business.creator.creator_profile.EstablishmentWorkersScreen
 
-@RequiresApi(Build.VERSION_CODES.N)
+@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun NavigationComponent(navController: NavHostController) {
     NavHost(
@@ -22,49 +28,22 @@ fun NavigationComponent(navController: NavHostController) {
         composable("ownerMain") {
             CreatorMainScreen(navHostController = navController)
         }
-        composable("ownerMain/{establishmentId}") {
+        composable("ownerMain/workers/{establishmentId}") {
             it.arguments?.getString("establishmentId")?.let { string ->
                 EstablishmentWorkersScreen(
                     navHostController = navController,
                     establishmentId = string.toInt()
                 )
             }
-        }/*
-        composable("home") {
-            HomeScreen(
-                navController,
-                mainViewModel::getListOfEstablishments,
-                mainViewModel::getListOfCategories
-            )
         }
-        composable("card/{category}/{cardId}") {
-            CardScreen(
-                navController,
-                (mainViewModel::getCard)(
-                    it.arguments?.getString("category"),
-                    it.arguments?.getString("cardId")
+        composable("ownerMain/bookings/{establishmentId}") {
+            it.arguments?.getString("establishmentId")?.let { string ->
+                EstablishmentOrdersScreen(
+                    navHostController = navController,
+                    establishmentId = string.toInt()
                 )
-            )
+            }
         }
-        composable("order/{id}/{name}") {
-            val bookViewModel = viewModel<BookViewModel>()
-            OrderScreen(
-                navController,
-                it.arguments?.getString("id"),
-                it.arguments?.getString("name"),
-                bookViewModel::getOrder,
-                bookViewModel::sendGuestCount,
-                bookViewModel::sendData,
-                bookViewModel::sendTime
-            )
-        }
-        composable("user_profile") { UserProfileScreen(navController) }
-        composable("user_profile_bookings") {
-            UserProfileBookingsScreenBackendConnected(
-                navController,
-                mainViewModel::getListOfOrders,
-                mainViewModel::deleteOrderFromUser
-            )
-        }*/
+        establishmentCreationNavGraph(navController)
     }
 }

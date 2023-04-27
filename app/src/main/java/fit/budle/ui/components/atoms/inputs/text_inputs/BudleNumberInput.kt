@@ -1,4 +1,4 @@
-package fit.budle.ui.components.atoms.text_inputs
+package fit.budle.ui.components.atoms.inputs.text_inputs
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
@@ -9,7 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import fit.budle.ui.components.atoms.text_fields.budleNumberTextField
+import fit.budle.ui.components.atoms.inputs.text_fields.budleNumberTextField
 import fit.budle.ui.theme.backgroundError
 import fit.budle.ui.theme.textGray
 
