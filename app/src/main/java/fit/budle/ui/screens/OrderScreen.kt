@@ -17,11 +17,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
 import fit.budle.dto.tag.active.ActiveTagType
+import fit.budle.dto.tag.active.Tag
 import fit.budle.dto.tag.active.days
 import fit.budle.dto.tag.active.time
 import fit.budle.ui.components.*
 import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.ui.components.moleculas.BudleBlockWithHeader
+import fit.budle.ui.components.moleculas.tag_list.BudleTagList
 import fit.budle.ui.theme.*
 
 @RequiresApi(Build.VERSION_CODES.N)
@@ -35,8 +37,12 @@ fun OrderScreen(
     sendData: (String) -> Unit,
     sendTime: (String) -> Unit
 ) {
+
+    /*
     val userAmount = remember { mutableStateOf(1) }
     val userId: Long = 1
+
+    var selectedDay by remember{mutableState(Tag)}
 
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -102,6 +108,7 @@ fun OrderScreen(
             )
         }
     }
+    */
 }
 
 @Composable
@@ -163,7 +170,11 @@ fun BookingAmount(
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun BookingDay(sendData: (String) -> Unit) {
+fun BookingDay(
+    sendData: (String) -> Unit,
+    selectedDay: Tag,
+    onValueChange: (Tag) -> Unit
+) {
     BudleBlockWithHeader(headerText = "День") {
         Row(
             modifier = Modifier
@@ -171,12 +182,13 @@ fun BookingDay(sendData: (String) -> Unit) {
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            val data = budleTagList(
-                initialState = days[0].tagId,
+            BudleTagList(
+                initialState = days[0],
+                onValueChange = { onValueChange(it) },
                 tagList = days,
                 tagType = ActiveTagType.CIRCLE
             )
-            sendData(data.toString())
+            sendData(selectedDay.toString())
         }
     }
 }
@@ -191,9 +203,10 @@ fun BookingTime(sendTime: (String) -> Unit) {
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            val time = budleTagList(
-                initialState = time[0].tagId,
+            BudleTagList(
+                initialState = time[0],
                 tagList = time,
+                onValueChange = {}
             )
             // sendTime(time.tagName)
         }

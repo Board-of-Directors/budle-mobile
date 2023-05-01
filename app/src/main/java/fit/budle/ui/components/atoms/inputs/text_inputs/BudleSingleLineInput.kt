@@ -12,8 +12,10 @@ import fit.budle.ui.theme.backgroundError
 import fit.budle.ui.theme.textGray
 
 @Composable
-fun budleSingleLineInput(
+fun BudleSingleLineInput(
     modifier: Modifier = Modifier,
+    onValueChange: (String) -> Unit,
+    isError: Boolean = false,
     description: String? = null,
     placeHolder: String? = null,
     placeHolderColor: Color = textGray,
@@ -21,12 +23,11 @@ fun budleSingleLineInput(
     textFieldMessage: String,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
-) : String {
+) {
 
     var textInputState by remember {
         mutableStateOf("")
     }
-    val textError = remember { mutableStateOf(false) }
 
     Column(
         horizontalAlignment = Alignment.Start,
@@ -50,11 +51,12 @@ fun budleSingleLineInput(
         textInputState = budleSingleLineTextField(
             startMessage = startMessage,
             placeholder = textFieldMessage,
-            error = textError,
+            error = isError,
             leadingIcon = leadingIcon,
             trailingIcon = trailingIcon
         )
-        if (textError.value) {
+        onValueChange(textInputState)
+        if (isError) {
             Text(
                 text = "Это поле не может быть пустым",
                 style = MaterialTheme.typography.bodyMedium,
@@ -71,5 +73,4 @@ fun budleSingleLineInput(
             )
         }
     }
-    return textInputState
 }

@@ -14,6 +14,7 @@ import fit.budle.ui.theme.textGray
 @Composable
 fun BudleMultipleLineInput(
     description: String? = null,
+    onValueChange: (String) -> Unit,
     modifier: Modifier,
     placeHolder: String,
     placeHolderColor: Color = textGray,
@@ -75,5 +76,6 @@ fun BudleMultipleLineInput(
                 modifier = Modifier.padding(top = 10.dp)
             )
         }
+        onValueChange(textInputState)
     }
 }

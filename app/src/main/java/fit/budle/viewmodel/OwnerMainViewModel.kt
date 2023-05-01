@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fit.budle.dto.establishment.Establishment
 import fit.budle.dto.establishment.EstablishmentResponse
+import fit.budle.dto.establishment.etsablishment_type.EstablishmentShortDto
 import fit.budle.dto.events.OwnerMainEvent
 import fit.budle.dto.result.OwnerEstResult
 import fit.budle.repository.OwnerMainRepository
@@ -23,17 +24,16 @@ class OwnerMainViewModel @Inject constructor(
     private val ownerMainRepository: OwnerMainRepository,
 ) : ViewModel() {
 
-    var establishments: List<EstablishmentResponse> by mutableStateOf(emptyList())
+    var establishments: List<EstablishmentShortDto> by mutableStateOf(emptyList())
 
     @RequiresApi(Build.VERSION_CODES.N)
     fun onEvent(event: OwnerMainEvent) {
         when (event) {
             is OwnerMainEvent.GetEstListEvent -> {
                 viewModelScope.launch {
-                    when (val result = ownerMainRepository.getEstablishmentList()) {
+                    when (val result = ownerMainRepository.getEstablishmentList(11)) {
                         is OwnerEstResult.Success -> {
                             establishments = result.result.toList()
-                            //Log.d("STATESIZE", establishments.size.toString())
                         }
                         is OwnerEstResult.Failure -> {
                             Log.d("VM_GET_EST_LIST", result.throwable.message!!)

@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import fit.budle.R
+import fit.budle.dto.events.EstCreationEvent
 import fit.budle.ui.components.atoms.headers.BudleNavigationHeader
 import fit.budle.ui.components.screens.BudleInformationScreen
 import fit.budle.viewmodel.EstCreationViewModel
@@ -29,20 +30,20 @@ fun EstablishmentCreationFifthScreen(
                 percent = "100%",
                 textMessage = "Создание заведения",
                 onClick = {
-                    navHostController.popBackStack()
+                    navHostController.navigate("ownerMain")
                 }
             )
             BudleInformationScreen(
                 modifier = Modifier.padding(top = 40.dp),
                 onClick = {
-                    navHostController.navigate("ownerMain")
+                    viewModel.onEvent(EstCreationEvent.CreateEstablishment)
                 },
                 message = "Супер! Заявка подана",
                 description = "Мы уже начали обрабатывать\n" +
                         "Ваш запрос. Подождите немного!",
                 imageId = R.drawable.success_rocket,
                 imageDescription = "Success rocket",
-                buttonText = "На главный экран"
+                buttonText = "Создать заведение"
             ) {
             }
         }

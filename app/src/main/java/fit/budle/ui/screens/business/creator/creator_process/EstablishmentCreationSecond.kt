@@ -5,19 +5,19 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.dto.events.EstCreationEvent
+import fit.budle.dto.tag.active.RectangleActiveTag
+import fit.budle.dto.tag.active.Tag
+import fit.budle.dto.tag.establishmentCreationCategoryList
 import fit.budle.dto.tag.establishmentCreationTags
-import fit.budle.dto.tag.establishmentCreationType
+import fit.budle.ui.components.atoms.inputs.dropdown.BudleDropDownMenu
+import fit.budle.ui.components.atoms.inputs.dropdown.BudleMultiSelectableDropDownMenu
 import fit.budle.ui.components.moleculas.BudleBlockWithHeader
 import fit.budle.ui.components.moleculas.screens.BudleScreenWithButtonAndProgress
-import fit.budle.ui.components.moleculas.tag_list.BudleMultiColumnTagList
-import fit.budle.ui.components.moleculas.tag_list.budleMultiColumnTagList
 import fit.budle.viewmodel.EstCreationViewModel
 
 @RequiresApi(Build.VERSION_CODES.N)
@@ -27,18 +27,30 @@ fun EstablishmentCreationSecondScreen(
     viewModel: EstCreationViewModel,
 ) {
 
-    val selectedTypeId = remember { mutableStateOf(-1) }
-    var selectedTypeName by remember { mutableStateOf("") }
-    val onIdChange: (Int) -> (Unit) = {
-        selectedTypeId.value = it
+    var selectedCategory by remember { mutableStateOf("") }
+    var selectedVariant by remember { mutableStateOf("") }
+    val selectedTagList = remember { mutableStateListOf<String>() }
+
+    var buttonClicked by remember { mutableStateOf(false) }
+    var emptyCategoryError by remember { mutableStateOf(true) }
+
+    val onCategoryChange: (String) -> Unit = { selectedCategory = it }
+    val onVariantChange: (String) -> Unit = { selectedVariant = it }
+
+    var previousVariantState by remember { mutableStateOf(viewModel.variantList) }
+
+    val onTagSetChange: (String) -> Unit = {
+        if (selectedTagList.contains(it)) {
+            selectedTagList.remove(it)
+        } else {
+            selectedTagList.add(it)
+        }
     }
 
-    for (list in establishmentCreationType) {
-        for (tag in list) {
-            if (tag.tagId == selectedTypeId.value) {
-                selectedTypeName = tag.tagName
-            }
-        }
+    LaunchedEffect(Unit) {
+        viewModel.onEvent(EstCreationEvent.GetVariantList(selectedCategory))
+        viewModel.onEvent(EstCreationEvent.GetCategoryListEvent)
+        viewModel.onEvent(EstCreationEvent.GetTagListEvent)
     }
 
     Surface(
@@ -49,82 +61,55 @@ fun EstablishmentCreationSecondScreen(
             buttonText = "Следующий шаг",
             progress = "40%",
             onClick = {
-                viewModel.onEvent(EstCreationEvent.SecondStep(selectedTypeName,))
-                navHostController.navigate("thirdStep")
+
+                buttonClicked = true
+
+                if (!emptyCategoryError) {
+                    viewModel.onEvent(EstCreationEvent.SecondStep(selectedCategory,
+                        selectedTagList.toList()))
+                    navHostController.navigate("thirdStep")
+                }
+
             },
             textMessage = "Создание заведения"
         ) {
-            SecondEstablishmentCreationType(
-                selectedType = selectedTypeId,
-                onValueChange = onIdChange
+            BudleDropDownMenu(
+                modifier = Modifier
+                    .padding(top = 20.dp)
+                    .fillMaxWidth(),
+                isError = if (buttonClicked) emptyCategoryError else false,
+                onValueChange = {
+                    onCategoryChange(it)
+                    emptyCategoryError = selectedCategory == ""
+                },
+                items = viewModel.categoryList,
+                placeHolder = "Тип заведения",
+                startMessage = "Выберите тип заведения"
             )
-
-            /* // TODO Олег не сделал подкатегории
-            SecondEstablishmentCreationSubtype(
-                type = selectedType
-            ) */
-
-            SecondEstablishmentCreationInfoTags()
-        }
-    }
-}
-
-@RequiresApi(Build.VERSION_CODES.N)
-@Composable
-fun SecondEstablishmentCreationType(
-    selectedType: MutableState<Int>,
-    onValueChange: (Int) -> (Unit)
-) {
-    BudleBlockWithHeader(headerText = "Тип заведения") {
-        val selectedItem = budleMultiColumnTagList(
-            selectedItem = selectedType,
-            tags = establishmentCreationType
-        )
-        onValueChange(selectedItem)
-    }
-}
-
-@RequiresApi(Build.VERSION_CODES.N)
-@Composable
-fun SecondEstablishmentCreationSubtype(
-    type: MutableState<String>,
-) {
-    val selectedSubtype = remember { mutableStateOf("") }
-    when (type.value) {
-        "Рестораны" -> {
-            BudleBlockWithHeader(headerText = "Вид кухни") {
-                /*
-                BudleMultiColumnTagList(
-                    selectedItem = selectedSubtype,
-                    tags = restaurantsType
+            if (viewModel.variantList != previousVariantState) {
+                viewModel.variantList = previousVariantState
+                BudleDropDownMenu(
+                    modifier = Modifier
+                        .padding(top = 20.dp)
+                        .fillMaxWidth(),
+                    isError = false,
+                    onValueChange = {
+                        onVariantChange(it)
+                    },
+                    items = viewModel.variantList,
+                    placeHolder = "Категория заведения",
+                    startMessage = "Выберите категорию заведения"
                 )
-                */
             }
+            BudleMultiSelectableDropDownMenu(
+                modifier = Modifier
+                    .padding(top = 20.dp)
+                    .fillMaxWidth(),
+                onValueChange = { onTagSetChange(it) },
+                items = viewModel.tagList,
+                placeHolder = "Теги заведения",
+                startMessage = "Выберите теги заведения"
+            )
         }
-        "Гостиницы" -> {
-            BudleBlockWithHeader(headerText = "Количество звезд") {
-                /*
-                BudleMultiColumnTagList(
-                    selectedItem = selectedSubtype,
-                    tags = startsType
-                )
-                 */
-            }
-        }
-    }
-}
-
-@RequiresApi(Build.VERSION_CODES.N)
-@Composable
-fun SecondEstablishmentCreationInfoTags() {
-
-    val selectedInfoTag = remember { mutableStateOf(-1) }
-
-    BudleBlockWithHeader(headerText = "Тэги заведения") {
-        BudleMultiColumnTagList(
-            selectable = true,
-            selectedItem = selectedInfoTag,
-            tags = establishmentCreationTags
-        )
     }
 }

@@ -6,12 +6,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import fit.budle.dto.order.Booking
 import fit.budle.dto.order.BookingStatus
+import fit.budle.dto.order.BusinessOrderDto
 import fit.budle.ui.components.atoms.cards.BudleBusinessOrderCard
+import fit.budle.viewmodel.EstOrderListViewModel
 
 @Composable
 fun BudleBusinessOrderCardList(
     modifier: Modifier = Modifier,
-    bookingList: List<Booking>,
+    bookingList: List<BusinessOrderDto>,
+    viewModel: EstOrderListViewModel,
     filter: Int = 3,
 ) {
     Column(
@@ -19,7 +22,10 @@ fun BudleBusinessOrderCardList(
     ) {
         for (booking in bookingList) {
             if (booking.status == filter || filter == 3) {
-                BudleBusinessOrderCard(booking = booking)
+                BudleBusinessOrderCard(
+                    booking = booking,
+                    viewModel = viewModel
+                )
             }
         }
     }

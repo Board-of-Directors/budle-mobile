@@ -1,37 +1,44 @@
 package fit.budle.ui.components.atoms.inputs.dropdown
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import fit.budle.R
-import fit.budle.ui.theme.*
+import fit.budle.dto.tag.standard.TagResponse
+import fit.budle.ui.theme.lightBlue
+import fit.budle.ui.theme.mainBlack
+import fit.budle.ui.theme.textGray
 
 @Composable
-fun BudleDropDownMenu(
+fun BudleMultiSelectableDropDownMenu(
     modifier: Modifier = Modifier,
     onValueChange: (String) -> (Unit),
-    isError: Boolean,
     startMessage: String,
     placeHolder: String,
-    items: List<String>,
+    items: List<TagResponse>,
 ) {
 
-    val strokeColor = if (!isError) Color.Transparent else backgroundError
-
     var isExpanded by remember { mutableStateOf(false) }
-    var selectedItem by remember { mutableStateOf("") }
+    val selectedItems = remember { mutableStateListOf<String>() }
 
     val dropDownIcon = if (!isExpanded) R.drawable.chevron_down else R.drawable.chevron_up
-    val textColor = if (selectedItem != startMessage) mainBlack else textGray
-    val onSelect: (String) -> (Unit) = { selectedItem = it }
-    val isSelected: (String) -> (Boolean) = { it == selectedItem }
+    val textColor = if (!selectedItems.isEmpty()) mainBlack else textGray
+    val inputMessage = if (selectedItems.isEmpty()) startMessage else "Выбрано ${selectedItems.size} тега"
+
+    val isSelected: (String) -> (Boolean) = { selectedItems.contains(it) }
+    val onSelect: (String) -> (Unit) = {
+        if (!isSelected(it)) {
+            selectedItems.add(it)
+        } else {
+            selectedItems.remove(it)
+        }
+        onValueChange(it)
+    }
 
     Column(
         modifier = modifier.fillMaxWidth()
@@ -50,8 +57,7 @@ fun BudleDropDownMenu(
                     .fillMaxWidth()
                     .height(55.dp),
                 shape = RoundedCornerShape(10.dp),
-                colors = CardDefaults.cardColors(lightBlue),
-                border = BorderStroke(2.dp, strokeColor)
+                colors = CardDefaults.cardColors(lightBlue)
             ) {
                 Row(
                     modifier = Modifier
@@ -61,7 +67,7 @@ fun BudleDropDownMenu(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = selectedItem,
+                        text = inputMessage,
                         style = MaterialTheme.typography.bodyMedium,
                         color = textColor,
                     )
@@ -77,30 +83,22 @@ fun BudleDropDownMenu(
                 }
             }
         }
-    }
-    if (isExpanded) {
-        Column(
-            modifier = Modifier
-                .padding(horizontal = 20.dp)
-                .fillMaxWidth()
-        ) {
-            for (item in items) {
-                BudleDropDownMenuItem(
-                    modifier = Modifier.padding(top = 15.dp),
-                    item = item,
-                    isSelected = isSelected,
-                    onSelect = onSelect
-                )
+        if (isExpanded) {
+            Column(
+                modifier = Modifier
+                    .padding(horizontal = 20.dp)
+                    .fillMaxWidth()
+            ) {
+                for (item in items) {
+                    BudleDropDownMenuItem(
+                        modifier = Modifier.padding(top = 15.dp),
+                        item = item.name,
+                        iconPath = item.image,
+                        isSelected = isSelected,
+                        onSelect = onSelect
+                    )
+                }
             }
         }
-        onValueChange(selectedItem)
-    }
-    if (isError) {
-        Text(
-            text = "Это поле не может быть пустым",
-            style = MaterialTheme.typography.bodyMedium,
-            color = backgroundError,
-            modifier = Modifier.padding(top = 10.dp)
-        )
     }
 }

@@ -1,6 +1,8 @@
 package fit.budle.ui.screens.business.creator.creator_profile
 
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,13 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import fit.budle.dto.establishment.EstablishmentResponse
 import fit.budle.dto.events.BookingEvent
-import fit.budle.dto.order.Booking
+import fit.budle.dto.tag.active.RectangleActiveTag
 import fit.budle.dto.tag.active.ordersTagList
 import fit.budle.ui.components.atoms.headers.BudleNavigationHeader
-import fit.budle.ui.components.budleTagList
 import fit.budle.ui.components.moleculas.card_lists.BudleBusinessOrderCardList
+import fit.budle.ui.components.moleculas.tag_list.BudleTagList
 import fit.budle.viewmodel.EstOrderListViewModel
 
 @RequiresApi(Build.VERSION_CODES.N)
@@ -48,15 +49,20 @@ fun EstablishmentOrdersScreen(
                     .fillMaxWidth()
                     .padding(top = 10.dp)
             ) {
-                currentType = budleTagList(
+                BudleTagList(
+                    initialState = RectangleActiveTag("", -1),
+                    onValueChange = {
+                        currentType = it.tagId
+                    },
                     tagList = ordersTagList
                 )
             }
             BudleBusinessOrderCardList(
                 bookingList = viewModel.state,
-                filter = currentType
+                filter = currentType,
+                viewModel = viewModel
             )
+            viewModel.onEvent(BookingEvent.GetBookings(establishmentId, currentType))
         }
-        viewModel.onEvent(BookingEvent.GetBookings(establishmentId))
     }
 }

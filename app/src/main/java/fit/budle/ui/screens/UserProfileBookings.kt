@@ -9,11 +9,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.ui.components.BudleSearchBar
-import fit.budle.ui.components.BudleBookingCardList
-import fit.budle.ui.components.budleTagList
 import fit.budle.dto.order.Booking
+import fit.budle.dto.tag.active.RectangleActiveTag
 import fit.budle.dto.tag.active.ordersTagList
 import fit.budle.ui.components.atoms.headers.BudleNavigationHeader
+import fit.budle.ui.components.moleculas.tag_list.BudleTagList
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
@@ -41,8 +41,9 @@ fun UserProfileBookingsScreenBackendConnected(
             Spacer(modifier = Modifier.height(12.dp))
             BudleSearchBar()
             Spacer(modifier = Modifier.height(12.dp))
-            currentType.value = budleTagList(
-                initialState = 0,
+            BudleTagList(
+                initialState = RectangleActiveTag("",-1),
+                onValueChange = {},
                 tagList = ordersTagList
             )
             /*BudleBookingCardList(

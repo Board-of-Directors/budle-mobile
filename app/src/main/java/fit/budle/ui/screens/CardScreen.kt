@@ -132,8 +132,7 @@ fun EstablishmentBanner(
     ) {
         establishmentCard.image?.let {
             Image(
-                painter =
-                it,
+                painter = it,
                 contentDescription = "Restaurant Card",
                 modifier = Modifier.fillMaxWidth(),
                 contentScale = ContentScale.Crop

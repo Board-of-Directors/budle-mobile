@@ -7,11 +7,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
-import fit.budle.dto.establishment.ImageDTO
 import fit.budle.ui.components.moleculas.BudleBlockWithHeader
 
 @Composable
-fun budleSingleSelectPhotoInput(): Uri? {
+fun BudleSingleSelectPhotoInput(
+    onValueChange: (Uri?) -> Unit,
+    isError: Boolean
+){
     var selectedImageUri by remember {
         mutableStateOf<Uri?>(null)
     }
@@ -30,6 +32,7 @@ fun budleSingleSelectPhotoInput(): Uri? {
         if (selectedImageUri == null) {
             BudleDisabledPhotoPicker(
                 stroke = stroke,
+                isError = isError,
                 onClick = {
                     singlePhotoPickerLauncher.launch(
                         PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
@@ -42,7 +45,6 @@ fun budleSingleSelectPhotoInput(): Uri? {
                 onValueChanged = deleteImageUri
             )
         }
+        onValueChange(selectedImageUri)
     }
-
-    return selectedImageUri
 }

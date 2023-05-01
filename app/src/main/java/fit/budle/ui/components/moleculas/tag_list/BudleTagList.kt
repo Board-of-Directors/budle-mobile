@@ -1,4 +1,4 @@
-package fit.budle.ui.components
+package fit.budle.ui.components.moleculas.tag_list
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -11,25 +11,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import fit.budle.dto.tag.active.ActiveTagType
 import fit.budle.dto.tag.active.Tag
+import fit.budle.ui.components.BudleCircleTag
+import fit.budle.ui.components.BudleRectangleTag
 import fit.budle.ui.theme.mainBlack
-import fit.budle.ui.theme.mainWhite
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun budleTagList(
+fun BudleTagList(
     modifier: Modifier = Modifier,
     selectable: Boolean = true,
-    initialState: Int = -1,
+    onValueChange: (Tag) -> Unit,
+    initialState: Tag,
     tagList: List<Tag>,
     tagType: ActiveTagType = ActiveTagType.RECTANGLE,
     textColor: Color = mainBlack
-): Int {
+) {
 
     var selectedItem by remember { mutableStateOf(initialState) }
-    val isSelectedItem: (Int) -> Boolean = { if (selectable) selectedItem == it else false}
-    val onChangeState: (Int) -> Unit = {
+    val isSelectedItem: (Tag) -> Boolean = { if (selectable) selectedItem == it else false}
+    val onChangeState: (Tag) -> Unit = {
         selectedItem = if (!isSelectedItem(it) && selectable) it else selectedItem
     }
+
     LazyRow(
         modifier = modifier
             .fillMaxWidth()
@@ -37,21 +40,21 @@ fun budleTagList(
     ) {
         itemsIndexed(tagList) { _, tag ->
             if (tagType == ActiveTagType.RECTANGLE) {
-                BudleTag(
+                BudleRectangleTag(
                     isSelected = isSelectedItem,
                     onChangeState = onChangeState,
-                    textColor = textColor,
+                    color = textColor,
                     tag = tag
                 )
             } else {
                 BudleCircleTag(
                     isSelected = isSelectedItem,
                     onChangeState = onChangeState,
-                    textColor = textColor,
+                    color = textColor,
                     tag = tag
                 )
             }
         }
+        onValueChange(selectedItem)
     }
-    return selectedItem
 }

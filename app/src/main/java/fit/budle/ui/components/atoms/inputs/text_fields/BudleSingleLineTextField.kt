@@ -20,13 +20,13 @@ import fit.budle.ui.theme.textGray
 fun budleSingleLineTextField(
     startMessage: String,
     placeholder: String,
-    error: MutableState<Boolean>,
+    error: Boolean,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
 ): String {
 
     var text by remember { mutableStateOf(startMessage) }
-    val strokeColor = if (!error.value) Color.Transparent else backgroundError
+    val strokeColor = if (!error) Color.Transparent else backgroundError
 
     Card(
         border = BorderStroke(2.dp, strokeColor)
@@ -38,8 +38,7 @@ fun budleSingleLineTextField(
             onValueChange = {
                 if (it.length <= INPUT_LENGTH) {
                     if (it.isNotEmpty()) {
-                        if (it[it.length-1] != '\n'){
-                            if (error.value) error.value = false
+                        if (it[it.length - 1] != '\n') {
                             text = it
                         }
                     } else text = it

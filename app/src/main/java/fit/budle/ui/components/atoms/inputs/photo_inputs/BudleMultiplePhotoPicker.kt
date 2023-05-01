@@ -10,7 +10,9 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import fit.budle.ui.components.moleculas.BudleBlockWithHeader
 
 @Composable
-fun BudleMultiplePhotoInput() {
+fun BudleMultiplePhotoInput(
+    onValueChange: (List<Uri>) -> Unit
+) {
 
     var selectedImageUris by remember {
         mutableStateOf<List<Uri>>(emptyList())
@@ -35,6 +37,7 @@ fun BudleMultiplePhotoInput() {
             }
             resultList.addAll(selectedImageUris)
             selectedImageUris = resultList
+            onValueChange(selectedImageUris)
         }
     )
 

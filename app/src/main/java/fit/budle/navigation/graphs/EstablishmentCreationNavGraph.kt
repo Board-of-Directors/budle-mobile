@@ -1,7 +1,9 @@
 package fit.budle.navigation.graphs
 
+import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -9,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import fit.budle.ui.screens.business.creator.creator_process.*
 
+@SuppressLint("UnrememberedGetBackStackEntry")
 @RequiresApi(Build.VERSION_CODES.P)
 fun NavGraphBuilder.establishmentCreationNavGraph(
     navHostController: NavHostController,
@@ -27,7 +30,7 @@ fun NavGraphBuilder.establishmentCreationNavGraph(
             EstablishmentCreationSecondScreen(
                 navHostController = navHostController,
                 viewModel = hiltViewModel(
-                    navHostController.previousBackStackEntry!!
+                    navHostController.getBackStackEntry("firstStep")
                 )
             )
         }
@@ -35,7 +38,7 @@ fun NavGraphBuilder.establishmentCreationNavGraph(
             EstablishmentCreationThirdScreen(
                 navHostController = navHostController,
                 viewModel = hiltViewModel(
-                    navHostController.previousBackStackEntry!!
+                    navHostController.getBackStackEntry("firstStep")
                 )
             )
         }
@@ -43,7 +46,7 @@ fun NavGraphBuilder.establishmentCreationNavGraph(
             EstablishmentCreationFourthScreen(
                 navHostController = navHostController,
                 viewModel = hiltViewModel(
-                    navHostController.previousBackStackEntry!!
+                    navHostController.getBackStackEntry("firstStep")
                 )
             )
         }
@@ -51,7 +54,7 @@ fun NavGraphBuilder.establishmentCreationNavGraph(
             EstablishmentCreationFifthScreen(
                 navHostController = navHostController,
                 viewModel = hiltViewModel(
-                    navHostController.previousBackStackEntry!!
+                    navHostController.getBackStackEntry("firstStep")
                 )
             )
         }

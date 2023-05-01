@@ -9,9 +9,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fit.budle.dto.events.BookingEvent
 import fit.budle.dto.order.Booking
-import fit.budle.dto.result.DeleteEstOrderResult
-import fit.budle.dto.result.GetEstOrderListResult
-import fit.budle.dto.result.PutEstOrderResult
+import fit.budle.dto.order.BusinessOrderDto
+import fit.budle.dto.result.*
 import fit.budle.repository.EstOrderListRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,7 +20,7 @@ class EstOrderListViewModel @Inject constructor(
     private val estOrderListRepository: EstOrderListRepository,
 ) : ViewModel() {
 
-    var state: List<Booking> by mutableStateOf(emptyList())
+    var state: List<BusinessOrderDto> by mutableStateOf(emptyList())
 
     fun onEvent(event: BookingEvent) {
         when (event) {
@@ -38,32 +37,31 @@ class EstOrderListViewModel @Inject constructor(
                     }
                 }
             }
-            is BookingEvent.PutBooking -> {
+            is BookingEvent.AcceptBooking -> {
                 viewModelScope.launch {
-                    when (val result = estOrderListRepository.putOrder(
+                    when (val result = estOrderListRepository.acceptOrder(
                         event.establishmentId,
-                        event.orderId,
-                        event.status
+                        event.orderId
                     )) {
-                        is PutEstOrderResult.Success -> {
+                        is AcceptEstOrderResult.Success -> {
                             Log.d("VM_PUT_EST_ORDER", "SUCCESS")
                         }
-                        is PutEstOrderResult.Failure -> {
+                        is AcceptEstOrderResult.Failure -> {
                             Log.d("VM_PUT_EST_ORDER", result.throwable.message!!)
                         }
                     }
                 }
             }
-            is BookingEvent.DeleteBooking -> {
+            is BookingEvent.RejectBooking -> {
                 viewModelScope.launch {
-                    when (val result = estOrderListRepository.deleteOrder(
+                    when (val result = estOrderListRepository.rejectOrder(
                         event.establishmentId,
                         event.orderId
                     )) {
-                        is DeleteEstOrderResult.Success -> {
+                        is RejectEstOrderResult.Success -> {
                             Log.d("DELETE_EST_ORDER", "SUCCESS")
                         }
-                        is DeleteEstOrderResult.Failure -> {
+                        is RejectEstOrderResult.Failure -> {
                             Log.d("DELETE_EST_ORDER", result.throwable.message!!)
                         }
                     }

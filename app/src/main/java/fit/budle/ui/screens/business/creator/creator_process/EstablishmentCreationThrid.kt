@@ -1,31 +1,58 @@
 package fit.budle.ui.screens.business.creator.creator_process
 
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build
+import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import fit.budle.dto.events.EstCreationEvent
 import fit.budle.ui.components.atoms.inputs.photo_inputs.BudleMultiplePhotoInput
 import fit.budle.ui.components.atoms.inputs.text_inputs.BudleMultipleLineInput
 import fit.budle.ui.components.moleculas.screens.BudleScreenWithButtonAndProgress
 import fit.budle.ui.theme.mainBlack
+import fit.budle.ui.util.bitmapCreator
 import fit.budle.viewmodel.EstCreationViewModel
 
+@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun EstablishmentCreationThirdScreen(
     navHostController: NavHostController,
-    viewModel: EstCreationViewModel
+    viewModel: EstCreationViewModel,
 ) {
+
+    var selectedDescription by remember { mutableStateOf("") }
+    val selectedUriList = remember { mutableStateListOf<Uri>() }
+    val bitmapArray = bitmapCreator(uris = selectedUriList.toTypedArray())
+
+    val onDescrChange: (String) -> Unit = {
+        selectedDescription = it
+    }
+    val onUriListChange: (List<Uri>) -> Unit = {
+        selectedUriList.clear()
+        selectedUriList.addAll(it)
+    }
+
     Surface(Modifier.fillMaxSize()) {
         BudleScreenWithButtonAndProgress(
             navHostController = navHostController,
             buttonText = "Следующий шаг",
             progress = "60%",
             onClick = {
+                viewModel.onEvent(
+                    EstCreationEvent.ThirdStep(
+                        selectedDescription,
+                        bitmapArray
+                    )
+                )
                 navHostController.navigate("fourthStep")
             },
             textMessage = "Создание заведения"
@@ -34,6 +61,7 @@ fun EstablishmentCreationThirdScreen(
                 modifier = Modifier
                     .padding(top = 20.dp)
                     .fillMaxWidth(),
+                onValueChange = { onDescrChange(it) },
                 symbolsCount = true,
                 placeHolderColor = mainBlack,
                 placeHolder = "Описание",
@@ -41,7 +69,11 @@ fun EstablishmentCreationThirdScreen(
                 textFieldMessage = "Опишите ваше заведение",
                 description = "Макс. 300 символов",
             )
-            BudleMultiplePhotoInput()
+            BudleMultiplePhotoInput(
+                onValueChange = {
+                    onUriListChange(it)
+                }
+            )
         }
     }
 }

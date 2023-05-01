@@ -25,7 +25,8 @@ fun BudleMultiplePickerState(
 
     BudleDisabledPhotoPicker(
         stroke = stroke,
-        onClick = onClick
+        onClick = onClick,
+        isError = false
     )
 
     if (selectedImageUris.isNotEmpty()) {

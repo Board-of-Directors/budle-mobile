@@ -14,16 +14,15 @@ interface EstOrderListDAO {
         @Query("status") status: Int
     ) : EstOrderResponse.GetEstOrderListResponse
 
-    @PUT("establishment/order")
-    suspend fun putOrder(
+    @PUT("establishment/order/accept")
+    suspend fun acceptOrder(
         @Query("establishmentId") establishmentId : Int,
         @Query("orderId") orderId: Int,
-        @Query("status") status: Int
-    ) : EstOrderResponse.PutEstOrderResponse
+    ) : EstOrderResponse.AcceptEstOrderResponse
 
-    @DELETE("establishment/order")
-    suspend fun deleteOrder(
+    @DELETE("establishment/order/reject")
+    suspend fun rejectOrder(
         @Query("establishmentId") establishmentId: Int,
         @Query("orderId") orderId: Int
-    ) : EstOrderResponse.DeleteEstOrderResponse
+    ) : EstOrderResponse.RejectEstOrderResponse
 }

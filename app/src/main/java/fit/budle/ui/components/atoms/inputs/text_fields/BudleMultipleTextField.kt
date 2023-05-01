@@ -24,7 +24,7 @@ fun budleMultipleTextField(
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
 ): String {
-    var backSlashCount by remember { mutableStateOf(0) }
+
     var text by remember { mutableStateOf(startMessage) }
     val strokeColor = if (!error.value) Color.Transparent else backgroundError
 
@@ -37,27 +37,11 @@ fun budleMultipleTextField(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             onValueChange = {
                 if (it.length <= LONG_INPUT_LENGTH) {
-                    if (it.isNotEmpty()) {
-                        if (it[0] != '\n') {
-                            if (backSlashCount < 2) {
-                                if (error.value) error.value = false
-                                text = it
-                                if (it[it.length - 1] == '\n') {
-                                    backSlashCount++
-                                } else backSlashCount = 0
-                                // adding new symbols
-                            } else if (it[it.length - 1] != '\n') {
-                                text = it
-                                backSlashCount = 0
-                                // deleting symbols
-                            } else if (it.substring(it.length - 2, it.length) != "\n\n") {
-                                text = it
-                                backSlashCount--
-                            }
-                        }
-                    } else text = it
+                    text = it
                 }
             },
+            singleLine = false,
+            maxLines = 10,
             shape = RoundedCornerShape(10.dp),
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color.Transparent,

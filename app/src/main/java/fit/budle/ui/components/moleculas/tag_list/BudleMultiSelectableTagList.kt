@@ -10,24 +10,27 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import fit.budle.dto.tag.active.ActiveCircleTag
 import fit.budle.dto.tag.active.ActiveTagType
-import fit.budle.dto.tag.standard.Tag
+import fit.budle.dto.tag.active.Tag
 import fit.budle.ui.components.BudleCircleTag
+import fit.budle.ui.components.BudleRectangleTag
 import fit.budle.ui.theme.mainBlack
 
 @SuppressLint("MutableCollectionMutableState")
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun budleMultiSelectableTagList(
+fun BudleMultiSelectableTagList(
     modifier: Modifier = Modifier,
+    onValueChange: (Set<Tag>) -> Unit,
     tagList: List<Tag>,
     tagType: ActiveTagType = ActiveTagType.RECTANGLE,
     textColor: Color = mainBlack,
-    showDate: Boolean = true
-): MutableSet<Tag> {
+    showDate: Boolean = true,
+) {
 
     val selectedItems = remember {
-        tagList.map{it to false}.toMutableStateMap()
+        tagList.map { it to false }.toMutableStateMap()
     }
 
     val isSelectedItem: (Tag) -> (Boolean) = {
@@ -44,7 +47,6 @@ fun budleMultiSelectableTagList(
     ) {
         itemsIndexed(tagList) { _, tag ->
             if (tagType == ActiveTagType.RECTANGLE) {
-                /*
                 BudleRectangleTag(
                     isSelected = isSelectedItem,
                     onChangeState = onChangeState,
@@ -60,9 +62,9 @@ fun budleMultiSelectableTagList(
                     color = textColor
                 )
             }
-            */
-            }
         }
     }
-    return selectedItems.keys
+    onValueChange(
+        selectedItems.filter { it.value }.keys
+    )
 }

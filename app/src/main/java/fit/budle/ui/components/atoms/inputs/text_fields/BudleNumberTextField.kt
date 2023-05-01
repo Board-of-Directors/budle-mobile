@@ -14,15 +14,16 @@ import fit.budle.ui.theme.textGray
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun budleNumberTextField(
+fun BudleNumberTextField(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     error: MutableState<Boolean> = mutableStateOf(false),
+    onValueChange: (String) -> Unit,
     startMessage: String = "",
     inputLength: Int,
     mask: String,
     placeHolder: String = "+7",
-): String {
+) {
 
     var text by remember { mutableStateOf(startMessage) }
     val textColor = if (enabled) mainBlack else textGray
@@ -57,5 +58,5 @@ fun budleNumberTextField(
         },
         textStyle = MaterialTheme.typography.bodyMedium
     )
-    return text
+    onValueChange(text)
 }

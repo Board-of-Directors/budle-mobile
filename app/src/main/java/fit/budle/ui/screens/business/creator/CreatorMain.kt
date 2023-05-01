@@ -47,7 +47,9 @@ fun CreatorMainScreen(
                 iconId = R.drawable.log_out,
                 iconDescription = "Log out",
                 iconColor = textGray,
-                onClick = {}
+                onClick = {
+                    navHostController.navigate("")
+                }
             )
             Divider(
                 modifier = Modifier.padding(top = 20.dp),

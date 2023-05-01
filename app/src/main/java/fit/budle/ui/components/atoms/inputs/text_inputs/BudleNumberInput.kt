@@ -9,7 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import fit.budle.ui.components.atoms.inputs.text_fields.budleNumberTextField
+import fit.budle.ui.components.atoms.inputs.text_fields.BudleNumberTextField
 import fit.budle.ui.theme.backgroundError
 import fit.budle.ui.theme.textGray
 
@@ -37,8 +37,9 @@ fun budleNumberInput(
             )
         }
         Card(border = BorderStroke(2.dp, stateColor)) {
-            numberState = budleNumberTextField(
+            BudleNumberTextField(
                 error = error,
+                onValueChange = { numberState = it },
                 startMessage = startMessage,
                 inputLength = inputLength,
                 mask = mask

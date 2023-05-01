@@ -8,15 +8,19 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import fit.budle.R
+import fit.budle.dto.events.BookingEvent
 import fit.budle.dto.order.Booking
 import fit.budle.dto.order.BookingStatus
+import fit.budle.dto.order.BusinessOrderDto
 import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.ui.theme.*
+import fit.budle.viewmodel.EstOrderListViewModel
 
 @Composable
 fun BudleBusinessOrderCard(
     modifier: Modifier = Modifier,
-    booking: Booking,
+    viewModel: EstOrderListViewModel,
+    booking: BusinessOrderDto,
 ) {
 
     var isExpanded by remember { mutableStateOf(false) }
@@ -88,8 +92,22 @@ fun BudleBusinessOrderCard(
             }
             BudleButton(
                 onClick = {
-                    if (bookingStatus == BookingStatus.REJECT) {
-                        // TODO
+                    when (bookingStatus) {
+                        BookingStatus.REJECT -> {
+                            // TODO
+                        }
+                        BookingStatus.CONFIRM -> {
+                            viewModel.onEvent(BookingEvent.RejectBooking(
+                                booking.establishment.id,
+                                booking.id
+                            ))
+                        }
+                        BookingStatus.WAIT -> {
+                            viewModel.onEvent(BookingEvent.AcceptBooking(
+                                booking.establishment.id,
+                                booking.id
+                            ))
+                        }
                     }
                 },
                 topPadding = if (!isExpanded) 10.dp else 15.dp,

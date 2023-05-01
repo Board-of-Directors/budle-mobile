@@ -13,13 +13,14 @@ import androidx.navigation.NavHostController
 import fit.budle.R
 import fit.budle.dto.establishment.Establishment
 import fit.budle.dto.establishment.EstablishmentResponse
+import fit.budle.dto.establishment.etsablishment_type.EstablishmentShortDto
 import fit.budle.ui.components.atoms.BudleEstablishmentSubdescription
 import fit.budle.ui.theme.*
 
 @Composable
 fun BudleCreatorEstablishmentCard(
     navHostController: NavHostController,
-    establishmentCard: EstablishmentResponse,
+    establishmentCard: EstablishmentShortDto,
 ) {
 
     var isOpened by remember { mutableStateOf(false) }
