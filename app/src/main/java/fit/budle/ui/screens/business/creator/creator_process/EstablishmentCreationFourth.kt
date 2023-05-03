@@ -88,7 +88,8 @@ fun EstablishmentCreationFourthScreen(
                 items = subwayStations,
                 placeHolder = "Метро",
                 startMessage = "Укажите станцию метро",
-                isError = false
+                isError = false,
+                selectedItem = ""
             )
             BudleWorkingDaysPickerList(
                 items = daysCount,

@@ -1,5 +1,6 @@
 package fit.budle.ui.components.atoms.inputs.dropdown
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,6 +18,7 @@ import fit.budle.ui.theme.*
 fun BudleDropDownMenu(
     modifier: Modifier = Modifier,
     onValueChange: (String) -> (Unit),
+    selectedItem: String?,
     isError: Boolean,
     startMessage: String,
     placeHolder: String,
@@ -26,11 +28,9 @@ fun BudleDropDownMenu(
     val strokeColor = if (!isError) Color.Transparent else backgroundError
 
     var isExpanded by remember { mutableStateOf(false) }
-    var selectedItem by remember { mutableStateOf("") }
 
     val dropDownIcon = if (!isExpanded) R.drawable.chevron_down else R.drawable.chevron_up
-    val textColor = if (selectedItem != startMessage) mainBlack else textGray
-    val onSelect: (String) -> (Unit) = { selectedItem = it }
+    val textColor = if (selectedItem != null) mainBlack else textGray
     val isSelected: (String) -> (Boolean) = { it == selectedItem }
 
     Column(
@@ -61,7 +61,7 @@ fun BudleDropDownMenu(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = selectedItem,
+                        text = selectedItem ?: startMessage,
                         style = MaterialTheme.typography.bodyMedium,
                         color = textColor,
                     )
@@ -89,11 +89,10 @@ fun BudleDropDownMenu(
                     modifier = Modifier.padding(top = 15.dp),
                     item = item,
                     isSelected = isSelected,
-                    onSelect = onSelect
+                    onSelect = onValueChange
                 )
             }
         }
-        onValueChange(selectedItem)
     }
     if (isError) {
         Text(

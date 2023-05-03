@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -30,16 +32,18 @@ fun EstablishmentOrdersScreen(
     viewModel: EstOrderListViewModel = hiltViewModel(),
 ) {
 
-    var currentType by remember {
-        mutableStateOf(3)
-    }
+    var currentType by remember { mutableStateOf(3) }
 
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(20.dp)
+                .verticalScroll(rememberScrollState())
         ) {
+
+            viewModel.onEvent(BookingEvent.GetBookings(establishmentId, currentType))
+
             BudleNavigationHeader(
                 textMessage = "Заказы",
                 onClick = { navHostController.popBackStack() }
@@ -50,7 +54,7 @@ fun EstablishmentOrdersScreen(
                     .padding(top = 10.dp)
             ) {
                 BudleTagList(
-                    initialState = RectangleActiveTag("", -1),
+                    initialState = RectangleActiveTag("Все", 3),
                     onValueChange = {
                         currentType = it.tagId
                     },
@@ -59,10 +63,8 @@ fun EstablishmentOrdersScreen(
             }
             BudleBusinessOrderCardList(
                 bookingList = viewModel.state,
-                filter = currentType,
                 viewModel = viewModel
             )
-            viewModel.onEvent(BookingEvent.GetBookings(establishmentId, currentType))
         }
     }
 }

@@ -8,8 +8,10 @@ data class ReturnTag(val name: String)
 
 class EstablishmentDTO(
     var address: String = "",
-    var category: String = "",
+    var category: String? = null,
     var description: String? = "",
+    var starsCount: Int? = null,
+    var cuisineCountry: String? = null,
     var hasCardPayment: Boolean = false,
     var hasMap: Boolean = false,
     var image: String = "",

@@ -2,6 +2,7 @@ package fit.budle.viewmodel
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.util.Base64
 import android.util.Log
 import androidx.compose.runtime.*
@@ -32,9 +33,18 @@ class EstCreationViewModel @Inject constructor(
 ) : ViewModel() {
 
     var establishmentDTO by mutableStateOf(EstablishmentDTO())
-    var categoryList = emptyList<String>()
-    var tagList = emptyList<TagResponse>()
-    var variantList = emptyList<String>()
+
+    val testCategoryMap = mapOf(
+        "Рестораны" to "cuisineCountry",
+        "Отели" to "starsCount"
+    )
+
+    var selectedMainImageUri by mutableStateOf<Uri?>(null)
+    var selectedPhotosUri by mutableStateOf(emptyList<Uri>())
+
+    var categoryList by mutableStateOf(emptyList<String>())
+    var tagList by mutableStateOf(emptyList<TagResponse>())
+    var variantList by mutableStateOf(emptyList<String>())
 
     fun onEvent(event: EstCreationEvent) {
         when (event) {
@@ -56,7 +66,7 @@ class EstCreationViewModel @Inject constructor(
                     establishmentDTO.tags = tagList
                     Log.d("IMAGE", establishmentDTO.image)
                     Log.d("NAME", establishmentDTO.name)
-                    Log.d("CATEGORY", establishmentDTO.category)
+                    Log.d("CATEGORY", establishmentDTO.category!!)
                     Log.d("TAGS", establishmentDTO.tags.size.toString())
                 }
             }
@@ -70,7 +80,7 @@ class EstCreationViewModel @Inject constructor(
                     establishmentDTO.photosInput = encodedBitmaps.toList()
                     Log.d("IMAGE", establishmentDTO.image)
                     Log.d("NAME", establishmentDTO.name)
-                    Log.d("CATEGORY", establishmentDTO.category)
+                    Log.d("CATEGORY", establishmentDTO.category!!)
                     Log.d("TAGS", establishmentDTO.tags.size.toString())
                     Log.d("DESCRP", establishmentDTO.description!!)
                     Log.d("PHOTOS", establishmentDTO.photosInput.size.toString())
@@ -82,7 +92,7 @@ class EstCreationViewModel @Inject constructor(
                     establishmentDTO.workingHours = listOf(WorkingHour("Пн", "12:00", "22:00"))
                     Log.d("IMAGE", establishmentDTO.image)
                     Log.d("NAME", establishmentDTO.name)
-                    Log.d("CATEGORY", establishmentDTO.category)
+                    Log.d("CATEGORY", establishmentDTO.category!!)
                     Log.d("TAGS", establishmentDTO.tags.size.toString())
                     Log.d("DESCRP", establishmentDTO.description!!)
                     Log.d("PHOTOS", establishmentDTO.photosInput.size.toString())
@@ -137,10 +147,10 @@ class EstCreationViewModel @Inject constructor(
             }
             is EstCreationEvent.GetVariantList -> {
                 viewModelScope.launch {
-                    when (val result = estCreationRepository.getCategoryVariantList(event.category)) {
+                    when (val result =
+                        estCreationRepository.getCategoryVariantList(event.category)) {
                         is GetCategoryVariantListResult.Success -> {
                             variantList = result.result
-                            Log.d("VM_GET_VARIANT_LIST", "SUCCESS")
                         }
                         else -> {
                             Log.d("VM_GET_VARIANT_LIST", "FAILURE")

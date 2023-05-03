@@ -52,7 +52,7 @@ class EstOrderListRepositoryImpl @Inject constructor(
         orderId: Int,
     ): RejectEstOrderResult {
         return try {
-            val response = estOrderListDAO.acceptOrder(
+            val response = estOrderListDAO.rejectOrder(
                 establishmentId,
                 orderId
             )

@@ -17,7 +17,7 @@ fun NavGraphBuilder.establishmentCreationNavGraph(
     navHostController: NavHostController,
 ) {
     navigation(
-        startDestination = "firstStep",
+        startDestination = "secondStep",
         route = "ownerMain/establishmentCreation/"
     ) {
         composable("firstStep") {
@@ -29,9 +29,7 @@ fun NavGraphBuilder.establishmentCreationNavGraph(
         composable("secondStep") {
             EstablishmentCreationSecondScreen(
                 navHostController = navHostController,
-                viewModel = hiltViewModel(
-                    navHostController.getBackStackEntry("firstStep")
-                )
+                viewModel = hiltViewModel()
             )
         }
         composable("thirdStep") {

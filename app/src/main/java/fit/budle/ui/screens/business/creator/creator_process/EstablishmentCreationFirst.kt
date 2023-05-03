@@ -31,6 +31,12 @@ fun EstablishmentCreationFirstScreen(
     var emptyImageError by remember { mutableStateOf(false) }
     var emptyNameInputError by remember { mutableStateOf(false) }
 
+    val initialEstName = if (viewModel.establishmentDTO.name == "")
+        "" else viewModel.establishmentDTO.name
+
+    val initialUri = if (viewModel.establishmentDTO.image == "")
+        null else viewModel.selectedMainImageUri
+
     val source = if (selectedImage != null) {
         ImageDecoder.createSource(LocalContext.current.contentResolver, selectedImage!!)
     } else null
@@ -58,8 +64,10 @@ fun EstablishmentCreationFirstScreen(
             BudleSingleSelectPhotoInput(
                 onValueChange = {
                     selectedImage = it
+                    viewModel.selectedMainImageUri = it
                     emptyImageError = selectedImage == null
                 },
+                initialUri = initialUri,
                 isError = if (buttonClicked) emptyImageError else false
             )
             BudleSingleLineInput(
@@ -73,7 +81,7 @@ fun EstablishmentCreationFirstScreen(
                 isError = if (buttonClicked) emptyNameInputError else false,
                 placeHolderColor = mainBlack,
                 placeHolder = "Название",
-                startMessage = "",
+                startMessage = initialEstName,
                 textFieldMessage = "Введите название"
             )
         }

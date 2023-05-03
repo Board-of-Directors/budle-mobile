@@ -14,19 +14,16 @@ import fit.budle.viewmodel.EstOrderListViewModel
 fun BudleBusinessOrderCardList(
     modifier: Modifier = Modifier,
     bookingList: List<BusinessOrderDto>,
-    viewModel: EstOrderListViewModel,
-    filter: Int = 3,
+    viewModel: EstOrderListViewModel
 ) {
     Column(
         modifier = modifier.fillMaxWidth()
     ) {
         for (booking in bookingList) {
-            if (booking.status == filter || filter == 3) {
-                BudleBusinessOrderCard(
-                    booking = booking,
-                    viewModel = viewModel
-                )
-            }
+            BudleBusinessOrderCard(
+                booking = booking,
+                viewModel = viewModel
+            )
         }
     }
 }

@@ -1,5 +1,6 @@
 package fit.budle.ui.components.atoms.cards
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,6 +25,7 @@ fun BudleCardRow(
     modifier: Modifier = Modifier,
     iconButton: Boolean = false,
     onClickIconButton: () -> Unit = {},
+    onDescriptionClick:  () -> Unit = {},
     topPadding: Dp = 20.dp,
     iconId: Int? = null,
     header: String,
@@ -46,6 +48,9 @@ fun BudleCardRow(
         if (!iconButton){
             if (description != null){
                 Text(
+                    modifier = Modifier.clickable(
+                        onClick = onDescriptionClick
+                    ),
                     text = description,
                     style = MaterialTheme.typography.labelSmall,
                     color = descriptionColor

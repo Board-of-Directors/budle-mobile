@@ -35,7 +35,7 @@ fun BudleBusinessOrderCard(
     val buttonText = when (bookingStatus) {
         BookingStatus.REJECT -> "Восстановить заказ"
         BookingStatus.WAIT -> "Принять заказ"
-        BookingStatus.CONFIRM -> "Удалить заказ"
+        BookingStatus.CONFIRM -> "Отклонить заказ"
     }
 
     Card(
@@ -49,14 +49,31 @@ fun BudleBusinessOrderCard(
         Column(
             modifier = Modifier.padding(20.dp)
         ) {
-            BudleCardRow(
-                topPadding = 0.dp,
-                header = "Заказ №${booking.id}",
-                headerSize = MaterialTheme.typography.bodyMedium
-            )
+            if (bookingStatus == BookingStatus.WAIT) {
+                BudleCardRow(
+                    topPadding = 0.dp,
+                    header = "Заказ №${booking.id}",
+                    description = "Отклонить",
+                    onDescriptionClick = {
+                        viewModel.onEvent(BookingEvent.RejectBooking(
+                            booking.establishment.id,
+                            booking.id
+                        ))
+                        viewModel.onEvent(BookingEvent.GetBookings(booking.establishment.id, 3))
+                    },
+                    descriptionColor = fillPurple,
+                    headerSize = MaterialTheme.typography.bodyMedium
+                )
+            } else {
+                BudleCardRow(
+                    topPadding = 0.dp,
+                    header = "Заказ №${booking.id}",
+                    headerSize = MaterialTheme.typography.bodyMedium
+                )
+            }
             BudleCardRow(
                 topPadding = 20.dp,
-                header = bookingStatus.message,
+                header = "Статус",
                 headerSize = MaterialTheme.typography.labelSmall,
                 description = bookingStatus.message,
                 descriptionColor = descriptionColor
@@ -94,7 +111,10 @@ fun BudleBusinessOrderCard(
                 onClick = {
                     when (bookingStatus) {
                         BookingStatus.REJECT -> {
-                            // TODO
+                            viewModel.onEvent(BookingEvent.AcceptBooking(
+                                booking.establishment.id,
+                                booking.id
+                            ))
                         }
                         BookingStatus.CONFIRM -> {
                             viewModel.onEvent(BookingEvent.RejectBooking(
@@ -103,12 +123,13 @@ fun BudleBusinessOrderCard(
                             ))
                         }
                         BookingStatus.WAIT -> {
-                            viewModel.onEvent(BookingEvent.AcceptBooking(
+                            viewModel.onEvent(BookingEvent.RejectBooking(
                                 booking.establishment.id,
                                 booking.id
                             ))
                         }
                     }
+                    viewModel.onEvent(BookingEvent.GetBookings(booking.establishment.id, 3))
                 },
                 topPadding = if (!isExpanded) 10.dp else 15.dp,
                 horizontalPadding = 0.dp,

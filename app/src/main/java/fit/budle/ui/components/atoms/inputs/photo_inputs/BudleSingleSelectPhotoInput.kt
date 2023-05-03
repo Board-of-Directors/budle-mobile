@@ -12,10 +12,11 @@ import fit.budle.ui.components.moleculas.BudleBlockWithHeader
 @Composable
 fun BudleSingleSelectPhotoInput(
     onValueChange: (Uri?) -> Unit,
+    initialUri: Uri?,
     isError: Boolean
 ){
     var selectedImageUri by remember {
-        mutableStateOf<Uri?>(null)
+        mutableStateOf(initialUri)
     }
     val deleteImageUri = { selectedImageUri = null }
     val singlePhotoPickerLauncher = rememberLauncherForActivityResult(

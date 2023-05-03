@@ -20,7 +20,7 @@ interface EstOrderListDAO {
         @Query("orderId") orderId: Int,
     ) : EstOrderResponse.AcceptEstOrderResponse
 
-    @DELETE("establishment/order/reject")
+    @PUT("establishment/order/reject")
     suspend fun rejectOrder(
         @Query("establishmentId") establishmentId: Int,
         @Query("orderId") orderId: Int
