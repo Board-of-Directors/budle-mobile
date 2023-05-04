@@ -1,15 +1,18 @@
 package fit.budle.ui.components.atoms.cards
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import fit.budle.R
 import fit.budle.dto.events.BookingEvent
-import fit.budle.dto.order.Booking
 import fit.budle.dto.order.BookingStatus
 import fit.budle.dto.order.BusinessOrderDto
 import fit.budle.ui.components.atoms.BudleButton
@@ -55,11 +58,13 @@ fun BudleBusinessOrderCard(
                     header = "Заказ №${booking.id}",
                     description = "Отклонить",
                     onDescriptionClick = {
-                        viewModel.onEvent(BookingEvent.RejectBooking(
+                        viewModel.onEvent(BookingEvent.PutBookingStatus(
                             booking.establishment.id,
-                            booking.id
+                            booking.id,
+                            BookingStatus.REJECT.value
                         ))
-                        viewModel.onEvent(BookingEvent.GetBookings(booking.establishment.id, 3))
+                        viewModel.onEvent(BookingEvent.GetBookings(booking.establishment.id,
+                            bookingStatus.value))
                     },
                     descriptionColor = fillPurple,
                     headerSize = MaterialTheme.typography.bodyMedium
@@ -111,25 +116,29 @@ fun BudleBusinessOrderCard(
                 onClick = {
                     when (bookingStatus) {
                         BookingStatus.REJECT -> {
-                            viewModel.onEvent(BookingEvent.AcceptBooking(
+                            viewModel.onEvent(BookingEvent.PutBookingStatus(
                                 booking.establishment.id,
-                                booking.id
+                                booking.id,
+                                BookingStatus.WAIT.value
                             ))
                         }
                         BookingStatus.CONFIRM -> {
-                            viewModel.onEvent(BookingEvent.RejectBooking(
+                            viewModel.onEvent(BookingEvent.PutBookingStatus(
                                 booking.establishment.id,
-                                booking.id
+                                booking.id,
+                                BookingStatus.REJECT.value
                             ))
                         }
                         BookingStatus.WAIT -> {
-                            viewModel.onEvent(BookingEvent.RejectBooking(
+                            viewModel.onEvent(BookingEvent.PutBookingStatus(
                                 booking.establishment.id,
-                                booking.id
+                                booking.id,
+                                BookingStatus.CONFIRM.value
                             ))
                         }
                     }
-                    viewModel.onEvent(BookingEvent.GetBookings(booking.establishment.id, 3))
+                    viewModel.onEvent(BookingEvent.GetBookings(booking.establishment.id,
+                        bookingStatus.value))
                 },
                 topPadding = if (!isExpanded) 10.dp else 15.dp,
                 horizontalPadding = 0.dp,

@@ -8,9 +8,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fit.budle.dto.events.BookingEvent
-import fit.budle.dto.order.Booking
 import fit.budle.dto.order.BusinessOrderDto
-import fit.budle.dto.result.*
+import fit.budle.dto.result.GetEstOrderListResult
+import fit.budle.dto.result.PutEstOrderStatusResult
 import fit.budle.repository.EstOrderListRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -37,32 +37,18 @@ class EstOrderListViewModel @Inject constructor(
                     }
                 }
             }
-            is BookingEvent.AcceptBooking -> {
+            is BookingEvent.PutBookingStatus -> {
                 viewModelScope.launch {
-                    when (val result = estOrderListRepository.acceptOrder(
+                    when (val result = estOrderListRepository.putOrderStatus(
                         event.establishmentId,
-                        event.orderId
+                        event.orderId,
+                        event.status
                     )) {
-                        is AcceptEstOrderResult.Success -> {
+                        is PutEstOrderStatusResult.Success -> {
                             Log.d("VM_PUT_EST_ORDER", "SUCCESS")
                         }
-                        is AcceptEstOrderResult.Failure -> {
+                        is PutEstOrderStatusResult.Failure -> {
                             Log.d("VM_PUT_EST_ORDER", result.throwable.message!!)
-                        }
-                    }
-                }
-            }
-            is BookingEvent.RejectBooking -> {
-                viewModelScope.launch {
-                    when (val result = estOrderListRepository.rejectOrder(
-                        event.establishmentId,
-                        event.orderId
-                    )) {
-                        is RejectEstOrderResult.Success -> {
-                            Log.d("DELETE_EST_ORDER", "SUCCESS")
-                        }
-                        is RejectEstOrderResult.Failure -> {
-                            Log.d("DELETE_EST_ORDER", result.throwable.message!!)
                         }
                     }
                 }

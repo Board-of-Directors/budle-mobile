@@ -2,7 +2,8 @@ package fit.budle.repository_impl
 
 import android.util.Log
 import fit.budle.dao.EstOrderListDAO
-import fit.budle.dto.result.*
+import fit.budle.dto.result.GetEstOrderListResult
+import fit.budle.dto.result.PutEstOrderStatusResult
 import fit.budle.repository.EstOrderListRepository
 import javax.inject.Inject
 
@@ -27,43 +28,25 @@ class EstOrderListRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun acceptOrder(
+    override suspend fun putOrderStatus(
         establishmentId: Int,
         orderId: Int,
-    ): AcceptEstOrderResult {
+        status: Int,
+    ): PutEstOrderStatusResult {
         return try {
-            val response = estOrderListDAO.acceptOrder(
+            val response = estOrderListDAO.putOrderStatus(
                 establishmentId,
-                orderId
+                orderId,
+                status
             )
-            Log.d("EST_ORDER_LIST_ACCEPT", "SUCCESS")
-            AcceptEstOrderResult.Success(
+            Log.d("PUT_ORDER_STATUS_ACCEPT", "SUCCESS")
+            PutEstOrderStatusResult.Success(
                 result = response.result,
                 exception = response.exception
             )
         } catch (e: Throwable) {
-            Log.d("EST_ORDER_LIST_ACCEPT", e.message!!)
-            AcceptEstOrderResult.Failure(e)
-        }
-    }
-
-    override suspend fun rejectOrder(
-        establishmentId: Int,
-        orderId: Int,
-    ): RejectEstOrderResult {
-        return try {
-            val response = estOrderListDAO.rejectOrder(
-                establishmentId,
-                orderId
-            )
-            Log.d("EST_ORDER_LIST_REJECT", "SUCCESS")
-            RejectEstOrderResult.Success(
-                result = response.result,
-                exception = response.exception
-            )
-        } catch (e: Throwable) {
-            Log.d("EST_ORDER_LIST_REJECT", e.message!!)
-            RejectEstOrderResult.Failure(e)
+            Log.d("PUT_ORDER_STATUS_ACCEPT", e.message!!)
+            PutEstOrderStatusResult.Failure(e)
         }
     }
 }
