@@ -17,13 +17,14 @@ import fit.budle.ui.theme.textGray
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun budleMultipleTextField(
+fun BudleMultipleTextField(
     startMessage: String,
     placeholder: String,
     error: MutableState<Boolean>,
+    onValueChange: (String) -> Unit,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
-): String {
+) {
 
     var text by remember { mutableStateOf(startMessage) }
     val strokeColor = if (!error.value) Color.Transparent else backgroundError
@@ -61,5 +62,5 @@ fun budleMultipleTextField(
             textStyle = MaterialTheme.typography.bodyMedium
         )
     }
-    return text
+    onValueChange(text)
 }

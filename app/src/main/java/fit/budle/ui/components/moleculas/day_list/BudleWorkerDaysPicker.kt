@@ -10,38 +10,40 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import fit.budle.dto.WorkingHour
+import fit.budle.dto.establishment.WorkingHoursDto
+import fit.budle.dto.tag.active.ActiveCircleTag
 import fit.budle.dto.tag.active.ActiveTagType
 import fit.budle.dto.tag.active.Tag
 import fit.budle.dto.tag.active.days
 import fit.budle.ui.components.atoms.inputs.text_inputs.BudleFromToTimeInput
-import fit.budle.ui.components.atoms.switch.budleSwitchWithDescription
+import fit.budle.ui.components.atoms.switch.BudleSwitchWithDescription
 import fit.budle.ui.components.moleculas.BudleBlockWithHeader
 import fit.budle.ui.components.moleculas.tag_list.BudleMultiSelectableTagList
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun BudleWorkingDaysPicker(
-    onValueChange: (List<WorkingHour>) -> Unit,
+    selectedWorkingHoursDto: WorkingHoursDto?,
+    onValueChange: (WorkingHoursDto) -> Unit,
 ) {
 
     var enabled by remember { mutableStateOf(true) }
-    var fromToTime by remember { mutableStateOf(Pair("", "")) }
-    val selectedTagList = remember { mutableStateListOf<Tag>() }
-    val workingHourList = remember { mutableStateListOf<WorkingHour>() }
 
-    Log.d("FROM", fromToTime.first)
-    Log.d("TO", fromToTime.second)
+    var fromToTime by remember {
+        mutableStateOf(
+            Pair(selectedWorkingHoursDto?.fromTime ?: "",
+                selectedWorkingHoursDto?.toTime ?: "")
+        )
+    }
 
-    val onWorkingHourChange: () -> Unit = {
-        workingHourList.clear()
-        for (tag in selectedTagList) {
-            workingHourList.add(
-                WorkingHour(
-                    "12:00",
-                    "23:00",
-                    tag.tagName
-                )
-            )
+    val selectedTagList = remember {
+        if (selectedWorkingHoursDto != null) {
+            Log.d("ISNOTNULL","IT")
+            convertStringListToTagList(selectedWorkingHoursDto.daysOfWork)
+                .toMutableStateList()
+        } else {
+            Log.d("ISNULL","IT")
+            mutableStateListOf()
         }
     }
 
@@ -61,19 +63,41 @@ fun BudleWorkingDaysPicker(
             )
             BudleFromToTimeInput(
                 enabled = enabled,
+                fromInitialState = fromToTime.first,
+                toInitialState = fromToTime.second,
                 onValueChange = { fromToTime = it },
                 modifier = Modifier
                     .padding(top = 10.dp)
                     .fillMaxWidth()
             )
-            enabled = !budleSwitchWithDescription(
+            BudleSwitchWithDescription(
                 modifier = Modifier
                     .padding(top = 10.dp)
                     .fillMaxWidth(),
+                onSwitch = { enabled = it },
                 text = "Выходной"
             )
+            Log.d("ENABLED", enabled.toString())
         }
-        onWorkingHourChange()
-        onValueChange(workingHourList)
+        if (fromToTime != Pair("", "")) {
+            onValueChange(WorkingHoursDto(
+                fromTime = fromToTime.first,
+                toTime = fromToTime.second,
+                daysOfWork = selectedTagList.map { tag -> tag.tagName }
+            ))
+        }
     }
+}
+
+fun convertStringListToTagList(days: List<String>): List<Tag> {
+    val returnList = mutableListOf<Tag>()
+    for ((index, day) in days.withIndex()) {
+        returnList.add(
+            ActiveCircleTag(
+                tagId = index,
+                tagName = day
+            )
+        )
+    }
+    return returnList
 }

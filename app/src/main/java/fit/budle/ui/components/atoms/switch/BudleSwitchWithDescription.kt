@@ -10,16 +10,16 @@ import androidx.compose.ui.unit.dp
 import fit.budle.ui.theme.mainBlack
 
 @Composable
-fun budleSwitchWithDescription(
+fun BudleSwitchWithDescription(
     modifier: Modifier = Modifier,
+    onSwitch: (Boolean) -> Unit,
     text: String
-): Boolean {
-    var isChecked by remember { mutableStateOf(false) }
+) {
     Row(
         modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        isChecked = budleSwitch()
+        BudleSwitch(onSwitch = onSwitch)
         Text(
             modifier = Modifier.padding(start = 10.dp),
             text = text,
@@ -27,5 +27,4 @@ fun budleSwitchWithDescription(
             color = mainBlack
         )
     }
-    return isChecked
 }

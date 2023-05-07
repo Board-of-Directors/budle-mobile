@@ -1,5 +1,6 @@
 package fit.budle.ui.components.atoms.inputs.photo_inputs
 
+import android.graphics.Bitmap
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -12,17 +13,17 @@ import fit.budle.ui.components.moleculas.BudleBlockWithHeader
 @Composable
 fun BudleSingleSelectPhotoInput(
     onValueChange: (Uri?) -> Unit,
-    initialUri: Uri?,
-    isError: Boolean
-){
-    var selectedImageUri by remember {
-        mutableStateOf(initialUri)
-    }
+    initialState: Uri?,
+    isError: Boolean,
+) {
+
+    var selectedImageUri by remember { mutableStateOf(initialState) }
     val deleteImageUri = { selectedImageUri = null }
-    val singlePhotoPickerLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.PickVisualMedia(),
-        onResult = { uri -> selectedImageUri = uri }
-    )
+    val singlePhotoPickerLauncher =
+        rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.PickVisualMedia(),
+            onResult = { uri -> selectedImageUri = uri }
+        )
 
     val stroke = Stroke(
         width = 4f,

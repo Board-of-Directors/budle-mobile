@@ -18,7 +18,7 @@ class EstablishmentDTO(
     var owner: Int = 11,
     var map: String = "",
     var name: String = "",
-    var photosInput: List<PhotoDto> = listOf(),
+    var photosInput: List<PhotoDto> = emptyList(),
     var price: Int = 501,
     var rating: Double = 1.2,
     var tags: List<ReturnTag> = emptyList(),

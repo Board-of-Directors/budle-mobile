@@ -8,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import fit.budle.dto.establishment.ReturnTag
 import fit.budle.dto.events.EstCreationEvent
 import fit.budle.ui.components.atoms.inputs.dropdown.BudleDropDownMenu
 import fit.budle.ui.components.atoms.inputs.dropdown.BudleMultiSelectableDropDownMenu
@@ -22,18 +23,8 @@ fun EstablishmentCreationSecondScreen(
     viewModel: EstCreationViewModel,
 ) {
 
-    val selectedTagList = remember { mutableStateListOf<String>() }
-
     var buttonClicked by remember { mutableStateOf(false) }
     var emptyCategoryError by remember { mutableStateOf(true) }
-
-    val onTagSetChange: (String) -> Unit = {
-        if (selectedTagList.contains(it)) {
-            selectedTagList.remove(it)
-        } else {
-            selectedTagList.add(it)
-        }
-    }
 
     viewModel.onEvent(EstCreationEvent.GetCategoryListEvent)
     viewModel.onEvent(EstCreationEvent.GetTagListEvent)
@@ -48,9 +39,7 @@ fun EstablishmentCreationSecondScreen(
             onClick = {
                 buttonClicked = true
                 if (!emptyCategoryError) {
-                    viewModel.onEvent(EstCreationEvent.SecondStep(
-                        viewModel.establishmentDTO.category!!,
-                        selectedTagList.toList()))
+                    viewModel.onEvent(EstCreationEvent.SecondStep)
                     navHostController.navigate("thirdStep")
                 }
             },
@@ -62,13 +51,11 @@ fun EstablishmentCreationSecondScreen(
                     .fillMaxWidth(),
                 isError = if (buttonClicked) emptyCategoryError else false,
                 onValueChange = {
-                    viewModel.establishmentDTO.category = it
-                    viewModel.onEvent(EstCreationEvent.GetVariantList(
-                        viewModel.establishmentDTO.category!!
-                    ))
-                    emptyCategoryError = viewModel.establishmentDTO.category == ""
+                    viewModel.selectedCategory = it
+                    viewModel.onEvent(EstCreationEvent.GetVariantList)
+                    emptyCategoryError = viewModel.selectedCategory.isEmpty()
                 },
-                selectedItem = viewModel.establishmentDTO.category,
+                selectedItem = viewModel.selectedCategory,
                 items = viewModel.testCategoryMap.keys.toList(),
                 placeHolder = "Тип заведения",
                 startMessage = "Выберите тип заведения"
@@ -80,9 +67,9 @@ fun EstablishmentCreationSecondScreen(
                         .fillMaxWidth(),
                     isError = false,
                     onValueChange = {
-                        SubcategoryChanger.SetSubcategory(viewModel,"name",it)
+                        SubcategoryChanger.SetSubcategory(viewModel, "name", it)
                     },
-                    selectedItem = SubcategoryChanger.GetSubcategoryValue(viewModel,"name"),
+                    selectedItem = SubcategoryChanger.GetSubcategoryValue(viewModel, "name"),
                     items = viewModel.variantList,
                     placeHolder = "Подкатегория",
                     startMessage = "Выберите подкатегорию"
@@ -92,10 +79,15 @@ fun EstablishmentCreationSecondScreen(
                 modifier = Modifier
                     .padding(top = 20.dp)
                     .fillMaxWidth(),
-                onValueChange = { onTagSetChange(it) },
+                onValueChange = {
+                    if (viewModel.selectedTagNames.contains(it)) {
+                        viewModel.selectedTagNames.remove(it)
+                    } else viewModel.selectedTagNames.add(it)
+                },
                 items = viewModel.tagList,
+                selectedItems = viewModel.selectedTagNames,
                 placeHolder = "Теги заведения",
-                startMessage = "Выберите теги заведения"
+                startMessage = "Выберите теги заведения",
             )
         }
     }

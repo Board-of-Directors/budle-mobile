@@ -15,7 +15,9 @@ import fit.budle.ui.theme.lightBlue
 import fit.budle.ui.theme.mainWhite
 
 @Composable
-fun budleSwitch(): Boolean {
+fun BudleSwitch(
+    onSwitch: (Boolean) -> Unit
+) {
 
     var isChecked by remember { mutableStateOf(false) }
     val switchColor = if (isChecked) fillPurple else lightBlue
@@ -27,6 +29,7 @@ fun budleSwitch(): Boolean {
             .height(35.dp)
             .clickable(
                 onClick = {
+                    onSwitch(isChecked)
                     isChecked = !isChecked
                 }
             ),
@@ -48,5 +51,4 @@ fun budleSwitch(): Boolean {
             }
         }
     }
-    return isChecked
 }

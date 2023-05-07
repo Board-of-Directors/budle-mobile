@@ -41,7 +41,7 @@ fun BudleScreenWithButton(
             .fillMaxSize()
             .padding(top = 15.dp)
             .padding(horizontal = 20.dp)
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(state = rememberScrollState()),
     ) {
         content()
     }

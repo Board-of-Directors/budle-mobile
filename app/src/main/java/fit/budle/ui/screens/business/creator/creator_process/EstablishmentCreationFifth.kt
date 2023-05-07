@@ -1,5 +1,6 @@
 package fit.budle.ui.screens.business.creator.creator_process
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -20,6 +21,9 @@ fun EstablishmentCreationFifthScreen(
     navHostController: NavHostController,
     viewModel: EstCreationViewModel = hiltViewModel()
 ) {
+    for(day in viewModel.selectedWorkingHours.values){
+        Log.d("TEST", day.daysOfWork.size.toString())
+    }
     Surface(Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
@@ -30,7 +34,7 @@ fun EstablishmentCreationFifthScreen(
                 percent = "100%",
                 textMessage = "Создание заведения",
                 onClick = {
-                    navHostController.navigate("ownerMain")
+                    navHostController.popBackStack()
                 }
             )
             BudleInformationScreen(

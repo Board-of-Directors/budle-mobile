@@ -4,11 +4,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import fit.budle.R
+import fit.budle.dto.establishment.ReturnTag
 import fit.budle.dto.tag.standard.TagResponse
 import fit.budle.ui.theme.lightBlue
 import fit.budle.ui.theme.mainBlack
@@ -18,27 +20,19 @@ import fit.budle.ui.theme.textGray
 fun BudleMultiSelectableDropDownMenu(
     modifier: Modifier = Modifier,
     onValueChange: (String) -> (Unit),
+    selectedItems: SnapshotStateList<String>,
     startMessage: String,
     placeHolder: String,
     items: List<TagResponse>,
 ) {
 
     var isExpanded by remember { mutableStateOf(false) }
-    val selectedItems = remember { mutableStateListOf<String>() }
 
     val dropDownIcon = if (!isExpanded) R.drawable.chevron_down else R.drawable.chevron_up
     val textColor = if (!selectedItems.isEmpty()) mainBlack else textGray
     val inputMessage = if (selectedItems.isEmpty()) startMessage else "Выбрано ${selectedItems.size} тега"
 
     val isSelected: (String) -> (Boolean) = { selectedItems.contains(it) }
-    val onSelect: (String) -> (Unit) = {
-        if (!isSelected(it)) {
-            selectedItems.add(it)
-        } else {
-            selectedItems.remove(it)
-        }
-        onValueChange(it)
-    }
 
     Column(
         modifier = modifier.fillMaxWidth()
@@ -95,7 +89,7 @@ fun BudleMultiSelectableDropDownMenu(
                         item = item.name,
                         iconPath = item.image,
                         isSelected = isSelected,
-                        onSelect = onSelect
+                        onSelect = onValueChange
                     )
                 }
             }

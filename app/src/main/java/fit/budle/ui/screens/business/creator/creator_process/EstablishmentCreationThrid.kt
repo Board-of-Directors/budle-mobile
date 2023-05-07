@@ -1,9 +1,6 @@
 package fit.budle.ui.screens.business.creator.creator_process
 
-import android.graphics.ImageDecoder
-import android.net.Uri
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.dto.events.EstCreationEvent
@@ -29,17 +25,9 @@ fun EstablishmentCreationThirdScreen(
     viewModel: EstCreationViewModel,
 ) {
 
-    var selectedDescription by remember { mutableStateOf("") }
-    val selectedUriList = remember { mutableStateListOf<Uri>() }
-    val bitmapArray = bitmapCreator(uris = selectedUriList.toTypedArray())
-
-    val onDescrChange: (String) -> Unit = {
-        selectedDescription = it
-    }
-    val onUriListChange: (List<Uri>) -> Unit = {
-        selectedUriList.clear()
-        selectedUriList.addAll(it)
-    }
+    viewModel.selectedPhotosBitmap = bitmapCreator(
+        uris = viewModel.selectedPhotosUri.toTypedArray()
+    )
 
     Surface(Modifier.fillMaxSize()) {
         BudleScreenWithButtonAndProgress(
@@ -47,12 +35,7 @@ fun EstablishmentCreationThirdScreen(
             buttonText = "Следующий шаг",
             progress = "60%",
             onClick = {
-                viewModel.onEvent(
-                    EstCreationEvent.ThirdStep(
-                        selectedDescription,
-                        bitmapArray
-                    )
-                )
+                viewModel.onEvent(EstCreationEvent.ThirdStep)
                 navHostController.navigate("fourthStep")
             },
             textMessage = "Создание заведения"
@@ -61,18 +44,20 @@ fun EstablishmentCreationThirdScreen(
                 modifier = Modifier
                     .padding(top = 20.dp)
                     .fillMaxWidth(),
-                onValueChange = { onDescrChange(it) },
+                onValueChange = { viewModel.selectedDescription = it },
                 symbolsCount = true,
                 placeHolderColor = mainBlack,
                 placeHolder = "Описание",
-                startMessage = "",
+                startMessage = viewModel.selectedDescription,
                 textFieldMessage = "Опишите ваше заведение",
                 description = "Макс. 300 символов",
             )
             BudleMultiplePhotoInput(
                 onValueChange = {
-                    onUriListChange(it)
-                }
+                    viewModel.selectedPhotosUri.clear()
+                    viewModel.selectedPhotosUri.addAll(it)
+                },
+                selectedItems = viewModel.selectedPhotosUri
             )
         }
     }

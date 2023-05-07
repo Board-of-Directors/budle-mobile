@@ -7,7 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import fit.budle.ui.components.atoms.inputs.text_fields.budleSingleLineTextField
+import fit.budle.ui.components.atoms.inputs.text_fields.BudleSingleLineTextField
 import fit.budle.ui.theme.backgroundError
 import fit.budle.ui.theme.textGray
 
@@ -40,7 +40,7 @@ fun BudleSingleLineInput(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            if (placeHolder != null){
+            if (placeHolder != null) {
                 Text(
                     text = placeHolder,
                     style = MaterialTheme.typography.bodyMedium,
@@ -48,9 +48,10 @@ fun BudleSingleLineInput(
                 )
             }
         }
-        textInputState = budleSingleLineTextField(
+        BudleSingleLineTextField(
             startMessage = startMessage,
             placeholder = textFieldMessage,
+            onValueChange = { textInputState = it },
             error = isError,
             leadingIcon = leadingIcon,
             trailingIcon = trailingIcon

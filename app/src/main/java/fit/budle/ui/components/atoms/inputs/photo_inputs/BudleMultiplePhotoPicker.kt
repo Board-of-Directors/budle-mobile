@@ -5,17 +5,19 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.*
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import fit.budle.ui.components.moleculas.BudleBlockWithHeader
 
 @Composable
 fun BudleMultiplePhotoInput(
-    onValueChange: (List<Uri>) -> Unit
+    onValueChange: (List<Uri>) -> Unit,
+    selectedItems: MutableList<Uri>
 ) {
 
     var selectedImageUris by remember {
-        mutableStateOf<List<Uri>>(emptyList())
+        mutableStateOf<List<Uri>>(selectedItems)
     }
 
     val changeSelectedImageUris: (Uri) -> Unit = {

@@ -4,18 +4,24 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import fit.budle.ui.components.atoms.inputs.text_fields.BudleNumberTextField
-import fit.budle.ui.models.FromDefaults
-import fit.budle.ui.models.ToDefaults
+import androidx.core.text.isDigitsOnly
+import fit.budle.ui.components.atoms.inputs.text_fields.BudleSingleLineTextField
+import fit.budle.ui.models.TimeDefaults
 
 @Composable
 fun BudleFromToTimeInput(
     modifier: Modifier = Modifier,
+    fromInitialState: String,
+    toInitialState: String,
     onValueChange: (Pair<String, String>) -> Unit,
     enabled: Boolean = true,
 ) {
 
+    val predicate: (String) -> Boolean = { it ->
+        it.isDigitsOnly() || it.filter { char -> char == ':' }.length == 1
+    }
     var fromText by remember { mutableStateOf("") }
     var toText by remember { mutableStateOf("") }
 
@@ -24,23 +30,35 @@ fun BudleFromToTimeInput(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        BudleNumberTextField(
+        BudleSingleLineTextField(
             modifier = Modifier.width(160.dp),
             enabled = enabled,
-            onValueChange = { fromText = it },
-            placeHolder = "с 8:00",
-            inputLength = FromDefaults.INPUT_LENGTH,
-            mask = FromDefaults.MASK
+            inputLength = TimeDefaults.INPUT_LENGTH,
+            isTimeInput = true,
+            startMessage = fromInitialState,
+            placeholder = "с 8:00",
+            onValueChange = {
+                if (predicate(it)) {
+                    fromText = it
+                }
+            },
+            predicate = predicate
         )
-        BudleNumberTextField(
+        BudleSingleLineTextField(
             modifier = Modifier
                 .padding(start = 10.dp)
                 .width(160.dp),
             enabled = enabled,
-            onValueChange = { toText = it },
-            placeHolder = "до 22:00",
-            inputLength = ToDefaults.INPUT_LENGTH,
-            mask = ToDefaults.MASK
+            inputLength = TimeDefaults.INPUT_LENGTH,
+            isTimeInput = true,
+            startMessage = toInitialState,
+            placeholder = "до 22:00",
+            onValueChange = {
+                if (predicate(it)) {
+                    toText = it
+                }
+            },
+            predicate = predicate
         )
     }
     onValueChange(Pair(fromText, toText))

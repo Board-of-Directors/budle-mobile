@@ -17,7 +17,7 @@ fun NavGraphBuilder.establishmentCreationNavGraph(
     navHostController: NavHostController,
 ) {
     navigation(
-        startDestination = "secondStep",
+        startDestination = "fourthStep",
         route = "ownerMain/establishmentCreation/"
     ) {
         composable("firstStep") {
@@ -29,7 +29,9 @@ fun NavGraphBuilder.establishmentCreationNavGraph(
         composable("secondStep") {
             EstablishmentCreationSecondScreen(
                 navHostController = navHostController,
-                viewModel = hiltViewModel()
+                viewModel = hiltViewModel(
+                    navHostController.getBackStackEntry("firstStep")
+                )
             )
         }
         composable("thirdStep") {
@@ -43,16 +45,14 @@ fun NavGraphBuilder.establishmentCreationNavGraph(
         composable("fourthStep") {
             EstablishmentCreationFourthScreen(
                 navHostController = navHostController,
-                viewModel = hiltViewModel(
-                    navHostController.getBackStackEntry("firstStep")
-                )
+                viewModel = hiltViewModel()
             )
         }
         composable("fifthStep") {
             EstablishmentCreationFifthScreen(
                 navHostController = navHostController,
                 viewModel = hiltViewModel(
-                    navHostController.getBackStackEntry("firstStep")
+                    navHostController.getBackStackEntry("fourthStep")
                 )
             )
         }

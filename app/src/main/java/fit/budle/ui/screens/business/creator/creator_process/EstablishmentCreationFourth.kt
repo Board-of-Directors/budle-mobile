@@ -8,12 +8,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
 import fit.budle.dto.WorkingHour
+import fit.budle.dto.establishment.WorkingHoursDto
 import fit.budle.dto.events.EstCreationEvent
+import fit.budle.dto.tag.active.days
 import fit.budle.dto.tag.subwayStations
 import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.ui.components.atoms.inputs.dropdown.BudleDropDownMenu
@@ -29,77 +32,35 @@ fun EstablishmentCreationFourthScreen(
     navHostController: NavHostController,
     viewModel: EstCreationViewModel,
 ) {
-
-    var daysCount by remember { mutableStateOf(1) }
-    var selectedSubwayStation by remember { mutableStateOf("Отсутствует") }
-    val selectedWorkingDays = remember { mutableStateListOf<WorkingHour>() }
-    Log.d("WORKING_HOURS", selectedWorkingDays.size.toString())
-
-    val onSubwayStationChange: (String) -> Unit = { selectedSubwayStation = it }
-    val onWorkingDaysChange: (List<WorkingHour>) -> Unit = {
-        selectedWorkingDays.clear()
-        for (workingHour in it) {
-            if (!selectedWorkingDays.contains(workingHour)) {
-                selectedWorkingDays.add(workingHour)
-            }
-        }
-    }
-
     Surface(Modifier.fillMaxSize()) {
         BudleScreenWithButtonAndProgress(
             navHostController = navHostController,
             buttonText = "Следующий шаг",
             progress = "80%",
             onClick = {
-                viewModel.onEvent(
-                    EstCreationEvent.FourthStep(
-                        selectedSubwayStation,
-                        selectedWorkingDays
-                    )
-                )
+                viewModel.onEvent(EstCreationEvent.FourthStep)
                 navHostController.navigate("fifthStep")
             },
             textMessage = "Создание заведения"
         ) {
-            /*budleSingleLineInput(
-                modifier = Modifier
-                    .padding(top = 20.dp)
-                    .fillMaxWidth(),
-                placeHolderColor = mainBlack,
-                placeHolder = "Адрес",
-                startMessage = "",
-                textFieldMessage = "Укажите адрес на карте",
-                trailingIcon = {
-                    IconButton(onClick = { }) {
-                        Icon(
-                            modifier = Modifier.padding(end = 10.dp),
-                            painter = painterResource(id = R.drawable.map),
-                            contentDescription = "Map",
-                            tint = fillPurple
-                        )
-                    }
-                }
-            )*/
             BudleDropDownMenu(
                 modifier = Modifier
                     .padding(top = 20.dp)
                     .fillMaxWidth(),
-                onValueChange = { onSubwayStationChange(it) },
+                onValueChange = { viewModel.selectedAddress = it },
                 items = subwayStations,
                 placeHolder = "Метро",
                 startMessage = "Укажите станцию метро",
                 isError = false,
-                selectedItem = ""
+                selectedItem = viewModel.selectedAddress
             )
             BudleWorkingDaysPickerList(
-                items = daysCount,
-                onValueChange = {
-                    onWorkingDaysChange(it)
-                }
+                daysCount = viewModel.blocksCount,
+                selectedItems = viewModel.selectedWorkingHours
             )
             BudleButton(
                 bottomPadding = 100.dp,
-                onClick = { daysCount++ },
+                onClick = { viewModel.blocksCount++ },
                 buttonText = "Добавить ещё",
                 disabledButtonColor = lightBlue,
                 disabledTextColor = fillPurple,

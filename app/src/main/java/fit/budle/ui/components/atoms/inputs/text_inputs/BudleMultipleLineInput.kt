@@ -7,7 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import fit.budle.ui.components.atoms.inputs.text_fields.budleMultipleTextField
+import fit.budle.ui.components.atoms.inputs.text_fields.BudleMultipleTextField
 import fit.budle.ui.theme.backgroundError
 import fit.budle.ui.theme.textGray
 
@@ -24,9 +24,7 @@ fun BudleMultipleLineInput(
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
 ) {
-    var textInputState by remember {
-        mutableStateOf("")
-    }
+    var textInputState by remember { mutableStateOf("") }
     val textError = remember { mutableStateOf(false) }
 
     Column(
@@ -53,13 +51,15 @@ fun BudleMultipleLineInput(
                 )
             }
         }
-        textInputState = budleMultipleTextField(
+        BudleMultipleTextField(
             startMessage = startMessage,
             placeholder = textFieldMessage,
             error = textError,
+            onValueChange = { textInputState = it },
             leadingIcon = leadingIcon,
             trailingIcon = trailingIcon
         )
+        onValueChange(textInputState)
         if (textError.value) {
             Text(
                 text = "Это поле не может быть пустым",
@@ -76,6 +76,5 @@ fun BudleMultipleLineInput(
                 modifier = Modifier.padding(top = 10.dp)
             )
         }
-        onValueChange(textInputState)
     }
 }

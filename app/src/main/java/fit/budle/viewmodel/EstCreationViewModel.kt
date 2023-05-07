@@ -13,14 +13,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fit.budle.dto.WorkingHour
+import fit.budle.dto.customer_user.User
 import fit.budle.dto.establishment.EstablishmentDTO
 import fit.budle.dto.establishment.ReturnTag
+import fit.budle.dto.establishment.WorkingHoursDto
 import fit.budle.dto.establishment.establishment_field.PhotoDto
 import fit.budle.dto.establishment.etsablishment_type.EstablishmentExtendedDto
 import fit.budle.dto.events.EstCreationEvent
 import fit.budle.dto.result.GetCategoryListResult
 import fit.budle.dto.result.GetCategoryVariantListResult
 import fit.budle.dto.result.GetTagListResult
+import fit.budle.dto.tag.active.ActiveCircleTag
+import fit.budle.dto.tag.active.Tag
 import fit.budle.dto.tag.standard.TagResponse
 import fit.budle.repository.EstCreationRepository
 import kotlinx.coroutines.launch
@@ -34,13 +38,28 @@ class EstCreationViewModel @Inject constructor(
 
     var establishmentDTO by mutableStateOf(EstablishmentDTO())
 
+    // required fields
+    var selectedName by mutableStateOf("")
+    var selectedImageUri by mutableStateOf<Uri?>(null)
+    var selectedImageBitmap by mutableStateOf<Bitmap?>(null)
+    var selectedCategory by mutableStateOf("")
+    var selectedTagNames = mutableStateListOf<String>()
+    var selectedDescription by mutableStateOf("")
+    var selectedPhotosBitmap by mutableStateOf(emptyList<Bitmap>())
+    var selectedPhotosUri = mutableListOf<Uri>()
+    var selectedAddress by mutableStateOf("")
+    var selectedWorkingHours = mutableStateMapOf<Int, WorkingHoursDto>()
+    var hasMap by mutableStateOf(false)
+    var blocksCount by mutableStateOf(1)
+
+    // optional fields
+    var selectedCuisineCountry by mutableStateOf<String?>(null)
+    var selectedStarsCount by mutableStateOf<String?>(null)
+
     val testCategoryMap = mapOf(
         "Рестораны" to "cuisineCountry",
         "Отели" to "starsCount"
     )
-
-    var selectedMainImageUri by mutableStateOf<Uri?>(null)
-    var selectedPhotosUri by mutableStateOf(emptyList<Uri>())
 
     var categoryList by mutableStateOf(emptyList<String>())
     var tagList by mutableStateOf(emptyList<TagResponse>())
@@ -50,54 +69,40 @@ class EstCreationViewModel @Inject constructor(
         when (event) {
             is EstCreationEvent.FirstStep -> {
                 viewModelScope.launch {
-                    establishmentDTO.image = convertBitmapToBase64(event.imageBitmap)
-                    establishmentDTO.name = event.name
-                    Log.d("IMAGE", establishmentDTO.image)
-                    Log.d("NAME", establishmentDTO.name)
+                    val convertedImage = convertBitmapToBase64(selectedImageBitmap)
+                    if (convertedImage != null) {
+                        establishmentDTO.image = convertedImage
+                        establishmentDTO.name = selectedName
+                    } else {
+                        Log.d("FIRST_STEP", "IMAGE IS NULL")
+                    }
                 }
             }
             is EstCreationEvent.SecondStep -> {
                 viewModelScope.launch {
-                    val tagList = mutableListOf<ReturnTag>()
-                    for (tag in event.tags) {
-                        tagList.add(ReturnTag(tag))
-                    }
-                    establishmentDTO.category = event.category
-                    establishmentDTO.tags = tagList
-                    Log.d("IMAGE", establishmentDTO.image)
-                    Log.d("NAME", establishmentDTO.name)
-                    Log.d("CATEGORY", establishmentDTO.category!!)
-                    Log.d("TAGS", establishmentDTO.tags.size.toString())
+                    establishmentDTO.category = selectedCategory
+                    val selectedTags = mutableListOf<ReturnTag>()
+                    selectedTagNames.forEach { selectedTags.add(ReturnTag(it)) }
+                    establishmentDTO.tags = selectedTags
                 }
             }
             is EstCreationEvent.ThirdStep -> {
                 viewModelScope.launch {
-                    establishmentDTO.description = event.description
-                    val encodedBitmaps = mutableListOf<PhotoDto>()
-                    event.photosInput.forEach { bitmap ->
-                        encodedBitmaps.add(PhotoDto(convertBitmapToBase64(bitmap)))
+                    establishmentDTO.description = selectedDescription
+                    val convertedPhotos = mutableListOf<PhotoDto>()
+                    selectedPhotosBitmap.forEach { bitmap ->
+                        val convertedPhoto = convertBitmapToBase64(bitmap)
+                        if (convertedPhoto != null) {
+                            convertedPhotos.add(PhotoDto(convertedPhoto))
+                        } else Log.d("THIRD_STEP", "IMAGE IS NULL")
                     }
-                    establishmentDTO.photosInput = encodedBitmaps.toList()
-                    Log.d("IMAGE", establishmentDTO.image)
-                    Log.d("NAME", establishmentDTO.name)
-                    Log.d("CATEGORY", establishmentDTO.category!!)
-                    Log.d("TAGS", establishmentDTO.tags.size.toString())
-                    Log.d("DESCRP", establishmentDTO.description!!)
-                    Log.d("PHOTOS", establishmentDTO.photosInput.size.toString())
+                    establishmentDTO.photosInput = convertedPhotos
                 }
             }
             is EstCreationEvent.FourthStep -> {
                 viewModelScope.launch {
-                    establishmentDTO.address = event.address
+                    establishmentDTO.address = selectedAddress
                     establishmentDTO.workingHours = listOf(WorkingHour("Пн", "12:00", "22:00"))
-                    Log.d("IMAGE", establishmentDTO.image)
-                    Log.d("NAME", establishmentDTO.name)
-                    Log.d("CATEGORY", establishmentDTO.category!!)
-                    Log.d("TAGS", establishmentDTO.tags.size.toString())
-                    Log.d("DESCRP", establishmentDTO.description!!)
-                    Log.d("PHOTOS", establishmentDTO.photosInput.size.toString())
-                    Log.d("ADDRESS", establishmentDTO.address)
-                    Log.d("WORKINGHOURS", establishmentDTO.workingHours.size.toString())
                 }
             }
             is EstCreationEvent.CreateEstablishment -> {
@@ -148,7 +153,7 @@ class EstCreationViewModel @Inject constructor(
             is EstCreationEvent.GetVariantList -> {
                 viewModelScope.launch {
                     when (val result =
-                        estCreationRepository.getCategoryVariantList(event.category)) {
+                        estCreationRepository.getCategoryVariantList(selectedCategory)) {
                         is GetCategoryVariantListResult.Success -> {
                             variantList = result.result
                         }
@@ -178,10 +183,12 @@ class EstCreationViewModel @Inject constructor(
         } else return null
     }
 
-    private fun convertBitmapToBase64(imageBitmap: Bitmap): String {
-        val baos = ByteArrayOutputStream()
-        imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
-        val byteArray = baos.toByteArray()
-        return Base64.encodeToString(byteArray, Base64.DEFAULT).replace("\n", "")
+    private fun convertBitmapToBase64(imageBitmap: Bitmap?): String? {
+        return if (imageBitmap != null) {
+            val baos = ByteArrayOutputStream()
+            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
+            val byteArray = baos.toByteArray()
+            Base64.encodeToString(byteArray, Base64.DEFAULT).replace("\n", "")
+        } else return null
     }
 }

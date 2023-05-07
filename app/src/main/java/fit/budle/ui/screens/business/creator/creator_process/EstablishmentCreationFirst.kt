@@ -25,20 +25,12 @@ fun EstablishmentCreationFirstScreen(
     viewModel: EstCreationViewModel,
 ) {
 
-    var selectedImage: Uri? by remember { mutableStateOf(null) }
-    var selectedName by remember { mutableStateOf("") }
     var buttonClicked by remember { mutableStateOf(false) }
     var emptyImageError by remember { mutableStateOf(false) }
     var emptyNameInputError by remember { mutableStateOf(false) }
 
-    val initialEstName = if (viewModel.establishmentDTO.name == "")
-        "" else viewModel.establishmentDTO.name
-
-    val initialUri = if (viewModel.establishmentDTO.image == "")
-        null else viewModel.selectedMainImageUri
-
-    val source = if (selectedImage != null) {
-        ImageDecoder.createSource(LocalContext.current.contentResolver, selectedImage!!)
+    val source = if (viewModel.selectedImageUri != null) {
+        ImageDecoder.createSource(LocalContext.current.contentResolver, viewModel.selectedImageUri as Uri)
     } else null
 
     Surface(
@@ -51,8 +43,8 @@ fun EstablishmentCreationFirstScreen(
                 buttonClicked = true
 
                 if (!emptyImageError && !emptyNameInputError) {
-                    val bitmap = ImageDecoder.decodeBitmap(source!!)
-                    viewModel.onEvent(EstCreationEvent.FirstStep(bitmap, selectedName))
+                    viewModel.selectedImageBitmap = ImageDecoder.decodeBitmap(source!!)
+                    viewModel.onEvent(EstCreationEvent.FirstStep)
                     navHostController.navigate("secondStep")
                 }
 
@@ -63,25 +55,26 @@ fun EstablishmentCreationFirstScreen(
         ) {
             BudleSingleSelectPhotoInput(
                 onValueChange = {
-                    selectedImage = it
-                    viewModel.selectedMainImageUri = it
-                    emptyImageError = selectedImage == null
+                    viewModel.selectedImageUri = it
+                    emptyImageError = viewModel.selectedImageUri == null
                 },
-                initialUri = initialUri,
-                isError = if (buttonClicked) emptyImageError else false
+                initialState = viewModel.selectedImageUri,
+                isError = if (buttonClicked && viewModel.selectedImageUri == null) {
+                    emptyImageError
+                } else false
             )
             BudleSingleLineInput(
                 modifier = Modifier
                     .padding(top = 20.dp)
                     .fillMaxWidth(),
                 onValueChange = {
-                    selectedName = it
-                    emptyNameInputError = selectedName == ""
+                    viewModel.selectedName = it
+                    emptyNameInputError = viewModel.selectedName.isEmpty()
                 },
                 isError = if (buttonClicked) emptyNameInputError else false,
                 placeHolderColor = mainBlack,
                 placeHolder = "Название",
-                startMessage = initialEstName,
+                startMessage = viewModel.selectedName,
                 textFieldMessage = "Введите название"
             )
         }
