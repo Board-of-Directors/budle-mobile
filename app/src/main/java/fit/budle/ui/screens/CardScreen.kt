@@ -34,11 +34,10 @@ fun CardScreen(
     navHostController: NavController,
     viewModel: MainViewModel = hiltViewModel(),
 ) {
+    viewModel.onEvent(MainEvent.getEstablishment)
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
-        Log.d("IDD", viewModel.establishmentCardId.toString())
-        viewModel.onEvent(MainEvent.getEstablishment)
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -69,7 +68,7 @@ fun CardScreen(
                 BudleButton(
                     onClick = {
                         navHostController.navigate(
-                            "main" //TODO Сделать нормальный root
+                            "orderCreate/${viewModel.establishmentCardId}/${viewModel.establishmentCard.name}"
                         )
                     },
                     buttonText = "Забронировать место",

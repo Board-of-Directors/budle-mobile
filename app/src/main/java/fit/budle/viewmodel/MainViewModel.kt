@@ -29,7 +29,6 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     var categories: Array<String> by mutableStateOf(emptyArray())
-    var orders: Array<Booking> by mutableStateOf(emptyArray())
     var establishments: HashMap<String, MutableState<EstablishmentArray>> = hashMapOf()
 
     var establishments2: List<MutableState<EstablishmentArray>> by mutableStateOf(emptyList())
@@ -108,52 +107,6 @@ class MainViewModel @Inject constructor(
                     }
                     establishments2 = establishments3
                 }
-            }
-            is MainEvent.getOrder -> {
-                viewModelScope.launch {
-                    when (val response = repository.getOrder(event.userId, event.status)) {
-                        is OrderListResult.Success -> {
-                            Log.d("MAINVIEWMODEL", "SUCCESS")
-                            response.result.map {
-                                it.establishmentImage = convertEstablishment(it.establishment)
-                                //it.time = it.time.subSequence(0, it.time.length - 3).toString()
-                                val date =
-                                    SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(it.date)
-                                val formattedDatesString =
-                                    date?.let { it1 ->
-                                        SimpleDateFormat("LLLL dd, yyyy", Locale.getDefault()).format(
-                                            it1
-                                        )
-                                    }
-                                if (formattedDatesString != null) {
-                                    it.date = formattedDatesString
-                                }
-
-                            }
-                            orders = response.result
-                        }
-                        is OrderListResult.Failure -> {
-                            Log.e("MAINVIEWMODEL", "FAILURE")
-                            response.throwable.message?.let { Log.e("MAINVIEWMODEL", it) }
-                        }
-                    }
-                }
-            }
-            is MainEvent.postOrder -> {
-                //TODO Сделать postOrder
-            }
-            is MainEvent.deleteOrder -> {
-                viewModelScope.launch {
-                    when (repository.deleteOrder(event.userId, event.orderId)) {
-                        is OrderResult.Success -> {
-                            Log.d("MAINVIEWMODEL", "SUCCESS")
-                        }
-                        is OrderResult.Failure -> {
-                            Log.e("MAINVIEWMODEL", "FAILURE")
-                        }
-                    }
-                }
-
             }
         }
     }

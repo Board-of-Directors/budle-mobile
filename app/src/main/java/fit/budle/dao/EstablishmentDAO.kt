@@ -24,19 +24,4 @@ interface EstablishmentDAO {
     @GET("establishment/category")
     suspend fun getEstablishmentCategory(
     ): EstablishmentResponse.CategoriesResponse
-
-    @GET("order")
-    suspend fun getOrder(
-        @Query("userId") userId: Long,
-        @Query("status") status: Int?
-    ): EstablishmentResponse.OrdersResponse
-
-    @POST("order")
-    suspend fun postOrder(@Body requestBody: RequestBody): EstablishmentResponse.RegistrationAnswer
-
-    @DELETE("order")
-    suspend fun deleteOrder(
-        @Query("userId") userId: Long,
-        @Query("orderId") orderId: Long
-    ): EstablishmentResponse.RegistrationAnswer
 }

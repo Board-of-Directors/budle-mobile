@@ -20,16 +20,4 @@ interface EstablishmentRepository {
     ): EstablishmentListResult
 
     suspend fun getCategory(): CategoriesListResult
-
-    suspend fun getOrder(userId: Long, status: Int?): OrderListResult
-
-    suspend fun postOrder(
-        establishmentId: Long,
-        userId: Long,
-        guestCount: Int,
-        time: String,
-        date: String,
-    ): OrderResult
-
-    suspend fun deleteOrder(userId: Long, orderId: Long): OrderResult
 }

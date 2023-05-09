@@ -60,6 +60,13 @@ fun NavigationComponent(navController: NavHostController) {
                     mainViewModel
                 )
         }
+        composable("orderCreate/{establishmentId}/{establishmentName}") {
+            OrderScreen(
+                navHostController = navController,
+                it.arguments?.getString("establishmentId"),
+                it.arguments?.getString("establishmentName"),
+            )
+        }
         establishmentCreationNavGraph(navController)
     }
 }

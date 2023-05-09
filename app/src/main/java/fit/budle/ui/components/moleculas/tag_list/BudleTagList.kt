@@ -28,7 +28,7 @@ fun BudleTagList(
 ) {
 
     var selectedItem by remember { mutableStateOf(initialState) }
-    val isSelectedItem: (Tag) -> Boolean = { if (selectable) selectedItem == it else false}
+    val isSelectedItem: (Tag) -> Boolean = { if (selectable) selectedItem.tagId == it.tagId else false}
     val onChangeState: (Tag) -> Unit = {
         selectedItem = if (!isSelectedItem(it) && selectable) it else selectedItem
     }

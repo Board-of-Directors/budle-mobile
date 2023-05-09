@@ -21,14 +21,3 @@ sealed class CategoriesListResult {
         CategoriesListResult()
     data class Failure(val throwable: Throwable) : CategoriesListResult()
 }
-
-sealed class OrderResult {
-    data class Success(val result: Boolean?, val exceptionMessage: String?) : OrderResult()
-    data class Failure(val throwable: Throwable) : OrderResult()
-}
-
-sealed class OrderListResult {
-    data class Success(val result: Array<Booking>, val exceptionMessage: String?) :
-        OrderListResult()
-    data class Failure(val throwable: Throwable) : OrderListResult()
-}

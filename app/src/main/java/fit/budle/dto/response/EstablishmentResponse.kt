@@ -19,10 +19,4 @@ sealed interface EstablishmentResponse {
 
     data class CategoriesResponse(val result: Array<String>, val exception: Exception?) :
         EstablishmentResponse
-
-    data class OrdersResponse(val result: Array<Booking>, val exception: Exception?) :
-        EstablishmentResponse
-
-    data class RegistrationAnswer(val result: Boolean?, val exception: Exception?) :
-        EstablishmentResponse
 }
