@@ -3,18 +3,12 @@ package fit.budle.viewmodel
 import android.graphics.BitmapFactory
 import android.util.Base64
 import android.util.Log
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import fit.budle.dto.establishment.EstablishmentResponse
-import fit.budle.dto.establishment.EstablishmentArray
-import fit.budle.dto.establishment.Establishment
-import fit.budle.dto.tag.active.ordersTagList
 import fit.budle.dto.tag.standard.Tag
 import fit.budle.repository.EstablishmentRepository
 import kotlinx.coroutines.launch
@@ -22,146 +16,165 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import fit.budle.dto.establishment.CategoriesListResult
-import fit.budle.dto.establishment.EstablishmentListResult
-import fit.budle.dto.establishment.OrderListResult
-import fit.budle.dto.establishment.OrderResult
+import fit.budle.dto.customer_user.User
+import fit.budle.dto.establishment.*
+import fit.budle.dto.events.MainEvent
 import fit.budle.dto.order.Booking
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.seconds
 
-class MainViewModel (
+@HiltViewModel
+class MainViewModel @Inject constructor(
     private var repository: EstablishmentRepository
 ) : ViewModel() {
 
     var categories: Array<String> by mutableStateOf(emptyArray())
     var orders: Array<Booking> by mutableStateOf(emptyArray())
-    var categoryMap: HashMap<String, MutableState<EstablishmentArray>> = hashMapOf()
+    var establishments: HashMap<String, MutableState<EstablishmentArray>> = hashMapOf()
 
-    fun getListOfEstablishments(
-        category: String?,
-        limit: Int?,
-        offset: Int?,
-        sortValue: String?,
-        name: String?,
-        hasCardPayment: Boolean?,
-        hasMap: Boolean?,
-    ): EstablishmentArray {
-        viewModelScope.launch {
-            when (val response = repository.getEstablishment(
-                category, limit, offset, sortValue, name, hasCardPayment, hasMap
-            )) {
-                is EstablishmentListResult.Success -> {
-                    Log.d("MAINVIEWMODEL", "SUCCESS")
-                    if (category != null) {
-                        categoryMap[category] =
-                            mutableStateOf(EstablishmentArray(response.result.establishments.map {
-                                convertEstablishment(it)
-                            }.toTypedArray(), response.result.count))
-                    }
-                }
-                is EstablishmentListResult.Failure -> {
-                    Log.e("MAINVIEWMODEL", "FAILURE")
-                    response.throwable.message?.let { Log.e("MAINVIEWMODEL", it) }
-                }
-                else -> {
-                    Log.e("CRITICAL_ERROR", "UNDEFINED RESPONSE")
-                }
-            }
-        }
-        return if (category != null) {
-            categoryMap[category]?.value ?: EstablishmentArray()
-        } else {
-            EstablishmentArray()
-        }
-    }
+    var establishments2: List<MutableState<EstablishmentArray>> by mutableStateOf(emptyList())
+    var establishments3: ArrayList<MutableState<EstablishmentArray>> = arrayListOf()
 
-    fun getCard(category: String?, cardID: String?): Establishment? =
-        cardID?.let { categoryMap[category]?.value?.establishments?.get(it.toInt()) }
+    var establishmentCard: Establishment by mutableStateOf(Establishment())
+    var establishmentCardId: Long by mutableStateOf(1)
 
-    fun getListOfCategories(): Array<String> {
-        viewModelScope.launch {
-            when (val response = repository.getCategories()) {
-                is CategoriesListResult.Success -> {
-                    Log.d("MAINVIEWMODEL", "SUCCESS")
-                    categories = response.result
-                }
-                is CategoriesListResult.Failure -> {
-                    Log.e("MAINVIEWMODEL", "FAILURE")
-                    response.throwable.message?.let { Log.e("MAINVIEWMODEL", it) }
-                }
-                else -> {
-                    Log.e("CRITICAL_ERROR", "UNDEFINED RESPONSE")
-                }
-            }
-        }
-        return categories
-    }
 
-    fun getListOfOrders(userId: Long, status: String?): Array<Booking> {
-        val map = HashMap<String, Int?>()
-        for (tag in ordersTagList) {
-            map[tag.tagName] = tag.tagId - 1
-        }
-        map["Все"] = null
-        viewModelScope.launch {
-            when (val response = repository.getOrders(userId, map[status])) {
-                is OrderListResult.Success -> {
-                    Log.d("MAINVIEWMODEL", "SUCCESS")
-                    response.result.map {
-                        it.establishmentImage = convertEstablishment(it.establishment)
-                        //it.time = it.time.subSequence(0, it.time.length - 3).toString()
-                        val date =
-                            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(it.date)
-                        val formattedDatesString =
-                            date?.let { it1 ->
-                                SimpleDateFormat("LLLL dd, yyyy", Locale.getDefault()).format(
-                                    it1
-                                )
-                            }
-                        if (formattedDatesString != null) {
-                            it.date = formattedDatesString
+    fun onEvent(event: MainEvent) {
+        when (event) {
+            is MainEvent.getEstablishment -> {
+                viewModelScope.launch {
+                    when (val response =
+                        repository.getEstablishment(establishmentCardId)) {
+                        is EstablishmentResult.Success -> {
+                            Log.d("MAINVIEWMODEL", "SUCCESS")
+                            establishmentCard = convertEstablishment(response.result)
                         }
-
+                        is EstablishmentResult.Failure -> {
+                            Log.e("MAINVIEWMODEL", "FAILURE")
+                            response.throwable.message?.let { Log.e("MAINVIEWMODEL", it) }
+                        }
                     }
-                    orders = response.result
-                }
-                is OrderListResult.Failure -> {
-                    Log.e("MAINVIEWMODEL", "FAILURE")
-                    response.throwable.message?.let { Log.e("MAINVIEWMODEL", it) }
-                }
-                else -> {
-                    Log.e("CRITICAL_ERROR", "UNDEFINED RESPONSE")
                 }
             }
-        }
-        return orders
-    }
+            is MainEvent.getEstablishmentALl -> {
+                viewModelScope.launch {
+                    when (val response = repository.getEstablishmentAll(
+                        event.category, event.limit, event.offset, event.sortValue, event.name, event.hasCardPayment, event.hasMap
+                    )) {
+                        is EstablishmentListResult.Success -> {
+                            Log.d("MAINVIEWMODEL", "SUCCESS")
+                            if (event.category != null) {
+                                establishments[event.category] =
+                                    mutableStateOf(EstablishmentArray(response.result.establishments.map {
+                                        convertEstablishment(it)
+                                    }.toTypedArray(), response.result.count))
+                            }
+                        }
+                        is EstablishmentListResult.Failure -> {
+                            Log.e("MAINVIEWMODEL", "FAILURE")
+                            response.throwable.message?.let { Log.e("MAINVIEWMODEL", it) }
+                        }
+                    }
+                }
+            }
+            is MainEvent.getCategory -> {
+                viewModelScope.launch {
+                    delay(5.seconds)
+                    when (val response = repository.getCategory()) {
+                        is CategoriesListResult.Success -> {
+                            Log.d("MAINVIEWMODEL", "SUCCESS")
+                            categories = response.result
+                        }
+                        is CategoriesListResult.Failure -> {
+                            Log.e("MAINVIEWMODEL", "FAILURE")
+                            response.throwable.message?.let { Log.e("MAINVIEWMODEL", it) }
+                        }
+                    }
+                    for (category in categories) {
+                        when (val response = repository.getEstablishmentAll(
+                            category, null, null, null, null, null, null
+                        )) {
+                            is EstablishmentListResult.Success -> {
+                                Log.d("MAINVIEWMODEL", "SUCCESS")
+                                establishments3.add(mutableStateOf(EstablishmentArray(response.result.establishments.map {
+                                    convertEstablishment(it)
+                                }.toTypedArray(), response.result.count)))
+                            }
+                            is EstablishmentListResult.Failure -> {
+                                Log.e("MAINVIEWMODEL", "FAILURE")
+                                response.throwable.message?.let { Log.e("MAINVIEWMODEL", it) }
+                            }
+                        }
+                    }
+                    establishments2 = establishments3
+                }
+            }
+            is MainEvent.getOrder -> {
+                viewModelScope.launch {
+                    when (val response = repository.getOrder(event.userId, event.status)) {
+                        is OrderListResult.Success -> {
+                            Log.d("MAINVIEWMODEL", "SUCCESS")
+                            response.result.map {
+                                it.establishmentImage = convertEstablishment(it.establishment)
+                                //it.time = it.time.subSequence(0, it.time.length - 3).toString()
+                                val date =
+                                    SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(it.date)
+                                val formattedDatesString =
+                                    date?.let { it1 ->
+                                        SimpleDateFormat("LLLL dd, yyyy", Locale.getDefault()).format(
+                                            it1
+                                        )
+                                    }
+                                if (formattedDatesString != null) {
+                                    it.date = formattedDatesString
+                                }
 
-    fun deleteOrderFromUser(userId: Long, orderId: Long) {
-        viewModelScope.launch {
-            when (repository.deleteOrder(userId, orderId)) {
-                is OrderResult.Success -> {
-                    Log.d("MAINVIEWMODEL", "SUCCESS")
+                            }
+                            orders = response.result
+                        }
+                        is OrderListResult.Failure -> {
+                            Log.e("MAINVIEWMODEL", "FAILURE")
+                            response.throwable.message?.let { Log.e("MAINVIEWMODEL", it) }
+                        }
+                    }
                 }
-                is OrderResult.Failure -> {
-                    Log.e("MAINVIEWMODEL", "FAILURE")
+            }
+            is MainEvent.postOrder -> {
+                //TODO Сделать postOrder
+            }
+            is MainEvent.deleteOrder -> {
+                viewModelScope.launch {
+                    when (repository.deleteOrder(event.userId, event.orderId)) {
+                        is OrderResult.Success -> {
+                            Log.d("MAINVIEWMODEL", "SUCCESS")
+                        }
+                        is OrderResult.Failure -> {
+                            Log.e("MAINVIEWMODEL", "FAILURE")
+                        }
+                    }
                 }
-                else -> {
-                    Log.e("CRITICAL_ERROR", "UNDEFINED RESPONSE")
-                }
+
             }
         }
     }
 
-    private fun convertEstablishment(establishment: EstablishmentResponse): Establishment {
-        var decodedImage: BitmapPainter? = null
+    private fun convertEstablishment(establishment: EstablishmentDto): Establishment {
+
+
+        val decodedImage: BitmapPainter? = null //TODO Разобраться с картинками
         val decodedTagsIcons: ArrayList<Tag> = arrayListOf()
+/*
         if (establishment.image != null) {
             val imageBytes: ByteArray = Base64.decode(establishment.image, Base64.DEFAULT)
-            decodedImage = BitmapPainter(
-                BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size).asImageBitmap()
-            )
-        }
+            val factory = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+            if (factory != null) {
+                decodedImage = BitmapPainter(
+                    factory.asImageBitmap()
+                )
+            }
+        }*/
 
+        /* TODO Впилить SVG иконки
         establishment.tags.forEach {
             var decodedIcon: BitmapPainter? = null
             if (it.image != null) {
@@ -172,23 +185,24 @@ class MainViewModel (
             }
             decodedTagsIcons.add(Tag(name = it.name, image = decodedIcon))
         }
+        */
 
-        return Establishment(
-            establishment.id,
+        return Establishment( //TODO костылиии в значениях
+            establishment.id.toLong(),
             establishment.name,
             establishment.description,
             establishment.address,
-            establishment.owner,
-            establishment.hasCardPayment,
-            establishment.hasMap,
+            User("Олег"),
+            hasCardPayment = false,
+            hasMap = false,
             establishment.category,
             decodedImage,
             establishment.rating,
-            establishment.price,
+            1,
             establishment.workingHours,
             decodedTagsIcons,
-            establishment.cuisineCountry,
-            establishment.starsCount
+            "костыль-кухня",
+            2
         )
     }
 }

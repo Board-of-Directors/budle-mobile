@@ -2,7 +2,7 @@ package fit.budle.repository_impl
 
 import android.util.Log
 import fit.budle.dao.EstCreationDAO
-import fit.budle.dto.establishment.EstablishmentDTO
+import fit.budle.dto.establishment.EstablishmentDtoResponseDto
 import fit.budle.dto.result.GetCategoryListResult
 import fit.budle.dto.result.GetCategoryVariantListResult
 import fit.budle.dto.result.GetTagListResult
@@ -14,7 +14,7 @@ class EstCreationRepositoryImpl @Inject constructor(
     private val estCreationDAO: EstCreationDAO,
 ) : EstCreationRepository {
 
-    override suspend fun postEstablishment(requestEstablishmentDto: EstablishmentDTO): PostEstablishmentResult {
+    override suspend fun postEstablishment(requestEstablishmentDto: EstablishmentDtoResponseDto): PostEstablishmentResult {
         return try {
             val response = estCreationDAO.postEstablishment(requestEstablishmentDto)
             Log.d("POST_ESTABLISHMENT", "SUCCESS")

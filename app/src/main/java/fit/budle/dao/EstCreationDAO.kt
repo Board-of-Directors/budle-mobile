@@ -1,7 +1,6 @@
 package fit.budle.dao
 
-import fit.budle.dto.establishment.EstablishmentDTO
-import fit.budle.dto.establishment.etsablishment_type.EstablishmentExtendedDto
+import fit.budle.dto.establishment.EstablishmentDtoResponseDto
 import fit.budle.dto.response.EstCreationResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -11,7 +10,7 @@ import retrofit2.http.Query
 interface EstCreationDAO {
 
     @POST("establishment")
-    suspend fun postEstablishment(@Body requestEstablishmentDto: EstablishmentDTO) : EstCreationResponse.PostEstablishmentResponse
+    suspend fun postEstablishment(@Body requestEstablishmentDto: EstablishmentDtoResponseDto) : EstCreationResponse.PostEstablishmentResponse
 
     @GET("establishment/category")
     suspend fun getCategoryList() : EstCreationResponse.GetEstCategoryListResponse

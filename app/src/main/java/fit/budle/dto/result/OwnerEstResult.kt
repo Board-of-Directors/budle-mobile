@@ -1,8 +1,6 @@
 package fit.budle.dto.result
 
-import fit.budle.dto.establishment.EstablishmentResponse
 import fit.budle.dto.Exception
-import fit.budle.dto.establishment.etsablishment_type.EstablishmentBasicDto
 import fit.budle.dto.establishment.etsablishment_type.EstablishmentShortDto
 
 sealed interface OwnerEstResult {

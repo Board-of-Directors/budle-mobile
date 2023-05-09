@@ -1,5 +1,6 @@
 package fit.budle.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -14,47 +15,40 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fit.budle.R
 import fit.budle.dto.establishment.EstablishmentRequest
-import fit.budle.dto.establishment.EstablishmentArray
+import fit.budle.dto.events.MainEvent
+import fit.budle.ui.components.moleculas.establishments.EstablishmentRow
 import fit.budle.ui.theme.backgroundLightBlue
 import fit.budle.ui.theme.mainBlack
+import fit.budle.viewmodel.MainViewModel
 
 @Composable
-fun HomeScreen(
-    navController: NavController, establishmentProvider: (
-        category: String?, limit: Int?, offset: Int?, sortValue: String?, name: String?, hasCardPayment: Boolean?, hasMap: Boolean?
-    ) -> (EstablishmentArray), categoriesProvider: () -> (Array<String>)
+fun MainScreen(
+    navHostController: NavController,
+    viewModel: MainViewModel = hiltViewModel(),
 ) {
     val establishmentRequest =
         EstablishmentRequest(null, null, null, null, null, null, null)
 
-    val columnState = rememberLazyListState()
+    viewModel.onEvent(MainEvent.getCategory)
 
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
         Column {
-            ShowSearchBar(navController)
+            ShowSearchBar(navHostController)
             LazyColumn(
-                state = columnState,
                 horizontalAlignment = Alignment.Start
             ) {
-                itemsIndexed(categoriesProvider()) { _, i ->
-                    /*InstitutionsRow(
-                        establishmentProvider(
-                            i,
-                            establishmentRequest.limit,
-                            establishmentRequest.offset,
-                            establishmentRequest.sortValue,
-                            establishmentRequest.name,
-                            establishmentRequest.hasCardPayment,
-                            establishmentRequest.hasMap
-                        ),
-                        navController
+                itemsIndexed(viewModel.establishments2) { _, i ->
+                    EstablishmentRow(
+                        i.value,
+                        navHostController,
+                        viewModel
                     )
-                    */
                 }
             }
         }
@@ -63,7 +57,7 @@ fun HomeScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ShowSearchBar(navController: NavController) {
+fun ShowSearchBar(navHostController: NavController) {
     var text by remember { mutableStateOf("") }
     Row(
         modifier = Modifier
@@ -112,7 +106,7 @@ fun ShowSearchBar(navController: NavController) {
         Spacer(Modifier.width(5.dp))
         IconButton(
             onClick = {
-                navController.navigate(route = "user_profile")
+                navHostController.navigate(route = "main") // TODO Поменять на нормальный root
             }
         ) {
             Icon(

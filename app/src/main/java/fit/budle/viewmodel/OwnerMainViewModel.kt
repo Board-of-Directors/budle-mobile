@@ -9,14 +9,11 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import fit.budle.dto.establishment.Establishment
-import fit.budle.dto.establishment.EstablishmentResponse
 import fit.budle.dto.establishment.etsablishment_type.EstablishmentShortDto
 import fit.budle.dto.events.OwnerMainEvent
 import fit.budle.dto.result.OwnerEstResult
 import fit.budle.repository.OwnerMainRepository
 import kotlinx.coroutines.launch
-import java.util.stream.Collectors.toList
 import javax.inject.Inject
 
 @HiltViewModel

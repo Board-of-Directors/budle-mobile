@@ -28,7 +28,7 @@ class BookViewModel (
                 dateVar = "2022-03-$dateVar"
                 timeVar += ":00"
 
-                when (val response = repository.postOrders(
+                when (val response = repository.postOrder(
                     establishmentId,
                     userId,
                     guestCountVar,

@@ -2,11 +2,10 @@ package fit.budle.dto.establishment
 
 import fit.budle.dto.WorkingHour
 import fit.budle.dto.establishment.establishment_field.PhotoDto
-import fit.budle.dto.tag.standard.TagResponse
 
 data class ReturnTag(val name: String)
 
-class EstablishmentDTO(
+class EstablishmentDtoResponseDto(
     var address: String = "",
     var category: String = "",
     var description: String? = "",

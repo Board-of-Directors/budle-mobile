@@ -11,8 +11,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
-import fit.budle.dto.establishment.Establishment
-import fit.budle.dto.establishment.EstablishmentResponse
 import fit.budle.dto.establishment.etsablishment_type.EstablishmentShortDto
 import fit.budle.ui.components.atoms.BudleEstablishmentSubdescription
 import fit.budle.ui.theme.*

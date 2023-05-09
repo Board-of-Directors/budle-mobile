@@ -1,22 +1,35 @@
 package fit.budle.repository_impl
 
 import android.util.Log
+import androidx.compose.runtime.MutableState
+import androidx.lifecycle.MutableLiveData
 import fit.budle.dao.EstablishmentDAO
-import fit.budle.dto.establishment.CategoriesListResult
-import fit.budle.dto.establishment.EstablishmentListResult
-import fit.budle.dto.establishment.OrderListResult
-import fit.budle.dto.establishment.OrderResult
+import fit.budle.dto.establishment.*
 import fit.budle.repository.EstablishmentRepository
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
+import java.util.HashMap
 import javax.inject.Inject
 
-class EstablishmentRepositoryImpl (
+class EstablishmentRepositoryImpl @Inject constructor(
     private val establishmentDAO: EstablishmentDAO,
 ) : EstablishmentRepository {
+    override suspend fun getEstablishment(establishmentId: Long): EstablishmentResult {
+        return try {
+            val result = establishmentDAO.getEstablishment(establishmentId)
+            Log.d("GETESTABLISHMENT", "SUCCESS")
+            EstablishmentResult.Success(
+                result = result.result,
+                exceptionMessage = result.exception?.message
+            )
+        } catch (e: Throwable) {
+            Log.e("GETESTABLISHMENT", "FAILURE")
+            EstablishmentResult.Failure(e)
+        }
+    }
 
-    override suspend fun getEstablishment(
+    override suspend fun getEstablishmentAll(
         category: String?,
         limit: Int?,
         offset: Int?,
@@ -26,23 +39,23 @@ class EstablishmentRepositoryImpl (
         hasMap: Boolean?,
     ): EstablishmentListResult {
         return try {
-            val result = establishmentDAO.getEstablishment(
+            val result = establishmentDAO.getEstablishmentAll(
                 category, limit, offset, sortValue, name, hasCardPayment, hasMap
             )
-            Log.d("GETESTABLISHMENT", "SUCCESS")
+            Log.d("GETESTABLISHMENTALL", "SUCCESS")
             EstablishmentListResult.Success(
                 result = result.result,
                 exceptionMessage = result.exception?.message
             )
         } catch (e: Throwable) {
-            Log.e("GETESTABLISHMENT", "FAILURE")
+            Log.e("GETESTABLISHMENTALL", "FAILURE")
             EstablishmentListResult.Failure(e)
         }
     }
 
-    override suspend fun getCategories(): CategoriesListResult {
+    override suspend fun getCategory(): CategoriesListResult {
         return try {
-            val result = establishmentDAO.getCategories()
+            val result = establishmentDAO.getEstablishmentCategory()
             Log.d("GETCATEGORIES", "SUCCESS")
             CategoriesListResult.Success(
                 result = result.result,
@@ -54,7 +67,21 @@ class EstablishmentRepositoryImpl (
         }
     }
 
-    override suspend fun postOrders(
+    override suspend fun getOrder(userId: Long, status: Int?): OrderListResult {
+        return try {
+            val result = establishmentDAO.getOrder(userId, status = status)
+            Log.d("GETORDERS", "SUCCESS")
+            OrderListResult.Success(
+                result = result.result,
+                exceptionMessage = result.exception?.message
+            )
+        } catch (e: Throwable) {
+            Log.d("GETORDERS", "FAILURE")
+            OrderListResult.Failure(e)
+        }
+    }
+
+    override suspend fun postOrder(
         establishmentId: Long,
         userId: Long,
         guestCount: Int,
@@ -70,27 +97,13 @@ class EstablishmentRepositoryImpl (
             jsonObject.put("date", date)
             val jsonObjectString = jsonObject.toString()
             val requestBody = jsonObjectString.toRequestBody("application/json".toMediaTypeOrNull())
-            val result = establishmentDAO.postOrders(requestBody)
+            val result = establishmentDAO.postOrder(requestBody)
             Log.d("OREDERREQUEST", "SUCCESS")
             OrderResult.Success(result = result.result,
                 exceptionMessage = result.exception?.message)
         } catch (e: Throwable) {
             Log.e("OREDERREQUEST", "FAILURE")
             OrderResult.Failure(e)
-        }
-    }
-
-    override suspend fun getOrders(userId: Long, status: Int?): OrderListResult {
-        return try {
-            val result = establishmentDAO.getOrders(userId, status = status)
-            Log.d("GETORDERS", "SUCCESS")
-            OrderListResult.Success(
-                result = result.result,
-                exceptionMessage = result.exception?.message
-            )
-        } catch (e: Throwable) {
-            Log.d("GETORDERS", "FAILURE")
-            OrderListResult.Failure(e)
         }
     }
 

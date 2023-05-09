@@ -8,19 +8,19 @@ import fit.budle.dto.customer_user.User
 data class EstablishmentArray(val establishments: Array<Establishment> = emptyArray(), val count: Int = 0)
 
 data class Establishment(
-    val id: Long,
-    val name: String,
-    val description: String?,
-    val address: String,
-    val owner: User,
-    val hasCardPayment: Boolean?,
-    val hasMap: Boolean?,
-    val category: String,
-    val image: BitmapPainter?,
-    val rating: Double?,
-    val price: Int?,
-    val workingHours: Array<WorkingHour>,
-    val tags: ArrayList<Tag>,
-    val cuisineCountry: String?,
-    val starsCount: Int?
+    val id: Long = 0,
+    val name: String = "",
+    val description: String? = "",
+    val address: String = "",
+    val owner: User = User(""),
+    val hasCardPayment: Boolean? = false,
+    val hasMap: Boolean? = false,
+    val category: String = "",
+    val image: BitmapPainter? = null,
+    val rating: Double? = null,
+    val price: Int? = 1,
+    val workingHours: Array<WorkingHour>? = null,
+    val tags: ArrayList<Tag> = arrayListOf(),
+    val cuisineCountry: String? = "",
+    val starsCount: Int? = 1
 )

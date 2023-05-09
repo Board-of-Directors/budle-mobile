@@ -16,24 +16,29 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fit.budle.R
-import fit.budle.ui.components.atoms.BudleButton
-import fit.budle.dto.establishment.Establishment
 import fit.budle.dto.WorkingHour
+import fit.budle.dto.establishment.Establishment
+import fit.budle.dto.events.MainEvent
 import fit.budle.ui.components.BudleIconButton
 import fit.budle.ui.components.BudlePhotoTag
+import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.ui.components.moleculas.BudleBlockWithHeader
 import fit.budle.ui.theme.*
+import fit.budle.viewmodel.MainViewModel
 
 @Composable
 fun CardScreen(
-    navController: NavController,
-    establishment: Establishment?
+    navHostController: NavController,
+    viewModel: MainViewModel = hiltViewModel(),
 ) {
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
+        Log.d("IDD", viewModel.establishmentCardId.toString())
+        viewModel.onEvent(MainEvent.getEstablishment)
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -51,7 +56,7 @@ fun CardScreen(
                     iconDescription = "Close",
                     iconId = R.drawable.x,
                     onClick = {
-                        navController.navigate("home")
+                        navHostController.navigate("main")
                     })
             }
             Row(
@@ -63,11 +68,9 @@ fun CardScreen(
             ) {
                 BudleButton(
                     onClick = {
-                        if (establishment != null) {
-                            navController.navigate(
-                                "order/${establishment.id}/${establishment.name}"
-                            )
-                        }
+                        navHostController.navigate(
+                            "main" //TODO Сделать нормальный root
+                        )
                     },
                     buttonText = "Забронировать место",
                     disabledButtonColor = fillPurple,
@@ -83,44 +86,32 @@ fun CardScreen(
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
         ) {
-            if (establishment != null) {
-                EstablishmentBanner(
-                    establishmentCard = establishment
-                )
-                Log.wtf("NULL", "NOT_NULL")
-            } else {
-                Log.wtf("NULL", "NULL")
-            }
-            InfoBar(establishmentCard = establishment)
-            if (establishment != null) {
-                // InfoTagList(tags = establishment.tags)
-            }
+            EstablishmentBanner(
+                establishmentCard = viewModel.establishmentCard
+            )
+            InfoBar(establishmentCard = viewModel.establishmentCard)
+            // InfoTagList(tags = establishment.tags) //TODO Сделать тэги
             Column(
                 modifier = Modifier
                     .padding(horizontal = 20.dp)
                     .fillMaxWidth()
             ) {
-                if (establishment != null) {
-                    establishment.description?.let {
-                        EstablishmentCardDescription(
-                            description = it
-                        )
-                    }
-                }
-                if (establishment != null) {
-                    WorkingTime(cardDescription = establishment.workingHours)
-                }
-                if (establishment != null) {
-                    EstablishmentAddress(addressInfo = establishment.address)
+                viewModel.establishmentCard.description?.let {
+                    EstablishmentCardDescription(
+                        description = it
+                    )
                 }
             }
+            viewModel.establishmentCard.workingHours?.let { WorkingTime(cardDescription = it.toList()) }
+
+            EstablishmentAddress(addressInfo = viewModel.establishmentCard.address)
         }
     }
 }
 
 @Composable
 fun EstablishmentBanner(
-    establishmentCard: Establishment
+    establishmentCard: Establishment,
 ) {
     val gradient = Brush.verticalGradient(listOf(alphaBlack, alphaBlack))
     Box(
@@ -191,7 +182,7 @@ fun EstablishmentBanner(
 
 @Composable
 fun InfoBar(
-    establishmentCard: Establishment?
+    establishmentCard: Establishment?,
 ) {
     Row(
         modifier = Modifier
@@ -233,7 +224,7 @@ fun InfoBar(
 
 @Composable
 fun EstablishmentCardDescription(
-    description: String
+    description: String,
 ) {
     BudleBlockWithHeader(headerText = "Описание") {
         Text(
@@ -247,7 +238,7 @@ fun EstablishmentCardDescription(
 
 @Composable
 fun WorkingTime(
-    cardDescription: Array<WorkingHour>
+    cardDescription: List<WorkingHour>,
 ) {
     BudleBlockWithHeader(headerText = "Время работы") {
         Column {
@@ -278,7 +269,7 @@ fun WorkingTime(
 
 @Composable
 fun EstablishmentAddress(
-    addressInfo: String
+    addressInfo: String,
 ) {
     BudleBlockWithHeader(
         modifier = Modifier.padding(bottom = 100.dp), headerText = "Адрес"

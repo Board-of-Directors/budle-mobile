@@ -5,17 +5,15 @@ import android.graphics.BitmapFactory
 import android.util.Base64
 import android.util.Log
 import androidx.compose.runtime.*
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fit.budle.dto.WorkingHour
-import fit.budle.dto.establishment.EstablishmentDTO
+import fit.budle.dto.establishment.EstablishmentDtoResponseDto
 import fit.budle.dto.establishment.ReturnTag
 import fit.budle.dto.establishment.establishment_field.PhotoDto
-import fit.budle.dto.establishment.etsablishment_type.EstablishmentExtendedDto
 import fit.budle.dto.events.EstCreationEvent
 import fit.budle.dto.result.GetCategoryListResult
 import fit.budle.dto.result.GetCategoryVariantListResult
@@ -31,7 +29,7 @@ class EstCreationViewModel @Inject constructor(
     private val estCreationRepository: EstCreationRepository,
 ) : ViewModel() {
 
-    var establishmentDTO by mutableStateOf(EstablishmentDTO())
+    var establishmentDTO by mutableStateOf(EstablishmentDtoResponseDto())
     var categoryList = emptyList<String>()
     var tagList = emptyList<TagResponse>()
     var variantList = emptyList<String>()
@@ -95,6 +93,7 @@ class EstCreationViewModel @Inject constructor(
                     estCreationRepository.postEstablishment(establishmentDTO)
                 }
             }
+
             is EstCreationEvent.GetCategoryListEvent -> {
                 viewModelScope.launch {
                     when (val result = estCreationRepository.getCategoryList()) {

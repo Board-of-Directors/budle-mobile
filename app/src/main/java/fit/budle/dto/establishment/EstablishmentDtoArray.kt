@@ -4,9 +4,9 @@ import fit.budle.dto.tag.standard.TagResponse
 import fit.budle.dto.WorkingHour
 import fit.budle.dto.customer_user.User
 
-data class EstablishmentResponseArray(val establishments: Array<EstablishmentResponse>, val count: Int)
+data class EstablishmentDtoArray(val establishments: Array<EstablishmentDto>, val count: Int)
 
-data class EstablishmentResponse(
+data class EstablishmentDto(
     val id: Long,
     val name: String,
     val description: String?,
