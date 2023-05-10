@@ -68,5 +68,15 @@ fun NavigationComponent(navController: NavHostController) {
             )
         }
         establishmentCreationNavGraph(navController)
+        composable("user_profile") {
+            UserProfileScreen(
+                navController = navController,
+            )
+        }
+        composable("user_profile_bookings") {
+            UserProfileBookingsScreenBackendConnected(
+                navController = navController,
+            )
+        }
     }
 }

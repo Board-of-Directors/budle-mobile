@@ -106,7 +106,7 @@ fun ShowSearchBar(navHostController: NavController) {
         Spacer(Modifier.width(5.dp))
         IconButton(
             onClick = {
-                navHostController.navigate(route = "main") // TODO Поменять на нормальный root
+                navHostController.navigate(route = "user_profile")
             }
         ) {
             Icon(

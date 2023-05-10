@@ -25,7 +25,7 @@ class OrderCreateRepositoryImpl @Inject constructor(
         guestCount: Int,
         time: String,
         date: String,
-        spotId: Int
+        spotId: Int?
     ): DefaultResult {
         return try {
             val jsonObject = JSONObject()

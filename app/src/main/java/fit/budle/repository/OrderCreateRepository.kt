@@ -11,7 +11,7 @@ interface OrderCreateRepository {
         guestCount: Int,
         time: String,
         date: String,
-        spotId: Int
+        spotId: Int?
     ): DefaultResult
 
     suspend fun getEstablishmentTime(

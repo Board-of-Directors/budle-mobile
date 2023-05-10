@@ -35,7 +35,7 @@ fun UserProfileScreen(navController: NavHostController) {
                 iconId = R.drawable.x,
                 iconDescription = "Close",
                 iconColor = mainBlack,
-                onClick = {}
+                onClick = {navController.popBackStack()}
                 //navController = navController
             )
             ShowColumn(navController)

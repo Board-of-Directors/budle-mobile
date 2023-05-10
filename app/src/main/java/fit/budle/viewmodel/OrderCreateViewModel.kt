@@ -43,7 +43,7 @@ class OrderCreateViewModel @Inject constructor(
                     Log.e("UID", userId.toString())
                     Log.e("GUEST", guestCountVar.toString())
                     Log.e("TIME", "$timeVar:00")
-                    Log.e("DATE", "2022-03-$dateVar")
+                    Log.e("DATE", "2023-05-$dateVar")
                     Log.e("SEAT", seatVar)
                     if (dateVar.isNotEmpty() && timeVar.isNotEmpty()) {
                         when (val response = repository.postOrder(
@@ -51,13 +51,14 @@ class OrderCreateViewModel @Inject constructor(
                             userId,
                             guestCountVar,
                             "$timeVar:00",
-                            "2022-03-$dateVar",
-                            seatVar.toInt()
+                            "2023-05-$dateVar",
+                            null
                         )) {
                             is DefaultResult.Success -> {
                                 Log.d("BOOKVIEWMODEL", "SUCCESS")
                                 result =
                                     if (response.result == null) "NULL" else if (response.result == true) "TRUE" else "FALSE"
+                                Log.d("BOOKVIEWMODEL", response.exceptionMessage.toString())
                             }
                             is DefaultResult.Failure -> {
                                 Log.e("BOOKVIEWMODEL", "FAILURE")
