@@ -16,7 +16,7 @@ import fit.budle.ui.components.atoms.inputs.photo_inputs.BudleSingleSelectPhotoI
 import fit.budle.ui.components.atoms.inputs.text_inputs.BudleSingleLineInput
 import fit.budle.ui.components.moleculas.screens.BudleScreenWithButtonAndProgress
 import fit.budle.ui.theme.*
-import fit.budle.viewmodel.EstCreationViewModel
+import fit.budle.viewmodel.business.EstCreationViewModel
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable

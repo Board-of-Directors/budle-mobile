@@ -17,7 +17,7 @@ import fit.budle.dto.order.BookingStatus
 import fit.budle.dto.order.BusinessOrderDto
 import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.ui.theme.*
-import fit.budle.viewmodel.EstOrderListViewModel
+import fit.budle.viewmodel.business.EstOrderListViewModel
 
 @Composable
 fun BudleBusinessOrderCard(

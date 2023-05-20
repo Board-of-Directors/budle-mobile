@@ -16,7 +16,7 @@ import fit.budle.ui.components.atoms.inputs.text_inputs.BudleMultipleLineInput
 import fit.budle.ui.components.moleculas.screens.BudleScreenWithButtonAndProgress
 import fit.budle.ui.theme.mainBlack
 import fit.budle.ui.util.bitmapCreator
-import fit.budle.viewmodel.EstCreationViewModel
+import fit.budle.viewmodel.business.EstCreationViewModel
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable

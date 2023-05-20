@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import fit.budle.R
-import fit.budle.dto.establishment.ReturnTag
 import fit.budle.dto.tag.standard.TagResponse
 import fit.budle.ui.theme.lightBlue
 import fit.budle.ui.theme.mainBlack

@@ -1,7 +1,7 @@
 package fit.budle.ui.util
 
-import fit.budle.dto.establishment.EstablishmentDTO
-import fit.budle.viewmodel.EstCreationViewModel
+import fit.budle.di.establishment.etsablishment_type.NewEstablishmentDto
+import fit.budle.viewmodel.business.EstCreationViewModel
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.typeOf
@@ -13,7 +13,7 @@ class SubcategoryChanger {
             name: String,
             result: String,
         ) {
-            val member = EstablishmentDTO::class.declaredMemberProperties.find {
+            val member = NewEstablishmentDto::class.declaredMemberProperties.find {
                 it.name == name
             } as KMutableProperty<*>
 
@@ -31,7 +31,7 @@ class SubcategoryChanger {
             viewModel: EstCreationViewModel,
             name: String,
         ): String {
-            val property = EstablishmentDTO::class.declaredMemberProperties.find {
+            val property = NewEstablishmentDto::class.declaredMemberProperties.find {
                 it.name == name
             } as KMutableProperty<*>
             return property.getter.call(viewModel.establishmentDTO).toString()

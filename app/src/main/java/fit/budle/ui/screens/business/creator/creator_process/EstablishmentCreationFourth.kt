@@ -1,22 +1,17 @@
 package fit.budle.ui.screens.business.creator.creator_process
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
-import fit.budle.dto.WorkingHour
-import fit.budle.dto.establishment.WorkingHoursDto
 import fit.budle.dto.events.EstCreationEvent
-import fit.budle.dto.tag.active.days
 import fit.budle.dto.tag.subwayStations
 import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.ui.components.atoms.inputs.dropdown.BudleDropDownMenu
@@ -24,7 +19,7 @@ import fit.budle.ui.components.moleculas.day_list.BudleWorkingDaysPickerList
 import fit.budle.ui.components.moleculas.screens.BudleScreenWithButtonAndProgress
 import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.lightBlue
-import fit.budle.viewmodel.EstCreationViewModel
+import fit.budle.viewmodel.business.EstCreationViewModel
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable

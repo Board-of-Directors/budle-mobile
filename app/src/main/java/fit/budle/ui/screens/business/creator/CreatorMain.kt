@@ -1,12 +1,10 @@
 package fit.budle.ui.screens.business.creator
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -21,7 +19,7 @@ import fit.budle.ui.components.moleculas.card_lists.BudleCreatorEstablishmentCar
 import fit.budle.ui.components.moleculas.screens.BudleScreenWithButton
 import fit.budle.ui.theme.lightBlue
 import fit.budle.ui.theme.textGray
-import fit.budle.viewmodel.OwnerMainViewModel
+import fit.budle.viewmodel.business.OwnerMainViewModel
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable

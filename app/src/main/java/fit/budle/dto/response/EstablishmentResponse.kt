@@ -1,10 +1,8 @@
 package fit.budle.dto.response
 
-import fit.budle.dto.establishment.EstablishmentDtoArray
-import fit.budle.dto.order.Booking
+import fit.budle.di.establishment.EstablishmentDto
+import fit.budle.di.establishment.EstablishmentDtoArray
 import fit.budle.dto.Exception
-import fit.budle.dto.establishment.EstablishmentDto
-import fit.budle.dto.establishment.etsablishment_type.EstablishmentExtendedDto
 
 sealed interface EstablishmentResponse {
     data class EstablishmentDtoResponse(

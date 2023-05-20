@@ -1,6 +1,6 @@
 package fit.budle.dto.response
 
+import fit.budle.di.establishment.etsablishment_type.EstablishmentShortDto
 import fit.budle.dto.Exception
-import fit.budle.dto.establishment.etsablishment_type.EstablishmentShortDto
 
 data class GetEstListResponse(val result: List<EstablishmentShortDto>, val exception: Exception?)

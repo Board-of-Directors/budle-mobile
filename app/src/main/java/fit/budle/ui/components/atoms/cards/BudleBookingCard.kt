@@ -22,7 +22,7 @@ import fit.budle.dto.order.BookingStatus
 import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.ui.components.atoms.PhotoTag
 import fit.budle.ui.theme.*
-import fit.budle.viewmodel.OrderListViewModel
+import fit.budle.viewmodel.customer.OrderListViewModel
 import java.util.*
 
 @RequiresApi(Build.VERSION_CODES.N)

@@ -1,7 +1,7 @@
 package fit.budle.dto.order
 
-import fit.budle.dto.establishment.EstablishmentDto
-import fit.budle.dto.establishment.Establishment
+import fit.budle.di.establishment.Establishment
+import fit.budle.di.establishment.EstablishmentDto
 
 data class Booking(
     val id: Long,

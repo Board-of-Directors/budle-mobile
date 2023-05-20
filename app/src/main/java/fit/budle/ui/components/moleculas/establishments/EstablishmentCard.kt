@@ -17,12 +17,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import fit.budle.R
-import fit.budle.dto.establishment.Establishment
-import fit.budle.dto.events.MainEvent
+import fit.budle.di.establishment.Establishment
 import fit.budle.ui.theme.alphaBlack
 import fit.budle.ui.theme.mainBlack
 import fit.budle.ui.theme.mainWhite
-import fit.budle.viewmodel.MainViewModel
+import fit.budle.viewmodel.customer.MainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

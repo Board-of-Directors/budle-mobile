@@ -8,10 +8,9 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import fit.budle.dto.order.Booking
 import fit.budle.ui.components.atoms.cards.BudleBookingCard
-import fit.budle.viewmodel.OrderListViewModel
+import fit.budle.viewmodel.customer.OrderListViewModel
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable

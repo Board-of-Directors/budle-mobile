@@ -4,11 +4,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import fit.budle.dto.order.Booking
-import fit.budle.dto.order.BookingStatus
 import fit.budle.dto.order.BusinessOrderDto
 import fit.budle.ui.components.atoms.cards.BudleBusinessOrderCard
-import fit.budle.viewmodel.EstOrderListViewModel
+import fit.budle.viewmodel.business.EstOrderListViewModel
 
 @Composable
 fun BudleBusinessOrderCardList(

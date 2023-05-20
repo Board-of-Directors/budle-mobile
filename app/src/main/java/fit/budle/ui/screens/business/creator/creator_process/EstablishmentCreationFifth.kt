@@ -14,7 +14,7 @@ import fit.budle.R
 import fit.budle.dto.events.EstCreationEvent
 import fit.budle.ui.components.atoms.headers.BudleNavigationHeader
 import fit.budle.ui.components.screens.BudleInformationScreen
-import fit.budle.viewmodel.EstCreationViewModel
+import fit.budle.viewmodel.business.EstCreationViewModel
 
 @Composable
 fun EstablishmentCreationFifthScreen(

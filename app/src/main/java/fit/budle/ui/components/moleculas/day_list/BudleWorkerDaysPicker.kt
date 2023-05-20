@@ -9,8 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import fit.budle.dto.WorkingHour
-import fit.budle.dto.establishment.WorkingHoursDto
+import fit.budle.di.establishment.WorkingHoursDto
 import fit.budle.dto.tag.active.ActiveCircleTag
 import fit.budle.dto.tag.active.ActiveTagType
 import fit.budle.dto.tag.active.Tag

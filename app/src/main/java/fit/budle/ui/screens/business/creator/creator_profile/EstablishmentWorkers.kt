@@ -1,7 +1,7 @@
 package fit.budle.ui.screens.business.creator.creator_profile
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -11,7 +11,7 @@ import fit.budle.dto.events.WorkerEvent
 import fit.budle.ui.components.atoms.BudleAddWorkerPopup
 import fit.budle.ui.components.moleculas.card_lists.BudleCreatorWorkerCardList
 import fit.budle.ui.components.moleculas.screens.BudleScreenWithButtonAndProgress
-import fit.budle.viewmodel.WorkerListViewModel
+import fit.budle.viewmodel.business.WorkerListViewModel
 
 @Composable
 fun EstablishmentWorkersScreen(

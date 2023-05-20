@@ -10,10 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import fit.budle.dto.establishment.EstablishmentArray
+import fit.budle.di.establishment.EstablishmentArray
 import fit.budle.ui.theme.mainBlack
 import fit.budle.ui.theme.textGray
-import fit.budle.viewmodel.MainViewModel
+import fit.budle.viewmodel.customer.MainViewModel
 
 @Composable
 fun EstablishmentRow(

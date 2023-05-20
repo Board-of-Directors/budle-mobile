@@ -1,8 +1,6 @@
 package fit.budle.ui.screens.business.creator.creator_profile
 
 import android.os.Build
-import android.os.Handler
-import android.os.Looper
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,7 +20,7 @@ import fit.budle.dto.tag.active.ordersTagList
 import fit.budle.ui.components.atoms.headers.BudleNavigationHeader
 import fit.budle.ui.components.moleculas.card_lists.BudleBusinessOrderCardList
 import fit.budle.ui.components.moleculas.tag_list.BudleTagList
-import fit.budle.viewmodel.EstOrderListViewModel
+import fit.budle.viewmodel.business.EstOrderListViewModel
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
