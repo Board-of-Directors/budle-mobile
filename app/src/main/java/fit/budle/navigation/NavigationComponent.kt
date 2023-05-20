@@ -4,10 +4,12 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.*
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import dagger.hilt.android.lifecycle.HiltViewModel
 import fit.budle.navigation.graphs.establishmentCreationNavGraph
 import fit.budle.ui.screens.*
 import fit.budle.ui.screens.business.creator.CreatorMainScreen
@@ -17,13 +19,15 @@ import fit.budle.ui.screens.business.creator.creator_process.EstablishmentCreati
 import fit.budle.ui.screens.business.creator.creator_process.EstablishmentCreationThirdScreen
 import fit.budle.ui.screens.business.creator.creator_profile.EstablishmentOrdersScreen
 import fit.budle.ui.screens.business.creator.creator_profile.EstablishmentWorkersScreen
+import fit.budle.viewmodel.MainViewModel
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun NavigationComponent(navController: NavHostController) {
+    val mainViewModel: MainViewModel = hiltViewModel()
     NavHost(
         navController = navController,
-        startDestination = "ownerMain"
+        startDestination = "main" //TODO Стартовое состояние
     ) {
         composable("ownerMain") {
             CreatorMainScreen(navHostController = navController)
@@ -44,6 +48,35 @@ fun NavigationComponent(navController: NavHostController) {
                 )
             }
         }
+        composable("main") {
+                MainScreen(
+                    navHostController = navController,
+                    mainViewModel
+                )
+        }
+        composable("card") {
+                CardScreen(
+                    navHostController = navController,
+                    mainViewModel
+                )
+        }
+        composable("orderCreate/{establishmentId}/{establishmentName}") {
+            OrderScreen(
+                navHostController = navController,
+                it.arguments?.getString("establishmentId"),
+                it.arguments?.getString("establishmentName"),
+            )
+        }
         establishmentCreationNavGraph(navController)
+        composable("user_profile") {
+            UserProfileScreen(
+                navController = navController,
+            )
+        }
+        composable("user_profile_bookings") {
+            UserProfileBookingsScreenBackendConnected(
+                navController = navController,
+            )
+        }
     }
 }

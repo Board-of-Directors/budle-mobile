@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import fit.budle.dto.establishment.Establishment
-import fit.budle.dto.establishment.EstablishmentResponse
 import fit.budle.dto.establishment.etsablishment_type.EstablishmentShortDto
 import fit.budle.ui.components.moleculas.BudleCreatorEstablishmentCard
 

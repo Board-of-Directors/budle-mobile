@@ -1,13 +1,13 @@
 package fit.budle.dto.order
 
-import fit.budle.dto.establishment.EstablishmentResponse
+import fit.budle.dto.establishment.EstablishmentDto
 import fit.budle.dto.establishment.Establishment
 
 data class Booking(
     val id: Long,
     val userId: Long,
     val status: Int,
-    val establishment: EstablishmentResponse,
+    val establishment: EstablishmentDto,
     @Transient
     var establishmentImage: Establishment,
     val guestCount: Int,

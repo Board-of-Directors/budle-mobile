@@ -14,35 +14,27 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import fit.budle.R
-import fit.budle.dto.tag.active.ActiveTagType
-import fit.budle.dto.tag.active.Tag
-import fit.budle.dto.tag.active.days
-import fit.budle.dto.tag.active.time
+import fit.budle.dto.events.OrderCreateEvent
+import fit.budle.dto.tag.active.*
 import fit.budle.ui.components.*
 import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.ui.components.moleculas.BudleBlockWithHeader
 import fit.budle.ui.components.moleculas.tag_list.BudleTagList
 import fit.budle.ui.theme.*
+import fit.budle.viewmodel.OrderCreateViewModel
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun OrderScreen(
     navHostController: NavHostController,
     establishmentId: String?,
-    name: String?,
-    getOrder: (Long, Long) -> String,
-    sendGuestCount: (Int) -> Unit,
-    sendData: (String) -> Unit,
-    sendTime: (String) -> Unit
+    establishmentName: String?,
+    viewModel: OrderCreateViewModel = hiltViewModel(),
 ) {
-
-    /*
     val userAmount = remember { mutableStateOf(1) }
-    val userId: Long = 1
-
-    var selectedDay by remember{mutableState(Tag)}
 
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -50,14 +42,17 @@ fun OrderScreen(
                 .fillMaxSize()
                 .padding(20.dp)
         ) {
+            if (establishmentId != null) {
+                viewModel.onEvent(OrderCreateEvent.getEstablishmentTime(establishmentId.toLong()))
+            }
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                if (name != null) {
+                if (establishmentName != null) {
                     Text(
-                        text = name,
+                        text = establishmentName,
                         style = MaterialTheme.typography.bodyMedium,
                         color = textGray
                     )
@@ -74,9 +69,9 @@ fun OrderScreen(
                     }
                 )
             }
-            BookingAmount(amount = userAmount, sendGuestCount)
-            BookingDay(sendData)
-            BookingTime(sendTime)
+            BookingAmount(userAmount, viewModel)
+            BookingDay(viewModel, establishmentId)
+            BookingTime(viewModel)
             BookingPreferences()
             BudleButton(
                 topPadding = 40.dp,
@@ -88,7 +83,7 @@ fun OrderScreen(
                 iconId = R.drawable.map,
                 horizontalPadding = 0.dp,
                 onClick = {
-                    navHostController.navigate("home")
+                    navHostController.navigate("map_screen")
                 }
             )
             BudleButton(
@@ -101,20 +96,19 @@ fun OrderScreen(
                 horizontalPadding = 0.dp,
                 onClick = {
                     if (establishmentId != null) {
-                        getOrder(establishmentId.toLong(), userId)
+                        viewModel.onEvent(OrderCreateEvent.postOrder(establishmentId.toLong()))
                     }
-                    navHostController.navigate("home")
+                    navHostController.navigate("main")
                 }
             )
         }
     }
-    */
 }
 
 @Composable
 fun BookingAmount(
     amount: MutableState<Int>,
-    sendGuestCount: (Int) -> Unit
+    viewModel: OrderCreateViewModel,
 ) {
     val leftCondition = amount.value > 1
     val rightCondition = amount.value < 10
@@ -137,7 +131,7 @@ fun BookingAmount(
                 onClick = {
                     if (leftCondition) {
                         amount.value--
-                        sendGuestCount(amount.value)
+                        viewModel.guestCountVar = amount.value
                     }
                 }
             )
@@ -160,7 +154,7 @@ fun BookingAmount(
                 onClick = {
                     if (rightCondition) {
                         amount.value++
-                        sendGuestCount(amount.value)
+                        viewModel.guestCountVar = amount.value
                     }
                 }
             )
@@ -171,9 +165,8 @@ fun BookingAmount(
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun BookingDay(
-    sendData: (String) -> Unit,
-    selectedDay: Tag,
-    onValueChange: (Tag) -> Unit
+    viewModel: OrderCreateViewModel,
+    establishmentId: String?,
 ) {
     BudleBlockWithHeader(headerText = "День") {
         Row(
@@ -182,20 +175,26 @@ fun BookingDay(
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            BudleTagList(
-                initialState = days[0],
-                onValueChange = { onValueChange(it) },
-                tagList = days,
-                tagType = ActiveTagType.CIRCLE
-            )
-            sendData(selectedDay.toString())
+            if (viewModel.dayArray.isNotEmpty()) {
+                BudleTagList(
+                    initialState = viewModel.dayArray[0],
+                    onValueChange = {
+                        viewModel.dateVar = it.tagId.toString()
+                        if (establishmentId != null) {
+                            viewModel.onEvent(OrderCreateEvent.getEstablishmentTime(establishmentId.toLong()))
+                        }
+                    },
+                    tagList = viewModel.dayArray,
+                    tagType = ActiveTagType.CIRCLE
+                )
+            }
         }
     }
 }
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun BookingTime(sendTime: (String) -> Unit) {
+fun BookingTime(viewModel: OrderCreateViewModel) {
     BudleBlockWithHeader(headerText = "Время") {
         Row(
             modifier = Modifier
@@ -203,12 +202,15 @@ fun BookingTime(sendTime: (String) -> Unit) {
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            BudleTagList(
-                initialState = time[0],
-                tagList = time,
-                onValueChange = {}
-            )
-            // sendTime(time.tagName)
+            if (viewModel.timeArray.isNotEmpty() ) {
+                viewModel.currentTime?.let { tag ->
+                    BudleTagList(
+                        initialState = tag,
+                        tagList = viewModel.timeArray,
+                        onValueChange = { viewModel.timeVar = it.tagName }
+                    )
+                }
+            }
         }
     }
 }

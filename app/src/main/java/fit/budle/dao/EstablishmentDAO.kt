@@ -7,6 +7,11 @@ import retrofit2.http.*
 interface EstablishmentDAO {
     @GET("establishment")
     suspend fun getEstablishment(
+        @Query("establishmentId") establishmentId: Long
+    ): EstablishmentResponse.EstablishmentDtoResponse
+
+    @GET("establishment/all")
+    suspend fun getEstablishmentAll(
         @Query("category") category: String?,
         @Query("limit") limit: Int?,
         @Query("offset") offset: Int?,
@@ -14,24 +19,9 @@ interface EstablishmentDAO {
         @Query("name") name: String?,
         @Query("hasCardPayment") hasCardPayment: Boolean?,
         @Query("hasMap") hasMap: Boolean?
-    ): EstablishmentResponse.AnswerEstablishment
+    ): EstablishmentResponse.EstablishmentDtoArrayResponse
 
     @GET("establishment/category")
-    suspend fun getCategories(
-    ): EstablishmentResponse.AnswerCategories
-
-    @GET("order")
-    suspend fun getOrders(
-        @Query("userId") userId: Long,
-        @Query("status") status: Int?
-    ): EstablishmentResponse.AnswerOrders
-
-    @POST("order")
-    suspend fun postOrders(@Body requestBody: RequestBody): EstablishmentResponse.AnswerRegistration
-
-    @DELETE("order")
-    suspend fun deleteOrder(
-        @Query("userId") userId: Long,
-        @Query("orderId") orderId: Long
-    ): EstablishmentResponse.AnswerRegistration
+    suspend fun getEstablishmentCategory(
+    ): EstablishmentResponse.CategoriesResponse
 }
