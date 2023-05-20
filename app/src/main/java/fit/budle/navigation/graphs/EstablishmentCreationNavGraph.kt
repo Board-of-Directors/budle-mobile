@@ -3,7 +3,6 @@ package fit.budle.navigation.graphs
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -17,7 +16,7 @@ fun NavGraphBuilder.establishmentCreationNavGraph(
     navHostController: NavHostController,
 ) {
     navigation(
-        startDestination = "fourthStep",
+        startDestination = "firstStep",
         route = "ownerMain/establishmentCreation/"
     ) {
         composable("firstStep") {

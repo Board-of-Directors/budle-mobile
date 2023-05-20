@@ -13,10 +13,11 @@ class OwnerMainRepositoryImpl @Inject constructor(
     override suspend fun getEstablishmentList(id: Int): OwnerEstResult {
         return try {
             val response = ownerMainDAO.getEstablishmentList(id)
+            val headers = response.headers()
             Log.d("GET_EST_LIST", "SUCCESS")
             OwnerEstResult.Success(
-                result = response.result,
-                exception = response.exception
+                result = response.body()!!.result,
+                exception = null
             )
         } catch (e: Throwable) {
             Log.d("GET_EST_LIST", e.message!!)
