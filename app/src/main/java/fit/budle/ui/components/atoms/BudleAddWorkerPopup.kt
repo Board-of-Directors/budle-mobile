@@ -1,7 +1,6 @@
 package fit.budle.ui.components.atoms
 
 import android.util.Log
-import fit.budle.ui.models.NumberDefaults
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,7 +12,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import fit.budle.R
-import fit.budle.ui.components.atoms.inputs.text_inputs.budleNumberInput
+import fit.budle.ui.components.atoms.inputs.text_inputs.BudleNumberInput
+import fit.budle.ui.models.NumberDefaults
 import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.mainBlack
 import fit.budle.ui.theme.mainWhite
@@ -68,11 +68,12 @@ fun BudleAddWorkerPopup(
                         )
                     }
                 }
-                phoneNumber = budleNumberInput(
+                BudleNumberInput(
                     modifier = Modifier.fillMaxWidth(),
                     placeHolder = "Номер телефона",
                     inputLength = NumberDefaults.INPUT_LENGTH,
-                    mask = NumberDefaults.MASK
+                    mask = NumberDefaults.MASK,
+                    onValueChange = {phoneNumber = it}
                 )
                 Log.d("TEXTSTATE", phoneNumber)
                 BudleButton(

@@ -3,7 +3,9 @@ package fit.budle.ui.components.atoms.inputs.text_inputs
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,16 +16,18 @@ import fit.budle.ui.theme.backgroundError
 import fit.budle.ui.theme.textGray
 
 @Composable
-fun budleNumberInput(
+fun BudleNumberInput(
     modifier: Modifier = Modifier,
     placeHolder: String? = null,
     startMessage: String = "",
     inputLength: Int,
-    mask: String
-) : String {
+    mask: String,
+    onValueChange : (String) -> Unit
+) {
     val error = remember { mutableStateOf(false) }
     var numberState by remember { mutableStateOf("") }
     val stateColor = if (!error.value) Color.Transparent else backgroundError
+
     Column(
         horizontalAlignment = Alignment.Start,
         modifier = modifier
@@ -53,6 +57,6 @@ fun budleNumberInput(
                 modifier = Modifier.padding(top = 10.dp)
             )
         }
+        onValueChange("7${numberState}")
     }
-    return "7$numberState"
 }

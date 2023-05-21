@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import fit.budle.navigation.graphs.establishmentCreationNavGraph
+import fit.budle.navigation.graphs.registrationNavGraph
 import fit.budle.ui.screens.*
 import fit.budle.ui.screens.business.creator.CreatorMainScreen
 import fit.budle.ui.screens.business.creator.creator_profile.EstablishmentOrdersScreen
@@ -22,7 +23,7 @@ fun NavigationComponent(navController: NavHostController) {
     val mainViewModel: MainViewModel = hiltViewModel()
     NavHost(
         navController = navController,
-        startDestination = "userProfile"
+        startDestination = "registration/"
     ) {
         composable("ownerMain") {
             CreatorMainScreen(navHostController = navController)
@@ -44,16 +45,16 @@ fun NavigationComponent(navController: NavHostController) {
             }
         }
         composable("main") {
-                MainScreen(
-                    navHostController = navController,
-                    mainViewModel
-                )
+            MainScreen(
+                navHostController = navController,
+                mainViewModel
+            )
         }
         composable("card") {
-                CardScreen(
-                    navHostController = navController,
-                    mainViewModel
-                )
+            CardScreen(
+                navHostController = navController,
+                mainViewModel
+            )
         }
         composable("orderCreate/{establishmentId}/{establishmentName}") {
             OrderScreen(
@@ -62,6 +63,7 @@ fun NavigationComponent(navController: NavHostController) {
                 it.arguments?.getString("establishmentName"),
             )
         }
+        registrationNavGraph(navController)
         establishmentCreationNavGraph(navController)
         composable("userProfile") {
             UserProfileScreen(
