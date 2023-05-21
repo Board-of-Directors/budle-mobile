@@ -5,9 +5,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import fit.budle.dao.customer.OrderListDAO
-import fit.budle.di.RetrofitModule.retrofit
 import fit.budle.repository.customer.OrderListRepository
 import fit.budle.repository_impl.customer.OrderListRepositoryImpl
+import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
@@ -15,7 +15,7 @@ import javax.inject.Singleton
 object OrderListModule {
     @Provides
     @Singleton
-    fun provideOrderListDAO(): OrderListDAO {
+    fun provideOrderListDAO(retrofit: Retrofit): OrderListDAO {
         return retrofit.create(OrderListDAO::class.java)
     }
 

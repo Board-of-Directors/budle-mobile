@@ -25,13 +25,10 @@ class UserProfileViewModel @Inject constructor(
             is UserProfileEvent.PostBusinessLoginEvent -> {
                 viewModelScope.launch {
                     when (
-                        val result = businessLoginRepository.postBusinessLogin(event.requestUser)
+                        businessLoginRepository.postBusinessLogin(event.requestUser)
                     ) {
                         is BusinessLoginResult.Success -> {
-                            sessionId = result.headers
-                                .values("Set-Cookie")[0]
-                                .split(";")[0]
-                                .split("=")[1]
+                            // TODO Доделать
                             Log.d("SESSION_ID", sessionId!!)
                         }
                         else -> {

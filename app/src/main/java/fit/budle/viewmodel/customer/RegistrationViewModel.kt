@@ -67,11 +67,7 @@ class RegistrationViewModel @Inject constructor(
                         ), event.type
                     )) {
                         is PostUserResult.Success -> {
-                            sessionId = result.headers
-                                .values("Set-Cookie")[0]
-                                .split(";")[0]
-                                .split("=")[1]
-                            requestException = ""
+// TODO Доделать
                         }
                         is PostUserResult.Failure -> {
                             requestException = result.exception

@@ -1,13 +1,14 @@
 package fit.budle.di.customer
 
+import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import fit.budle.dao.customer.BusinessLoginDAO
-import fit.budle.di.RetrofitModule
 import fit.budle.repository.customer.BusinessLoginRepository
 import fit.budle.repository_impl.customer.BusinessLoginRepositoryImpl
+import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
@@ -15,13 +16,16 @@ import javax.inject.Singleton
 object BusinessLoginModule {
     @Provides
     @Singleton
-    fun provideBusinessLoginDAO(): BusinessLoginDAO {
-        return RetrofitModule.retrofit.create(BusinessLoginDAO::class.java)
+    fun provideBusinessLoginDAO(retrofit: Retrofit): BusinessLoginDAO {
+        return retrofit.create(BusinessLoginDAO::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideBusinessLoginRepository(businessLoginDAO: BusinessLoginDAO): BusinessLoginRepository {
-        return BusinessLoginRepositoryImpl(businessLoginDAO)
+    fun provideBusinessLoginRepository(
+        businessLoginDAO: BusinessLoginDAO,
+        prefs: SharedPreferences,
+    ): BusinessLoginRepository {
+        return BusinessLoginRepositoryImpl(businessLoginDAO, prefs)
     }
 }

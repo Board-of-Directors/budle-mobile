@@ -1,5 +1,6 @@
 package fit.budle
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -19,6 +20,8 @@ class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val shPref = this.getSharedPreferences("PREFS_SESSIONID_FILE", Context.MODE_PRIVATE)
+        shPref.edit().putString("SessionId", "TEST").apply()
 
         setContent {
             val navController = rememberNavController()

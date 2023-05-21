@@ -5,9 +5,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import fit.budle.dao.business.OwnerMainDAO
-import fit.budle.di.RetrofitModule
 import fit.budle.repository.business.OwnerMainRepository
 import fit.budle.repository_impl.business.OwnerMainRepositoryImpl
+import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
@@ -16,8 +16,8 @@ object OwnerMainModule {
 
     @Provides
     @Singleton
-    fun provideOwnerMainDAO(): OwnerMainDAO {
-        return RetrofitModule.retrofit.create(OwnerMainDAO::class.java)
+    fun provideOwnerMainDAO(retrofit: Retrofit): OwnerMainDAO {
+        return retrofit.create(OwnerMainDAO::class.java)
     }
 
     @Provides

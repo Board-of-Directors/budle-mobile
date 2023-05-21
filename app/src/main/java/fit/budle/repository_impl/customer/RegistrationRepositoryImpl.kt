@@ -1,5 +1,6 @@
 package fit.budle.repository_impl.customer
 
+import android.content.SharedPreferences
 import android.util.Log
 import fit.budle.dao.customer.RegistrationDAO
 import fit.budle.dto.RegisterType
@@ -13,6 +14,7 @@ import javax.inject.Inject
 
 class RegistrationRepositoryImpl @Inject constructor(
     private val registrationDAO: RegistrationDAO,
+    private val prefs: SharedPreferences,
 ) : RegistrationRepository {
 
     override suspend fun postUser(requestUserDto: RequestUser, type: RegisterType): PostUserResult {
@@ -23,9 +25,14 @@ class RegistrationRepositoryImpl @Inject constructor(
 
         return if (response.body()!!.exception == null) {
             Log.d("POST_USER", "SUCCESS")
+
+            prefs.edit().putString("SessionId", response.headers()
+                .values("Set-Cookie")[0]
+                .split(";")[0]
+                .split("=")[1]).apply()
+
             PostUserResult.Success(
                 result = response.body()!!.result,
-                headers = response.headers(),
                 exception = response.body()!!.exception
             )
         } else {
