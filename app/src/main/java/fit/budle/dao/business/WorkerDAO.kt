@@ -1,6 +1,6 @@
 package fit.budle.dao.business
 
-import fit.budle.dto.response.WorkerResponse
+import fit.budle.request.response.business.WorkerResponse
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PUT

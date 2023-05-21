@@ -16,9 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import fit.budle.dto.events.OrderListEvent
 import fit.budle.dto.order.Booking
 import fit.budle.dto.order.BookingStatus
+import fit.budle.event.customer.OrderListEvent
 import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.ui.components.atoms.PhotoTag
 import fit.budle.ui.theme.*

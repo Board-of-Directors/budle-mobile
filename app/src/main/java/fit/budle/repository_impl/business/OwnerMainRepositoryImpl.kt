@@ -2,8 +2,8 @@ package fit.budle.repository_impl.business
 
 import android.util.Log
 import fit.budle.dao.business.OwnerMainDAO
-import fit.budle.dto.result.OwnerEstResult
 import fit.budle.repository.business.OwnerMainRepository
+import fit.budle.request.result.business.OwnerEstResult
 import javax.inject.Inject
 
 class OwnerMainRepositoryImpl @Inject constructor(

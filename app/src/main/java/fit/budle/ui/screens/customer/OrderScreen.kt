@@ -17,8 +17,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import fit.budle.R
-import fit.budle.dto.events.OrderCreateEvent
 import fit.budle.dto.tag.active.*
+import fit.budle.event.customer.OrderCreateEvent
 import fit.budle.ui.components.*
 import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.ui.components.moleculas.BudleBlockWithHeader

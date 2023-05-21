@@ -13,6 +13,7 @@ import fit.budle.ui.screens.*
 import fit.budle.ui.screens.business.creator.CreatorMainScreen
 import fit.budle.ui.screens.business.creator.creator_profile.EstablishmentOrdersScreen
 import fit.budle.ui.screens.business.creator.creator_profile.EstablishmentWorkersScreen
+import fit.budle.ui.screens.customer.UserProfileScreen
 import fit.budle.viewmodel.customer.MainViewModel
 
 @RequiresApi(Build.VERSION_CODES.P)
@@ -21,7 +22,7 @@ fun NavigationComponent(navController: NavHostController) {
     val mainViewModel: MainViewModel = hiltViewModel()
     NavHost(
         navController = navController,
-        startDestination = "main" //TODO Стартовое состояние
+        startDestination = "userProfile"
     ) {
         composable("ownerMain") {
             CreatorMainScreen(navHostController = navController)
@@ -62,12 +63,13 @@ fun NavigationComponent(navController: NavHostController) {
             )
         }
         establishmentCreationNavGraph(navController)
-        composable("user_profile") {
+        composable("userProfile") {
             UserProfileScreen(
                 navController = navController,
+                viewModel = hiltViewModel()
             )
         }
-        composable("user_profile_bookings") {
+        composable("userProfile/bookings") {
             UserProfileBookingsScreenBackendConnected(
                 navController = navController,
             )

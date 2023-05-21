@@ -7,13 +7,13 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import fit.budle.dto.events.OrderCreateEvent
 import fit.budle.dto.order.ScheduleDay
-import fit.budle.dto.result.DefaultResult
-import fit.budle.dto.result.OrderCreateResult
 import fit.budle.dto.tag.active.ActiveCircleTag
 import fit.budle.dto.tag.active.RectangleActiveTag
+import fit.budle.event.customer.OrderCreateEvent
 import fit.budle.repository.customer.OrderCreateRepository
+import fit.budle.request.result.DefaultResult
+import fit.budle.request.result.customer.OrderCreateResult
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

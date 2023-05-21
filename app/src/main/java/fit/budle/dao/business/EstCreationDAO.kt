@@ -1,7 +1,7 @@
 package fit.budle.dao.business
 
-import fit.budle.di.establishment.etsablishment_type.NewEstablishmentDto
-import fit.budle.dto.response.EstCreationResponse
+import fit.budle.dto.establishment.etsablishment_type.NewEstablishmentDto
+import fit.budle.request.response.business.EstCreationResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST

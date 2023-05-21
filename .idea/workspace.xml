@@ -9,75 +9,76 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a889eeb-4a07-4de4-9cda-8cbfa792dff6" name="Changes" comment="backend-integration / deleted acceptOrder, rejectOrder and added putOrderStatus">
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+    <list default="true" id="7a889eeb-4a07-4de4-9cda-8cbfa792dff6" name="Changes" comment="backend-integration / added viewModel for registering, retrieved JSESSIONID from the response">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/customer/BusinessLoginDAO.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/customer/BusinessLoginModule.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/customer_user/RequestUser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/event/customer/UserProfileEvent.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/customer/BusinessLoginRepository.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/customer/BusinessLoginRepositoryImpl.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/request/result/customer/BusinessLoginResult.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/customer/UserProfileViewModel.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/EstCreationDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/business/EstCreationDAO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/EstOrderListDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/business/EstOrderListDAO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/EstablishmentDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/customer/EstablishmentDAO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/OrderCreateDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/customer/OrderCreateDAO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/OrderListDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/customer/OrderListDAO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/OwnerMainDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/business/OwnerMainDAO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/WorkerDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/business/WorkerDAO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/EstCreationModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/business/EstCreationModule.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/EstOrderListModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/business/EstOrderListModule.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/MainCreationModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/customer/MainCreationModule.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/OrderCreateModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/customer/OrderCreateModule.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/OrderListModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/customer/OrderListModule.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/OwnerMainModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/business/OwnerMainModule.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/WorkerListModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/business/WorkerListModule.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/establishment/EstablishmentDtoArray.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/establishment/EstablishmentDtoArray.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/establishment/EstablishmentDtoResponseDto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/establishment/etsablishment_type/NewEstablishmentDto.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/establishment/EstablishmentRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/establishment/EstablishmentRequest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/establishment/EstablishmentResults.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/establishment/EstablishmentResults.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/establishment/EstablishmentStructue.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/establishment/EstablishmentStructue.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/establishment/WorkingHoursDto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/establishment/WorkingHoursDto.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/establishment/establishment_field/PhotoDto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/establishment/establishment_field/PhotoDto.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/establishment/etsablishment_type/EstablishmentBasicDto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/establishment/etsablishment_type/EstablishmentBasicDto.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/establishment/etsablishment_type/EstablishmentExtendedDto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/establishment/etsablishment_type/EstablishmentExtendedDto.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/establishment/etsablishment_type/EstablishmentShortDto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/establishment/etsablishment_type/EstablishmentShortDto.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/business/EstCreationDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/business/EstCreationDAO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/business/EstOrderListDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/business/EstOrderListDAO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/business/OwnerMainDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/business/OwnerMainDAO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/business/WorkerDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/business/WorkerDAO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/customer/EstablishmentDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/customer/EstablishmentDAO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/customer/OrderCreateDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/customer/OrderCreateDAO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/customer/OrderListDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/customer/OrderListDAO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/establishment/EstablishmentDtoArray.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/establishment/EstablishmentDtoArray.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/establishment/EstablishmentRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/establishment/EstablishmentRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/establishment/EstablishmentResults.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/establishment/EstablishmentResults.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/establishment/EstablishmentStructue.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/establishment/EstablishmentStructue.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/establishment/WorkingHoursDto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/establishment/WorkingHoursDto.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/establishment/establishment_field/PhotoDto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/establishment/establishment_field/PhotoDto.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/establishment/etsablishment_type/EstablishmentBasicDto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/establishment/etsablishment_type/EstablishmentBasicDto.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/establishment/etsablishment_type/EstablishmentExtendedDto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/establishment/etsablishment_type/EstablishmentExtendedDto.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/establishment/etsablishment_type/EstablishmentShortDto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/establishment/etsablishment_type/EstablishmentShortDto.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/establishment/etsablishment_type/NewEstablishmentDto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/establishment/etsablishment_type/NewEstablishmentDto.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/events/BookingEvent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/event/business/BookingEvent.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/events/EstCreationEvent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/event/business/EstCreationEvent.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/events/MainEvent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/event/customer/MainEvent.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/events/OrderCreateEvent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/event/customer/OrderCreateEvent.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/events/OrderListEvent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/event/customer/OrderListEvent.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/events/OwnerMainEvent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/event/business/OwnerMainEvent.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/events/WorkerEvent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/event/business/WorkerEvent.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/order/Booking.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/order/Booking.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/order/BusinessOrderDto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/order/BusinessOrderDto.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/response/EstablishmentResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/response/EstablishmentResponse.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/response/OwnerResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/response/OwnerResponse.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/response/PostEstCreationResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/response/PostEstCreationResponse.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/result/EstCreationResult.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/result/EstCreationResult.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/result/OrderCreateResult.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/result/OrderCreateResult.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/result/OrderListResult.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/result/OrderListResult.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/result/OwnerEstResult.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/result/OwnerEstResult.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/response/DefaultResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/request/response/DefaultResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/response/EstOrderListResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/request/response/business/EstOrderResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/response/EstablishmentResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/request/response/customer/EstablishmentResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/response/OrderCreateResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/request/response/customer/OrderCreateResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/response/OrderListResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/request/response/customer/OrderListResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/response/OwnerResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/request/response/business/GetEstListResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/response/PostEstCreationResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/request/response/business/EstCreationResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/response/WorkerResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/request/response/business/WorkerResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/result/DefaultResult.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/request/result/DefaultResult.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/result/EstCreationResult.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/request/result/business/EstCreationResult.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/result/EstOrderListResult.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/request/result/business/EstOrderListResult.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/result/OrderCreateResult.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/request/result/customer/OrderCreateResult.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/result/OrderListResult.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/request/result/customer/OrderListResult.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/result/OwnerEstResult.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/request/result/business/OwnerEstResult.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/navigation/NavigationComponent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/navigation/NavigationComponent.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/EstCreationRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/business/EstCreationRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/EstOrderListRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/business/EstOrderListRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/EstablishmentRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/customer/EstablishmentRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/OrderCreateRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/customer/OrderCreateRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/OrderListRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/customer/OrderListRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/OwnerMainRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/business/OwnerMainRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/WorkerRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/business/WorkerRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/EstCreationRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/business/EstCreationRepositoryImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/EstOrderListRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/business/EstOrderListRepositoryImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/EstablishmentRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/customer/EstablishmentRepositoryImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/OrderCreateRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/customer/OrderCreateRepositoryImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/OrderListRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/customer/OrderListRepositoryImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/OwnerMainRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/business/OwnerMainRepositoryImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/WorkerRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/business/WorkerRepositoryImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/BudleBookingCardList.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/BudleBookingCardList.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/business/EstCreationRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/business/EstCreationRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/business/OwnerMainRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/business/OwnerMainRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/customer/EstablishmentRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/customer/EstablishmentRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/customer/OrderCreateRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/customer/OrderCreateRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/customer/OrderListRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/customer/OrderListRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/business/EstCreationRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/business/EstCreationRepositoryImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/business/OwnerMainRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/business/OwnerMainRepositoryImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/customer/EstablishmentRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/customer/EstablishmentRepositoryImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/customer/OrderCreateRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/customer/OrderCreateRepositoryImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/customer/OrderListRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/customer/OrderListRepositoryImpl.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/BudleInstitutionsRow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/BudleInstitutionsRow.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/cards/BudleBookingCard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/cards/BudleBookingCard.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/cards/BudleBusinessOrderCard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/cards/BudleBusinessOrderCard.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/inputs/dropdown/BudleMultiSelectableDropDownMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/inputs/dropdown/BudleMultiSelectableDropDownMenu.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/BudleCreatorEstablishmentCard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/BudleCreatorEstablishmentCard.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/card_lists/BudleBusinessOrderCardList.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/card_lists/BudleBusinessOrderCardList.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/card_lists/BudleCreatorEstablishmentCardList.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/card_lists/BudleCreatorEstablishmentCardList.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/day_list/BudleWorkerDaysPicker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/day_list/BudleWorkerDaysPicker.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/day_list/BudleWorkerDaysPickerList.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/day_list/BudleWorkerDaysPickerList.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/establishments/EstablishmentCard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/establishments/EstablishmentCard.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/establishments/EstablishmentsRow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/establishments/EstablishmentsRow.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/CardScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/CardScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/MainScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/MainScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/OrderScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/OrderScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/UserProfile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/UserProfile.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/UserProfileBookings.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/UserProfileBookings.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/business/creator/CreatorMain.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/business/creator/CreatorMain.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/business/creator/creator_process/EstablishmentCreationFifth.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/business/creator/creator_process/EstablishmentCreationFifth.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/business/creator/creator_process/EstablishmentCreationFirst.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/business/creator/creator_process/EstablishmentCreationFirst.kt" afterDir="false" />
@@ -86,21 +87,26 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/business/creator/creator_process/EstablishmentCreationThrid.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/business/creator/creator_process/EstablishmentCreationThrid.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/business/creator/creator_profile/EstablishmentOrders.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/business/creator/creator_profile/EstablishmentOrders.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/business/creator/creator_profile/EstablishmentWorkers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/business/creator/creator_profile/EstablishmentWorkers.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/CardScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/CardScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/MainScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/MainScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/OrderScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/OrderScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/UserProfile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/UserProfile.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/UserProfileBookings.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/UserProfileBookings.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/util/SubcategoryChanger.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/util/SubcategoryChanger.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/EstCreationViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/business/EstCreationViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/EstOrderListViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/business/EstOrderListViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/MainViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/customer/MainViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/OrderCreateViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/customer/OrderCreateViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/OrderListViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/customer/OrderListViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/OwnerMainViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/business/OwnerMainViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/WorkerListViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/business/WorkerListViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/business/EstCreationViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/business/EstCreationViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/business/EstOrderListViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/business/EstOrderListViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/business/OwnerMainViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/business/OwnerMainViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/business/WorkerListViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/business/WorkerListViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/customer/MainViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/customer/MainViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/customer/OrderCreateViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/customer/OrderCreateViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/customer/OrderListViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/customer/OrderListViewModel.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\treti\.android\avd\Pixel_3a_API_33.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[FPM4C18529002820]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -126,22 +132,22 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Kotlin Sealed Class" />
         <option value="Kotlin Enum" />
-        <option value="Class" />
-        <option value="Kotlin Interface" />
-        <option value="Kotlin Object" />
-        <option value="Kotlin Sealed Interface" />
         <option value="Kotlin File" />
+        <option value="Kotlin Object" />
+        <option value="Class" />
         <option value="Kotlin Data Class" />
+        <option value="Kotlin Interface" />
+        <option value="Kotlin Sealed Class" />
         <option value="Kotlin Class" />
+        <option value="Kotlin Sealed Interface" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="business-user" />
+        <entry key="$PROJECT_DIR$" value="user-profile" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -208,18 +214,18 @@
       <recent name="D:\Users\NikFive\BudleMaterial3\app\src\main\java\fit\budle" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\treti\IdeaProjects\budle-mobile\app\src\main\java\fit\budle\request\result" />
       <recent name="C:\Users\treti\IdeaProjects\budle-mobile\app\src\main\java\fit\budle\navigation\graphs" />
       <recent name="C:\Users\treti\IdeaProjects\budle-mobile\app\src\main\java\fit\budle\dto\business_user" />
       <recent name="C:\Users\treti\IdeaProjects\budle-mobile\app\src\main\java\fit\budle\dto\business_user\worker" />
       <recent name="C:\Users\treti\IdeaProjects\budle-mobile\app\src\main\java\fit\budle\dto" />
-      <recent name="C:\Users\treti\IdeaProjects\budle-mobile\app\src\main\java\fit\budle\dto\establishment" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
-      <recent name="fit.budle.viewmodel.business" />
-      <recent name="fit.budle.viewmodel.customer" />
-      <recent name="fit.budle.dto.establishment.etsablishment_type" />
-      <recent name="fit.budle.repository_impl.business" />
-      <recent name="fit.budle.repository_impl.customer" />
+      <recent name="fit.budle.event.business" />
+      <recent name="fit.budle.event.customer" />
+      <recent name="fit.budle.dto.result.business" />
+      <recent name="fit.budle.dto.result.customer" />
+      <recent name="fit.budle.dto.response.business" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
       <recent name="fit.budle.model" />
@@ -550,7 +556,8 @@
     <MESSAGE value="backend-integration / reverting" />
     <MESSAGE value="backend-integration / connected CreatorMainScreen&#10;&#10;also made navigation between CreatorMainScreen and EstablishmentWorkersScreen" />
     <MESSAGE value="backend-integration / deleted acceptOrder, rejectOrder and added putOrderStatus" />
-    <option name="LAST_COMMIT_MESSAGE" value="backend-integration / deleted acceptOrder, rejectOrder and added putOrderStatus" />
+    <MESSAGE value="backend-integration / added viewModel for registering, retrieved JSESSIONID from the response" />
+    <option name="LAST_COMMIT_MESSAGE" value="backend-integration / added viewModel for registering, retrieved JSESSIONID from the response" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />

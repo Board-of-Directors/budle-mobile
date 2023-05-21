@@ -18,9 +18,9 @@ import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fit.budle.R
-import fit.budle.di.establishment.Establishment
 import fit.budle.dto.WorkingHour
-import fit.budle.dto.events.MainEvent
+import fit.budle.dto.establishment.Establishment
+import fit.budle.event.customer.MainEvent
 import fit.budle.ui.components.BudleIconButton
 import fit.budle.ui.components.BudlePhotoTag
 import fit.budle.ui.components.atoms.BudleButton

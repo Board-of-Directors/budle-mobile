@@ -17,7 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import fit.budle.R
-import fit.budle.di.establishment.Establishment
+import fit.budle.dto.establishment.Establishment
 import fit.budle.ui.theme.alphaBlack
 import fit.budle.ui.theme.mainBlack
 import fit.budle.ui.theme.mainWhite

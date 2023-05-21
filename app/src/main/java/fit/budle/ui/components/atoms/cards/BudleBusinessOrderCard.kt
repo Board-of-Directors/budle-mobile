@@ -12,9 +12,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import fit.budle.R
-import fit.budle.dto.events.BookingEvent
 import fit.budle.dto.order.BookingStatus
 import fit.budle.dto.order.BusinessOrderDto
+import fit.budle.event.business.BookingEvent
 import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.ui.theme.*
 import fit.budle.viewmodel.business.EstOrderListViewModel

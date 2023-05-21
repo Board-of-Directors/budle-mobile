@@ -2,9 +2,9 @@ package fit.budle.repository_impl.customer
 
 import android.util.Log
 import fit.budle.dao.customer.EstablishmentDAO
-import fit.budle.di.establishment.CategoriesListResult
-import fit.budle.di.establishment.EstablishmentListResult
-import fit.budle.di.establishment.EstablishmentResult
+import fit.budle.dto.establishment.CategoriesListResult
+import fit.budle.dto.establishment.EstablishmentListResult
+import fit.budle.dto.establishment.EstablishmentResult
 import fit.budle.repository.customer.EstablishmentRepository
 import javax.inject.Inject
 

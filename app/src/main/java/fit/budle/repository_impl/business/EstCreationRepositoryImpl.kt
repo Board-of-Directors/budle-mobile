@@ -2,7 +2,7 @@ package fit.budle.repository_impl.business
 
 import android.util.Log
 import fit.budle.dao.business.EstCreationDAO
-import fit.budle.di.establishment.etsablishment_type.NewEstablishmentDto
+import fit.budle.dto.establishment.etsablishment_type.NewEstablishmentDto
 import fit.budle.dto.result.GetCategoryListResult
 import fit.budle.dto.result.GetCategoryVariantListResult
 import fit.budle.dto.result.GetTagListResult

@@ -2,9 +2,9 @@ package fit.budle.repository_impl.customer
 
 import android.util.Log
 import fit.budle.dao.customer.OrderListDAO
-import fit.budle.dto.result.DefaultResult
-import fit.budle.dto.result.OrderListResult
 import fit.budle.repository.customer.OrderListRepository
+import fit.budle.request.result.DefaultResult
+import fit.budle.request.result.customer.OrderListResult
 import javax.inject.Inject
 
 class OrderListRepositoryImpl @Inject constructor(

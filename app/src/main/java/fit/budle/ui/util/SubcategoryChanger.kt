@@ -1,6 +1,6 @@
 package fit.budle.ui.util
 
-import fit.budle.di.establishment.etsablishment_type.NewEstablishmentDto
+import fit.budle.dto.establishment.etsablishment_type.NewEstablishmentDto
 import fit.budle.viewmodel.business.EstCreationViewModel
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.full.declaredMemberProperties

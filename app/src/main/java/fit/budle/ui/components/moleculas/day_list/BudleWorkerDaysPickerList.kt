@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateMap
-import fit.budle.di.establishment.WorkingHoursDto
+import fit.budle.dto.establishment.WorkingHoursDto
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable

@@ -7,10 +7,10 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import fit.budle.dto.events.BookingEvent
 import fit.budle.dto.order.BusinessOrderDto
 import fit.budle.dto.result.GetEstOrderListResult
 import fit.budle.dto.result.PutEstOrderStatusResult
+import fit.budle.event.business.BookingEvent
 import fit.budle.repository.business.EstOrderListRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject

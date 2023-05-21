@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import fit.budle.R
-import fit.budle.dto.events.EstCreationEvent
+import fit.budle.event.business.EstCreationEvent
 import fit.budle.ui.components.atoms.headers.BudleNavigationHeader
 import fit.budle.ui.components.screens.BudleInformationScreen
 import fit.budle.viewmodel.business.EstCreationViewModel

@@ -8,9 +8,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import fit.budle.dto.events.WorkerEvent
 import fit.budle.dto.worker.GetWorkerArrayResult
 import fit.budle.dto.worker.Worker
+import fit.budle.event.business.WorkerEvent
 import fit.budle.repository.business.WorkerRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject

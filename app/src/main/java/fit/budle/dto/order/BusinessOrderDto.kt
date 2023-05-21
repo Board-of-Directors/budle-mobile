@@ -1,6 +1,6 @@
 package fit.budle.dto.order
 
-import fit.budle.di.establishment.etsablishment_type.EstablishmentBasicDto
+import fit.budle.dto.establishment.etsablishment_type.EstablishmentBasicDto
 
 data class BusinessOrderDto(
     val date: String,

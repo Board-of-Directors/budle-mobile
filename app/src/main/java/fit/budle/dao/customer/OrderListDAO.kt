@@ -1,7 +1,7 @@
 package fit.budle.dao.customer
 
-import fit.budle.dto.response.DefaultResponse
-import fit.budle.dto.response.OrderListResponse
+import fit.budle.request.response.DefaultBooleanResponse
+import fit.budle.request.response.customer.OrderListResponse
 import retrofit2.http.*
 
 interface OrderListDAO {
@@ -14,6 +14,6 @@ interface OrderListDAO {
     @DELETE("order")
     suspend fun deleteOrder(
         @Query("userId") userId: Long,
-        @Query("orderId") orderId: Long
-    ): DefaultResponse.DefaultBooleanResponse
+        @Query("orderId") orderId: Long,
+    ): DefaultBooleanResponse
 }

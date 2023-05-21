@@ -2,9 +2,9 @@ package fit.budle.repository_impl.customer
 
 import android.util.Log
 import fit.budle.dao.customer.OrderCreateDAO
-import fit.budle.dto.result.DefaultResult
-import fit.budle.dto.result.OrderCreateResult
 import fit.budle.repository.customer.OrderCreateRepository
+import fit.budle.request.result.DefaultResult
+import fit.budle.request.result.customer.OrderCreateResult
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject

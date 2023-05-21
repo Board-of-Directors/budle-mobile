@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import fit.budle.R
-import fit.budle.dto.events.WorkerEvent
+import fit.budle.event.business.WorkerEvent
 import fit.budle.ui.components.atoms.BudleAddWorkerPopup
 import fit.budle.ui.components.moleculas.card_lists.BudleCreatorWorkerCardList
 import fit.budle.ui.components.moleculas.screens.BudleScreenWithButtonAndProgress

@@ -8,7 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import fit.budle.dto.events.EstCreationEvent
+import fit.budle.event.business.EstCreationEvent
 import fit.budle.ui.components.atoms.inputs.dropdown.BudleDropDownMenu
 import fit.budle.ui.components.atoms.inputs.dropdown.BudleMultiSelectableDropDownMenu
 import fit.budle.ui.components.moleculas.screens.BudleScreenWithButtonAndProgress

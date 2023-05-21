@@ -1,6 +1,6 @@
 package fit.budle.dao.customer
 
-import fit.budle.dto.response.EstablishmentResponse
+import fit.budle.request.response.customer.EstablishmentResponse
 import retrofit2.http.*
 
 interface EstablishmentDAO {

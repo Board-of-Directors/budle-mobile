@@ -9,10 +9,10 @@ import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import fit.budle.di.establishment.*
 import fit.budle.dto.customer_user.User
-import fit.budle.dto.events.MainEvent
+import fit.budle.dto.establishment.*
 import fit.budle.dto.tag.standard.Tag
+import fit.budle.event.customer.MainEvent
 import fit.budle.repository.customer.EstablishmentRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

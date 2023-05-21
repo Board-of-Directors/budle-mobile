@@ -1,6 +1,6 @@
 package fit.budle.repository.business
 
-import fit.budle.di.establishment.etsablishment_type.NewEstablishmentDto
+import fit.budle.dto.establishment.etsablishment_type.NewEstablishmentDto
 import fit.budle.dto.result.GetCategoryListResult
 import fit.budle.dto.result.GetCategoryVariantListResult
 import fit.budle.dto.result.GetTagListResult

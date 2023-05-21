@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import fit.budle.dto.events.EstCreationEvent
+import fit.budle.event.business.EstCreationEvent
 import fit.budle.ui.components.atoms.inputs.photo_inputs.BudleSingleSelectPhotoInput
 import fit.budle.ui.components.atoms.inputs.text_inputs.BudleSingleLineInput
 import fit.budle.ui.components.moleculas.screens.BudleScreenWithButtonAndProgress

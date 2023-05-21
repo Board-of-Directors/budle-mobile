@@ -9,9 +9,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import fit.budle.dto.events.OrderListEvent
 import fit.budle.dto.tag.active.RectangleActiveTag
 import fit.budle.dto.tag.active.ordersTagList
+import fit.budle.event.customer.OrderListEvent
 import fit.budle.ui.components.BudleBookingCardList
 import fit.budle.ui.components.BudleSearchBar
 import fit.budle.ui.components.atoms.headers.BudleNavigationHeader

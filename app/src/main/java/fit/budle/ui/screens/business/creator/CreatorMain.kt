@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import fit.budle.R
-import fit.budle.dto.events.OwnerMainEvent
+import fit.budle.event.business.OwnerMainEvent
 import fit.budle.ui.components.atoms.headers.BudleUserHeader
 import fit.budle.ui.components.moleculas.BudleBlockWithHeader
 import fit.budle.ui.components.moleculas.card_lists.BudleCreatorEstablishmentCardList

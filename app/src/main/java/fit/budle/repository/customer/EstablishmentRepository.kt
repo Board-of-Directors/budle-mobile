@@ -1,8 +1,8 @@
 package fit.budle.repository.customer
 
-import fit.budle.di.establishment.CategoriesListResult
-import fit.budle.di.establishment.EstablishmentListResult
-import fit.budle.di.establishment.EstablishmentResult
+import fit.budle.dto.establishment.CategoriesListResult
+import fit.budle.dto.establishment.EstablishmentListResult
+import fit.budle.dto.establishment.EstablishmentResult
 
 interface EstablishmentRepository {
 

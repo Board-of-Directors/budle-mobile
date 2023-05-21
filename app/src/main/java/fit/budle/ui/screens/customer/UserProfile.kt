@@ -1,4 +1,4 @@
-package fit.budle.ui.screens
+package fit.budle.ui.screens.customer
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -13,15 +13,21 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
 import fit.budle.dto.Tab
+import fit.budle.dto.customer_user.RequestUser
 import fit.budle.dto.tabs
+import fit.budle.event.customer.UserProfileEvent
 import fit.budle.navigation.NavRoute
 import fit.budle.ui.components.BudleApplicationPattern
 import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.ui.components.atoms.headers.BudleUserHeader
 import fit.budle.ui.theme.*
+import fit.budle.viewmodel.customer.UserProfileViewModel
 
 @Composable
-fun UserProfileScreen(navController: NavHostController) {
+fun UserProfileScreen(
+    navController: NavHostController,
+    viewModel: UserProfileViewModel,
+) {
     Surface(Modifier.fillMaxSize()) {
         Column(
             Modifier.fillMaxSize()
@@ -35,8 +41,7 @@ fun UserProfileScreen(navController: NavHostController) {
                 iconId = R.drawable.x,
                 iconDescription = "Close",
                 iconColor = mainBlack,
-                onClick = {navController.popBackStack()}
-                //navController = navController
+                onClick = { navController.popBackStack() }
             )
             ShowColumn(navController)
             BudleButton(
@@ -52,6 +57,12 @@ fun UserProfileScreen(navController: NavHostController) {
             )
             BudleButton(
                 onClick = {
+                    viewModel.onEvent(UserProfileEvent.PostBusinessLoginEvent(
+                        RequestUser(
+                            "1234557",
+                            "+79139391192",
+                            "artem3"
+                        )))
                 },
                 topPadding = 15.dp,
                 iconId = R.drawable.zap,
@@ -84,7 +95,7 @@ fun ShowColumn(navController: NavHostController) {
 @Composable
 fun ShowTab(
     navController: NavHostController,
-    tab: Tab
+    tab: Tab,
 ) {
     Row(
         modifier = Modifier

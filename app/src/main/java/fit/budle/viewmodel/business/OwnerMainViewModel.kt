@@ -9,10 +9,10 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import fit.budle.di.establishment.etsablishment_type.EstablishmentShortDto
-import fit.budle.dto.events.OwnerMainEvent
-import fit.budle.dto.result.OwnerEstResult
+import fit.budle.dto.establishment.etsablishment_type.EstablishmentShortDto
+import fit.budle.event.business.OwnerMainEvent
 import fit.budle.repository.business.OwnerMainRepository
+import fit.budle.request.result.business.OwnerEstResult
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

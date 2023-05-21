@@ -16,8 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fit.budle.R
-import fit.budle.di.establishment.EstablishmentRequest
-import fit.budle.dto.events.MainEvent
+import fit.budle.dto.establishment.EstablishmentRequest
+import fit.budle.event.customer.MainEvent
 import fit.budle.ui.components.moleculas.establishments.EstablishmentRow
 import fit.budle.ui.theme.backgroundLightBlue
 import fit.budle.ui.theme.mainBlack

@@ -1,7 +1,7 @@
 package fit.budle.repository.customer
 
-import fit.budle.dto.result.DefaultResult
-import fit.budle.dto.result.OrderCreateResult
+import fit.budle.request.result.DefaultResult
+import fit.budle.request.result.customer.OrderCreateResult
 
 interface OrderCreateRepository {
 

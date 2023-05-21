@@ -1,6 +1,6 @@
 package fit.budle.dao.business
 
-import fit.budle.dto.response.EstOrderResponse
+import fit.budle.request.response.business.EstOrderResponse
 import retrofit2.http.GET
 import retrofit2.http.PUT
 import retrofit2.http.Query

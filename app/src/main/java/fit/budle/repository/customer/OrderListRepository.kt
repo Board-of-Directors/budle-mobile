@@ -1,7 +1,7 @@
 package fit.budle.repository.customer
 
-import fit.budle.dto.result.DefaultResult
-import fit.budle.dto.result.OrderListResult
+import fit.budle.request.result.DefaultResult
+import fit.budle.request.result.customer.OrderListResult
 
 interface OrderListRepository {
     suspend fun getOrder(userId: Long, status: Int?): OrderListResult
