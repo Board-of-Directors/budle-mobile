@@ -5,9 +5,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import fit.budle.dao.business.EstOrderListDAO
-import fit.budle.di.RetrofitModule.retrofit
 import fit.budle.repository.business.EstOrderListRepository
 import fit.budle.repository_impl.business.EstOrderListRepositoryImpl
+import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
@@ -16,7 +16,7 @@ object EstOrderListModule {
 
     @Provides
     @Singleton
-    fun provideEstOrderListDAO(): EstOrderListDAO {
+    fun provideEstOrderListDAO(retrofit: Retrofit): EstOrderListDAO {
         return retrofit.create(EstOrderListDAO::class.java)
     }
 

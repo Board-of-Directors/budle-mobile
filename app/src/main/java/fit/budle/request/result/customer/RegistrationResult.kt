@@ -1,10 +1,9 @@
 package fit.budle.request.result.customer
 
 import fit.budle.dto.Exception
-import okhttp3.Headers
 
 sealed interface PostUserResult {
-    data class Success(val result: Boolean?, val headers: Headers, val exception: Exception?) :
+    data class Success(val result: Boolean?, val exception: Exception?) :
         PostUserResult
 
     data class Failure(val exception: String) : PostUserResult

@@ -1,13 +1,14 @@
 package fit.budle.di.customer
 
+import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import fit.budle.dao.customer.RegistrationDAO
-import fit.budle.di.RetrofitModule
 import fit.budle.repository.customer.RegistrationRepository
 import fit.budle.repository_impl.customer.RegistrationRepositoryImpl
+import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
@@ -15,13 +16,16 @@ import javax.inject.Singleton
 object RegistrationModule {
     @Provides
     @Singleton
-    fun provideRegistrationDAO(): RegistrationDAO {
-        return RetrofitModule.retrofit.create(RegistrationDAO::class.java)
+    fun provideRegistrationDAO(retrofit: Retrofit): RegistrationDAO {
+        return retrofit.create(RegistrationDAO::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideRegistrationRepository(registrationDAO: RegistrationDAO): RegistrationRepository {
-        return RegistrationRepositoryImpl(registrationDAO)
+    fun provideRegistrationRepository(
+        registrationDAO: RegistrationDAO,
+        prefs: SharedPreferences,
+    ): RegistrationRepository {
+        return RegistrationRepositoryImpl(registrationDAO, prefs)
     }
 }

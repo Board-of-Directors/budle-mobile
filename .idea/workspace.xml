@@ -9,18 +9,19 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a889eeb-4a07-4de4-9cda-8cbfa792dff6" name="Changes" comment="develop/add map to navigation">
+    <list default="true" id="7a889eeb-4a07-4de4-9cda-8cbfa792dff6" name="Changes" comment="backend-integration / added registration part (all parts are together!!), changed repositoryImpl, now user can see custom backend exceptions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/navigation/NavigationComponent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/navigation/NavigationComponent.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/BudleAddWorkerPopup.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/BudleAddWorkerPopup.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/inputs/text_inputs/BudleNumberInput.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/inputs/text_inputs/BudleNumberInput.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/AuthInterceptor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/AuthInterceptor.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/RetrofitModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/RetrofitModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/customer/RegistrationRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/customer/RegistrationRepositoryImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/customer/RegistrationViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/customer/RegistrationViewModel.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\treti\.android\avd\Pixel_3a_API_33.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[FPM4C18529002820]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -49,19 +50,19 @@
         <option value="Class" />
         <option value="Kotlin Data Class" />
         <option value="Kotlin Sealed Class" />
-        <option value="Kotlin Object" />
         <option value="Kotlin Interface" />
         <option value="Kotlin Class" />
         <option value="Kotlin Sealed Interface" />
         <option value="Kotlin File" />
         <option value="Kotlin Enum" />
+        <option value="Kotlin Object" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="user-profile" />
+        <entry key="$PROJECT_DIR$" value="backend-integration" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -449,7 +450,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683170263026</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="backend-integration / added registration part (all parts are together!!), changed repositoryImpl, now user can see custom backend exceptions">
+      <created>1684690706965</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1684690706965</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -471,20 +479,10 @@
     <MESSAGE value="backend-integration / connected CreatorMainScreen&#10;&#10;also made navigation between CreatorMainScreen and EstablishmentWorkersScreen" />
     <MESSAGE value="backend-integration / deleted acceptOrder, rejectOrder and added putOrderStatus" />
     <MESSAGE value="backend-integration / added viewModel for registering, retrieved JSESSIONID from the response" />
-    <option name="LAST_COMMIT_MESSAGE" value="backend-integration / added viewModel for registering, retrieved JSESSIONID from the response" />
+    <MESSAGE value="backend-integration / added registration part (all parts are together!!), changed repositoryImpl, now user can see custom backend exceptions" />
+    <option name="LAST_COMMIT_MESSAGE" value="backend-integration / added registration part (all parts are together!!), changed repositoryImpl, now user can see custom backend exceptions" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/customer/RegistrationRepositoryImpl.kt</url>
-          <line>59</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

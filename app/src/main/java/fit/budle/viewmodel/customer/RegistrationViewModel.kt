@@ -23,8 +23,6 @@ class RegistrationViewModel @Inject constructor(
     private val registrationRepository: RegistrationRepository,
 ) : ViewModel() {
 
-    private var sessionId by mutableStateOf("")
-
     var type by mutableStateOf(RegisterType.REGISTER)
     var username by mutableStateOf("")
     var password by mutableStateOf("")
@@ -67,11 +65,7 @@ class RegistrationViewModel @Inject constructor(
                         ), event.type
                     )) {
                         is PostUserResult.Success -> {
-                            sessionId = result.headers
-                                .values("Set-Cookie")[0]
-                                .split(";")[0]
-                                .split("=")[1]
-                            requestException = ""
+                            // TODO Доделать
                         }
                         is PostUserResult.Failure -> {
                             requestException = result.exception

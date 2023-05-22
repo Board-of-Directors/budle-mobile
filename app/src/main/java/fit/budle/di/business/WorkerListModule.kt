@@ -5,9 +5,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import fit.budle.dao.business.WorkerDAO
-import fit.budle.di.RetrofitModule.retrofit
 import fit.budle.repository.business.WorkerRepository
 import fit.budle.repository_impl.business.WorkerRepositoryImpl
+import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
@@ -16,7 +16,7 @@ object WorkerListModule {
 
     @Provides
     @Singleton
-    fun provideWorkerDAO(): WorkerDAO {
+    fun provideWorkerDAO(retrofit: Retrofit): WorkerDAO {
         return retrofit.create(WorkerDAO::class.java)
     }
 

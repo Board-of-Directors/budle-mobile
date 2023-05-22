@@ -1,31 +1,48 @@
 package fit.budle.di
 
-import okhttp3.Interceptor
+import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Singleton
 
+@Module
+@InstallIn(SingletonComponent::class)
 object RetrofitModule {
 
     private const val BASE_URL = "http://80.64.174.33:8080/"
 
-    private object RequestInterceptor : Interceptor {
-        override fun intercept(chain: Interceptor.Chain): Response {
-            val request = chain.request()
-            println("Outgoing request to ${request.url}")
-            return chain.proceed(request)
-        }
+    @Singleton
+    @Provides
+    fun providesAuthRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(MoshiConverterFactory.create())
+            .build()
     }
 
-    private val okHttpClient = OkHttpClient()
-        .newBuilder()
-        .addInterceptor(RequestInterceptor)
-        .build()
+    @Singleton
+    @Provides
+    fun providesOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient {
+        return OkHttpClient().newBuilder().addInterceptor(authInterceptor).build()
+    }
 
-    val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .client(okHttpClient)
-        .addConverterFactory(MoshiConverterFactory.create())
-        .build()
+    @Provides
+    @Singleton
+    fun provideSharedPref(app: Application): SharedPreferences {
+        return app.getSharedPreferences(PrefSettings.fileName, Context.MODE_PRIVATE)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthInterceptor(prefs: SharedPreferences): AuthInterceptor {
+        return AuthInterceptor(prefs)
+    }
 }
