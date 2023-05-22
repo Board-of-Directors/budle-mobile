@@ -8,9 +8,9 @@ import javax.inject.Inject
 
 class AuthInterceptor @Inject constructor(private val prefs: SharedPreferences) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        val sessionId = prefs.getString("SessionId", null) //TODO Заменить SessionId на константу
+        val sessionId = prefs.getString(PrefSettings.sessionId, null)
         val request = chain.request().newBuilder()
-            .addHeader("SessionId", "$sessionId") //TODO Заменить SessionId на константу
+            .addHeader("MYCOOKIE", "$sessionId")
         Log.d("SESSIONID", "$sessionId")
         return chain.proceed(request.build())
     }

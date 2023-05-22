@@ -15,6 +15,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object RetrofitModule {
+
     private const val BASE_URL = "http://80.64.174.33:8080/"
 
     @Singleton
@@ -36,8 +37,7 @@ object RetrofitModule {
     @Provides
     @Singleton
     fun provideSharedPref(app: Application): SharedPreferences {
-        return app.getSharedPreferences("PREFS_SESSIONID_FILE",
-            Context.MODE_PRIVATE) //TODO Заменить PREFS_SESSION_FILE на константу
+        return app.getSharedPreferences(PrefSettings.fileName, Context.MODE_PRIVATE)
     }
 
     @Provides

@@ -3,6 +3,7 @@ package fit.budle.repository_impl.customer
 import android.content.SharedPreferences
 import android.util.Log
 import fit.budle.dao.customer.RegistrationDAO
+import fit.budle.di.PrefSettings
 import fit.budle.dto.RegisterType
 import fit.budle.dto.code.CodeDto
 import fit.budle.dto.customer_user.RequestUser
@@ -25,16 +26,16 @@ class RegistrationRepositoryImpl @Inject constructor(
 
         return if (response.body()!!.exception == null) {
             Log.d("POST_USER", "SUCCESS")
-
-            prefs.edit().putString("SessionId", response.headers()
-                .values("Set-Cookie")[0]
-                .split(";")[0]
-                .split("=")[1]).apply()
-
-            PostUserResult.Success(
-                result = response.body()!!.result,
-                exception = response.body()!!.exception
-            )
+            with(prefs.edit()) {
+                putString(PrefSettings.sessionId, response.headers()
+                    .values("Set-Cookie")[0]
+                    .split(";")[0]
+                    .split("=")[1]).apply()
+                PostUserResult.Success(
+                    result = response.body()!!.result,
+                    exception = response.body()!!.exception
+                )
+            }
         } else {
             Log.e("POST_USER", response.body()!!.exception!!.message)
             PostUserResult.Failure(response.body()!!.exception!!.message)
