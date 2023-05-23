@@ -10,7 +10,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fit.budle.dto.customer_user.User
-import fit.budle.dto.establishment.*
+import fit.budle.dto.establishment.CategoriesListResult
+import fit.budle.dto.establishment.Establishment
+import fit.budle.dto.establishment.EstablishmentArray
+import fit.budle.dto.establishment.EstablishmentDto
+import fit.budle.dto.establishment.EstablishmentListResult
+import fit.budle.dto.establishment.EstablishmentResult
 import fit.budle.dto.tag.standard.Tag
 import fit.budle.event.customer.MainEvent
 import fit.budle.repository.customer.EstablishmentRepository
@@ -31,7 +36,7 @@ class MainViewModel @Inject constructor(
     var establishments3: ArrayList<MutableState<EstablishmentArray>> = arrayListOf()
 
     var establishmentCard: Establishment by mutableStateOf(Establishment())
-    var establishmentCardId: Long by mutableStateOf(1)
+    var establishmentCardId: Long by mutableStateOf(1L)
 
 
     fun onEvent(event: MainEvent) {

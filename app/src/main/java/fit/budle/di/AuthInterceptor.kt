@@ -10,7 +10,7 @@ class AuthInterceptor @Inject constructor(private val prefs: SharedPreferences) 
     override fun intercept(chain: Interceptor.Chain): Response {
         val sessionId = prefs.getString(PrefSettings.sessionId, null)
         val request = chain.request().newBuilder()
-            .addHeader("MYCOOKIE", "$sessionId")
+            .addHeader(PrefSettings.sessionId, "$sessionId")
         Log.d("SESSIONID", "$sessionId")
         return chain.proceed(request.build())
     }

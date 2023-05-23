@@ -27,15 +27,14 @@ class RegistrationRepositoryImpl @Inject constructor(
         return if (response.body()!!.exception == null) {
             Log.d("POST_USER", "SUCCESS")
             with(prefs.edit()) {
-                putString(PrefSettings.sessionId, response.headers()
-                    .values("Set-Cookie")[0]
-                    .split(";")[0]
-                    .split("=")[1]).apply()
-                PostUserResult.Success(
-                    result = response.body()!!.result,
-                    exception = response.body()!!.exception
-                )
+                putString(PrefSettings.sessionId, response.headers().values("Set-Cookie")[0])
+                putString(PrefSettings.username, requestUserDto.username)
+                apply()
             }
+            PostUserResult.Success(
+                result = response.body()!!.result,
+                exception = response.body()!!.exception
+            )
         } else {
             Log.e("POST_USER", response.body()!!.exception!!.message)
             PostUserResult.Failure(response.body()!!.exception!!.message)

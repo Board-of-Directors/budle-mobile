@@ -69,11 +69,13 @@ fun ShowSearchBar(navHostController: NavController) {
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             onValueChange = { text = it },
             shape = RoundedCornerShape(10.dp),
-            colors = TextFieldDefaults.textFieldColors(
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = backgroundLightBlue,
+                unfocusedContainerColor = backgroundLightBlue,
+                disabledContainerColor = backgroundLightBlue,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent,
-                containerColor = backgroundLightBlue,
             ),
             placeholder = {
                 Text(
@@ -104,7 +106,7 @@ fun ShowSearchBar(navHostController: NavController) {
         Spacer(Modifier.width(5.dp))
         IconButton(
             onClick = {
-                navHostController.navigate(route = "user_profile")
+                navHostController.navigate(route = "userProfile")
             }
         ) {
             Icon(
