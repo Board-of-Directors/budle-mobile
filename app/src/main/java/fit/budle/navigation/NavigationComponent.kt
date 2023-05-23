@@ -4,56 +4,76 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.*
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import fit.budle.navigation.graphs.establishmentCreationNavGraph
+import fit.budle.navigation.graphs.registrationNavGraph
 import fit.budle.ui.screens.*
-import fit.budle.viewmodel.BookViewModel
-import fit.budle.viewmodel.MainViewModel
+import fit.budle.ui.screens.business.creator.CreatorMainScreen
+import fit.budle.ui.screens.business.creator.creator_profile.EstablishmentOrdersScreen
+import fit.budle.ui.screens.business.creator.creator_profile.EstablishmentWorkersScreen
+import fit.budle.ui.screens.customer.UserProfileScreen
+import fit.budle.viewmodel.customer.MainViewModel
 
-@RequiresApi(Build.VERSION_CODES.N)
+@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun NavigationComponent(navController: NavHostController) {
-    val mainViewModel = viewModel<MainViewModel>()
+    val mainViewModel: MainViewModel = hiltViewModel()
     NavHost(
         navController = navController,
-        startDestination = "home"
+        startDestination = "registration/"
     ) {
-        composable("home") {
-            HomeScreen(
-                navController,
-                mainViewModel::getListOfEstablishments,
-                mainViewModel::getListOfCategories
-            )
+        composable("ownerMain") {
+            CreatorMainScreen(navHostController = navController)
         }
-        composable("card/{category}/{cardId}") {
-            CardScreen(
-                navController,
-                (mainViewModel::getCard)(
-                    it.arguments?.getString("category"),
-                    it.arguments?.getString("cardId")
+        composable("ownerMain/workers/{establishmentId}") {
+            it.arguments?.getString("establishmentId")?.let { string ->
+                EstablishmentWorkersScreen(
+                    navHostController = navController,
+                    establishmentId = string.toInt()
                 )
+            }
+        }
+        composable("ownerMain/bookings/{establishmentId}") {
+            it.arguments?.getString("establishmentId")?.let { string ->
+                EstablishmentOrdersScreen(
+                    navHostController = navController,
+                    establishmentId = string.toInt()
+                )
+            }
+        }
+        composable("main") {
+            MainScreen(
+                navHostController = navController,
+                mainViewModel
             )
         }
-        composable("order/{id}/{name}") {
-            val bookViewModel = viewModel<BookViewModel>()
+        composable("card") {
+            CardScreen(
+                navHostController = navController,
+                mainViewModel
+            )
+        }
+        composable("orderCreate/{establishmentId}/{establishmentName}") {
             OrderScreen(
-                navController,
-                it.arguments?.getString("id"),
-                it.arguments?.getString("name"),
-                bookViewModel::getOrder,
-                bookViewModel::sendGuestCount,
-                bookViewModel::sendData,
-                bookViewModel::sendTime
+                navHostController = navController,
+                it.arguments?.getString("establishmentId"),
+                it.arguments?.getString("establishmentName"),
             )
         }
-        composable("user_profile") { UserProfileScreen(navController) }
-        composable("user_profile_bookings") {
+        registrationNavGraph(navController)
+        establishmentCreationNavGraph(navController)
+        composable("userProfile") {
+            UserProfileScreen(
+                navController = navController,
+                viewModel = hiltViewModel()
+            )
+        }
+        composable("userProfile/bookings") {
             UserProfileBookingsScreenBackendConnected(
-                navController,
-                mainViewModel::getListOfOrders,
-                mainViewModel::deleteOrderFromUser
+                navController = navController,
             )
         }
     }
