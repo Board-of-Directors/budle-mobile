@@ -5,7 +5,11 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Base64
 import android.util.Log
-import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.lifecycle.ViewModel
@@ -46,6 +50,8 @@ class EstCreationViewModel @Inject constructor(
     var selectedWorkingHours = mutableStateMapOf<Int, WorkingHoursDto>()
     var hasMap by mutableStateOf(false)
     var blocksCount by mutableStateOf(1)
+    var selectedMapUri by mutableStateOf<Uri?>(null)
+    var selectedMapBitmap by mutableStateOf<Bitmap?>(null)
 
     // optional fields
     var selectedCuisineCountry by mutableStateOf<String?>(null)
@@ -73,6 +79,7 @@ class EstCreationViewModel @Inject constructor(
                     }
                 }
             }
+
             is EstCreationEvent.SecondStep -> {
                 viewModelScope.launch {
                     establishmentDTO.category = selectedCategory
@@ -81,6 +88,7 @@ class EstCreationViewModel @Inject constructor(
                     establishmentDTO.tags = selectedTags
                 }
             }
+
             is EstCreationEvent.ThirdStep -> {
                 viewModelScope.launch {
                     establishmentDTO.description = selectedDescription
@@ -94,17 +102,20 @@ class EstCreationViewModel @Inject constructor(
                     establishmentDTO.photosInput = convertedPhotos
                 }
             }
+
             is EstCreationEvent.FourthStep -> {
                 viewModelScope.launch {
                     establishmentDTO.address = selectedAddress
                     establishmentDTO.workingHours = listOf(WorkingHour("Пн", "12:00", "22:00"))
                 }
             }
+
             is EstCreationEvent.CreateEstablishment -> {
                 viewModelScope.launch {
                     estCreationRepository.postEstablishment(establishmentDTO)
                 }
             }
+
             is EstCreationEvent.GetCategoryListEvent -> {
                 viewModelScope.launch {
                     when (val result = estCreationRepository.getCategoryList()) {
@@ -112,12 +123,14 @@ class EstCreationViewModel @Inject constructor(
                             Log.d("VM_GET_CATEGORY_LIST", "SUCCESS")
                             categoryList = result.result
                         }
+
                         else -> {
                             Log.d("VM_GET_CATEGORY_LIST", "FAILURE")
                         }
                     }
                 }
             }
+
             is EstCreationEvent.GetTagListEvent -> {
                 viewModelScope.launch {
                     when (val result = estCreationRepository.getTagList()) {
@@ -139,12 +152,14 @@ class EstCreationViewModel @Inject constructor(
 
                             tagList = list
                         }
+
                         else -> {
                             Log.d("VM_GET_CATEGORY_LIST", "FAILURE")
                         }
                     }
                 }
             }
+
             is EstCreationEvent.GetVariantList -> {
                 viewModelScope.launch {
                     when (val result =
@@ -152,10 +167,21 @@ class EstCreationViewModel @Inject constructor(
                         is GetCategoryVariantListResult.Success -> {
                             variantList = result.result
                         }
+
                         else -> {
                             Log.d("VM_GET_VARIANT_LIST", "FAILURE")
                         }
                     }
+                }
+            }
+
+            is EstCreationEvent.CreateMap -> {
+                viewModelScope.launch {
+                    val encodedMap = convertBitmapToBase64(selectedMapBitmap)
+                    if (encodedMap != null) {
+                        establishmentDTO.map = encodedMap
+                    } else Log.e("MAP", "Cannot encode map to base64")
+                    Log.d("MAP", encodedMap.toString())
                 }
             }
         }

@@ -102,6 +102,14 @@ dependencies {
     kapt 'com.google.dagger:hilt-android-compiler:2.46.1'
     kapt "androidx.hilt:hilt-compiler:1.0.0"
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
+
+    // Zoomable
+    implementation 'com.github.Tlaster:Zoomable:0.6.2'
+
+    implementation("androidx.compose.material3:material3:1.1.0")
+    implementation("androidx.compose.material3:material3-window-size-class:1.1.0")
+
+    implementation("org.jetbrains.kotlin:kotlin-script-runtime:1.8.10")
 }
 
 kapt {
