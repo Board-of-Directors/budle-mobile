@@ -27,7 +27,9 @@ class RegistrationRepositoryImpl @Inject constructor(
         return if (response.body()!!.exception == null) {
             Log.d("POST_USER", "SUCCESS")
             with(prefs.edit()) {
-                putString(PrefSettings.sessionId, response.headers().values("Set-Cookie")[0])
+                if (response.headers().values("Set-Cookie").isNotEmpty()) {
+                    putString(PrefSettings.sessionId, response.headers().values("Set-Cookie")[0])
+                }
                 putString(PrefSettings.username, requestUserDto.username)
                 apply()
             }
