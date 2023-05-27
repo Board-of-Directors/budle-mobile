@@ -3,13 +3,27 @@ package fit.budle.ui.screens.registration
 import android.os.Handler
 import android.os.Looper
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -137,6 +151,7 @@ fun CodeScreen(
                         style = MaterialTheme.typography.bodyMedium,
                         color = backgroundError,
                         modifier = Modifier.padding(top = 10.dp, start = 15.dp)
+                            .fillMaxWidth()
                     )
                 }
             }
@@ -165,7 +180,9 @@ fun CodeScreen(
                             if (viewModel.requestException.isEmpty()) {
                                 navHostController.navigate("dataScreen")
                             } else {
-                                viewModel.states = mutableStateListOf("", "", "", "")
+                                for (i in 0..3) {
+                                    viewModel.states[i] = ""
+                                }
                             }
                         }, 1000)
                     }
