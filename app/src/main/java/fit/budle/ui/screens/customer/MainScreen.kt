@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fit.budle.R
-import fit.budle.dto.establishment.EstablishmentRequest
 import fit.budle.event.customer.MainEvent
 import fit.budle.ui.components.moleculas.establishments.EstablishmentRow
 import fit.budle.ui.theme.backgroundLightBlue
@@ -28,11 +27,7 @@ fun MainScreen(
     navHostController: NavController,
     viewModel: MainViewModel = hiltViewModel(),
 ) {
-    val establishmentRequest =
-        EstablishmentRequest(null, null, null, null, null, null, null)
-
     viewModel.onEvent(MainEvent.getCategory)
-
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -41,7 +36,7 @@ fun MainScreen(
             LazyColumn(
                 horizontalAlignment = Alignment.Start
             ) {
-                itemsIndexed(viewModel.establishments2) { _, i ->
+                itemsIndexed(viewModel.establishmentsForScreen) { _, i ->
                     EstablishmentRow(
                         i.value,
                         navHostController,
