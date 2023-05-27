@@ -65,7 +65,7 @@ class RegistrationViewModel @Inject constructor(
                         ), event.type
                     )) {
                         is PostUserResult.Success -> {
-                            // TODO Доделать
+                            requestException = ""
                         }
                         is PostUserResult.Failure -> {
                             requestException = result.exception
