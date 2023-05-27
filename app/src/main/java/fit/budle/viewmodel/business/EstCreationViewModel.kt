@@ -24,6 +24,7 @@ import fit.budle.event.business.EstCreationEvent
 import fit.budle.repository.business.EstCreationRepository
 import fit.budle.util.FileEncoder
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -49,6 +50,7 @@ class EstCreationViewModel @Inject constructor(
     var blocksCount by mutableStateOf(1)
 
     var selectedMapUri by mutableStateOf<Uri?>(null)
+    var selectedMapFile by mutableStateOf<File?>(null)
 
     // optional fields
     var selectedCuisineCountry by mutableStateOf<String?>(null)
@@ -180,7 +182,8 @@ class EstCreationViewModel @Inject constructor(
 
             is EstCreationEvent.CreateMap -> {
                 viewModelScope.launch {
-                    val encodedMap = fileEncoder.encodeFileToBase64(selectedMapUri)
+                    val svg = selectedMapFile!!.readText(Charsets.UTF_8)
+                    val encodedMap = fileEncoder.encodeStringToBase64(svg)
                     if (encodedMap != null) {
                         establishmentDTO.map = encodedMap
                     } else Log.e("MAP", "Cannot encode map to base64")

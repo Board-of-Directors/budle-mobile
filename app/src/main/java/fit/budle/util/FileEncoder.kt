@@ -1,11 +1,8 @@
 package fit.budle.util
 
 import android.graphics.Bitmap
-import android.net.Uri
-import android.os.Environment
 import android.util.Base64
 import java.io.ByteArrayOutputStream
-import java.io.File
 
 class FileEncoder {
     fun decodeBase64toSVG(base64: String?): String? {
@@ -23,15 +20,10 @@ class FileEncoder {
         } else return null
     }
 
-    fun encodeFileToBase64(uri: Uri?): String? {
-        return if (uri != null) {
-            val downloadDir =
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-            val file = uri.path?.let { File(downloadDir, "map.svg") }
-            if (file != null) {
-                val bytes = file.readBytes();
-                Base64.encodeToString(bytes, Base64.DEFAULT).replace("\n", "")
-            } else null
+    fun encodeStringToBase64(svgPath: String?): String? {
+        return if (svgPath != null) {
+            val bytes = svgPath.toByteArray()
+            Base64.encodeToString(bytes, Base64.DEFAULT).replace("\n", "")
         } else null
     }
 }

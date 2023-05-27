@@ -12,12 +12,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import fit.budle.event.business.EstCreationEvent
 import fit.budle.ui.components.atoms.inputs.BudleFileInput
 import fit.budle.ui.components.atoms.switch.BudleSwitch
 import fit.budle.ui.components.moleculas.screens.BudleScreenWithButtonAndProgress
 import fit.budle.ui.theme.mainBlack
+import fit.budle.util.convertToFile
 import fit.budle.viewmodel.business.EstCreationViewModel
 
 @RequiresApi(Build.VERSION_CODES.P)
@@ -26,6 +28,9 @@ fun EstablishmentCreationMapScreen(
     navHostController: NavHostController,
     viewModel: EstCreationViewModel,
 ) {
+
+    val context = LocalContext.current
+
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -55,7 +60,12 @@ fun EstablishmentCreationMapScreen(
             }
             if (viewModel.hasMap) {
                 BudleFileInput(
-                    onFileSelect = { viewModel.selectedMapUri = it },
+                    onFileSelect = {
+                        viewModel.selectedMapUri = it
+                        if (it != null) {
+                            viewModel.selectedMapFile = it.convertToFile(context)
+                        }
+                    },
                     headerText = "Выберите карту заведения",
                     initialState = viewModel.selectedMapUri
                 )

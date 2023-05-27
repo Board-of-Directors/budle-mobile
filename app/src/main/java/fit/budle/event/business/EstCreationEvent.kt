@@ -7,7 +7,7 @@ sealed interface EstCreationEvent {
     object FourthStep : EstCreationEvent
     object CreateMap : EstCreationEvent
     object CreateEstablishment : EstCreationEvent
-    object GetCategoryListEvent: EstCreationEvent
+    object GetCategoryListEvent : EstCreationEvent
     object GetTagListEvent : EstCreationEvent
     object GetVariantList : EstCreationEvent
 }
