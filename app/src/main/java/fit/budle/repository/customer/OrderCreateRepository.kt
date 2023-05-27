@@ -1,6 +1,7 @@
 package fit.budle.repository.customer
 
 import fit.budle.request.result.DefaultResult
+import fit.budle.request.result.customer.GetEstablishmentMapResult
 import fit.budle.request.result.customer.OrderCreateResult
 
 interface OrderCreateRepository {
@@ -18,4 +19,5 @@ interface OrderCreateRepository {
         establishmentId: Long
     ): OrderCreateResult
 
+    suspend fun getEstablishmentMap(establishmentId: Int): GetEstablishmentMapResult
 }

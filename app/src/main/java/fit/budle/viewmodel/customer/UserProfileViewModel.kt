@@ -8,7 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import fit.budle.di.PrefSettings
+import fit.budle.di.config.SharedPrefConfig
 import fit.budle.event.customer.UserProfileEvent
 import fit.budle.repository.customer.BusinessLoginRepository
 import fit.budle.request.result.customer.BusinessLoginResult
@@ -47,18 +47,18 @@ class UserProfileViewModel @Inject constructor(
 
             is UserProfileEvent.Logout -> {
                 with(sharedPreferences.edit()) {
-                    putString(PrefSettings.sessionId, null)
+                    putString(SharedPrefConfig.sessionId, null)
                     apply()
                 }
             }
 
             is UserProfileEvent.GetSession -> {
-                if (sharedPreferences.getString(PrefSettings.sessionId, null) == null) {
+                if (sharedPreferences.getString(SharedPrefConfig.sessionId, null) == null) {
                     username = "Вы не вошли в систему"
                     buttonText = "Войти"
                     isLogin = false
                 } else {
-                    username = sharedPreferences.getString(PrefSettings.username, null)!!
+                    username = sharedPreferences.getString(SharedPrefConfig.username, null)!!
                     buttonText = "Выйти"
                     isLogin = true
                 }

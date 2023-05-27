@@ -10,7 +10,10 @@ interface OrderCreateDAO {
     suspend fun postOrder(@Body requestBody: RequestBody): DefaultBooleanResponse
 
     @GET("establishment/time")
-    suspend fun getEstablishmentTime(
-        @Query("establishmentId") establishmentId: Long?,
-    ): OrderCreateResponse.ScheduleDayArrayResponse
+    suspend fun getEstablishmentTime(@Query("establishmentId") establishmentId: Long?)
+            : OrderCreateResponse.ScheduleDayArrayResponse
+
+    @GET("establishment/map")
+    suspend fun getEstablishmentMap(@Query("establishmentId") establishmentId: Int)
+            : OrderCreateResponse.GetEstabmishmentMapResponse
 }

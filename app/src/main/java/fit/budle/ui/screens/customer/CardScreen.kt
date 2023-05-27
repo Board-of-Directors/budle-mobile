@@ -54,6 +54,11 @@ fun CardScreen(
     viewModel: MainViewModel = hiltViewModel(),
 ) {
     viewModel.onEvent(MainEvent.GetEstablishment)
+
+    val orderScreenPrefix = if (viewModel.establishmentCard.hasMap)
+        "mapScreen/" else "orderCreateMap/"
+
+    viewModel.onEvent(MainEvent.getEstablishment)
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -87,7 +92,8 @@ fun CardScreen(
                 BudleButton(
                     onClick = {
                         navHostController.navigate(
-                            "orderCreate/${viewModel.establishmentCardId}/${viewModel.establishmentCard.name}"
+                            orderScreenPrefix + "${viewModel.establishmentCardId}" +
+                                    "/${viewModel.establishmentCard.name}"
                         )
                     },
                     buttonText = "Забронировать место",
@@ -122,6 +128,9 @@ fun CardScreen(
                 viewModel.establishmentCard.workingHours?.let { WorkingTime(cardDescription = it.toList()) }
                 EstablishmentAddress(addressInfo = viewModel.establishmentCard.address)
             }
+            }
+            viewModel.establishmentCard.workingHours?.let { WorkingTime(cardDescription = it.toList()) }
+            EstablishmentAddress(addressInfo = viewModel.establishmentCard.address)
         }
     }
 }

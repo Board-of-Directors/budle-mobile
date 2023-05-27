@@ -44,14 +44,24 @@ fun NavGraphBuilder.establishmentCreationNavGraph(
         composable("fourthStep") {
             EstablishmentCreationFourthScreen(
                 navHostController = navHostController,
-                viewModel = hiltViewModel()
+                viewModel = hiltViewModel(
+                    navHostController.getBackStackEntry("firstStep")
+                )
+            )
+        }
+        composable("mapStep") {
+            EstablishmentCreationMapScreen(
+                navHostController = navHostController,
+                viewModel = hiltViewModel(
+                    navHostController.getBackStackEntry("firstStep")
+                )
             )
         }
         composable("fifthStep") {
             EstablishmentCreationFifthScreen(
                 navHostController = navHostController,
                 viewModel = hiltViewModel(
-                    navHostController.getBackStackEntry("fourthStep")
+                    navHostController.getBackStackEntry("firstStep")
                 )
             )
         }

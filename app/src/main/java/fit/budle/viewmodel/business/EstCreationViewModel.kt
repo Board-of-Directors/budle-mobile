@@ -1,13 +1,13 @@
 package fit.budle.viewmodel.business
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
-import android.util.Base64
 import android.util.Log
-import androidx.compose.runtime.*
-import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.graphics.painter.BitmapPainter
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,8 +22,9 @@ import fit.budle.dto.tag.ReturnTag
 import fit.budle.dto.tag.standard.TagResponse
 import fit.budle.event.business.EstCreationEvent
 import fit.budle.repository.business.EstCreationRepository
+import fit.budle.util.FileEncoder
 import kotlinx.coroutines.launch
-import java.io.ByteArrayOutputStream
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,6 +32,7 @@ class EstCreationViewModel @Inject constructor(
     private val estCreationRepository: EstCreationRepository,
 ) : ViewModel() {
 
+    val fileEncoder = FileEncoder()
     var establishmentDTO by mutableStateOf(NewEstablishmentDto())
 
     // required fields
@@ -46,6 +48,9 @@ class EstCreationViewModel @Inject constructor(
     var selectedWorkingHours = mutableStateMapOf<Int, WorkingHoursDto>()
     var hasMap by mutableStateOf(false)
     var blocksCount by mutableStateOf(1)
+
+    var selectedMapUri by mutableStateOf<Uri?>(null)
+    var selectedMapFile by mutableStateOf<File?>(null)
 
     // optional fields
     var selectedCuisineCountry by mutableStateOf<String?>(null)
@@ -64,7 +69,7 @@ class EstCreationViewModel @Inject constructor(
         when (event) {
             is EstCreationEvent.FirstStep -> {
                 viewModelScope.launch {
-                    val convertedImage = convertBitmapToBase64(selectedImageBitmap)
+                    val convertedImage = fileEncoder.encodeBitmapToBase64(selectedImageBitmap)
                     if (convertedImage != null) {
                         establishmentDTO.image = convertedImage
                         establishmentDTO.name = selectedName
@@ -73,6 +78,7 @@ class EstCreationViewModel @Inject constructor(
                     }
                 }
             }
+
             is EstCreationEvent.SecondStep -> {
                 viewModelScope.launch {
                     establishmentDTO.category = selectedCategory
@@ -81,12 +87,13 @@ class EstCreationViewModel @Inject constructor(
                     establishmentDTO.tags = selectedTags
                 }
             }
+
             is EstCreationEvent.ThirdStep -> {
                 viewModelScope.launch {
                     establishmentDTO.description = selectedDescription
                     val convertedPhotos = mutableListOf<PhotoDto>()
                     selectedPhotosBitmap.forEach { bitmap ->
-                        val convertedPhoto = convertBitmapToBase64(bitmap)
+                        val convertedPhoto = fileEncoder.encodeBitmapToBase64(bitmap)
                         if (convertedPhoto != null) {
                             convertedPhotos.add(PhotoDto(convertedPhoto))
                         } else Log.d("THIRD_STEP", "IMAGE IS NULL")
@@ -94,17 +101,26 @@ class EstCreationViewModel @Inject constructor(
                     establishmentDTO.photosInput = convertedPhotos
                 }
             }
+
             is EstCreationEvent.FourthStep -> {
                 viewModelScope.launch {
                     establishmentDTO.address = selectedAddress
-                    establishmentDTO.workingHours = listOf(WorkingHour("Пн", "12:00", "22:00"))
+                    establishmentDTO.workingHours = listOf(
+                        WorkingHour(
+                            "Пн",
+                            "12:00",
+                            "22:00"
+                        )
+                    )
                 }
             }
+
             is EstCreationEvent.CreateEstablishment -> {
                 viewModelScope.launch {
                     estCreationRepository.postEstablishment(establishmentDTO)
                 }
             }
+
             is EstCreationEvent.GetCategoryListEvent -> {
                 viewModelScope.launch {
                     when (val result = estCreationRepository.getCategoryList()) {
@@ -112,12 +128,14 @@ class EstCreationViewModel @Inject constructor(
                             Log.d("VM_GET_CATEGORY_LIST", "SUCCESS")
                             categoryList = result.result
                         }
+
                         else -> {
                             Log.d("VM_GET_CATEGORY_LIST", "FAILURE")
                         }
                     }
                 }
             }
+
             is EstCreationEvent.GetTagListEvent -> {
                 viewModelScope.launch {
                     when (val result = estCreationRepository.getTagList()) {
@@ -127,7 +145,7 @@ class EstCreationViewModel @Inject constructor(
                             val list = mutableListOf<TagResponse>()
 
                             result.result.forEach {
-                                val svgString = convertBase64toSVG(it.image)
+                                val svgString = fileEncoder.decodeBase64toSVG(it.image)
                                 Log.d("SVG", svgString!!)
                                 list.add(
                                     TagResponse(
@@ -139,12 +157,14 @@ class EstCreationViewModel @Inject constructor(
 
                             tagList = list
                         }
+
                         else -> {
                             Log.d("VM_GET_CATEGORY_LIST", "FAILURE")
                         }
                     }
                 }
             }
+
             is EstCreationEvent.GetVariantList -> {
                 viewModelScope.launch {
                     when (val result =
@@ -152,38 +172,24 @@ class EstCreationViewModel @Inject constructor(
                         is GetCategoryVariantListResult.Success -> {
                             variantList = result.result
                         }
+
                         else -> {
                             Log.d("VM_GET_VARIANT_LIST", "FAILURE")
                         }
                     }
                 }
             }
+
+            is EstCreationEvent.CreateMap -> {
+                viewModelScope.launch {
+                    val svg = selectedMapFile!!.readText(Charsets.UTF_8)
+                    val encodedMap = fileEncoder.encodeStringToBase64(svg)
+                    if (encodedMap != null) {
+                        establishmentDTO.map = encodedMap
+                    } else Log.e("MAP", "Cannot encode map to base64")
+                    Log.i("MAP", encodedMap.toString())
+                }
+            }
         }
-    }
-
-    private fun convertBase64toImageBitmap(base64: String?): BitmapPainter? {
-        return if (base64 != null) {
-            val imageBytes: ByteArray = Base64.decode(base64, Base64.DEFAULT)
-            BitmapPainter(
-                BitmapFactory
-                    .decodeByteArray(imageBytes, 0, imageBytes.size)
-                    .asImageBitmap()
-            )
-        } else return null
-    }
-
-    private fun convertBase64toSVG(base64: String?): String? {
-        return if (base64 != null) {
-            String(Base64.decode(base64, Base64.DEFAULT))
-        } else return null
-    }
-
-    private fun convertBitmapToBase64(imageBitmap: Bitmap?): String? {
-        return if (imageBitmap != null) {
-            val baos = ByteArrayOutputStream()
-            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
-            val byteArray = baos.toByteArray()
-            Base64.encodeToString(byteArray, Base64.DEFAULT).replace("\n", "")
-        } else return null
     }
 }

@@ -4,6 +4,7 @@ import android.util.Log
 import fit.budle.dao.customer.OrderCreateDAO
 import fit.budle.repository.customer.OrderCreateRepository
 import fit.budle.request.result.DefaultResult
+import fit.budle.request.result.customer.GetEstablishmentMapResult
 import fit.budle.request.result.customer.OrderCreateResult
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -19,7 +20,7 @@ class OrderCreateRepositoryImpl @Inject constructor(
         guestCount: Int,
         time: String,
         date: String,
-        spotId: Int?
+        spotId: Int?,
     ): DefaultResult {
         return try {
             val jsonObject = JSONObject()
@@ -33,8 +34,10 @@ class OrderCreateRepositoryImpl @Inject constructor(
             val requestBody = jsonObjectString.toRequestBody("application/json".toMediaTypeOrNull())
             val result = orderCreateDAO.postOrder(requestBody)
             Log.d("POSTORDER", "SUCCESS")
-            DefaultResult.Success(result = result.result,
-                exceptionMessage = result.exception?.message)
+            DefaultResult.Success(
+                result = result.result,
+                exceptionMessage = result.exception?.message
+            )
         } catch (e: Throwable) {
             Log.e("POSTORDER", "FAILURE")
             DefaultResult.Failure(e)
@@ -52,6 +55,20 @@ class OrderCreateRepositoryImpl @Inject constructor(
         } catch (exception: Exception) {
             Log.d("GETESTABLISHMENTTIME", "FAILURE")
             OrderCreateResult.Failure(exception)
+        }
+    }
+
+    override suspend fun getEstablishmentMap(establishmentId: Int): GetEstablishmentMapResult {
+        val response = orderCreateDAO.getEstablishmentMap(establishmentId)
+        return try {
+            Log.i("GET_EST_MAP", "SUCCESS")
+            GetEstablishmentMapResult.Success(
+                result = response.result,
+                exception = response.exception
+            )
+        } catch (e: Throwable) {
+            Log.e("GET_EST_MAP", e.message!!)
+            GetEstablishmentMapResult.Failure(e)
         }
     }
 }
