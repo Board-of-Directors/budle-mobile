@@ -14,7 +14,7 @@ data class Establishment(
     val address: String = "",
     val owner: User = User(""),
     val hasCardPayment: Boolean? = false,
-    val hasMap: Boolean? = false,
+    val hasMap: Boolean = false,
     val category: String = "",
     val image: BitmapPainter? = null,
     val rating: Double? = null,
@@ -22,5 +22,5 @@ data class Establishment(
     val workingHours: Array<WorkingHour>? = null,
     val tags: ArrayList<Tag> = arrayListOf(),
     val cuisineCountry: String? = "",
-    val starsCount: Int? = 1
+    val starsCount: Int? = 1,
 )

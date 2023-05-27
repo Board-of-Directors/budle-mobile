@@ -2,11 +2,26 @@ package fit.budle.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,7 +40,11 @@ import fit.budle.ui.components.BudleIconButton
 import fit.budle.ui.components.BudlePhotoTag
 import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.ui.components.moleculas.BudleBlockWithHeader
-import fit.budle.ui.theme.*
+import fit.budle.ui.theme.alphaBlack
+import fit.budle.ui.theme.fillPurple
+import fit.budle.ui.theme.mainBlack
+import fit.budle.ui.theme.mainWhite
+import fit.budle.ui.theme.textGray
 import fit.budle.viewmodel.customer.MainViewModel
 
 @Composable
@@ -33,6 +52,10 @@ fun CardScreen(
     navHostController: NavController,
     viewModel: MainViewModel = hiltViewModel(),
 ) {
+
+    val orderScreenPrefix = if (viewModel.establishmentCard.hasMap)
+        "mapScreen/" else "orderCreateMap/"
+
     viewModel.onEvent(MainEvent.getEstablishment)
     Surface(
         modifier = Modifier.fillMaxSize()
@@ -67,7 +90,8 @@ fun CardScreen(
                 BudleButton(
                     onClick = {
                         navHostController.navigate(
-                            "orderCreate/${viewModel.establishmentCardId}/${viewModel.establishmentCard.name}"
+                            orderScreenPrefix + "${viewModel.establishmentCardId}" +
+                                    "/${viewModel.establishmentCard.name}"
                         )
                     },
                     buttonText = "Забронировать место",
@@ -101,7 +125,6 @@ fun CardScreen(
                 }
             }
             viewModel.establishmentCard.workingHours?.let { WorkingTime(cardDescription = it.toList()) }
-
             EstablishmentAddress(addressInfo = viewModel.establishmentCard.address)
         }
     }

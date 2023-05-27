@@ -2,7 +2,6 @@ package fit.budle.navigation
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.animation.*
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -10,10 +9,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import fit.budle.navigation.graphs.establishmentCreationNavGraph
 import fit.budle.navigation.graphs.registrationNavGraph
-import fit.budle.ui.screens.*
+import fit.budle.ui.screens.CardScreen
+import fit.budle.ui.screens.MainScreen
+import fit.budle.ui.screens.OrderScreen
+import fit.budle.ui.screens.UserProfileBookingsScreenBackendConnected
 import fit.budle.ui.screens.business.creator.CreatorMainScreen
 import fit.budle.ui.screens.business.creator.creator_profile.EstablishmentOrdersScreen
 import fit.budle.ui.screens.business.creator.creator_profile.EstablishmentWorkersScreen
+import fit.budle.ui.screens.customer.MapScreen
 import fit.budle.ui.screens.customer.UserProfileScreen
 import fit.budle.viewmodel.customer.MainViewModel
 
@@ -23,7 +26,7 @@ fun NavigationComponent(navController: NavHostController) {
     val mainViewModel: MainViewModel = hiltViewModel()
     NavHost(
         navController = navController,
-        startDestination = "registration/"
+        startDestination = "ownerMain/establishmentCreation/"
     ) {
         composable("ownerMain") {
             CreatorMainScreen(navHostController = navController)
@@ -49,6 +52,15 @@ fun NavigationComponent(navController: NavHostController) {
                 navHostController = navController,
                 mainViewModel
             )
+        }
+        composable("orderCreateMap/{establishmentId}") {
+            it.arguments?.getString("establishmentId")?.let { establishmentId ->
+                MapScreen(
+                    navHostController = navController,
+                    establishmentId = establishmentId,
+                    viewModel = hiltViewModel()
+                )
+            }
         }
         composable("card") {
             CardScreen(

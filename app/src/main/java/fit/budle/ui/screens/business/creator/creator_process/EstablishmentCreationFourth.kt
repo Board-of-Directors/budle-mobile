@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -34,7 +34,7 @@ fun EstablishmentCreationFourthScreen(
             progress = "80%",
             onClick = {
                 viewModel.onEvent(EstCreationEvent.FourthStep)
-                navHostController.navigate("fifthStep")
+                navHostController.navigate("mapStep")
             },
             textMessage = "Создание заведения"
         ) {

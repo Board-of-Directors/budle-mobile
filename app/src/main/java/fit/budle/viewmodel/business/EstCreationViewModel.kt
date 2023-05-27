@@ -28,6 +28,7 @@ import fit.budle.event.business.EstCreationEvent
 import fit.budle.repository.business.EstCreationRepository
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -50,8 +51,8 @@ class EstCreationViewModel @Inject constructor(
     var selectedWorkingHours = mutableStateMapOf<Int, WorkingHoursDto>()
     var hasMap by mutableStateOf(false)
     var blocksCount by mutableStateOf(1)
+
     var selectedMapUri by mutableStateOf<Uri?>(null)
-    var selectedMapBitmap by mutableStateOf<Bitmap?>(null)
 
     // optional fields
     var selectedCuisineCountry by mutableStateOf<String?>(null)
@@ -177,7 +178,7 @@ class EstCreationViewModel @Inject constructor(
 
             is EstCreationEvent.CreateMap -> {
                 viewModelScope.launch {
-                    val encodedMap = convertBitmapToBase64(selectedMapBitmap)
+                    val encodedMap = convertFileToBase64(selectedMapUri)
                     if (encodedMap != null) {
                         establishmentDTO.map = encodedMap
                     } else Log.e("MAP", "Cannot encode map to base64")
@@ -210,6 +211,14 @@ class EstCreationViewModel @Inject constructor(
             imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
             val byteArray = baos.toByteArray()
             Base64.encodeToString(byteArray, Base64.DEFAULT).replace("\n", "")
+        } else return null
+    }
+
+    private fun convertFileToBase64(uri: Uri?): String? {
+        return if (uri != null) {
+            val file = uri.path?.let { File(it) }
+            val bytes = file?.readBytes();
+            Base64.encodeToString(bytes, Base64.DEFAULT).replace("\n", "")
         } else return null
     }
 }

@@ -2,9 +2,9 @@ package fit.budle.request.result.customer
 
 import fit.budle.dto.Exception
 
-sealed class BusinessLoginResult {
+sealed interface BusinessLoginResult {
     data class Success(val result: Boolean?, val exception: Exception?) :
-        BusinessLoginResult()
+        BusinessLoginResult
 
-    data class Failure(val throwable: Throwable?) : BusinessLoginResult()
+    data class Failure(val throwable: Throwable?) : BusinessLoginResult
 }

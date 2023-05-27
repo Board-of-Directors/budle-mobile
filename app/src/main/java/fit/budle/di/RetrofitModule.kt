@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import fit.budle.di.config.SharedPrefConfig
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -37,7 +38,7 @@ object RetrofitModule {
     @Provides
     @Singleton
     fun provideSharedPref(app: Application): SharedPreferences {
-        return app.getSharedPreferences(PrefSettings.fileName, Context.MODE_PRIVATE)
+        return app.getSharedPreferences(SharedPrefConfig.fileName, Context.MODE_PRIVATE)
     }
 
     @Provides

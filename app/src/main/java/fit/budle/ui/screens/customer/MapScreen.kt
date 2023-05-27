@@ -12,6 +12,9 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.FractionalThreshold
+import androidx.compose.material.rememberSwipeableState
+import androidx.compose.material.swipeable
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
@@ -26,8 +29,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.core.graphics.PathParser.createPathFromPathData
 import androidx.navigation.NavHostController
-import fit.budle.utils.XMLParser
-import fit.budle.utils.XMLShape
+import fit.budle.event.customer.OrderCreateEvent
+import fit.budle.ui.util.xml_parser.XMLParser
+import fit.budle.ui.util.xml_parser.XMLShape
+import fit.budle.viewmodel.customer.OrderCreateViewModel
 import moe.tlaster.zoomable.Zoomable
 import moe.tlaster.zoomable.rememberZoomableState
 import java.io.InputStream
@@ -38,15 +43,15 @@ import kotlin.math.roundToInt
 @Composable
 fun MapScreen(
     navHostController: NavHostController,
-    getMap: () -> String,
-    sendSeat: (String) -> Unit,
+    establishmentId: String,
+    viewModel: OrderCreateViewModel,
 ) {
-    val state = rememberZoomableState(
-        minScale = 1f,
-        maxScale = 3f
-    )
-    val mapOfTables =
-        remember { mutableStateMapOf<XMLShape, Boolean>() }
+
+    OrderCreateEvent.GetEstablishmentMap(establishmentId.toInt())
+    val shapes = parseSVG(viewModel.establishmentMap.byteInputStream())
+
+    val state = rememberZoomableState(minScale = 1f, maxScale = 3f)
+    val mapOfTables = remember { mutableStateMapOf<XMLShape, Boolean>() }
 
     Surface(
         modifier = Modifier.fillMaxSize()
@@ -58,9 +63,13 @@ fun MapScreen(
                     .fillMaxSize()
                     .selectableGroup()
             ) {
-                val istream = getMap().byteInputStream()
-                val shapes = parseSVG(istream)
-                ShowMap(mutableCollection = mapOfTables, xmlShapes = shapes, sendSeat)
+                ShowMap(
+                    mutableCollection = mapOfTables,
+                    xmlShapes = shapes,
+                    sendSeat = {
+                        viewModel.selectedSeatId = it.toInt()
+                    }
+                )
             }
         }
     }

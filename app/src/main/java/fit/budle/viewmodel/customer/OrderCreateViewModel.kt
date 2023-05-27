@@ -13,14 +13,16 @@ import fit.budle.dto.tag.active.RectangleActiveTag
 import fit.budle.event.customer.OrderCreateEvent
 import fit.budle.repository.customer.OrderCreateRepository
 import fit.budle.request.result.DefaultResult
+import fit.budle.request.result.customer.GetEstablishmentMapResult
 import fit.budle.request.result.customer.OrderCreateResult
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class OrderCreateViewModel @Inject constructor(
-    private var repository: OrderCreateRepository,
+    private var orderCreateRepository: OrderCreateRepository,
 ) : ViewModel() {
+
     var result: String by mutableStateOf("")
     var dateVar: String by mutableStateOf("")
     var timeVar: String by mutableStateOf("")
@@ -32,6 +34,9 @@ class OrderCreateViewModel @Inject constructor(
 
     var timeArray: List<RectangleActiveTag> by mutableStateOf(emptyList())
     var currentTime: RectangleActiveTag? by mutableStateOf(null)
+
+    var establishmentMap by mutableStateOf("")
+    var selectedSeatId by mutableStateOf(1)
 
     val userId: Long = 1
 
@@ -46,13 +51,13 @@ class OrderCreateViewModel @Inject constructor(
                     Log.e("DATE", "2023-05-$dateVar")
                     Log.e("SEAT", seatVar)
                     if (dateVar.isNotEmpty() && timeVar.isNotEmpty()) {
-                        when (val response = repository.postOrder(
+                        when (val response = orderCreateRepository.postOrder(
                             event.establishmentId,
                             userId,
                             guestCountVar,
                             "$timeVar:00",
                             "2023-05-$dateVar",
-                            null
+                            selectedSeatId
                         )) {
                             is DefaultResult.Success -> {
                                 Log.d("BOOKVIEWMODEL", "SUCCESS")
@@ -60,6 +65,7 @@ class OrderCreateViewModel @Inject constructor(
                                     if (response.result == null) "NULL" else if (response.result == true) "TRUE" else "FALSE"
                                 Log.d("BOOKVIEWMODEL", response.exceptionMessage.toString())
                             }
+
                             is DefaultResult.Failure -> {
                                 Log.e("BOOKVIEWMODEL", "FAILURE")
                                 response.throwable.message?.let { Log.e("BOOKVIEWMODEL", it) }
@@ -68,9 +74,10 @@ class OrderCreateViewModel @Inject constructor(
                     }
                 }
             }
+
             is OrderCreateEvent.getEstablishmentTime -> {
                 viewModelScope.launch {
-                    when (val response = repository.getEstablishmentTime(
+                    when (val response = orderCreateRepository.getEstablishmentTime(
                         event.establishmentId,
                     )) {
                         is OrderCreateResult.Success -> {
@@ -88,10 +95,24 @@ class OrderCreateViewModel @Inject constructor(
                                 currentTime = timeArray[0]
                             }
                         }
+
                         is OrderCreateResult.Failure -> {
                             Log.e("BOOKVIEWMODEL", "FAILURE")
                             response.throwable.message?.let { Log.e("BOOKVIEWMODEL", it) }
                         }
+                    }
+                }
+            }
+
+            is OrderCreateEvent.GetEstablishmentMap -> {
+                viewModelScope.launch {
+                    when (val result =
+                        orderCreateRepository.getEstablishmentMap(event.establishmentId)) {
+                        is GetEstablishmentMapResult.Success -> {
+                            establishmentMap = result.result!!
+                        }
+
+                        is GetEstablishmentMapResult.Failure -> {}
                     }
                 }
             }
