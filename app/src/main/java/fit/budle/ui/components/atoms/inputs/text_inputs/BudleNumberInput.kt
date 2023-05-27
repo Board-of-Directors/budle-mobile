@@ -2,6 +2,7 @@ package fit.budle.ui.components.atoms.inputs.text_inputs
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -42,6 +43,7 @@ fun BudleNumberInput(
         }
         Card(border = BorderStroke(2.dp, stateColor)) {
             BudleNumberTextField(
+                modifier = Modifier.fillMaxWidth(),
                 error = error,
                 onValueChange = { numberState = it },
                 startMessage = startMessage,

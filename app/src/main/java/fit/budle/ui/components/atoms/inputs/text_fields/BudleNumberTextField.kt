@@ -6,6 +6,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import fit.budle.ui.theme.backgroundLightBlue
@@ -27,6 +28,7 @@ fun BudleNumberTextField(
 
     var text by remember { mutableStateOf(startMessage) }
     val textColor = if (enabled) mainBlack else textGray
+    val focusManager = LocalFocusManager.current
 
     TextField(
         modifier = modifier,
@@ -38,14 +40,18 @@ fun BudleNumberTextField(
                 if (error.value && it.length == inputLength)
                     error.value = false
                 text = it.filter { it.isDigit() }
+                if (it.length == inputLength) {
+                    focusManager.clearFocus()
+                }
             }
         },
         shape = RoundedCornerShape(10.dp),
-        colors = TextFieldDefaults.textFieldColors(
+        colors = TextFieldDefaults.colors(
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
-            containerColor = backgroundLightBlue,
+            focusedContainerColor = backgroundLightBlue,
+            unfocusedContainerColor = backgroundLightBlue,
             disabledTextColor = textColor
         ),
         visualTransformation = MaskVisualTransformation(mask),

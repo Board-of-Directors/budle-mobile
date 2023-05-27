@@ -3,7 +3,7 @@ package fit.budle.repository_impl.customer
 import android.content.SharedPreferences
 import android.util.Log
 import fit.budle.dao.customer.RegistrationDAO
-import fit.budle.di.config.SharedPrefConfig
+import fit.budle.di.PrefSettings
 import fit.budle.dto.RegisterType
 import fit.budle.dto.code.CodeDto
 import fit.budle.dto.customer_user.RequestUser
@@ -26,15 +26,12 @@ class RegistrationRepositoryImpl @Inject constructor(
 
         return if (response.body()!!.exception == null) {
             Log.d("POST_USER", "SUCCESS")
-            if (response.headers().values("Set-Cookie").isNotEmpty()) {
-                with(prefs.edit()) {
-                    putString(
-                        SharedPrefConfig.sessionId,
-                        response.headers().values("Set-Cookie")[0]
-                    )
-                    putString(SharedPrefConfig.username, requestUserDto.username)
-                    apply()
+            with(prefs.edit()) {
+                if (response.headers().values("Set-Cookie").isNotEmpty()) {
+                    putString(PrefSettings.sessionId, response.headers().values("Set-Cookie")[0])
                 }
+                putString(PrefSettings.username, requestUserDto.username)
+                apply()
             }
             PostUserResult.Success(
                 result = response.body()!!.result,
