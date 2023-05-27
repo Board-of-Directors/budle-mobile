@@ -7,14 +7,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import fit.budle.navigation.graphs.creatorAccountNavGraph
 import fit.budle.navigation.graphs.establishmentCreationNavGraph
 import fit.budle.navigation.graphs.registrationNavGraph
 import fit.budle.ui.screens.MainScreen
 import fit.budle.ui.screens.OrderScreen
 import fit.budle.ui.screens.UserProfileBookingsScreenBackendConnected
-import fit.budle.ui.screens.business.creator.CreatorMainScreen
-import fit.budle.ui.screens.business.creator.creator_profile.EstablishmentOrdersScreen
-import fit.budle.ui.screens.business.creator.creator_profile.EstablishmentWorkersScreen
 import fit.budle.ui.screens.customer.CardScreen
 import fit.budle.ui.screens.customer.MapScreen
 import fit.budle.ui.screens.customer.UserProfileScreen
@@ -26,27 +24,8 @@ fun NavigationComponent(navController: NavHostController) {
     val mainViewModel: MainViewModel = hiltViewModel()
     NavHost(
         navController = navController,
-        startDestination = "ownerMain/establishmentCreation/"
+        startDestination = "main"
     ) {
-        composable("ownerMain") {
-            CreatorMainScreen(navHostController = navController)
-        }
-        composable("ownerMain/workers/{establishmentId}") {
-            it.arguments?.getString("establishmentId")?.let { string ->
-                EstablishmentWorkersScreen(
-                    navHostController = navController,
-                    establishmentId = string.toInt()
-                )
-            }
-        }
-        composable("ownerMain/bookings/{establishmentId}") {
-            it.arguments?.getString("establishmentId")?.let { string ->
-                EstablishmentOrdersScreen(
-                    navHostController = navController,
-                    establishmentId = string.toInt()
-                )
-            }
-        }
         composable("main") {
             MainScreen(
                 navHostController = navController,
@@ -76,6 +55,7 @@ fun NavigationComponent(navController: NavHostController) {
             )
         }
         registrationNavGraph(navController)
+        creatorAccountNavGraph(navController)
         establishmentCreationNavGraph(navController)
         composable("userProfile") {
             UserProfileScreen(

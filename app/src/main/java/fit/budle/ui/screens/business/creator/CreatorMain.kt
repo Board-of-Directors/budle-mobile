@@ -1,8 +1,11 @@
 package fit.budle.ui.screens.business.creator
 
+// import fit.budle.ui.components.moleculas.card_lists.BudleCreatorEstablishmentCardList
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -15,7 +18,6 @@ import fit.budle.event.business.OwnerMainEvent
 import fit.budle.ui.components.atoms.headers.BudleUserHeader
 import fit.budle.ui.components.moleculas.BudleBlockWithHeader
 import fit.budle.ui.components.moleculas.card_lists.BudleCreatorEstablishmentCardList
-// import fit.budle.ui.components.moleculas.card_lists.BudleCreatorEstablishmentCardList
 import fit.budle.ui.components.moleculas.screens.BudleScreenWithButton
 import fit.budle.ui.theme.lightBlue
 import fit.budle.ui.theme.textGray
@@ -46,7 +48,7 @@ fun CreatorMainScreen(
                 iconDescription = "Log out",
                 iconColor = textGray,
                 onClick = {
-                    navHostController.navigate("")
+                    navHostController.navigate("userProfile")
                 }
             )
             Divider(

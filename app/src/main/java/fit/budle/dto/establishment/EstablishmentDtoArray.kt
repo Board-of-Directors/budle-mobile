@@ -13,7 +13,7 @@ data class EstablishmentDto(
     val address: String,
     val owner: User,
     val hasCardPayment: Boolean?,
-    val hasMap: Boolean?,
+    val hasMap: Boolean,
     val map: String?,
     val category: String,
     val image: String?,
@@ -22,5 +22,5 @@ data class EstablishmentDto(
     val workingHours: Array<WorkingHour>,
     val tags: Array<TagResponse>,
     val cuisineCountry: String?,
-    val starsCount: Int?
+    val starsCount: Int?,
 )

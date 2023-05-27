@@ -1,10 +1,26 @@
 package fit.budle.ui.components.moleculas
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -13,7 +29,11 @@ import androidx.navigation.NavHostController
 import fit.budle.R
 import fit.budle.dto.establishment.etsablishment_type.EstablishmentShortDto
 import fit.budle.ui.components.atoms.BudleEstablishmentSubdescription
-import fit.budle.ui.theme.*
+import fit.budle.ui.theme.fillPurple
+import fit.budle.ui.theme.lightBlue
+import fit.budle.ui.theme.mainBlack
+import fit.budle.ui.theme.mainWhite
+import fit.budle.ui.theme.textGray
 
 @Composable
 fun BudleCreatorEstablishmentCard(
@@ -77,7 +97,7 @@ fun BudleCreatorEstablishmentCard(
                     )
                     TextWithIcon(
                         onClick = {
-                            navHostController.navigate("ownerMain/workers/${establishmentCard.id}")
+                            navHostController.navigate("workers/${establishmentCard.id}")
                         },
                         text = "Сотрудники",
                         iconId = R.drawable.user,
@@ -85,7 +105,7 @@ fun BudleCreatorEstablishmentCard(
                     )
                     TextWithIcon(
                         onClick = {
-                            navHostController.navigate("ownerMain/bookings/${establishmentCard.id}")
+                            navHostController.navigate("bookings/${establishmentCard.id}")
                         },
                         text = "Заказы",
                         iconId = R.drawable.file,

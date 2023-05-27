@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
 import fit.budle.dto.Tab
-import fit.budle.dto.customer_user.RequestUser
 import fit.budle.dto.tabs
 import fit.budle.event.customer.UserProfileEvent
 import fit.budle.ui.components.BudleApplicationPattern
@@ -73,15 +72,9 @@ fun UserProfileScreen(
             )
             BudleButton(
                 onClick = {
-                    viewModel.onEvent(
-                        UserProfileEvent.PostBusinessLoginEvent(
-                            RequestUser(
-                                "1234557",
-                                "+79139391192",
-                                "artem3"
-                            )
-                        )
-                    )
+                    if (viewModel.isLogin) {
+                        navController.navigate("businessAccount/")
+                    }
                 },
                 topPadding = 15.dp,
                 iconId = R.drawable.zap,

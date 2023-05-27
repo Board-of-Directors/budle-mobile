@@ -107,7 +107,7 @@ class EstCreationViewModel @Inject constructor(
                     establishmentDTO.address = selectedAddress
                     establishmentDTO.workingHours = listOf(
                         WorkingHour(
-                            "Пн",
+                            listOf("Пн"),
                             "12:00",
                             "22:00"
                         )
@@ -141,6 +141,7 @@ class EstCreationViewModel @Inject constructor(
                     when (val result = estCreationRepository.getTagList()) {
                         is GetTagListResult.Success -> {
 
+                            /*
                             Log.d("VM_GET_TAG_LIST", "SUCCESS")
                             val list = mutableListOf<TagResponse>()
 
@@ -153,9 +154,9 @@ class EstCreationViewModel @Inject constructor(
                                         svgString
                                     )
                                 )
-                            }
+                            } */
 
-                            tagList = list
+                            tagList = emptyList()
                         }
 
                         else -> {
@@ -185,7 +186,7 @@ class EstCreationViewModel @Inject constructor(
                     val svg = selectedMapFile!!.readText(Charsets.UTF_8)
                     val encodedMap = fileEncoder.encodeStringToBase64(svg)
                     if (encodedMap != null) {
-                        establishmentDTO.map = encodedMap
+                        establishmentDTO.map = svg
                     } else Log.e("MAP", "Cannot encode map to base64")
                     Log.i("MAP", encodedMap.toString())
                 }

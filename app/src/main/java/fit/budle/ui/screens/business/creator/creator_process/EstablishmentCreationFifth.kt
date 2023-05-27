@@ -41,7 +41,7 @@ fun EstablishmentCreationFifthScreen(
                 modifier = Modifier.padding(top = 40.dp),
                 onClick = {
                     viewModel.onEvent(EstCreationEvent.CreateEstablishment)
-                    navHostController.navigate("ownerMain")
+                    navHostController.navigate("businessAccount/")
                 },
                 message = "Супер! Заявка подана",
                 description = "Мы уже начали обрабатывать\n" +

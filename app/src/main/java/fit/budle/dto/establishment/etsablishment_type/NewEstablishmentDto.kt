@@ -9,7 +9,7 @@ data class NewEstablishmentDto(
     var category: String? = null,
     var description: String? = "",
     var starsCount: Int? = null,
-    var cuisineCountry: String? = null,
+    var cuisineCountry: String = "Азиатская",
     var hasCardPayment: Boolean = false,
     var hasMap: Boolean = false,
     var image: String = "",

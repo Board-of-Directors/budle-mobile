@@ -1,5 +1,6 @@
 package fit.budle.ui.screens.customer
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -56,7 +57,9 @@ fun CardScreen(
     viewModel.onEvent(MainEvent.GetEstablishment)
 
     val orderScreenPrefix = if (viewModel.establishmentCard.hasMap)
-        "mapScreen/" else "orderCreateMap/"
+        "orderCreate/" else "orderCreateMap/"
+    val orderScreenPostfix = if (viewModel.establishmentCard.hasMap)
+        "/${viewModel.establishmentCard.name}" else ""
 
     viewModel.onEvent(MainEvent.GetEstablishment)
     Surface(
@@ -91,9 +94,11 @@ fun CardScreen(
             ) {
                 BudleButton(
                     onClick = {
+                        Log.d("PREFIX", orderScreenPrefix)
+                        Log.d("POSTFIX", orderScreenPostfix)
                         navHostController.navigate(
                             orderScreenPrefix + "${viewModel.establishmentCardId}" +
-                                    "/${viewModel.establishmentCard.name}"
+                                    orderScreenPostfix
                         )
                     },
                     buttonText = "Забронировать место",
@@ -283,7 +288,7 @@ fun WorkingTime(
                 ) {
                     Text(
                         modifier = Modifier.width(50.dp),
-                        text = cardDescription[i].dayOfWeek,
+                        text = cardDescription[i].days[0],
                         style = MaterialTheme.typography.bodyMedium,
                         color = mainBlack
                     )

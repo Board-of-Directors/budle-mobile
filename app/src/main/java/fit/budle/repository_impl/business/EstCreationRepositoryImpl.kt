@@ -15,16 +15,18 @@ class EstCreationRepositoryImpl @Inject constructor(
 ) : EstCreationRepository {
 
     override suspend fun postEstablishment(requestEstablishmentDto: NewEstablishmentDto): PostEstablishmentResult {
-        return try {
-            val response = estCreationDAO.postEstablishment(requestEstablishmentDto)
+        val response = estCreationDAO.postEstablishment(requestEstablishmentDto)
+        return if (response.body()!!.exception == null) {
             Log.d("POST_ESTABLISHMENT", "SUCCESS")
             PostEstablishmentResult.Success(
-                result = response.result,
-                exception = response.exception
+                result = response.body()!!.result,
+                exception = response.body()!!.exception
             )
-        } catch (e: Throwable) {
-            Log.d("POST_ESTABLISHMENT", e.message!!)
-            PostEstablishmentResult.Failure(e)
+        } else {
+            Log.d("POST_ESTABLISHMENT", response.body()!!.exception!!.message)
+            PostEstablishmentResult.Failure(
+                exception = response.body()!!.exception!!.message
+            )
         }
     }
 
