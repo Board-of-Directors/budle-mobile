@@ -1,4 +1,4 @@
-package fit.budle.ui.screens
+package fit.budle.ui.screens.customer
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
