@@ -37,6 +37,7 @@ import fit.budle.dto.WorkingHour
 import fit.budle.dto.establishment.Establishment
 import fit.budle.event.customer.MainEvent
 import fit.budle.ui.components.BudleIconButton
+import fit.budle.ui.components.BudleInfoTagList
 import fit.budle.ui.components.BudlePhotoTag
 import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.ui.components.moleculas.BudleBlockWithHeader
@@ -52,7 +53,7 @@ fun CardScreen(
     navHostController: NavController,
     viewModel: MainViewModel = hiltViewModel(),
 ) {
-    viewModel.onEvent(MainEvent.getEstablishment)
+    viewModel.onEvent(MainEvent.GetEstablishment)
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -107,7 +108,7 @@ fun CardScreen(
                 establishmentCard = viewModel.establishmentCard
             )
             InfoBar(establishmentCard = viewModel.establishmentCard)
-            // InfoTagList(tags = establishment.tags) //TODO Сделать тэги
+            BudleInfoTagList(tags = viewModel.establishmentCard.tags)
             Column(
                 modifier = Modifier
                     .padding(horizontal = 20.dp)

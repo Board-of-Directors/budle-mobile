@@ -1,17 +1,17 @@
 package fit.budle.event.customer
 
 sealed interface MainEvent {
-    object getEstablishment : MainEvent
+    object GetEstablishment : MainEvent
 
-    data class getEstablishmentALl(
-        val category: String?,
-        val limit: Int?,
-        val offset: Int?,
-        val sortValue: String?,
-        val name: String?,
-        val hasCardPayment: Boolean?,
-        val hasMap: Boolean?,
+    data class EstablishmentRequestParameters(
+        var category: String? = null,
+        var limit: Int? = null,
+        var offset: Int? = null,
+        var sortValue: String? = null,
+        var name: String? = null,
+        var hasCardPayment: Boolean? = null,
+        var hasMap: Boolean? = null,
     ) : MainEvent
 
-    object getCategory : MainEvent
+    object GetAllEstablishments : MainEvent
 }

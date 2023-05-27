@@ -27,7 +27,7 @@ fun MainScreen(
     navHostController: NavController,
     viewModel: MainViewModel = hiltViewModel(),
 ) {
-    viewModel.onEvent(MainEvent.getCategory)
+    viewModel.onEvent(MainEvent.GetAllEstablishments)
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -36,13 +36,14 @@ fun MainScreen(
             LazyColumn(
                 horizontalAlignment = Alignment.Start
             ) {
-                itemsIndexed(viewModel.establishmentsForScreen) { _, i ->
+                itemsIndexed(viewModel.establishmentsForScreen) { _, establishment ->
                     EstablishmentRow(
-                        i.value,
+                        establishment,
                         navHostController,
                         viewModel
                     )
                 }
+
             }
         }
     }

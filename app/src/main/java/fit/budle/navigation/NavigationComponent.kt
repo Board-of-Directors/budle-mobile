@@ -14,6 +14,7 @@ import fit.budle.ui.screens.*
 import fit.budle.ui.screens.business.creator.CreatorMainScreen
 import fit.budle.ui.screens.business.creator.creator_profile.EstablishmentOrdersScreen
 import fit.budle.ui.screens.business.creator.creator_profile.EstablishmentWorkersScreen
+import fit.budle.ui.screens.customer.CardScreen
 import fit.budle.ui.screens.customer.UserProfileScreen
 import fit.budle.viewmodel.customer.MainViewModel
 
