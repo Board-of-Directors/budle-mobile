@@ -63,8 +63,10 @@ fun NumberScreen(
                 modifier = Modifier
                     .padding(horizontal = 40.dp)
                     .padding(top = 60.dp)
+                    .fillMaxWidth()
             ) {
                 BudleNumberInput(
+                    modifier = Modifier.fillMaxWidth(),
                     placeHolder = "Номер телефона",
                     inputLength = NumberDefaults.INPUT_LENGTH,
                     mask = NumberDefaults.MASK,
