@@ -9,13 +9,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import fit.budle.navigation.graphs.establishmentCreationNavGraph
 import fit.budle.navigation.graphs.registrationNavGraph
-import fit.budle.ui.screens.CardScreen
 import fit.budle.ui.screens.MainScreen
 import fit.budle.ui.screens.OrderScreen
 import fit.budle.ui.screens.UserProfileBookingsScreenBackendConnected
 import fit.budle.ui.screens.business.creator.CreatorMainScreen
 import fit.budle.ui.screens.business.creator.creator_profile.EstablishmentOrdersScreen
 import fit.budle.ui.screens.business.creator.creator_profile.EstablishmentWorkersScreen
+import fit.budle.ui.screens.customer.CardScreen
 import fit.budle.ui.screens.customer.MapScreen
 import fit.budle.ui.screens.customer.UserProfileScreen
 import fit.budle.viewmodel.customer.MainViewModel

@@ -58,7 +58,7 @@ fun CardScreen(
     val orderScreenPrefix = if (viewModel.establishmentCard.hasMap)
         "mapScreen/" else "orderCreateMap/"
 
-    viewModel.onEvent(MainEvent.getEstablishment)
+    viewModel.onEvent(MainEvent.GetEstablishment)
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -128,10 +128,9 @@ fun CardScreen(
                 viewModel.establishmentCard.workingHours?.let { WorkingTime(cardDescription = it.toList()) }
                 EstablishmentAddress(addressInfo = viewModel.establishmentCard.address)
             }
-            }
-            viewModel.establishmentCard.workingHours?.let { WorkingTime(cardDescription = it.toList()) }
-            EstablishmentAddress(addressInfo = viewModel.establishmentCard.address)
         }
+        viewModel.establishmentCard.workingHours?.let { WorkingTime(cardDescription = it.toList()) }
+        EstablishmentAddress(addressInfo = viewModel.establishmentCard.address)
     }
 }
 
