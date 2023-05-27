@@ -23,6 +23,7 @@ fun BudleSingleSelectPhotoInput(
 
     var selectedImageUri by remember { mutableStateOf(initialState) }
     val deleteImageUri = { selectedImageUri = null }
+
     val singlePhotoPickerLauncher =
         rememberLauncherForActivityResult(
             contract = ActivityResultContracts.PickVisualMedia(),
