@@ -38,6 +38,7 @@ class MainViewModel @Inject constructor(
 
     var establishmentCard: Establishment by mutableStateOf(Establishment())
     var establishmentCardId: Long by mutableStateOf(1L)
+    var clickedGallery = mutableStateOf(false)
 
 
     fun onEvent(event: MainEvent) {
@@ -130,7 +131,7 @@ class MainViewModel @Inject constructor(
             }
             if (establishment.photos != null) {
                 for (photo in establishment.photos) {
-                    val imageBytes: ByteArray = Base64.decode(photo, Base64.DEFAULT)
+                    val imageBytes: ByteArray = Base64.decode(photo.image, Base64.DEFAULT)
                     val factory = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
                     if (factory != null) {
                         decodedImage = BitmapPainter(
