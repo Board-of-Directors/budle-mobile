@@ -401,7 +401,7 @@ fun ShowPhotoGallery(
                                 painter = it,
                                 contentDescription = "Restaurant Card",
                                 modifier = Modifier.width(screenWidth),
-                                contentScale = ContentScale.Crop
+                                contentScale = ContentScale.FillBounds
                             )
                         }
                         Box(
@@ -423,7 +423,7 @@ fun ShowPhotoGallery(
                             val selectedColor =
                                 if (currentIndex.value == i) fillPurple else Transparent
                             val padding =
-                                if (i == (establishment.photos.size.minus(1) ?: 0)) 0.dp else 10.dp
+                                if (i == (establishment.photos.size.minus(1))) 0.dp else 10.dp
                             Card(
                                 modifier = Modifier
                                     .padding(end = padding)
@@ -444,7 +444,7 @@ fun ShowPhotoGallery(
                                             painter = photo,
                                             contentDescription = "Restaurant Card",
                                             modifier = Modifier.width(60.dp),
-                                            contentScale = ContentScale.Crop
+                                            contentScale = ContentScale.FillBounds
                                         )
                                     }
                                     Box(
