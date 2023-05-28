@@ -14,7 +14,7 @@ data class NewEstablishmentDto(
     var hasMap: Boolean = false,
     var image: String = "",
     var owner: Int = 11,
-    var map: String = "",
+    var map: String? = null,
     var name: String = "",
     var photosInput: List<PhotoDto> = emptyList(),
     var price: Int = 501,

@@ -183,12 +183,14 @@ class EstCreationViewModel @Inject constructor(
 
             is EstCreationEvent.CreateMap -> {
                 viewModelScope.launch {
-                    val svg = selectedMapFile!!.readText(Charsets.UTF_8)
-                    val encodedMap = fileEncoder.encodeStringToBase64(svg)
-                    if (encodedMap != null) {
-                        establishmentDTO.map = svg
-                    } else Log.e("MAP", "Cannot encode map to base64")
-                    Log.i("MAP", encodedMap.toString())
+                    if (selectedMapFile != null) {
+                        val svg = selectedMapFile!!.readText(Charsets.UTF_8)
+                        val encodedMap = fileEncoder.encodeStringToBase64(svg)
+                        if (encodedMap != null) {
+                            establishmentDTO.map = svg
+                        } else Log.e("MAP", "Cannot encode map to base64")
+                        Log.i("MAP", encodedMap.toString())
+                    }
                 }
             }
         }
