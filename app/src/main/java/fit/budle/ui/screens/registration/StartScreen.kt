@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -20,10 +18,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import fit.budle.R
 import fit.budle.event.customer.RegistrationEvent
+import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.textGray
 import fit.budle.viewmodel.customer.RegistrationViewModel
@@ -66,19 +64,12 @@ fun StartScreen(
                 style = MaterialTheme.typography.displayMedium,
                 textAlign = TextAlign.Center,
             )
-            Button(
+            BudleButton(
                 onClick = {
                     navHostController.navigate("numberScreen")
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = fillPurple),
-            ) {
-                Text(
-                    text = "Зарегистрироваться",
-                    fontSize = 16.sp,
-                    modifier = Modifier.padding(vertical = 8.dp, horizontal = 40.dp),
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
+                buttonText = "Зарегистрироваться"
+            )
             Row {
                 Text(
                     text = "Уже есть аккаунт? ",
