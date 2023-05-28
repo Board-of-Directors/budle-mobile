@@ -107,13 +107,14 @@ class OrderListViewModel @Inject constructor(
         */
 
         return Establishment( //TODO костылиии в значениях
-            establishment.id.toLong(),
+            establishment.id,
             establishment.name,
             establishment.description,
             establishment.address,
             User("Олег"),
             hasCardPayment = false,
-            hasMap = false,
+            hasMap = establishment.hasMap,
+            map = establishment.map,
             establishment.category,
             decodedImage,
             establishment.rating,

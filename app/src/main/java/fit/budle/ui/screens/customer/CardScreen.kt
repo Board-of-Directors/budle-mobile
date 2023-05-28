@@ -1,6 +1,5 @@
 package fit.budle.ui.screens.customer
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -33,7 +32,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fit.budle.R
 import fit.budle.dto.WorkingHour
@@ -54,15 +52,9 @@ import fit.budle.viewmodel.customer.MainViewModel
 @Composable
 fun CardScreen(
     navHostController: NavController,
-    viewModel: MainViewModel = hiltViewModel(),
+    viewModel: MainViewModel,
 ) {
     viewModel.onEvent(MainEvent.GetEstablishment)
-
-    val orderScreenPrefix = if (viewModel.establishmentCard.hasMap)
-        "orderCreate/" else "orderCreateMap/"
-    val orderScreenPostfix = if (viewModel.establishmentCard.hasMap)
-        "/${viewModel.establishmentCard.name}" else ""
-
     viewModel.onEvent(MainEvent.GetEstablishment)
     Surface(
         modifier = Modifier.fillMaxSize()
@@ -96,12 +88,7 @@ fun CardScreen(
             ) {
                 BudleButton(
                     onClick = {
-                        Log.d("PREFIX", orderScreenPrefix)
-                        Log.d("POSTFIX", orderScreenPostfix)
-                        navHostController.navigate(
-                            orderScreenPrefix + "${viewModel.establishmentCardId}" +
-                                    orderScreenPostfix
-                        )
+                        navHostController.navigate("orderCreation")
                     },
                     buttonText = "Забронировать место",
                     disabledButtonColor = fillPurple,

@@ -51,7 +51,7 @@ fun UserProfileScreen(
                 iconId = R.drawable.x,
                 iconDescription = "Close",
                 iconColor = mainBlack,
-                onClick = { navController.popBackStack() }
+                onClick = { navController.navigate("main") }
             )
             ShowColumn(navController)
             BudleButton(

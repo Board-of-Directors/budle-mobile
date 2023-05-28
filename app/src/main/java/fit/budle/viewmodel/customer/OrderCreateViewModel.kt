@@ -13,7 +13,6 @@ import fit.budle.dto.tag.active.RectangleActiveTag
 import fit.budle.event.customer.OrderCreateEvent
 import fit.budle.repository.customer.OrderCreateRepository
 import fit.budle.request.result.DefaultResult
-import fit.budle.request.result.customer.GetEstablishmentMapResult
 import fit.budle.request.result.customer.OrderCreateResult
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -100,19 +99,6 @@ class OrderCreateViewModel @Inject constructor(
                             Log.e("BOOKVIEWMODEL", "FAILURE")
                             response.throwable.message?.let { Log.e("BOOKVIEWMODEL", it) }
                         }
-                    }
-                }
-            }
-
-            is OrderCreateEvent.GetEstablishmentMap -> {
-                viewModelScope.launch {
-                    when (val result =
-                        orderCreateRepository.getEstablishmentMap(event.establishmentId)) {
-                        is GetEstablishmentMapResult.Success -> {
-                            establishmentMap = result.result!!
-                        }
-
-                        is GetEstablishmentMapResult.Failure -> {}
                     }
                 }
             }

@@ -29,9 +29,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.core.graphics.PathParser.createPathFromPathData
 import androidx.navigation.NavHostController
-import fit.budle.event.customer.OrderCreateEvent
+import fit.budle.event.customer.MainEvent
 import fit.budle.ui.util.xml_parser.XMLParser
 import fit.budle.ui.util.xml_parser.XMLShape
+import fit.budle.viewmodel.customer.MainViewModel
 import fit.budle.viewmodel.customer.OrderCreateViewModel
 import moe.tlaster.zoomable.Zoomable
 import moe.tlaster.zoomable.rememberZoomableState
@@ -39,23 +40,22 @@ import java.io.InputStream
 import kotlin.math.roundToInt
 
 @SuppressLint("ResourceType")
-@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun MapScreen(
     navHostController: NavHostController,
-    establishmentId: String,
-    viewModel: OrderCreateViewModel,
+    mainViewModel: MainViewModel,
+    orderViewModel: OrderCreateViewModel,
 ) {
-
-    OrderCreateEvent.GetEstablishmentMap(establishmentId.toInt())
-    val shapes = parseSVG(viewModel.establishmentMap.byteInputStream())
-
-    val state = rememberZoomableState(minScale = 1f, maxScale = 3f)
-    val mapOfTables = remember { mutableStateMapOf<XMLShape, Boolean>() }
-
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
+
+        mainViewModel.onEvent(MainEvent.GetEstablishment)
+
+        val shapes = parseSVG(mainViewModel.establishmentCard.map!!.byteInputStream())
+        val state = rememberZoomableState(minScale = 1f, maxScale = 3f)
+        val mapOfTables = remember { mutableStateMapOf<XMLShape, Boolean>() }
+
         SelectSlidebar(tablesMap = mapOfTables, navHostController)
         Zoomable(state = state) {
             Box(
@@ -67,7 +67,7 @@ fun MapScreen(
                     mutableCollection = mapOfTables,
                     xmlShapes = shapes,
                     sendSeat = {
-                        viewModel.selectedSeatId = it.toInt()
+                        orderViewModel.selectedSeatId = it.toInt()
                     }
                 )
             }
@@ -75,7 +75,6 @@ fun MapScreen(
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun SelectSlidebar(
     tablesMap: MutableMap<XMLShape, Boolean>, navHostController: NavHostController,

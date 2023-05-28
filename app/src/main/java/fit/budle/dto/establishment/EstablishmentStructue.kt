@@ -36,6 +36,7 @@ data class Establishment(
     val owner: User = User(""),
     val hasCardPayment: Boolean? = false,
     val hasMap: Boolean = false,
+    val map: String? = null,
     val category: String = "",
     val image: BitmapPainter? = null,
     val rating: Double? = null,

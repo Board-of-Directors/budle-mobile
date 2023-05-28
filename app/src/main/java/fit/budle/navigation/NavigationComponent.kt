@@ -16,42 +16,46 @@ import fit.budle.ui.screens.UserProfileBookingsScreenBackendConnected
 import fit.budle.ui.screens.customer.CardScreen
 import fit.budle.ui.screens.customer.MapScreen
 import fit.budle.ui.screens.customer.UserProfileScreen
-import fit.budle.viewmodel.customer.MainViewModel
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun NavigationComponent(navController: NavHostController) {
-    val mainViewModel: MainViewModel = hiltViewModel()
     NavHost(
         navController = navController,
-        startDestination = "ownerMain/establishmentCreation/"
+        startDestination = "main"
     ) {
         composable("main") {
             MainScreen(
                 navHostController = navController,
-                mainViewModel
+                viewModel = hiltViewModel()
             )
-        }
-        composable("orderCreateMap/{establishmentId}") {
-            it.arguments?.getString("establishmentId")?.let { establishmentId ->
-                MapScreen(
-                    navHostController = navController,
-                    establishmentId = establishmentId,
-                    viewModel = hiltViewModel()
-                )
-            }
         }
         composable("card") {
             CardScreen(
                 navHostController = navController,
-                mainViewModel
+                viewModel = hiltViewModel(
+                    navController.getBackStackEntry("main")
+                )
             )
         }
-        composable("orderCreate/{establishmentId}/{establishmentName}") {
+        composable("orderCreation") {
             OrderScreen(
                 navHostController = navController,
-                it.arguments?.getString("establishmentId"),
-                it.arguments?.getString("establishmentName"),
+                orderViewModel = hiltViewModel(),
+                mainViewModel = hiltViewModel(
+                    navController.getBackStackEntry("main")
+                )
+            )
+        }
+        composable("orderCreation/map") {
+            MapScreen(
+                navHostController = navController.nav,
+                orderViewModel = hiltViewModel(
+                    navController.getBackStackEntry("orderCreation")
+                ),
+                mainViewModel = hiltViewModel(
+                    navController.getBackStackEntry("main")
+                )
             )
         }
 

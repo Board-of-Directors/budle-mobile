@@ -74,8 +74,8 @@ class EstCreationViewModel @Inject constructor(
         when (event) {
             is EstCreationEvent.FirstStep -> {
                 viewModelScope.launch {
-                    val convertedImage = fileEncoder.encodeBitmapToBase64(selectedImageBitmap)
                     selectedImageBitmap = event.source?.let { ImageDecoder.decodeBitmap(it) }
+                    val convertedImage = fileEncoder.encodeBitmapToBase64(selectedImageBitmap)
                     if (convertedImage != null) {
                         establishmentDTO.image = convertedImage
                         establishmentDTO.name = selectedName

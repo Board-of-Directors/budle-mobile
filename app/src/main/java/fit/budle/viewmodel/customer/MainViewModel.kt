@@ -163,6 +163,7 @@ class MainViewModel @Inject constructor(
             User("Олег"),
             establishment.hasCardPayment,
             establishment.hasMap,
+            establishment.map,
             establishment.category,
             decodedImage,
             establishment.rating,
