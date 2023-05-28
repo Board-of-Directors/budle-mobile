@@ -42,6 +42,7 @@ data class Establishment(
     val price: Int? = 1,
     val workingHours: Array<WorkingHour>? = null,
     val tags: ArrayList<Tag> = arrayListOf(),
+    val photos: List<BitmapPainter?> = arrayListOf(),
     val cuisineCountry: String? = "",
     val starsCount: Int? = 1,
 )

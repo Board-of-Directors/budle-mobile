@@ -116,6 +116,7 @@ class MainViewModel @Inject constructor(
 
         var decodedImage: BitmapPainter? = null
         val decodedTagsIcons: ArrayList<Tag> = arrayListOf()
+        var decodedPhotos: ArrayList<BitmapPainter?> = arrayListOf()
         viewModelScope.launch {
 
             if (establishment.image != null) {
@@ -125,6 +126,18 @@ class MainViewModel @Inject constructor(
                     decodedImage = BitmapPainter(
                         factory.asImageBitmap()
                     )
+                }
+            }
+            if (establishment.photos != null) {
+                for (photo in establishment.photos) {
+                    val imageBytes: ByteArray = Base64.decode(photo, Base64.DEFAULT)
+                    val factory = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                    if (factory != null) {
+                        decodedImage = BitmapPainter(
+                            factory.asImageBitmap()
+                        )
+                        decodedPhotos.add(decodedImage)
+                    }
                 }
             }
 
@@ -156,6 +169,7 @@ class MainViewModel @Inject constructor(
             establishment.price,
             establishment.workingHours,
             decodedTagsIcons,
+            decodedPhotos,
             establishment.cuisineCountry,
             establishment.starsCount
         )

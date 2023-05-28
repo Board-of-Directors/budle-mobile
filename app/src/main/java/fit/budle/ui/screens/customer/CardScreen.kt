@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -210,6 +212,7 @@ fun EstablishmentBanner(
                     style = MaterialTheme.typography.titleMedium,
                     color = mainWhite,
                 )
+                EstablishmentImageRow(establishmentCard)
             }
         }
     }
@@ -326,6 +329,25 @@ fun EstablishmentAddress(
                     text = addressInfo,
                     style = MaterialTheme.typography.bodyMedium,
                     color = mainBlack
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun EstablishmentImageRow(
+    establishment: Establishment?,
+
+    ) {
+    LazyRow() {
+        itemsIndexed(establishment!!.photos) { _, photo ->
+            if (photo != null) {
+                Image(
+                    painter = photo,
+                    contentDescription = "Establishment photo",
+                    modifier = Modifier.padding(10.dp),
+                    contentScale = ContentScale.Crop
                 )
             }
         }

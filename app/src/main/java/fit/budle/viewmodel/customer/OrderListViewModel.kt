@@ -19,7 +19,7 @@ import fit.budle.request.result.DefaultResult
 import fit.budle.request.result.customer.OrderListResult
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -120,6 +120,7 @@ class OrderListViewModel @Inject constructor(
             1,
             establishment.workingHours,
             decodedTagsIcons,
+            arrayListOf(),
             "костыль-кухня",
             2
         )
