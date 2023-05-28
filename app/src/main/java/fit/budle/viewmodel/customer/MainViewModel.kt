@@ -32,7 +32,7 @@ class MainViewModel @Inject constructor(
 
     private var categories: Array<String> by mutableStateOf(emptyArray())
 
-    private val parametersEstablishmentRequest = MainEvent.EstablishmentRequestParameters();
+    private val parametersEstablishmentRequest = MainEvent.EstablishmentRequestParameters()
 
     var establishmentsForScreen = mutableStateListOf<EstablishmentArray>()
 
@@ -117,9 +117,8 @@ class MainViewModel @Inject constructor(
 
         var decodedImage: BitmapPainter? = null
         val decodedTagsIcons: ArrayList<Tag> = arrayListOf()
-        var decodedPhotos: ArrayList<BitmapPainter?> = arrayListOf()
+        val decodedPhotos: ArrayList<BitmapPainter?> = arrayListOf()
         viewModelScope.launch {
-
             if (establishment.image != null) {
                 val imageBytes: ByteArray = Base64.decode(establishment.image, Base64.DEFAULT)
                 val factory = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
@@ -142,19 +141,20 @@ class MainViewModel @Inject constructor(
                 }
             }
 
-            /* TODO Впилить SVG иконки
-        establishment.tags.forEach {
-            var decodedIcon: BitmapPainter? = null
-            if (it.image != null) {
-                val imageBytes: ByteArray = Base64.decode(it.image, Base64.DEFAULT)
-                decodedIcon = BitmapPainter(
-                    BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size).asImageBitmap()
-                )
-            }
-            decodedTagsIcons.add(Tag(name = it.name, image = decodedIcon))
-        }
-        */
+            if (establishment.tags != null) {
+                establishment.tags.forEach {
+                    var decodedIcon: BitmapPainter? = null
+                    if (it.image != null) {
+                        val imageBytes: ByteArray = Base64.decode(it.image, Base64.DEFAULT)
+                        decodedIcon = BitmapPainter(
+                            BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                                .asImageBitmap()
+                        )
+                    }
+                    decodedTagsIcons.add(Tag(name = it.name, image = decodedIcon))
+                }
 
+            }
         }
         return Establishment(
             establishment.id,

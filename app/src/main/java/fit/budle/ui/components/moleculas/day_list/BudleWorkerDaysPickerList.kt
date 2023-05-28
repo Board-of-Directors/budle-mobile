@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import fit.budle.dto.establishment.WorkingHoursDto
 
-@RequiresApi(Build.VERSION_CODES.N)
+@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun BudleWorkingDaysPickerList(
     daysCount: Int,

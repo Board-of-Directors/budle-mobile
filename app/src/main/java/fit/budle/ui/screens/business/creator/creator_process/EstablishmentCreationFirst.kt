@@ -48,8 +48,8 @@ fun EstablishmentCreationFirstScreen(
         BudleScreenWithButtonAndProgress(
             navHostController = navHostController,
             onClick = {
+                buttonClicked = true
                 if (!emptyNameInputError && !emptyImageError) {
-                    buttonClicked = true
                     viewModel.onEvent(EstCreationEvent.FirstStep(source))
                     navHostController.navigate("secondStep")
                 }

@@ -19,7 +19,7 @@ import fit.budle.ui.components.atoms.switch.BudleSwitchWithDescription
 import fit.budle.ui.components.moleculas.BudleBlockWithHeader
 import fit.budle.ui.components.moleculas.tag_list.BudleMultiSelectableTagList
 
-@RequiresApi(Build.VERSION_CODES.N)
+@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun BudleWorkingDaysPicker(
     selectedWorkingHoursDto: WorkingHoursDto?,

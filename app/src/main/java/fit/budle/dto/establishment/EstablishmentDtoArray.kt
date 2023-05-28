@@ -21,7 +21,7 @@ data class EstablishmentDto(
     val rating: Double?,
     val price: Int?,
     val workingHours: Array<WorkingHour>,
-    val tags: Array<TagResponse>,
+    val tags: Array<TagResponse>?,
     val photos: Array<PhotoDto>? = emptyArray(),
     val cuisineCountry: String?,
     val starsCount: Int?,

@@ -21,7 +21,7 @@ import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.lightBlue
 import fit.budle.viewmodel.business.EstCreationViewModel
 
-@RequiresApi(Build.VERSION_CODES.N)
+@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun EstablishmentCreationFourthScreen(
     navHostController: NavHostController,
