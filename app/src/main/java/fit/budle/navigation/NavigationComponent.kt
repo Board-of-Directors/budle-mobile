@@ -49,7 +49,7 @@ fun NavigationComponent(navController: NavHostController) {
         }
         composable("orderCreation/map") {
             MapScreen(
-                navHostController = navController.nav,
+                navHostController = navController,
                 orderViewModel = hiltViewModel(
                     navController.getBackStackEntry("orderCreation")
                 ),
