@@ -36,7 +36,10 @@ fun EstablishmentCreationFirstScreen(
     var emptyNameInputError by remember { mutableStateOf(false) }
 
     val source = if (viewModel.selectedImageUri != null) {
-        ImageDecoder.createSource(LocalContext.current.contentResolver, viewModel.selectedImageUri as Uri)
+        ImageDecoder.createSource(
+            LocalContext.current.contentResolver,
+            viewModel.selectedImageUri as Uri
+        )
     } else null
 
     Surface(
@@ -45,9 +48,11 @@ fun EstablishmentCreationFirstScreen(
         BudleScreenWithButtonAndProgress(
             navHostController = navHostController,
             onClick = {
-                buttonClicked = true
-                viewModel.onEvent(EstCreationEvent.FirstStep(source))
-                navHostController.navigate("secondStep")
+                if (!emptyNameInputError && !emptyImageError) {
+                    buttonClicked = true
+                    viewModel.onEvent(EstCreationEvent.FirstStep(source))
+                    navHostController.navigate("secondStep")
+                }
             },
             buttonText = "Следующий шаг",
             textMessage = "Создание заведения",

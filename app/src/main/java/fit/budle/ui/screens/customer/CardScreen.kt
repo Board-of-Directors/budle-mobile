@@ -1,7 +1,10 @@
 package fit.budle.ui.screens.customer
 
+import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +20,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
@@ -25,13 +29,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fit.budle.R
 import fit.budle.dto.WorkingHour
@@ -52,10 +63,18 @@ import fit.budle.viewmodel.customer.MainViewModel
 @Composable
 fun CardScreen(
     navHostController: NavController,
-    viewModel: MainViewModel,
+    viewModel: MainViewModel = hiltViewModel(),
 ) {
     viewModel.onEvent(MainEvent.GetEstablishment)
-    viewModel.onEvent(MainEvent.GetEstablishment)
+
+    val orderScreenPrefix = if (viewModel.establishmentCard.hasMap)
+        "orderCreate/" else "orderCreateMap/"
+    val orderScreenPostfix = if (viewModel.establishmentCard.hasMap)
+        "/${viewModel.establishmentCard.name}" else ""
+    ShowPhotoGallery(
+        establishment = viewModel.establishmentCard,
+        isClicked = viewModel.clickedGallery
+    )
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -88,7 +107,12 @@ fun CardScreen(
             ) {
                 BudleButton(
                     onClick = {
-                        navHostController.navigate("orderCreation")
+                        Log.d("PREFIX", orderScreenPrefix)
+                        Log.d("POSTFIX", orderScreenPostfix)
+                        navHostController.navigate(
+                            orderScreenPrefix + "${viewModel.establishmentCardId}" +
+                                    orderScreenPostfix
+                        )
                     },
                     buttonText = "Забронировать место",
                     disabledButtonColor = fillPurple,
@@ -121,6 +145,8 @@ fun CardScreen(
                 }
                 viewModel.establishmentCard.workingHours?.let { WorkingTime(cardDescription = it.toList()) }
                 EstablishmentAddress(addressInfo = viewModel.establishmentCard.address)
+                EstablishmentCardPhoto(establishment = viewModel.establishmentCard,
+                    onClick = { viewModel.clickedGallery.value = !viewModel.clickedGallery.value })
             }
         }
     }
@@ -199,7 +225,6 @@ fun EstablishmentBanner(
                     style = MaterialTheme.typography.titleMedium,
                     color = mainWhite,
                 )
-                EstablishmentImageRow(establishmentCard)
             }
         }
     }
@@ -300,7 +325,7 @@ fun EstablishmentAddress(
     addressInfo: String,
 ) {
     BudleBlockWithHeader(
-        modifier = Modifier.padding(bottom = 100.dp), headerText = "Адрес"
+        modifier = Modifier.padding(bottom = 10.dp), headerText = "Адрес"
     ) {
         Row(
             modifier = Modifier
@@ -323,19 +348,182 @@ fun EstablishmentAddress(
 }
 
 @Composable
-fun EstablishmentImageRow(
+fun ShowPhotoGallery(
     establishment: Establishment?,
+    isClicked: MutableState<Boolean>,
+) {
 
-    ) {
-    LazyRow() {
-        itemsIndexed(establishment!!.photos) { _, photo ->
-            if (photo != null) {
-                Image(
-                    painter = photo,
-                    contentDescription = "Establishment photo",
-                    modifier = Modifier.padding(10.dp),
-                    contentScale = ContentScale.Crop
-                )
+    val configuration = LocalConfiguration.current
+    val gradient = Brush.verticalGradient(listOf(alphaBlack, alphaBlack))
+    val screenWidth = configuration.screenWidthDp.dp - 60.dp
+    val currentIndex = remember { mutableStateOf(0) }
+
+    if (isClicked.value) {
+        Column(
+            Modifier
+                .fillMaxSize()
+                .background(mainBlack.copy(0.5f))
+                .zIndex(20f),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp),
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.Top
+            ) {
+                BudleIconButton(
+                    modifier = Modifier.size(26.dp),
+                    iconDescription = "Close",
+                    iconId = R.drawable.x,
+                    onClick = {
+                        isClicked.value = false
+                    })
+            }
+            Column(
+                modifier = Modifier
+                    .padding(bottom = 40.dp)
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Card(
+                    shape = RoundedCornerShape(10.dp)
+                ) {
+                    Box(
+                        modifier = Modifier.height(screenWidth),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        establishment?.photos?.get(currentIndex.value)?.let {
+                            Image(
+                                painter = it,
+                                contentDescription = "Restaurant Card",
+                                modifier = Modifier.width(screenWidth),
+                                contentScale = ContentScale.Crop
+                            )
+                        }
+                        Box(
+                            Modifier
+                                .matchParentSize()
+                                .background(gradient)
+                        )
+                    }
+                }
+                LazyRow(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 20.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    if (establishment != null) {
+                        itemsIndexed(establishment.photos) { i, photo ->
+                            val selectedColor =
+                                if (currentIndex.value == i) fillPurple else Transparent
+                            val padding =
+                                if (i == (establishment.photos.size.minus(1) ?: 0)) 0.dp else 10.dp
+                            Card(
+                                modifier = Modifier
+                                    .padding(end = padding)
+                                    .clickable(
+                                        onClick = {
+                                            currentIndex.value = i
+                                        }
+                                    ),
+                                shape = RoundedCornerShape(10.dp),
+                                border = BorderStroke(2.dp, selectedColor)
+                            ) {
+                                Box(
+                                    modifier = Modifier.height(60.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    if (photo != null) {
+                                        Image(
+                                            painter = photo,
+                                            contentDescription = "Restaurant Card",
+                                            modifier = Modifier.width(60.dp),
+                                            contentScale = ContentScale.Crop
+                                        )
+                                    }
+                                    Box(
+                                        Modifier
+                                            .matchParentSize()
+                                            .background(gradient)
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun EstablishmentCardPhoto(
+    onClick: () -> Unit = {},
+    establishment: Establishment,
+) {
+    val photos = establishment.photos
+    val restPhotos = photos.size - 6
+    val mainPhotos = if (restPhotos > 0) 6 else photos.size
+    val gradient = Brush.verticalGradient(listOf(alphaBlack, alphaBlack))
+
+    BudleBlockWithHeader(headerText = "Фотографии") {
+        Column(
+            modifier = Modifier
+                .padding(top = 10.dp)
+                .fillMaxWidth()
+        ) {
+            for (i in 0..mainPhotos / 4) {
+                LazyRow(
+                    modifier = Modifier.padding(top = 10.dp)
+                ) {
+                    val rowId = i
+                    val slice = if (mainPhotos >= 3 * i + 3) {
+                        photos.subList(3 * i, 3 * i + 3)
+                    } else photos.subList(3 * i, photos.size)
+                    itemsIndexed(slice) { i, current ->
+                        Card(
+                            modifier = Modifier.padding(end = 10.dp),
+                            shape = RoundedCornerShape(10.dp)
+                        ) {
+                            Box(
+                                modifier = Modifier.height(90.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                if (current != null) {
+                                    Image(
+                                        painter = current,
+                                        contentDescription = "Restaurant Card",
+                                        modifier = Modifier
+                                            .width(90.dp)
+                                            .clickable(
+                                                onClick = onClick
+                                            ),
+                                        contentScale = ContentScale.Crop
+                                    )
+                                }
+                                Box(
+                                    Modifier
+                                        .matchParentSize()
+                                        .background(gradient)
+                                )
+                                if (rowId == 1 && i == 2 && restPhotos > 0) {
+                                    Text(
+                                        textAlign = TextAlign.Center,
+                                        text = "+$restPhotos",
+                                        style = MaterialTheme.typography.titleSmall,
+                                        color = mainWhite
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

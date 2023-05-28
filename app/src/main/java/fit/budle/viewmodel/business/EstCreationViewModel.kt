@@ -151,22 +151,18 @@ class EstCreationViewModel @Inject constructor(
                     when (val result = estCreationRepository.getTagList()) {
                         is GetTagListResult.Success -> {
 
-                            /*
                             Log.d("VM_GET_TAG_LIST", "SUCCESS")
                             val list = mutableListOf<TagResponse>()
-
+                            //FIXME: null image
                             result.result.forEach {
-                                val svgString = fileEncoder.decodeBase64toSVG(it.image)
-                                Log.d("SVG", svgString!!)
                                 list.add(
                                     TagResponse(
                                         it.name,
-                                        svgString
+                                        null
                                     )
                                 )
-                            } */
-
-                            tagList = emptyList()
+                            }
+                            tagList = list
                         }
 
                         else -> {

@@ -15,7 +15,7 @@ import fit.budle.ui.components.moleculas.screens.BudleScreenWithButtonAndProgres
 import fit.budle.ui.util.SubcategoryChanger
 import fit.budle.viewmodel.business.EstCreationViewModel
 
-@RequiresApi(Build.VERSION_CODES.N)
+@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun EstablishmentCreationSecondScreen(
     navHostController: NavHostController,
