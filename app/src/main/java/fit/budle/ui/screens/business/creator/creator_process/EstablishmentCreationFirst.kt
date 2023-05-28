@@ -4,9 +4,15 @@ import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -15,7 +21,7 @@ import fit.budle.event.business.EstCreationEvent
 import fit.budle.ui.components.atoms.inputs.photo_inputs.BudleSingleSelectPhotoInput
 import fit.budle.ui.components.atoms.inputs.text_inputs.BudleSingleLineInput
 import fit.budle.ui.components.moleculas.screens.BudleScreenWithButtonAndProgress
-import fit.budle.ui.theme.*
+import fit.budle.ui.theme.mainBlack
 import fit.budle.viewmodel.business.EstCreationViewModel
 
 @RequiresApi(Build.VERSION_CODES.P)
@@ -39,15 +45,9 @@ fun EstablishmentCreationFirstScreen(
         BudleScreenWithButtonAndProgress(
             navHostController = navHostController,
             onClick = {
-
                 buttonClicked = true
-
-                if (!emptyImageError && !emptyNameInputError) {
-                    viewModel.selectedImageBitmap = ImageDecoder.decodeBitmap(source!!)
-                    viewModel.onEvent(EstCreationEvent.FirstStep)
-                    navHostController.navigate("secondStep")
-                }
-
+                viewModel.onEvent(EstCreationEvent.FirstStep(source))
+                navHostController.navigate("secondStep")
             },
             buttonText = "Следующий шаг",
             textMessage = "Создание заведения",

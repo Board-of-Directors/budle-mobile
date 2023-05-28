@@ -1,8 +1,11 @@
 package fit.budle.viewmodel.business
 
 import android.graphics.Bitmap
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateMapOf
@@ -22,6 +25,7 @@ import fit.budle.dto.tag.ReturnTag
 import fit.budle.dto.tag.standard.TagResponse
 import fit.budle.event.business.EstCreationEvent
 import fit.budle.repository.business.EstCreationRepository
+import fit.budle.ui.util.bitmapCreator
 import fit.budle.util.FileEncoder
 import kotlinx.coroutines.launch
 import java.io.File
@@ -65,11 +69,13 @@ class EstCreationViewModel @Inject constructor(
     var tagList by mutableStateOf(emptyList<TagResponse>())
     var variantList by mutableStateOf(emptyList<String>())
 
+    @RequiresApi(Build.VERSION_CODES.P)
     fun onEvent(event: EstCreationEvent) {
         when (event) {
             is EstCreationEvent.FirstStep -> {
                 viewModelScope.launch {
                     val convertedImage = fileEncoder.encodeBitmapToBase64(selectedImageBitmap)
+                    selectedImageBitmap = event.source?.let { ImageDecoder.decodeBitmap(it) }
                     if (convertedImage != null) {
                         establishmentDTO.image = convertedImage
                         establishmentDTO.name = selectedName
@@ -90,6 +96,10 @@ class EstCreationViewModel @Inject constructor(
 
             is EstCreationEvent.ThirdStep -> {
                 viewModelScope.launch {
+                    selectedPhotosBitmap = bitmapCreator(
+                        uris = selectedPhotosUri.toTypedArray(),
+                        event.resolver
+                    )
                     establishmentDTO.description = selectedDescription
                     val convertedPhotos = mutableListOf<PhotoDto>()
                     selectedPhotosBitmap.forEach { bitmap ->
