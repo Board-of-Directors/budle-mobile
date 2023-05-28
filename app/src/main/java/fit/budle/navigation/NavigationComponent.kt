@@ -24,7 +24,7 @@ fun NavigationComponent(navController: NavHostController) {
     val mainViewModel: MainViewModel = hiltViewModel()
     NavHost(
         navController = navController,
-        startDestination = "main"
+        startDestination = "registration/"
     ) {
         composable("main") {
             MainScreen(

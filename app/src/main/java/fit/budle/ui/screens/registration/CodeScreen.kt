@@ -24,8 +24,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -43,6 +46,8 @@ import fit.budle.ui.theme.backgroundLightBlue
 import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.textGray
 import fit.budle.viewmodel.customer.RegistrationViewModel
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun CodeScreen(
@@ -53,6 +58,18 @@ fun CodeScreen(
     val firstInput = 0
     val lastInput = 3
     val errorState = remember { mutableStateOf(false) }
+
+    var ticks by remember { mutableStateOf(30) }
+    var run by remember { mutableStateOf(true) }
+    if (ticks == 0) {
+        run = false
+    }
+    LaunchedEffect(key1 = run) {
+        while (run) {
+            delay(1.seconds)
+            ticks--
+        }
+    }
 
     Surface(
         modifier = Modifier.fillMaxSize()
@@ -150,25 +167,34 @@ fun CodeScreen(
                         text = viewModel.requestException,
                         style = MaterialTheme.typography.bodyMedium,
                         color = backgroundError,
-                        modifier = Modifier.padding(top = 10.dp, start = 15.dp)
+                        modifier = Modifier
+                            .padding(top = 10.dp, start = 15.dp)
                             .fillMaxWidth()
                     )
                 }
             }
             Spacer(Modifier.weight(1f))
             Button(
-                onClick = {},
-                colors = ButtonDefaults.buttonColors(containerColor = backgroundLightBlue),
+                onClick = {
+                    if (!run) {
+                        ticks = 30
+                        run = true
+                        viewModel.onEvent(RegistrationEvent.GetCode)
+                    }
+                },
+                colors = if (ticks == 0) (ButtonDefaults.buttonColors(containerColor = fillPurple)) else ButtonDefaults.buttonColors(
+                    containerColor = backgroundLightBlue
+                ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 40.dp)
                     .padding(bottom = 20.dp)
             ) {
                 Text(
-                    text = "Новый код - 2:56",
+                    text = if (ticks != 0) "Новый код - $ticks" else "Отправить код",
                     modifier = Modifier.padding(vertical = 8.dp, horizontal = 40.dp),
                     style = MaterialTheme.typography.bodyMedium,
-                    color = textGray
+                    color = if (ticks != 0) textGray else Color.White
                 )
             }
             Button(
