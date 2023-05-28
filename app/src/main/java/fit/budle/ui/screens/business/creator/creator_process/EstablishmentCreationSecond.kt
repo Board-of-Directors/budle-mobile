@@ -23,7 +23,7 @@ fun EstablishmentCreationSecondScreen(
 ) {
 
     var buttonClicked by remember { mutableStateOf(false) }
-    var emptyCategoryError by remember { mutableStateOf(true) }
+    var emptyCategoryError by remember { mutableStateOf(false) }
 
     viewModel.onEvent(EstCreationEvent.GetCategoryListEvent)
     viewModel.onEvent(EstCreationEvent.GetTagListEvent)
@@ -55,24 +55,34 @@ fun EstablishmentCreationSecondScreen(
                     emptyCategoryError = viewModel.selectedCategory.isEmpty()
                 },
                 selectedItem = viewModel.selectedCategory,
-                items = viewModel.testCategoryMap.keys.toList(),
+                items = viewModel.categoryList,
                 placeHolder = "Тип заведения",
                 startMessage = "Выберите тип заведения"
             )
-            if (viewModel.variantList.isNotEmpty()) {
-                BudleDropDownMenu(
-                    modifier = Modifier
-                        .padding(top = 20.dp)
-                        .fillMaxWidth(),
-                    isError = false,
-                    onValueChange = {
-                        SubcategoryChanger.SetSubcategory(viewModel, "name", it)
-                    },
-                    selectedItem = SubcategoryChanger.GetSubcategoryValue(viewModel, "name"),
-                    items = viewModel.variantList,
-                    placeHolder = "Подкатегория",
-                    startMessage = "Выберите подкатегорию"
-                )
+            if (viewModel.variantList.isNotEmpty() &&
+                viewModel.variantList.containsKey(viewModel.selectedCategory) &&
+                viewModel.variantList[viewModel.selectedCategory]!!.fieldName != null
+            ) {
+                viewModel.variantList[viewModel.selectedCategory]?.let {
+                    val fieldName = it.fieldName!!
+                    val variants = it.variants!!
+                    val headerName = it.headerName!!
+                    BudleDropDownMenu(
+                        modifier = Modifier
+                            .padding(top = 20.dp)
+                            .fillMaxWidth(),
+                        isError = false,
+                        onValueChange = {
+                            SubcategoryChanger.SetSubcategory(viewModel, fieldName, it)
+                            viewModel.selectedVariant[fieldName] =
+                                SubcategoryChanger.GetSubcategoryValue(viewModel, fieldName)
+                        },
+                        selectedItem = viewModel.selectedVariant[fieldName],
+                        items = variants,
+                        placeHolder = headerName,
+                        startMessage = "Выберите ${it.headerName}"
+                    )
+                }
             }
             BudleMultiSelectableDropDownMenu(
                 modifier = Modifier

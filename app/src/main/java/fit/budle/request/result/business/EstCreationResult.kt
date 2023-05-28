@@ -1,6 +1,7 @@
 package fit.budle.dto.result
 
 import fit.budle.dto.Exception
+import fit.budle.dto.establishment.Subcategory
 import fit.budle.dto.establishment.etsablishment_type.NewEstablishmentDto
 import fit.budle.dto.tag.standard.TagResponse
 
@@ -17,7 +18,9 @@ sealed interface GetCategoryListResult {
 }
 
 sealed interface GetCategoryVariantListResult {
-    data class Success(val result: List<String>, val exception: Exception?) : GetCategoryVariantListResult
+    data class Success(val result: Subcategory, val exception: Exception?) :
+        GetCategoryVariantListResult
+
     data class Failure(val throwable: Throwable) : GetCategoryVariantListResult
 }
 

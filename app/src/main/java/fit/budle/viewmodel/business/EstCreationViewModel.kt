@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fit.budle.dto.WorkingHour
+import fit.budle.dto.establishment.Subcategory
 import fit.budle.dto.establishment.WorkingHoursDto
 import fit.budle.dto.establishment.establishment_field.PhotoDto
 import fit.budle.dto.establishment.etsablishment_type.NewEstablishmentDto
@@ -56,18 +57,10 @@ class EstCreationViewModel @Inject constructor(
     var selectedMapUri by mutableStateOf<Uri?>(null)
     var selectedMapFile by mutableStateOf<File?>(null)
 
-    // optional fields
-    var selectedCuisineCountry by mutableStateOf<String?>(null)
-    var selectedStarsCount by mutableStateOf<String?>(null)
-
-    val testCategoryMap = mapOf(
-        "Рестораны" to "cuisineCountry",
-        "Отели" to "starsCount"
-    )
-
     var categoryList by mutableStateOf(emptyList<String>())
     var tagList by mutableStateOf(emptyList<TagResponse>())
-    var variantList by mutableStateOf(emptyList<String>())
+    var variantList = mutableStateMapOf<String, Subcategory>()
+    var selectedVariant = mutableStateMapOf<String, String>()
 
     @RequiresApi(Build.VERSION_CODES.P)
     fun onEvent(event: EstCreationEvent) {
@@ -174,14 +167,16 @@ class EstCreationViewModel @Inject constructor(
 
             is EstCreationEvent.GetVariantList -> {
                 viewModelScope.launch {
-                    when (val result =
-                        estCreationRepository.getCategoryVariantList(selectedCategory)) {
-                        is GetCategoryVariantListResult.Success -> {
-                            variantList = result.result
-                        }
+                    for (category in categoryList) {
+                        when (val result =
+                            estCreationRepository.getCategoryVariantList(category)) {
+                            is GetCategoryVariantListResult.Success -> {
+                                variantList[category] = result.result
+                            }
 
-                        else -> {
-                            Log.d("VM_GET_VARIANT_LIST", "FAILURE")
+                            else -> {
+                                Log.d("VM_GET_VARIANT_LIST", "FAILURE")
+                            }
                         }
                     }
                 }

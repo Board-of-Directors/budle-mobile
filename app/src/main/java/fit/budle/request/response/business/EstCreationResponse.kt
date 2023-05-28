@@ -1,6 +1,7 @@
 package fit.budle.request.response.business
 
 import fit.budle.dto.Exception
+import fit.budle.dto.establishment.Subcategory
 import fit.budle.dto.establishment.etsablishment_type.NewEstablishmentDto
 import fit.budle.dto.tag.standard.TagResponse
 
@@ -15,7 +16,7 @@ sealed interface EstCreationResponse {
         EstCreationResponse
 
     data class GetEstCategoryVariantListResponse(
-        val result: List<String>,
+        val result: Subcategory,
         val exception: Exception?,
     ) :
         EstCreationResponse
