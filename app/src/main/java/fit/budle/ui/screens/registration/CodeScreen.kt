@@ -33,6 +33,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -131,7 +137,20 @@ fun CodeScreen(
                             value = viewModel.states[i],
                             modifier = Modifier
                                 .padding(top = 16.dp, start = 8.dp, end = 8.dp)
-                                .width(60.dp),
+                                .width(60.dp)
+                                .onKeyEvent { event: KeyEvent ->
+                                    if (event.type == KeyEventType.KeyUp &&
+                                        event.key == Key.Backspace &&
+                                        viewModel.states[i].isEmpty()
+                                    ) {
+                                        if (i == 0) {
+                                            focusManager.clearFocus()
+                                        } else {
+                                            focusManager.moveFocus(FocusDirection.Previous)
+                                        }
+                                    }
+                                    false
+                                },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             onValueChange = {
                                 if (it.length <= 1) {
