@@ -134,8 +134,6 @@ fun CardScreen(
                 EstablishmentAddress(addressInfo = viewModel.establishmentCard.address)
             }
         }
-        viewModel.establishmentCard.workingHours?.let { WorkingTime(cardDescription = it.toList()) }
-        EstablishmentAddress(addressInfo = viewModel.establishmentCard.address)
     }
 }
 

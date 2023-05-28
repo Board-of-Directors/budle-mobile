@@ -28,7 +28,7 @@ val tabs = mutableStateListOf(
     Tab(
         R.drawable.list,
         "Мои брони",
-        "user_profile_bookings",
+        "userProfile/bookings",
         null
     ),/*
     Tab(
