@@ -6,8 +6,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.event.business.EstCreationEvent
@@ -15,7 +16,6 @@ import fit.budle.ui.components.atoms.inputs.photo_inputs.BudleMultiplePhotoInput
 import fit.budle.ui.components.atoms.inputs.text_inputs.BudleMultipleLineInput
 import fit.budle.ui.components.moleculas.screens.BudleScreenWithButtonAndProgress
 import fit.budle.ui.theme.mainBlack
-import fit.budle.ui.util.bitmapCreator
 import fit.budle.viewmodel.business.EstCreationViewModel
 
 @RequiresApi(Build.VERSION_CODES.P)
@@ -25,9 +25,7 @@ fun EstablishmentCreationThirdScreen(
     viewModel: EstCreationViewModel,
 ) {
 
-    viewModel.selectedPhotosBitmap = bitmapCreator(
-        uris = viewModel.selectedPhotosUri.toTypedArray()
-    )
+    val resolver = LocalContext.current.contentResolver
 
     Surface(Modifier.fillMaxSize()) {
         BudleScreenWithButtonAndProgress(
@@ -35,7 +33,7 @@ fun EstablishmentCreationThirdScreen(
             buttonText = "Следующий шаг",
             progress = "60%",
             onClick = {
-                viewModel.onEvent(EstCreationEvent.ThirdStep)
+                viewModel.onEvent(EstCreationEvent.ThirdStep(resolver))
                 navHostController.navigate("fourthStep")
             },
             textMessage = "Создание заведения"

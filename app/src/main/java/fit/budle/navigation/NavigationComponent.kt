@@ -24,7 +24,7 @@ fun NavigationComponent(navController: NavHostController) {
     val mainViewModel: MainViewModel = hiltViewModel()
     NavHost(
         navController = navController,
-        startDestination = "main"
+        startDestination = "ownerMain/establishmentCreation/"
     ) {
         composable("main") {
             MainScreen(
@@ -54,9 +54,11 @@ fun NavigationComponent(navController: NavHostController) {
                 it.arguments?.getString("establishmentName"),
             )
         }
+
         registrationNavGraph(navController)
         creatorAccountNavGraph(navController)
         establishmentCreationNavGraph(navController)
+
         composable("userProfile") {
             UserProfileScreen(
                 navController = navController,
