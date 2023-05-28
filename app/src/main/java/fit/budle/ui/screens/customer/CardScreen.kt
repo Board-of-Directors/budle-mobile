@@ -284,15 +284,18 @@ fun WorkingTime(
                         .fillMaxWidth()
                         .height(IntrinsicSize.Max)
                 ) {
+                    // FIXME: исправьте хардкод ПН
                     Text(
                         modifier = Modifier.width(50.dp),
-                        text = cardDescription[i].days[0],
+                        text = "ПН",
                         style = MaterialTheme.typography.bodyMedium,
                         color = mainBlack
                     )
                     Text(
                         modifier = Modifier.padding(start = 20.dp),
-                        text = cardDescription[i].startTime + "-" + cardDescription[i].endTime,
+                        text = cardDescription[i].startTime.dropLast(3) + "-" + cardDescription[i].endTime.dropLast(
+                            3
+                        ),
                         style = MaterialTheme.typography.bodyMedium,
                         color = mainBlack
                     )
