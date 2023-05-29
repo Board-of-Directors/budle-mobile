@@ -51,6 +51,9 @@ fun EstablishmentCreationFourthScreen(
             )
             BudleWorkingDaysPickerList(
                 daysCount = viewModel.blocksCount,
+                onValueChange = { day, workingHoursDto ->
+                    viewModel.selectedWorkingHours[day] = workingHoursDto
+                },
                 selectedItems = viewModel.selectedWorkingHours
             )
             BudleButton(

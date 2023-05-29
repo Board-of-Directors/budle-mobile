@@ -1,6 +1,8 @@
 package fit.budle.ui.screens.business.creator.creator_process
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -16,6 +18,7 @@ import fit.budle.ui.components.atoms.headers.BudleNavigationHeader
 import fit.budle.ui.components.screens.BudleInformationScreen
 import fit.budle.viewmodel.business.EstCreationViewModel
 
+@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun EstablishmentCreationFifthScreen(
     navHostController: NavHostController,

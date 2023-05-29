@@ -11,11 +11,12 @@ import fit.budle.dto.establishment.WorkingHoursDto
 @Composable
 fun BudleWorkingDaysPickerList(
     daysCount: Int,
+    onValueChange: (Int, WorkingHoursDto) -> Unit,
     selectedItems: SnapshotStateMap<Int, WorkingHoursDto>,
 ) {
     for (day in 0 until daysCount){
         BudleWorkingDaysPicker(
-            onValueChange = { selectedItems[day] = it },
+            onValueChange = { onValueChange(day, it) },
             selectedWorkingHoursDto = selectedItems[day]
         )
         Log.d("TAGLIST",selectedItems[day]?.daysOfWork?.size.toString())

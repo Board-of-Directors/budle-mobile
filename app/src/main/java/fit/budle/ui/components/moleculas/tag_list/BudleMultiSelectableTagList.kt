@@ -1,16 +1,14 @@
 package fit.budle.ui.components.moleculas.tag_list
 
 import android.annotation.SuppressLint
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.runtime.*
+import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import fit.budle.dto.tag.active.ActiveCircleTag
 import fit.budle.dto.tag.active.ActiveTagType
 import fit.budle.dto.tag.active.Tag
 import fit.budle.ui.components.BudleCircleTag
@@ -18,7 +16,6 @@ import fit.budle.ui.components.BudleRectangleTag
 import fit.budle.ui.theme.mainBlack
 
 @SuppressLint("MutableCollectionMutableState")
-@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun BudleMultiSelectableTagList(
     modifier: Modifier = Modifier,
@@ -27,11 +24,10 @@ fun BudleMultiSelectableTagList(
     tagType: ActiveTagType = ActiveTagType.RECTANGLE,
     textColor: Color = mainBlack,
     showDate: Boolean = true,
+    startValue: SnapshotStateMap<Tag, Boolean> = tagList.map { it to false }.toMutableStateMap(),
 ) {
 
-    val selectedItems = remember {
-        tagList.map { it to false }.toMutableStateMap()
-    }
+    val selectedItems = remember { startValue }
 
     val isSelectedItem: (Tag) -> (Boolean) = {
         selectedItems[it] == true

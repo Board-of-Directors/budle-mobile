@@ -28,20 +28,24 @@ fun BudleWorkingDaysPicker(
 
     var enabled by remember { mutableStateOf(true) }
 
+    val daysTags = days as List<Tag>
+
     var fromToTime by remember {
         mutableStateOf(
-            Pair(selectedWorkingHoursDto?.fromTime ?: "",
-                selectedWorkingHoursDto?.toTime ?: "")
+            Pair(
+                selectedWorkingHoursDto?.fromTime ?: "",
+                selectedWorkingHoursDto?.toTime ?: ""
+            )
         )
     }
 
     val selectedTagList = remember {
         if (selectedWorkingHoursDto != null) {
-            Log.d("ISNOTNULL","IT")
+            Log.d("ISNOTNULL", "IT")
             convertStringListToTagList(selectedWorkingHoursDto.daysOfWork)
                 .toMutableStateList()
         } else {
-            Log.d("ISNULL","IT")
+            Log.d("ISNULL", "IT")
             mutableStateListOf()
         }
     }
@@ -55,10 +59,22 @@ fun BudleWorkingDaysPicker(
                 onValueChange = {
                     selectedTagList.clear()
                     selectedTagList.addAll(it)
+                    onValueChange(
+                        WorkingHoursDto(fromTime = fromToTime.first,
+                            toTime = fromToTime.second,
+                            daysOfWork = selectedTagList.map { tag -> tag.tagName })
+                    )
                 },
                 showDate = false,
-                tagList = days as List<Tag>,
-                tagType = ActiveTagType.CIRCLE
+                tagList = daysTags,
+                tagType = ActiveTagType.CIRCLE,
+                startValue = days.map {
+                    if (selectedWorkingHoursDto?.daysOfWork?.contains(it.tagName) == true) {
+                        it to true
+                    } else {
+                        it to false
+                    }
+                }.toMutableStateMap()
             )
             BudleFromToTimeInput(
                 enabled = enabled,
