@@ -1,19 +1,16 @@
 package fit.budle.dao.customer
 
+import fit.budle.dto.order.RequestOrderDto
 import fit.budle.request.response.DefaultBooleanResponse
-import fit.budle.request.response.customer.OrderCreateResponse
-import okhttp3.RequestBody
+import fit.budle.request.response.customer.GetEstTimeResponse
+import retrofit2.Response
 import retrofit2.http.*
 
 interface OrderCreateDAO {
     @POST("order")
-    suspend fun postOrder(@Body requestBody: RequestBody): DefaultBooleanResponse
+    suspend fun postOrder(@Body requestOrderDto: RequestOrderDto): Response<DefaultBooleanResponse>
 
     @GET("establishment/time")
     suspend fun getEstablishmentTime(@Query("establishmentId") establishmentId: Long?)
-            : OrderCreateResponse.ScheduleDayArrayResponse
-
-    @GET("establishment/map")
-    suspend fun getEstablishmentMap(@Query("establishmentId") establishmentId: Int)
-            : OrderCreateResponse.GetEstabmishmentMapResponse
+            : Response<GetEstTimeResponse>
 }

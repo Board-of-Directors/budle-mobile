@@ -2,6 +2,7 @@ package fit.budle.repository_impl.customer
 
 import android.util.Log
 import fit.budle.dao.customer.EstablishmentDAO
+import fit.budle.dto.ResponseException
 import fit.budle.dto.establishment.CategoriesListResult
 import fit.budle.dto.establishment.EstablishmentListResult
 import fit.budle.dto.establishment.EstablishmentResult
@@ -12,16 +13,25 @@ class EstablishmentRepositoryImpl @Inject constructor(
     private val establishmentDAO: EstablishmentDAO,
 ) : EstablishmentRepository {
     override suspend fun getEstablishment(establishmentId: Long): EstablishmentResult {
-        return try {
-            val result = establishmentDAO.getEstablishment(establishmentId)
-            Log.d("GETESTABLISHMENT", "SUCCESS")
+
+        val response = establishmentDAO.getEstablishment(establishmentId)
+
+        return if (response.body() == null) {
+
+            Log.e("GET_ESTABLISHMENT", ResponseException.NULL_BODY)
+            EstablishmentResult.Failure(ResponseException.NULL_BODY)
+
+        } else if (response.body()!!.exception == null) {
+
+            Log.d("GET_ESTABLISHMENT", "SUCCESS")
             EstablishmentResult.Success(
-                result = result.result,
-                exceptionMessage = result.exception?.message
+                result = response.body()!!.result,
+                exception = null
             )
-        } catch (e: Throwable) {
-            Log.e("GETESTABLISHMENT", "FAILURE")
-            EstablishmentResult.Failure(e)
+
+        } else {
+            Log.e("GET_ESTABLISHMENT", response.body()!!.exception!!.message)
+            EstablishmentResult.Failure(response.body()!!.exception!!.message)
         }
     }
 
@@ -34,32 +44,50 @@ class EstablishmentRepositoryImpl @Inject constructor(
         hasCardPayment: Boolean?,
         hasMap: Boolean?,
     ): EstablishmentListResult {
-        return try {
-            val result = establishmentDAO.getEstablishmentAll(
-                category, limit, offset, sortValue, name, hasCardPayment, hasMap
-            )
-            Log.d("GETESTABLISHMENTALL", "SUCCESS")
+
+        val response = establishmentDAO.getEstablishmentAll(
+            category, limit, offset, sortValue, name, hasCardPayment, hasMap
+        )
+
+        return if (response.body() == null) {
+
+            Log.e("GET_EST_ALL", ResponseException.NULL_BODY)
+            EstablishmentListResult.Failure(ResponseException.NULL_BODY)
+
+        } else if (response.body()!!.exception == null) {
+
+            Log.i("GET_EST_ALL", "SUCCESS")
             EstablishmentListResult.Success(
-                result = result.result,
-                exceptionMessage = result.exception?.message
+                result = response.body()!!.result,
+                exception = null
             )
-        } catch (e: Throwable) {
-            Log.e("GETESTABLISHMENTALL", "FAILURE")
-            EstablishmentListResult.Failure(e)
+
+        } else {
+            Log.e("GET_EST_ALL", response.body()!!.exception!!.message)
+            EstablishmentListResult.Failure(response.body()!!.exception!!.message)
         }
     }
 
     override suspend fun getCategory(): CategoriesListResult {
-        return try {
-            val result = establishmentDAO.getEstablishmentCategory()
-            Log.d("GETCATEGORIES", "SUCCESS")
+
+        val response = establishmentDAO.getEstablishmentCategory()
+
+        return if (response.body() == null) {
+
+            Log.e("GET_CATEGORY", ResponseException.NULL_BODY)
+            CategoriesListResult.Failure(ResponseException.NULL_BODY)
+
+        } else if (response.body()!!.exception == null) {
+
+            Log.d("GET_CATEGORY", "SUCCESS")
             CategoriesListResult.Success(
-                result = result.result,
-                exceptionMessage = result.exception?.message
+                result = response.body()!!.result,
+                exception = null
             )
-        } catch (e: Throwable) {
-            Log.e("GETCATEGORIES", "FAILURE")
-            CategoriesListResult.Failure(e)
+
+        } else {
+            Log.e("GET_CATEGORY", response.body()!!.exception!!.message)
+            CategoriesListResult.Failure(response.body()!!.exception!!.message)
         }
     }
 }

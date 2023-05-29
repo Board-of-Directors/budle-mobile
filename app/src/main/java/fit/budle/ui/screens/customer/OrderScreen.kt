@@ -1,7 +1,5 @@
-package fit.budle.ui.screens
+package fit.budle.ui.screens.customer
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -47,11 +45,10 @@ fun OrderScreen(
     orderViewModel: OrderCreateViewModel,
 ) {
 
+    mainViewModel.onEvent(MainEvent.GetEstablishment)
     val userAmount = remember { mutableStateOf(1) }
 
     Surface(modifier = Modifier.fillMaxSize()) {
-
-        mainViewModel.onEvent(MainEvent.GetEstablishment)
 
         Column(
             modifier = Modifier
@@ -59,7 +56,7 @@ fun OrderScreen(
                 .padding(20.dp)
         ) {
             orderViewModel.onEvent(
-                OrderCreateEvent.getEstablishmentTime(
+                OrderCreateEvent.GetEstablishmentTime(
                     mainViewModel.establishmentCard.id
                 )
             )
@@ -85,6 +82,7 @@ fun OrderScreen(
                     }
                 )
             }
+
             BookingAmount(userAmount, orderViewModel)
             BookingDay(orderViewModel, mainViewModel.establishmentCard.id.toString())
             BookingTime(orderViewModel)
@@ -114,7 +112,7 @@ fun OrderScreen(
                 horizontalPadding = 0.dp,
                 onClick = {
                     orderViewModel.onEvent(
-                        OrderCreateEvent.postOrder(
+                        OrderCreateEvent.PostOrder(
                             mainViewModel.establishmentCard.id
                         )
                     )
@@ -151,7 +149,6 @@ fun BookingAmount(
                 onClick = {
                     if (leftCondition) {
                         amount.value--
-                        viewModel.guestCountVar = amount.value
                     }
                 }
             )
@@ -174,15 +171,15 @@ fun BookingAmount(
                 onClick = {
                     if (rightCondition) {
                         amount.value++
-                        viewModel.guestCountVar = amount.value
                     }
                 }
             )
+            viewModel.selectedSeatAmount = amount.value
+            viewModel.onEvent(OrderCreateEvent.SetSeatAmount)
         }
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun BookingDay(
     viewModel: OrderCreateViewModel,
@@ -195,24 +192,26 @@ fun BookingDay(
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (viewModel.dayArray.isNotEmpty()) {
+            if (viewModel.estBookingDays.isNotEmpty()) {
                 BudleTagList(
-                    initialState = viewModel.dayArray[0],
+                    initialState = viewModel.estBookingDays[0],
                     onValueChange = {
-                        viewModel.dateVar = it.tagId.toString()
-                        if (establishmentId != null) {
-                            viewModel.onEvent(OrderCreateEvent.getEstablishmentTime(establishmentId.toLong()))
-                        }
+                        viewModel.selectedDay = it.tagId.toString()
+                        viewModel.onEvent(
+                            OrderCreateEvent.GetEstablishmentTime(
+                                establishmentId!!.toLong()
+                            )
+                        )
                     },
-                    tagList = viewModel.dayArray,
+                    tagList = viewModel.estBookingDays,
                     tagType = ActiveTagType.CIRCLE
                 )
+                viewModel.onEvent(OrderCreateEvent.SetDay)
             }
         }
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun BookingTime(viewModel: OrderCreateViewModel) {
     BudleBlockWithHeader(headerText = "Время") {
@@ -222,20 +221,18 @@ fun BookingTime(viewModel: OrderCreateViewModel) {
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (viewModel.timeArray.isNotEmpty()) {
-                viewModel.currentTime?.let { tag ->
-                    BudleTagList(
-                        initialState = tag,
-                        tagList = viewModel.timeArray,
-                        onValueChange = { viewModel.timeVar = it.tagName }
-                    )
-                }
+            if (viewModel.estBookingTime.isNotEmpty()) {
+                BudleTagList(
+                    initialState = viewModel.estBookingTime[0],
+                    tagList = viewModel.estBookingTime,
+                    onValueChange = { viewModel.selectedTime = it.tagName }
+                )
+                viewModel.onEvent(OrderCreateEvent.SetTime)
             }
         }
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun BookingPreferences() {
     BudleBlockWithHeader(headerText = "Предпочтения") {
@@ -244,7 +241,8 @@ fun BookingPreferences() {
                 .padding(top = 10.dp)
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
-        ) {/*
+        ) {
+            /*
             InfoTagList(
                 horizontalPadding = 20.dp,
                 tags = bookingTagList

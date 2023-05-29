@@ -1,6 +1,6 @@
 package fit.budle.request.result
 
-sealed class DefaultResult {
-    data class Success(val result: Boolean?, val exceptionMessage: String?) : DefaultResult()
-    data class Failure(val throwable: Throwable) : DefaultResult()
+sealed interface DefaultResult {
+    data class Success(val result: Boolean?, val exception: String?) : DefaultResult
+    data class Failure(val exception: String?) : DefaultResult
 }

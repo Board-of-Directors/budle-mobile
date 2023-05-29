@@ -52,10 +52,7 @@ class MainViewModel @Inject constructor(
                             establishmentCard = convertEstablishment(response.result)
                         }
 
-                        is EstablishmentResult.Failure -> {
-                            Log.e("MAINVIEWMODEL", "FAILURE")
-                            response.throwable.message?.let { Log.e("MAINVIEWMODEL", it) }
-                        }
+                        is EstablishmentResult.Failure -> {}
                     }
                 }
             }
@@ -68,10 +65,7 @@ class MainViewModel @Inject constructor(
                             categories = response.result
                         }
 
-                        is CategoriesListResult.Failure -> {
-                            Log.e("MAINVIEWMODEL", "FAILURE")
-                            response.throwable.message?.let { Log.e("MAINVIEWMODEL", it) }
-                        }
+                        is CategoriesListResult.Failure -> {}
                     }
                     for (category in categories) {
                         parametersEstablishmentRequest.category = category
@@ -99,10 +93,7 @@ class MainViewModel @Inject constructor(
                                     }
                                 }
 
-                                is EstablishmentListResult.Failure -> {
-                                    Log.e("MAINVIEWMODEL", "FAILURE")
-                                    response.throwable.message?.let { Log.e("MAINVIEWMODEL", it) }
-                                }
+                                is EstablishmentListResult.Failure -> {}
                             }
                         }
                     }

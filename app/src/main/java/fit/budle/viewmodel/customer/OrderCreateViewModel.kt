@@ -7,12 +7,12 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import fit.budle.dto.order.RequestOrderDto
 import fit.budle.dto.order.ScheduleDay
 import fit.budle.dto.tag.active.ActiveCircleTag
 import fit.budle.dto.tag.active.RectangleActiveTag
 import fit.budle.event.customer.OrderCreateEvent
 import fit.budle.repository.customer.OrderCreateRepository
-import fit.budle.request.result.DefaultResult
 import fit.budle.request.result.customer.OrderCreateResult
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,115 +22,105 @@ class OrderCreateViewModel @Inject constructor(
     private var orderCreateRepository: OrderCreateRepository,
 ) : ViewModel() {
 
-    var result: String by mutableStateOf("")
-    var dateVar: String by mutableStateOf("")
-    var timeVar: String by mutableStateOf("")
-    private var seatVar: String by mutableStateOf("1")
-    var guestCountVar: Int by mutableStateOf(1)
-    private var scheduleArray: Array<ScheduleDay> by mutableStateOf(emptyArray())
+    // initial state of the request DTO
+    val requestOrderDto by mutableStateOf(RequestOrderDto())
 
-    var dayArray: List<ActiveCircleTag> by mutableStateOf(emptyList())
+    // available booking days and time of the establishment
+    var estBookingDays by mutableStateOf(emptyList<ActiveCircleTag>())
+    var estBookingTime by mutableStateOf(emptyList<RectangleActiveTag>())
 
-    var timeArray: List<RectangleActiveTag> by mutableStateOf(emptyList())
-    var currentTime: RectangleActiveTag? by mutableStateOf(null)
-
-    var establishmentMap by mutableStateOf("")
+    // selected day, time and seat amount by user
     var selectedSeatId by mutableStateOf(1)
+    var selectedSeatAmount by mutableStateOf(1)
+    var selectedDay: String by mutableStateOf("")
+    var selectedTime: String by mutableStateOf("")
 
-    val userId: Long = 1
+    // schedule of the current establishment, which is got from server
+    var establishmentSchedule = listOf<ScheduleDay>()
 
     fun onEvent(event: OrderCreateEvent) {
         when (event) {
-            is OrderCreateEvent.postOrder -> {
+            is OrderCreateEvent.PostOrder -> {
                 viewModelScope.launch {
-                    Log.e("ESTID", event.establishmentId.toString())
-                    Log.e("UID", userId.toString())
-                    Log.e("GUEST", guestCountVar.toString())
-                    Log.e("TIME", "$timeVar:00")
-                    Log.e("DATE", "2023-05-$dateVar")
-                    Log.e("SEAT", seatVar)
-                    if (dateVar.isNotEmpty() && timeVar.isNotEmpty()) {
-                        when (val response = orderCreateRepository.postOrder(
-                            event.establishmentId,
-                            userId,
-                            guestCountVar,
-                            "$timeVar:00",
-                            "2023-05-$dateVar",
-                            selectedSeatId
-                        )) {
-                            is DefaultResult.Success -> {
-                                Log.d("BOOKVIEWMODEL", "SUCCESS")
-                                result =
-                                    if (response.result == null) "NULL" else if (response.result == true) "TRUE" else "FALSE"
-                                Log.d("BOOKVIEWMODEL", response.exceptionMessage.toString())
-                            }
-
-                            is DefaultResult.Failure -> {
-                                Log.e("BOOKVIEWMODEL", "FAILURE")
-                                response.throwable.message?.let { Log.e("BOOKVIEWMODEL", it) }
-                            }
-                        }
-                    }
+                    LogOrder(event.establishmentId)
+                    requestOrderDto.establishmentId = event.establishmentId.toInt()
+                    orderCreateRepository.postOrder(requestOrderDto)
                 }
             }
 
-            is OrderCreateEvent.getEstablishmentTime -> {
+            is OrderCreateEvent.GetEstablishmentTime -> {
                 viewModelScope.launch {
-                    when (val response = orderCreateRepository.getEstablishmentTime(
-                        event.establishmentId,
-                    )) {
+                    when (val response =
+                        orderCreateRepository.getEstablishmentTime(event.establishmentId)
+                    ) {
                         is OrderCreateResult.Success -> {
-                            Log.d("BOOKVIEWMODEL", "SUCCESS")
-                            scheduleArray = response.result
-                            if (scheduleArray.isEmpty()) {
-                                Log.e("STATUS", "EMPTY")
-                                Log.e("ID", event.establishmentId.toString())
-                            } else {
-                                Log.e("STATUS", "NOT EMPTY")
-                            }
-                            dayArray = scheduleToDays(response.result)
-                            timeArray = getTime()
-                            if (timeArray.isNotEmpty()) {
-                                currentTime = timeArray[0]
-                            }
+                            establishmentSchedule = response.result
+                            Log.i("SIZE", establishmentSchedule.size.toString())
+                            estBookingDays = convertScheduleToDays()
+                            estBookingTime = createValidTimeList()
                         }
 
-                        is OrderCreateResult.Failure -> {
-                            Log.e("BOOKVIEWMODEL", "FAILURE")
-                            response.throwable.message?.let { Log.e("BOOKVIEWMODEL", it) }
-                        }
+                        is OrderCreateResult.Failure -> {}
                     }
                 }
+            }
+
+            is OrderCreateEvent.SetSeatAmount -> {
+                requestOrderDto.guestCount = selectedSeatAmount
+            }
+
+            is OrderCreateEvent.SetDay -> {
+                requestOrderDto.date = "2023-05-$selectedDay"
+            }
+
+            is OrderCreateEvent.SetTime -> {
+                requestOrderDto.time = "$selectedTime:00"
             }
         }
     }
 
-    private fun getTime(): List<RectangleActiveTag> { //TODO Нужно нормально сделать
-        val result: MutableList<RectangleActiveTag> = mutableListOf()
-        var count = 0
-        if (dateVar.isNotEmpty()) {
-            for (i in scheduleArray) {
-                if (i.dayNumber == dateVar) {
-                    for (j in i.times) {
-                        result.add(RectangleActiveTag(j, count))
-                        count++
-                    }
+    /**
+     * Creates list of the time tag by selected day tag
+     */
+    private fun createValidTimeList(): List<RectangleActiveTag> {
+        val timeTagList = mutableListOf<RectangleActiveTag>()
+        establishmentSchedule.forEach { scheduleDay ->
+            if (scheduleDay.dayNumber == selectedDay) {
+                scheduleDay.times.forEachIndexed { timeId, time ->
+                    timeTagList.add(
+                        RectangleActiveTag(
+                            tagId = timeId,
+                            tagName = time
+                        )
+                    )
                 }
             }
         }
-        if (result.isEmpty()) {
-            Log.e("RESULT", "EMPTY")
-        } else {
-            Log.e("RESULT", "NOT EMPTY")
-        }
-        return result
+        return timeTagList
     }
 
-    private fun scheduleToDays(scheduleArray: Array<ScheduleDay>): MutableList<ActiveCircleTag> {
-        val result: MutableList<ActiveCircleTag> = mutableListOf()
-        for (i in scheduleArray) {
-            result.add(ActiveCircleTag(i.dayNumber.trim().toInt(), i.dayName))
+    /**
+     * Converts schedule to the list of tags, which element contain
+     * information about day name, e.g. "Mon", "Thu" and number of the day
+     * in current month.
+     */
+    private fun convertScheduleToDays(): List<ActiveCircleTag> {
+        val dayTagList = mutableListOf<ActiveCircleTag>()
+        establishmentSchedule.forEach { scheduleDay ->
+            dayTagList.add(
+                ActiveCircleTag(
+                    scheduleDay.dayNumber.trim().toInt(),
+                    scheduleDay.dayName
+                )
+            )
         }
-        return result
+        return dayTagList
+    }
+
+    private fun LogOrder(establishmentId: Long) {
+        Log.e("ESTID", establishmentId.toString())
+        Log.e("GUEST", selectedSeatAmount.toString())
+        Log.e("TIME", "$selectedTime:00")
+        Log.e("DATE", "2023-05-$selectedDay")
     }
 }

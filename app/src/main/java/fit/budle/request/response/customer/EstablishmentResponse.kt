@@ -11,7 +11,7 @@ sealed interface EstablishmentResponse {
     ) : EstablishmentResponse
 
     data class EstablishmentDtoArrayResponse(
-        val result: EstablishmentDtoArray, //TODO Сделать заглушку
+        val result: EstablishmentDtoArray,
         val exception: Exception?,
     ) : EstablishmentResponse
 

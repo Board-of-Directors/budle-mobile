@@ -11,10 +11,10 @@ import fit.budle.navigation.graphs.creatorAccountNavGraph
 import fit.budle.navigation.graphs.establishmentCreationNavGraph
 import fit.budle.navigation.graphs.registrationNavGraph
 import fit.budle.ui.screens.MainScreen
-import fit.budle.ui.screens.OrderScreen
 import fit.budle.ui.screens.UserProfileBookingsScreenBackendConnected
 import fit.budle.ui.screens.customer.CardScreen
 import fit.budle.ui.screens.customer.MapScreen
+import fit.budle.ui.screens.customer.OrderScreen
 import fit.budle.ui.screens.customer.UserProfileScreen
 
 @RequiresApi(Build.VERSION_CODES.P)

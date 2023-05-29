@@ -1,13 +1,14 @@
 package fit.budle.dao.customer
 
 import fit.budle.request.response.customer.EstablishmentResponse
+import retrofit2.Response
 import retrofit2.http.*
 
 interface EstablishmentDAO {
     @GET("establishment")
     suspend fun getEstablishment(
-        @Query("establishmentId") establishmentId: Long
-    ): EstablishmentResponse.EstablishmentDtoResponse
+        @Query("establishmentId") establishmentId: Long,
+    ): Response<EstablishmentResponse.EstablishmentDtoResponse>
 
     @GET("establishment/all")
     suspend fun getEstablishmentAll(
@@ -17,10 +18,10 @@ interface EstablishmentDAO {
         @Query("sortValue") sortValue: String?,
         @Query("name") name: String?,
         @Query("hasCardPayment") hasCardPayment: Boolean?,
-        @Query("hasMap") hasMap: Boolean?
-    ): EstablishmentResponse.EstablishmentDtoArrayResponse
+        @Query("hasMap") hasMap: Boolean?,
+    ): Response<EstablishmentResponse.EstablishmentDtoArrayResponse>
 
     @GET("establishment/category")
     suspend fun getEstablishmentCategory(
-    ): EstablishmentResponse.CategoriesResponse
+    ): Response<EstablishmentResponse.CategoriesResponse>
 }

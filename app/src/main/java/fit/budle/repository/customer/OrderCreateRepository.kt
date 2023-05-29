@@ -1,23 +1,12 @@
 package fit.budle.repository.customer
 
+import fit.budle.dto.order.RequestOrderDto
 import fit.budle.request.result.DefaultResult
-import fit.budle.request.result.customer.GetEstablishmentMapResult
 import fit.budle.request.result.customer.OrderCreateResult
 
 interface OrderCreateRepository {
+    suspend fun postOrder(requestOrderDto: RequestOrderDto): DefaultResult
 
-    suspend fun postOrder(
-        establishmentId: Long,
-        userId: Long,
-        guestCount: Int,
-        time: String,
-        date: String,
-        spotId: Int?
-    ): DefaultResult
+    suspend fun getEstablishmentTime(establishmentId: Long): OrderCreateResult
 
-    suspend fun getEstablishmentTime(
-        establishmentId: Long
-    ): OrderCreateResult
-
-    suspend fun getEstablishmentMap(establishmentId: Int): GetEstablishmentMapResult
 }

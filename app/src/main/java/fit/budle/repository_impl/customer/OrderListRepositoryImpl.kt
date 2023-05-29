@@ -26,13 +26,15 @@ class OrderListRepositoryImpl @Inject constructor(
 
     override suspend fun deleteOrder(userId: Long, orderId: Long): DefaultResult {
         return try {
-            val result = orderDAO.deleteOrder(userId, orderId)
+            val response = orderDAO.deleteOrder(userId, orderId)
             Log.d("DELETEORDER", "SUCCESS")
-            DefaultResult.Success(result = result.result,
-                exceptionMessage = result.exception?.message)
+            DefaultResult.Success(
+                result = response.result,
+                exception = null
+            )
         } catch (e: Throwable) {
             Log.d("DELETEORDER", "FAILURE")
-            DefaultResult.Failure(e)
+            DefaultResult.Failure(e.message)
         }
     }
 }

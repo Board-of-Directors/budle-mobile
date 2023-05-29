@@ -4,10 +4,8 @@ import fit.budle.dto.Exception
 import fit.budle.dto.order.ScheduleDay
 
 sealed interface OrderCreateResult {
-    data class Success(val result: Array<ScheduleDay>, val exceptionMessage: String?) :
-        OrderCreateResult
-
-    data class Failure(val throwable: Throwable) : OrderCreateResult
+    data class Success(val result: List<ScheduleDay>, val exception: String?) : OrderCreateResult
+    data class Failure(val exception: String?) : OrderCreateResult
 }
 
 sealed interface GetEstablishmentMapResult {
