@@ -25,7 +25,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
-import fit.budle.dto.RegisterType
+import fit.budle.dto.enums.RegisterType
 import fit.budle.event.customer.RegistrationEvent
 import fit.budle.ui.components.atoms.inputs.text_fields.BudlePasswordTextField
 import fit.budle.ui.components.atoms.inputs.text_fields.BudleSingleLineTextField

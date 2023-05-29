@@ -7,9 +7,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import fit.budle.dto.RegisterType
 import fit.budle.dto.code.CodeDto
 import fit.budle.dto.customer_user.RequestUser
+import fit.budle.dto.enums.RegisterType
 import fit.budle.event.customer.RegistrationEvent
 import fit.budle.repository.customer.RegistrationRepository
 import fit.budle.request.result.customer.GetCodeResult

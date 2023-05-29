@@ -9,12 +9,18 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a58d49e-1564-42e2-9059-987b6e47ff1a" name="Changes" comment="Refactored OrderCreateViewModel with all repos and daos, reconnected order create use case to the backend">
+    <list default="true" id="4a58d49e-1564-42e2-9059-987b6e47ff1a" name="Changes" comment="Refactored OrderScreen and created new components">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/day_list/BudleWorkerDaysPicker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/day_list/business/BudleWorkerDaysPicker.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/day_list/BudleWorkerDaysPickerList.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/day_list/business/BudleWorkerDaysPickerList.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/business/creator/creator_process/EstablishmentCreationFourth.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/business/creator/creator_process/EstablishmentCreationFourth.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/RegisterType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/enums/RegisterType.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/event/customer/OrderCreateEvent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/event/customer/OrderCreateEvent.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/event/customer/RegistrationEvent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/event/customer/RegistrationEvent.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/customer/RegistrationRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/customer/RegistrationRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/customer/RegistrationRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/customer/RegistrationRepositoryImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/MapScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/MapScreen.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/OrderScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/OrderScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/registration/DataScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/registration/DataScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/customer/OrderCreateViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/customer/OrderCreateViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/customer/RegistrationViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/customer/RegistrationViewModel.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,9 +82,9 @@
         <option value="Kotlin Sealed Interface" />
         <option value="Kotlin Enum" />
         <option value="Class" />
-        <option value="Kotlin Class" />
         <option value="Kotlin Data Class" />
         <option value="Kotlin Object" />
+        <option value="Kotlin Class" />
         <option value="Kotlin File" />
       </list>
     </option>
@@ -165,11 +171,11 @@
       <recent name="C:\Users\treti\IdeaProjects\budle-mobile\app\src\main\java\fit\budle\dto\business_user\worker" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="fit.budle.dto.enums" />
       <recent name="fit.budle.di.config" />
       <recent name="fit.budle.event.business" />
       <recent name="fit.budle.event.customer" />
       <recent name="fit.budle.dto.result.business" />
-      <recent name="fit.budle.dto.result.customer" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
       <recent name="fit.budle.model" />
@@ -577,7 +583,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685332706045</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Refactored OrderScreen and created new components">
+      <created>1685336491470</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1685336491470</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -609,7 +622,8 @@
     <MESSAGE value="Fixed long loading on the first screen, but on third screen things are really sad :(" />
     <MESSAGE value="Removed nested routes from order use case and added map from the backend" />
     <MESSAGE value="Refactored OrderCreateViewModel with all repos and daos, reconnected order create use case to the backend" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactored OrderCreateViewModel with all repos and daos, reconnected order create use case to the backend" />
+    <MESSAGE value="Refactored OrderScreen and created new components" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactored OrderScreen and created new components" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />

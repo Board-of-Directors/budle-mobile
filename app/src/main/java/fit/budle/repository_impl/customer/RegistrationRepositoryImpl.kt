@@ -4,9 +4,9 @@ import android.content.SharedPreferences
 import android.util.Log
 import fit.budle.dao.customer.RegistrationDAO
 import fit.budle.di.config.SharedPrefConfig
-import fit.budle.dto.RegisterType
 import fit.budle.dto.code.CodeDto
 import fit.budle.dto.customer_user.RequestUser
+import fit.budle.dto.enums.RegisterType
 import fit.budle.repository.customer.RegistrationRepository
 import fit.budle.request.result.customer.GetCodeResult
 import fit.budle.request.result.customer.PostCodeResult

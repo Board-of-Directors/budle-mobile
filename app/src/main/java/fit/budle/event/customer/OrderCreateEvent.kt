@@ -6,4 +6,5 @@ sealed interface OrderCreateEvent {
     object SetSeatAmount : OrderCreateEvent
     object SetDay : OrderCreateEvent
     object SetTime : OrderCreateEvent
+    object SetSpot : OrderCreateEvent
 }

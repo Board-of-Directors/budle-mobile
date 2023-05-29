@@ -1,8 +1,8 @@
 package fit.budle.repository.customer
 
-import fit.budle.dto.RegisterType
 import fit.budle.dto.code.CodeDto
 import fit.budle.dto.customer_user.RequestUser
+import fit.budle.dto.enums.RegisterType
 import fit.budle.request.result.customer.GetCodeResult
 import fit.budle.request.result.customer.PostCodeResult
 import fit.budle.request.result.customer.PostUserResult

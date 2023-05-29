@@ -30,7 +30,7 @@ class OrderCreateViewModel @Inject constructor(
     var estBookingTime by mutableStateOf(emptyList<RectangleActiveTag>())
 
     // selected day, time and seat amount by user
-    var selectedSeatId by mutableStateOf(1)
+    var selectedSeatId by mutableStateOf(-1)
     var selectedSeatAmount by mutableStateOf(1)
     var selectedDay: String by mutableStateOf("")
     var selectedTime: String by mutableStateOf("")
@@ -75,6 +75,10 @@ class OrderCreateViewModel @Inject constructor(
 
             is OrderCreateEvent.SetTime -> {
                 requestOrderDto.time = "$selectedTime:00"
+            }
+
+            is OrderCreateEvent.SetSpot -> {
+                requestOrderDto.spotId = selectedSeatId
             }
         }
     }

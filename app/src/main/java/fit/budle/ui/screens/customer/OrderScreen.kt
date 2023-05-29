@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
-import fit.budle.event.customer.MainEvent
 import fit.budle.event.customer.OrderCreateEvent
 import fit.budle.ui.components.BudleIconButton
 import fit.budle.ui.components.atoms.BudleButton
@@ -37,8 +36,6 @@ fun OrderScreen(
     mainViewModel: MainViewModel,
     orderViewModel: OrderCreateViewModel,
 ) {
-
-    mainViewModel.onEvent(MainEvent.GetEstablishment)
 
     Surface(modifier = Modifier.fillMaxSize()) {
 

@@ -1,6 +1,6 @@
 package fit.budle.event.customer
 
-import fit.budle.dto.RegisterType
+import fit.budle.dto.enums.RegisterType
 
 sealed interface RegistrationEvent {
     object GetCode : RegistrationEvent
