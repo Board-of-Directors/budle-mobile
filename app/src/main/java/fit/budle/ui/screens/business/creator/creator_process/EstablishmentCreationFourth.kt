@@ -15,7 +15,7 @@ import fit.budle.dto.tag.subwayStations
 import fit.budle.event.business.EstCreationEvent
 import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.ui.components.atoms.inputs.dropdown.BudleDropDownMenu
-import fit.budle.ui.components.moleculas.day_list.BudleWorkingDaysPickerList
+import fit.budle.ui.components.moleculas.day_list.business.BudleWorkingDaysPickerList
 import fit.budle.ui.components.moleculas.screens.BudleScreenWithButtonAndProgress
 import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.lightBlue
