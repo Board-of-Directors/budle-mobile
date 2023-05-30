@@ -1,4 +1,4 @@
-package fit.budle.ui.screens.business.creator.creator_process
+package fit.budle.ui.screens.business.creator_process
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -23,7 +23,7 @@ fun EstablishmentCreationSecondScreen(
 ) {
 
     var buttonClicked by remember { mutableStateOf(false) }
-    var emptyCategoryError by remember { mutableStateOf(false) }
+    var emptyCategoryError by remember { mutableStateOf(viewModel.selectedCategory.isNullOrBlank()) }
 
     viewModel.onEvent(EstCreationEvent.GetCategoryListEvent)
     viewModel.onEvent(EstCreationEvent.GetTagListEvent)
@@ -48,12 +48,12 @@ fun EstablishmentCreationSecondScreen(
                 modifier = Modifier
                     .padding(top = 20.dp)
                     .fillMaxWidth(),
-                isError = if (buttonClicked) emptyCategoryError else false,
                 onValueChange = {
                     viewModel.selectedCategory = it
                     viewModel.onEvent(EstCreationEvent.GetVariantList)
-                    emptyCategoryError = viewModel.selectedCategory.isEmpty()
+                    emptyCategoryError = viewModel.selectedCategory.isNullOrBlank()
                 },
+                isError = if (buttonClicked) emptyCategoryError else false,
                 selectedItem = viewModel.selectedCategory,
                 items = viewModel.categoryList,
                 placeHolder = "Тип заведения",
@@ -71,7 +71,7 @@ fun EstablishmentCreationSecondScreen(
                         modifier = Modifier
                             .padding(top = 20.dp)
                             .fillMaxWidth(),
-                        isError = false,
+                        isError = viewModel.selectedVariant[it.fieldName].isNullOrBlank(),
                         onValueChange = {
                             SubcategoryChanger.SetSubcategory(viewModel, fieldName, it)
                             viewModel.selectedVariant[fieldName] =

@@ -13,6 +13,7 @@ interface EstablishmentRepository {
         limit: Int?,
         offset: Int?,
         sortValue: String?,
+        workingDayCount: Int?,
         name: String?,
         hasCardPayment: Boolean?,
         hasMap: Boolean?,

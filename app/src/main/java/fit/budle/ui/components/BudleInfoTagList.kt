@@ -8,12 +8,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import fit.budle.dto.tag.standard.Tag
+import fit.budle.dto.tag.standard.IconTag
 
 @Composable
 fun BudleInfoTagList(
-    tags: MutableList<Tag>,
-    horizontalPadding: Dp = 20.dp
+    iconTags: MutableList<IconTag>,
+    horizontalPadding: Dp = 20.dp,
 ) {
     LazyRow(
         modifier = Modifier
@@ -21,8 +21,8 @@ fun BudleInfoTagList(
             .padding(top = 10.dp)
             .fillMaxWidth()
     ) {
-        itemsIndexed(tags) { _, tag ->
-            BudleInfoTag(infoTag = tag)
+        itemsIndexed(iconTags) { _, tag ->
+            BudleInfoTag(infoIconTag = tag)
         }
     }
 }

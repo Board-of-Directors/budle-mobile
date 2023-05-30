@@ -1,4 +1,4 @@
-package fit.budle.ui.screens.business.creator.creator_process
+package fit.budle.ui.screens.business.creator_process
 
 import android.os.Build
 import android.util.Log
@@ -25,7 +25,7 @@ fun EstablishmentCreationFifthScreen(
     viewModel: EstCreationViewModel = hiltViewModel()
 ) {
     for(day in viewModel.selectedWorkingHours.values){
-        Log.d("TEST", day.daysOfWork.size.toString())
+        Log.d("TEST", day.days.size.toString())
     }
     Surface(Modifier.fillMaxSize()) {
         Column(

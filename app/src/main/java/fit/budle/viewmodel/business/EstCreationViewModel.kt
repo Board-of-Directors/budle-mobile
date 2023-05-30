@@ -14,9 +14,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import fit.budle.dto.WorkingHour
+import fit.budle.dto.establishment.RequestWorkingHoursDto
 import fit.budle.dto.establishment.Subcategory
-import fit.budle.dto.establishment.WorkingHoursDto
 import fit.budle.dto.establishment.establishment_field.PhotoDto
 import fit.budle.dto.establishment.etsablishment_type.NewEstablishmentDto
 import fit.budle.dto.result.GetCategoryListResult
@@ -44,13 +43,13 @@ class EstCreationViewModel @Inject constructor(
     var selectedName by mutableStateOf("")
     var selectedImageUri by mutableStateOf<Uri?>(null)
     var selectedImageBitmap by mutableStateOf<Bitmap?>(null)
-    var selectedCategory by mutableStateOf("")
+    var selectedCategory by mutableStateOf<String?>(null)
     var selectedTagNames = mutableStateListOf<String>()
     var selectedDescription by mutableStateOf("")
     var selectedPhotosBitmap by mutableStateOf(emptyList<Bitmap>())
     var selectedPhotosUri = mutableListOf<Uri>()
     var selectedAddress by mutableStateOf("")
-    var selectedWorkingHours = mutableStateMapOf<Int, WorkingHoursDto>()
+    var selectedWorkingHours = mutableStateMapOf<Int, RequestWorkingHoursDto>()
     var hasMap by mutableStateOf(false)
     var blocksCount by mutableStateOf(1)
 
@@ -108,13 +107,7 @@ class EstCreationViewModel @Inject constructor(
             is EstCreationEvent.FourthStep -> {
                 viewModelScope.launch {
                     establishmentDTO.address = selectedAddress
-                    establishmentDTO.workingHours = listOf(
-                        WorkingHour(
-                            listOf("Пн"),
-                            "12:00",
-                            "22:00"
-                        )
-                    )
+                    establishmentDTO.workingHours = selectedWorkingHours.values.toList()
                 }
             }
 

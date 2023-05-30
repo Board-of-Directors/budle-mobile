@@ -1,8 +1,17 @@
 package fit.budle.ui.components.atoms.inputs.text_inputs
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,9 +32,11 @@ fun BudleMultipleLineInput(
     symbolsCount: Boolean = false,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
+    isError: Boolean,
 ) {
     var textInputState by remember { mutableStateOf("") }
-    val textError = remember { mutableStateOf(false) }
+
+    val error = remember { mutableStateOf(isError) }
 
     Column(
         horizontalAlignment = Alignment.Start,
@@ -54,13 +65,13 @@ fun BudleMultipleLineInput(
         BudleMultipleTextField(
             startMessage = startMessage,
             placeholder = textFieldMessage,
-            error = textError,
+            error = error,
             onValueChange = { textInputState = it },
             leadingIcon = leadingIcon,
             trailingIcon = trailingIcon
         )
         onValueChange(textInputState)
-        if (textError.value) {
+        if (error.value) {
             Text(
                 text = "Это поле не может быть пустым",
                 style = MaterialTheme.typography.bodyMedium,

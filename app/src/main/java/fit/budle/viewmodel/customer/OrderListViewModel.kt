@@ -12,7 +12,7 @@ import fit.budle.dto.customer_user.User
 import fit.budle.dto.establishment.Establishment
 import fit.budle.dto.establishment.EstablishmentDto
 import fit.budle.dto.order.Booking
-import fit.budle.dto.tag.standard.Tag
+import fit.budle.dto.tag.standard.IconTag
 import fit.budle.event.customer.OrderListEvent
 import fit.budle.repository.customer.OrderListRepository
 import fit.budle.request.result.DefaultResult
@@ -81,7 +81,7 @@ class OrderListViewModel @Inject constructor(
 
 
         val decodedImage: BitmapPainter? = null //TODO Разобраться с картинками
-        val decodedTagsIcons: ArrayList<Tag> = arrayListOf()
+        val decodedTagsIcons: ArrayList<IconTag> = arrayListOf()
 /*
         if (establishment.image != null) {
             val imageBytes: ByteArray = Base64.decode(establishment.image, Base64.DEFAULT)

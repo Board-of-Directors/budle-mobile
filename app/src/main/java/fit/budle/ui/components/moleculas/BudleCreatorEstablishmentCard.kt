@@ -23,12 +23,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
 import fit.budle.dto.establishment.etsablishment_type.EstablishmentShortDto
 import fit.budle.ui.components.atoms.BudleEstablishmentSubdescription
+import fit.budle.ui.theme.backgroundError
 import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.lightBlue
 import fit.budle.ui.theme.mainBlack
@@ -39,6 +41,7 @@ import fit.budle.ui.theme.textGray
 fun BudleCreatorEstablishmentCard(
     navHostController: NavHostController,
     establishmentCard: EstablishmentShortDto,
+    onDelete: (Int) -> Unit,
 ) {
 
     var isOpened by remember { mutableStateOf(false) }
@@ -90,12 +93,6 @@ fun BudleCreatorEstablishmentCard(
                 )
                 Column {
                     TextWithIcon(
-                        onClick = {},
-                        text = "Редактировать",
-                        iconId = R.drawable.edit,
-                        iconDescription = "Редактировать"
-                    )
-                    TextWithIcon(
                         onClick = {
                             navHostController.navigate("workers/${establishmentCard.id}")
                         },
@@ -111,6 +108,15 @@ fun BudleCreatorEstablishmentCard(
                         iconId = R.drawable.file,
                         iconDescription = "Заказы"
                     )
+                    TextWithIcon(
+                        onClick = {
+                            onDelete(establishmentCard.id)
+                        },
+                        text = "Удалить",
+                        color = backgroundError,
+                        iconId = R.drawable.trash,
+                        iconDescription = "Редактировать"
+                    )
                 }
             }
         }
@@ -123,6 +129,7 @@ fun TextWithIcon(
     text: String,
     iconId: Int,
     iconDescription: String,
+    color: Color = fillPurple,
 ) {
     Row(
         modifier = Modifier
@@ -136,13 +143,13 @@ fun TextWithIcon(
             Icon(
                 painter = painterResource(id = iconId),
                 contentDescription = iconDescription,
-                tint = fillPurple
+                tint = color
             )
             Text(
                 modifier = Modifier.padding(start = 15.dp),
                 text = text,
                 style = MaterialTheme.typography.bodyMedium,
-                color = mainBlack
+                color = color
             )
         }
         IconButton(
@@ -151,7 +158,7 @@ fun TextWithIcon(
             Icon(
                 painter = painterResource(id = R.drawable.arrow_right),
                 contentDescription = "Navigate",
-                tint = textGray
+                tint = if (color != fillPurple) backgroundError else textGray
             )
         }
     }

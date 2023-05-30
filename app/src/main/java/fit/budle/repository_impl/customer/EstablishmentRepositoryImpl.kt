@@ -40,13 +40,21 @@ class EstablishmentRepositoryImpl @Inject constructor(
         limit: Int?,
         offset: Int?,
         sortValue: String?,
+        workingDayCount: Int?,
         name: String?,
         hasCardPayment: Boolean?,
         hasMap: Boolean?,
     ): EstablishmentListResult {
 
         val response = establishmentDAO.getEstablishmentAll(
-            category, limit, offset, sortValue, name, hasCardPayment, hasMap
+            category = category,
+            limit = limit,
+            offset = offset,
+            sortValue = sortValue,
+            name = name,
+            hasCardPayment = hasCardPayment,
+            workingDayCount = workingDayCount,
+            hasMap = hasMap
         )
 
         return if (response.body() == null) {

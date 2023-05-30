@@ -13,5 +13,6 @@ sealed interface MainEvent {
         var hasMap: Boolean? = null,
     ) : MainEvent
 
+    object GetFilteredEstablishments : MainEvent
     object GetAllEstablishments : MainEvent
 }

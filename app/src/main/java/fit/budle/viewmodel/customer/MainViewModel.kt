@@ -19,9 +19,12 @@ import fit.budle.dto.establishment.EstablishmentArray
 import fit.budle.dto.establishment.EstablishmentDto
 import fit.budle.dto.establishment.EstablishmentListResult
 import fit.budle.dto.establishment.EstablishmentResult
-import fit.budle.dto.tag.standard.Tag
+import fit.budle.dto.tag.active.RectangleActiveTag
+import fit.budle.dto.tag.standard.IconTag
 import fit.budle.event.customer.MainEvent
 import fit.budle.repository.customer.EstablishmentRepository
+import fit.budle.util.EstablishmentConverter
+import fit.budle.util.EstablishmentConverter.Companion.convertEstablishment
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -40,6 +43,16 @@ class MainViewModel @Inject constructor(
     var establishmentCardId: Long by mutableStateOf(1L)
     var clickedGallery = mutableStateOf(false)
 
+    // selected parameters from filter popup
+    var selectedEstType by mutableStateOf<String?>(null)
+    var selectedWorkingHoursTag by mutableStateOf(RectangleActiveTag("", -1))
+    var selectedMapTypeTag by mutableStateOf(RectangleActiveTag("", -1))
+    var selectedPaymentTypeTag by mutableStateOf(RectangleActiveTag("", -1))
+    var selectedEstablishmentName by mutableStateOf("")
+
+    val filteredEstablishmentList = mutableStateListOf<Establishment>()
+
+    var isFiltersVisible by mutableStateOf(false)
 
     fun onEvent(event: MainEvent) {
         when (event) {
@@ -49,7 +62,8 @@ class MainViewModel @Inject constructor(
                         repository.getEstablishment(establishmentCardId)) {
                         is EstablishmentResult.Success -> {
                             Log.d("MAINVIEWMODEL", "SUCCESS")
-                            establishmentCard = convertEstablishment(response.result)
+                            establishmentCard =
+                                convertEstablishment(response.result, viewModelScope)
                         }
 
                         is EstablishmentResult.Failure -> {}
@@ -72,15 +86,19 @@ class MainViewModel @Inject constructor(
                         viewModelScope.launch {
                             when (val response =
                                 repository.getEstablishmentAll(
-                                    category, null, null, null, null, null, null
+                                    category,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null
                                 )) {
                                 is EstablishmentListResult.Success -> {
+
                                     Log.d("MAINVIEWMODEL", "SUCCESS")
-                                    val establishmentArray = EstablishmentArray(
-                                        response.result.establishments.map {
-                                            convertEstablishment(it)
-                                        }.toTypedArray(), response.result.count
-                                    )
+                                    val establishmentArray = convertResponseToArray(response)
 
                                     if (!establishmentsForScreen.contains(establishmentArray)) {
                                         establishmentsForScreen.add(establishmentArray)
@@ -100,71 +118,46 @@ class MainViewModel @Inject constructor(
                 }
             }
 
+            is MainEvent.GetFilteredEstablishments -> {
+                viewModelScope.launch {
+
+                    val hasCardPayment = selectedPaymentTypeTag.tagName == "Есть"
+                    val hasMap = selectedMapTypeTag.tagName == "Есть"
+                    val workingDayCount = when (selectedWorkingHoursTag.tagName) {
+                        "Ежедневно" -> 7
+                        "Пн-Сб" -> 6
+                        "Пн-Пт" -> 5
+                        else -> null
+                    }
+
+                    when (val response = repository.getEstablishmentAll(
+                        selectedEstType, null, null, null, workingDayCount,
+                        selectedEstablishmentName, hasCardPayment, hasMap
+                    )) {
+
+                        is EstablishmentListResult.Success -> {
+
+                            val filteredEstArray = convertResponseToArray(response)
+                            filteredEstablishmentList.clear()
+                            filteredEstablishmentList.addAll(filteredEstArray.establishments)
+
+                            Log.i("VM_GET_FILTER_EST", "SUCCESS")
+                        }
+
+                        is EstablishmentListResult.Failure -> {
+                            Log.w("VM_GET_FILTER_EST", response.exception!!)
+                        }
+                    }
+                }
+            }
+
             else -> {}
         }
     }
 
-    private fun convertEstablishment(establishment: EstablishmentDto): Establishment {
-
-        var decodedImage: BitmapPainter? = null
-        val decodedTagsIcons: ArrayList<Tag> = arrayListOf()
-        val decodedPhotos: ArrayList<BitmapPainter?> = arrayListOf()
-        viewModelScope.launch {
-            if (establishment.image != null) {
-                val imageBytes: ByteArray = Base64.decode(establishment.image, Base64.DEFAULT)
-                val factory = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-                if (factory != null) {
-                    decodedImage = BitmapPainter(
-                        factory.asImageBitmap()
-                    )
-                }
-            }
-            if (establishment.photos != null) {
-                for (photo in establishment.photos) {
-                    val imageBytes: ByteArray = Base64.decode(photo.image, Base64.DEFAULT)
-                    val factory = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-                    if (factory != null) {
-                        decodedImage = BitmapPainter(
-                            factory.asImageBitmap()
-                        )
-                        decodedPhotos.add(decodedImage)
-                    }
-                }
-            }
-
-            if (establishment.tags != null) {
-                establishment.tags.forEach {
-                    var decodedIcon: BitmapPainter? = null
-                    if (it.image != null) {
-                        val imageBytes: ByteArray = Base64.decode(it.image, Base64.DEFAULT)
-                        decodedIcon = BitmapPainter(
-                            BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-                                .asImageBitmap()
-                        )
-                    }
-                    decodedTagsIcons.add(Tag(name = it.name, image = decodedIcon))
-                }
-
-            }
-        }
-        return Establishment(
-            establishment.id,
-            establishment.name,
-            establishment.description,
-            establishment.address,
-            User("Олег"),
-            establishment.hasCardPayment,
-            establishment.hasMap,
-            establishment.map,
-            establishment.category,
-            decodedImage,
-            establishment.rating,
-            establishment.price,
-            establishment.workingHours,
-            decodedTagsIcons,
-            decodedPhotos,
-            establishment.cuisineCountry,
-            establishment.starsCount
-        )
+    private fun convertResponseToArray(response: EstablishmentListResult.Success): EstablishmentArray {
+        return EstablishmentArray(response.result.establishments.map {
+            convertEstablishment(it, viewModelScope)
+        }.toTypedArray(), response.result.count)
     }
 }

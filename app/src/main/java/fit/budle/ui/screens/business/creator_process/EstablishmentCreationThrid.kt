@@ -1,4 +1,4 @@
-package fit.budle.ui.screens.business.creator.creator_process
+package fit.budle.ui.screens.business.creator_process
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -24,7 +24,8 @@ fun EstablishmentCreationThirdScreen(
     navHostController: NavHostController,
     viewModel: EstCreationViewModel,
 ) {
-
+    val descriptionError = viewModel.selectedDescription.isBlank()
+    var isClicked = false
     val resolver = LocalContext.current.contentResolver
 
     Surface(Modifier.fillMaxSize()) {
@@ -33,8 +34,11 @@ fun EstablishmentCreationThirdScreen(
             buttonText = "Следующий шаг",
             progress = "60%",
             onClick = {
-                viewModel.onEvent(EstCreationEvent.ThirdStep(resolver))
-                navHostController.navigate("fourthStep")
+                isClicked = true
+                if (!descriptionError) {
+                    viewModel.onEvent(EstCreationEvent.ThirdStep(resolver))
+                    navHostController.navigate("fourthStep")
+                }
             },
             textMessage = "Создание заведения"
         ) {
@@ -49,6 +53,7 @@ fun EstablishmentCreationThirdScreen(
                 startMessage = viewModel.selectedDescription,
                 textFieldMessage = "Опишите ваше заведение",
                 description = "Макс. 300 символов",
+                isError = if (isClicked) descriptionError else false
             )
             BudleMultiplePhotoInput(
                 onValueChange = {

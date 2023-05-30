@@ -6,10 +6,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import fit.budle.dto.tag.active.ActiveTagType
+import fit.budle.dto.tag.active.RectangleActiveTag
 import fit.budle.dto.tag.active.Tag
 import fit.budle.ui.components.BudleCircleTag
 import fit.budle.ui.components.BudleRectangleTag
@@ -21,14 +26,15 @@ fun BudleTagList(
     modifier: Modifier = Modifier,
     selectable: Boolean = true,
     onValueChange: (Tag) -> Unit,
-    initialState: Tag,
+    initialState: Tag = RectangleActiveTag("", -1),
     tagList: List<Tag>,
     tagType: ActiveTagType = ActiveTagType.RECTANGLE,
-    textColor: Color = mainBlack
+    textColor: Color = mainBlack,
 ) {
 
     var selectedItem by remember { mutableStateOf(initialState) }
-    val isSelectedItem: (Tag) -> Boolean = { if (selectable) selectedItem.tagId == it.tagId else false}
+    val isSelectedItem: (Tag) -> Boolean =
+        { if (selectable) selectedItem.tagId == it.tagId else false }
     val onChangeState: (Tag) -> Unit = {
         selectedItem = if (!isSelectedItem(it) && selectable) it else selectedItem
     }
