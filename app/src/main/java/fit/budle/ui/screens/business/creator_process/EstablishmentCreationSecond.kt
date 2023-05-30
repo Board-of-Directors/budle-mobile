@@ -52,6 +52,7 @@ fun EstablishmentCreationSecondScreen(
                     viewModel.selectedCategory = it
                     viewModel.onEvent(EstCreationEvent.GetVariantList)
                     emptyCategoryError = viewModel.selectedCategory.isNullOrBlank()
+                    buttonClicked = false
                 },
                 isError = if (buttonClicked) emptyCategoryError else false,
                 selectedItem = viewModel.selectedCategory,
@@ -71,8 +72,10 @@ fun EstablishmentCreationSecondScreen(
                         modifier = Modifier
                             .padding(top = 20.dp)
                             .fillMaxWidth(),
-                        isError = viewModel.selectedVariant[it.fieldName].isNullOrBlank(),
+                        isError = if (buttonClicked) viewModel.selectedVariant[it.fieldName].isNullOrBlank()
+                        else false,
                         onValueChange = {
+                            buttonClicked = false
                             SubcategoryChanger.SetSubcategory(viewModel, fieldName, it)
                             viewModel.selectedVariant[fieldName] =
                                 SubcategoryChanger.GetSubcategoryValue(viewModel, fieldName)
@@ -92,6 +95,7 @@ fun EstablishmentCreationSecondScreen(
                     if (viewModel.selectedTagNames.contains(it)) {
                         viewModel.selectedTagNames.remove(it)
                     } else viewModel.selectedTagNames.add(it)
+                    buttonClicked = false
                 },
                 items = viewModel.tagList,
                 selectedItems = viewModel.selectedTagNames,
