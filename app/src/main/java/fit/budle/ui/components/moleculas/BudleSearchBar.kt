@@ -29,9 +29,9 @@ import fit.budle.viewmodel.customer.MainViewModel
 @Composable
 fun BudleSearchBar(
     navHostController: NavController,
+    onValueChange: (String) -> Unit,
     viewModel: MainViewModel,
 ) {
-
     Row(
         modifier = Modifier
             .padding(horizontal = 10.dp)
@@ -42,7 +42,7 @@ fun BudleSearchBar(
             value = viewModel.selectedEstablishmentName,
             modifier = Modifier.width(244.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            onValueChange = { viewModel.selectedEstablishmentName = it },
+            onValueChange = onValueChange,
             shape = RoundedCornerShape(10.dp),
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = backgroundLightBlue,

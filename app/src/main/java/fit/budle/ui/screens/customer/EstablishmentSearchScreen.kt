@@ -48,6 +48,9 @@ fun EstablishmentSearchScreen(
     ) {
         BudleSearchBar(
             navHostController = navHostController,
+            onValueChange = {
+                viewModel.selectedEstablishmentName = it
+            },
             viewModel = viewModel
         )
         Row(
@@ -87,7 +90,10 @@ fun EstablishmentSearchScreen(
             modifier = Modifier.fillMaxSize()
         ) {
             itemsIndexed(viewModel.filteredEstablishmentList) { _, card ->
-                BudleEstablishmentCardDescription(establishment = card)
+                BudleEstablishmentCardDescription(
+                    establishment = card,
+                    navHostController = navHostController
+                )
             }
         }
     }
