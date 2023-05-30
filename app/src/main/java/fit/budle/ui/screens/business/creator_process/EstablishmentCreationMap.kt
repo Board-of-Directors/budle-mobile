@@ -1,4 +1,4 @@
-package fit.budle.ui.screens.business.creator.creator_process
+package fit.budle.ui.screens.business.creator_process
 
 import android.os.Build
 import androidx.annotation.RequiresApi

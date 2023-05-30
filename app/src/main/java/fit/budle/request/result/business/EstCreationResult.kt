@@ -28,3 +28,14 @@ sealed interface GetTagListResult {
     data class Success(val result: List<TagResponse>, val exception: Exception?) : GetTagListResult
     data class Failure(val throwable: Throwable) : GetTagListResult
 }
+
+sealed interface PutEstablishmentResult {
+    data class Success(val result: Boolean?, val exception: String?) : PutEstablishmentResult
+    data class Failure(val exception: String?) : PutEstablishmentResult
+}
+
+sealed interface DeleteEstablishmentResult {
+    data class Success(val result: Boolean?, val exception: String?) : DeleteEstablishmentResult
+    data class Failure(val exception: String?) : DeleteEstablishmentResult
+}
+

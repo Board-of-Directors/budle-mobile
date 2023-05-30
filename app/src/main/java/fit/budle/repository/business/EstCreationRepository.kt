@@ -5,6 +5,7 @@ import fit.budle.dto.result.GetCategoryListResult
 import fit.budle.dto.result.GetCategoryVariantListResult
 import fit.budle.dto.result.GetTagListResult
 import fit.budle.dto.result.PostEstablishmentResult
+import fit.budle.dto.result.PutEstablishmentResult
 
 interface EstCreationRepository {
     suspend fun postEstablishment(requestEstablishmentDto: NewEstablishmentDto) : PostEstablishmentResult

@@ -9,6 +9,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import fit.budle.ui.screens.business.creator.creator_process.*
+import fit.budle.ui.screens.business.creator_process.EstablishmentCreationFifthScreen
+import fit.budle.ui.screens.business.creator_process.EstablishmentCreationFirstScreen
+import fit.budle.ui.screens.business.creator_process.EstablishmentCreationFourthScreen
+import fit.budle.ui.screens.business.creator_process.EstablishmentCreationMapScreen
+import fit.budle.ui.screens.business.creator_process.EstablishmentCreationSecondScreen
+import fit.budle.ui.screens.business.creator_process.EstablishmentCreationThirdScreen
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @RequiresApi(Build.VERSION_CODES.P)
@@ -22,7 +28,7 @@ fun NavGraphBuilder.establishmentCreationNavGraph(
         composable("firstStep") {
             EstablishmentCreationFirstScreen(
                 navHostController = navHostController,
-                viewModel = hiltViewModel()
+                estCreationViewModel = hiltViewModel()
             )
         }
         composable("secondStep") {
