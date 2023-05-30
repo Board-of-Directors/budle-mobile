@@ -5,20 +5,20 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateMap
-import fit.budle.dto.establishment.WorkingHoursDto
+import fit.budle.dto.establishment.RequestWorkingHoursDto
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun BudleWorkingDaysPickerList(
     daysCount: Int,
-    onValueChange: (Int, WorkingHoursDto) -> Unit,
-    selectedItems: SnapshotStateMap<Int, WorkingHoursDto>,
+    onValueChange: (Int, RequestWorkingHoursDto) -> Unit,
+    selectedItems: SnapshotStateMap<Int, RequestWorkingHoursDto>,
 ) {
-    for (day in 0 until daysCount){
+    for (day in 0 until daysCount) {
         BudleWorkingDaysPicker(
             onValueChange = { onValueChange(day, it) },
             selectedWorkingHoursDto = selectedItems[day]
         )
-        Log.d("TAGLIST",selectedItems[day]?.daysOfWork?.size.toString())
+        Log.d("TAGLIST", selectedItems[day]?.days?.size.toString())
     }
 }

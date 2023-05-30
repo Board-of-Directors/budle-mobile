@@ -25,7 +25,7 @@ fun EstablishmentCreationFifthScreen(
     viewModel: EstCreationViewModel = hiltViewModel()
 ) {
     for(day in viewModel.selectedWorkingHours.values){
-        Log.d("TEST", day.daysOfWork.size.toString())
+        Log.d("TEST", day.days.size.toString())
     }
     Surface(Modifier.fillMaxSize()) {
         Column(
