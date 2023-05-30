@@ -2,9 +2,18 @@ package fit.budle.ui.components.atoms
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -29,10 +38,10 @@ fun BudleButton(
     topPadding: Dp = 20.dp,
     horizontalPadding: Dp = 30.dp,
     buttonText: String,
-    disabledButtonColor: Color,
+    disabledButtonColor: Color = fillPurple,
     activeButtonColor: Color = disabledButtonColor,
-    disabledTextColor: Color,
-    activeTextColor: Color = disabledTextColor
+    disabledTextColor: Color = mainWhite,
+    activeTextColor: Color = disabledTextColor,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()

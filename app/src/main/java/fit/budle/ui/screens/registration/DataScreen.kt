@@ -8,11 +8,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -27,10 +24,10 @@ import androidx.navigation.NavHostController
 import fit.budle.R
 import fit.budle.dto.enums.RegisterType
 import fit.budle.event.customer.RegistrationEvent
+import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.ui.components.atoms.inputs.text_fields.BudlePasswordTextField
 import fit.budle.ui.components.atoms.inputs.text_fields.BudleSingleLineTextField
 import fit.budle.ui.theme.backgroundError
-import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.textGray
 import fit.budle.viewmodel.customer.RegistrationViewModel
 
@@ -39,7 +36,6 @@ fun DataScreen(
     navHostController: NavHostController,
     viewModel: RegistrationViewModel,
 ) {
-
     val nextButtonText = if (viewModel.type == RegisterType.REGISTER) "Далее" else "Подтвердить"
     val passwordColor = if (viewModel.requestException.isEmpty()) textGray else backgroundError
     val passwordMessage = viewModel.requestException.ifEmpty {
@@ -47,7 +43,9 @@ fun DataScreen(
     }
 
     Surface(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = 30.dp)
     ) {
         Column(
             modifier = Modifier
@@ -124,7 +122,7 @@ fun DataScreen(
                 )
             }
             Spacer(Modifier.weight(1f))
-            Button(
+            BudleButton(
                 onClick = {
                     if (viewModel.username.isNotEmpty() && viewModel.password.length > 8) {
                         viewModel.onEvent(RegistrationEvent.PostUser(viewModel.type))
@@ -136,21 +134,11 @@ fun DataScreen(
                                     navHostController.navigate("main")
                                 }
                             }
-                        },1000)
+                        }, 1000)
                     }
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = fillPurple),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 40.dp)
-                    .padding(bottom = 90.dp)
-            ) {
-                Text(
-                    text = nextButtonText,
-                    modifier = Modifier.padding(vertical = 8.dp, horizontal = 40.dp),
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
+                buttonText = nextButtonText
+            )
         }
     }
 }

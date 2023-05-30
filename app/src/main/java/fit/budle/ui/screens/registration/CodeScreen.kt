@@ -13,36 +13,34 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusDirection
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
 import fit.budle.event.customer.RegistrationEvent
+import fit.budle.ui.components.atoms.BudleButton
+import fit.budle.ui.components.atoms.BudleTimerButton
+import fit.budle.ui.components.atoms.inputs.text_fields.BudleCodeTextField
 import fit.budle.ui.theme.backgroundError
-import fit.budle.ui.theme.backgroundLightBlue
-import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.textGray
 import fit.budle.viewmodel.customer.RegistrationViewModel
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun CodeScreen(
@@ -54,8 +52,22 @@ fun CodeScreen(
     val lastInput = 3
     val errorState = remember { mutableStateOf(false) }
 
+    val maxTicks = 30
+    var ticks by remember { mutableStateOf(maxTicks) }
+    var run by remember { mutableStateOf(true) }
+    if (ticks == 0) {
+        run = false
+    }
+    LaunchedEffect(key1 = run) {
+        while (run) {
+            delay(1.seconds)
+            ticks--
+        }
+    }
     Surface(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = 30.dp)
     ) {
         Column(
             modifier = Modifier
@@ -108,40 +120,13 @@ fun CodeScreen(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     itemsIndexed(viewModel.states) { i, _ ->
-                        val inputColor = if (!errorState.value || viewModel.states[i].isNotEmpty())
-                            backgroundLightBlue else backgroundError
-                        TextField(
-                            value = viewModel.states[i],
-                            modifier = Modifier
-                                .padding(top = 16.dp, start = 8.dp, end = 8.dp)
-                                .width(60.dp),
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                            onValueChange = {
-                                if (it.length <= 1) {
-                                    viewModel.states[i] = it
-                                }
-                                if (it.isNotEmpty()) {
-                                    if (i == lastInput) {
-                                        focusManager.clearFocus()
-                                    } else {
-                                        focusManager.moveFocus(FocusDirection.Next)
-                                    }
-                                } else {
-                                    if (i == firstInput) {
-                                        focusManager.clearFocus()
-                                    } else {
-                                        focusManager.moveFocus(FocusDirection.Previous)
-                                    }
-                                }
-                            },
-                            colors = TextFieldDefaults.colors(
-                                focusedIndicatorColor = fillPurple,
-                                unfocusedIndicatorColor = inputColor,
-                                disabledIndicatorColor = Color.Transparent,
-                                unfocusedContainerColor = Color.Transparent,
-                                focusedContainerColor = Color.Transparent
-                            ),
-                            textStyle = MaterialTheme.typography.displayLarge
+                        BudleCodeTextField(
+                            states = viewModel.states,
+                            i = i,
+                            firstInput = firstInput,
+                            lastInput = lastInput,
+                            errorState = errorState.value,
+                            focusManager = focusManager
                         )
                     }
                 }
@@ -150,28 +135,23 @@ fun CodeScreen(
                         text = viewModel.requestException,
                         style = MaterialTheme.typography.bodyMedium,
                         color = backgroundError,
-                        modifier = Modifier.padding(top = 10.dp, start = 15.dp)
+                        modifier = Modifier
+                            .padding(top = 10.dp, start = 15.dp)
                             .fillMaxWidth()
                     )
                 }
             }
             Spacer(Modifier.weight(1f))
-            Button(
-                onClick = {},
-                colors = ButtonDefaults.buttonColors(containerColor = backgroundLightBlue),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 40.dp)
-                    .padding(bottom = 20.dp)
-            ) {
-                Text(
-                    text = "Новый код - 2:56",
-                    modifier = Modifier.padding(vertical = 8.dp, horizontal = 40.dp),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = textGray
-                )
-            }
-            Button(
+            BudleTimerButton(
+                curTicks = ticks, onClick = {
+                    if (!run) {
+                        ticks = maxTicks
+                        run = true
+                        viewModel.onEvent(RegistrationEvent.GetCode)
+                    }
+                }
+            )
+            BudleButton(
                 onClick = {
                     errorState.value = viewModel.states.contains("")
                     if (!errorState.value) {
@@ -187,18 +167,8 @@ fun CodeScreen(
                         }, 1000)
                     }
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = fillPurple),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 40.dp)
-                    .padding(bottom = 90.dp)
-            ) {
-                Text(
-                    text = "Подтвердить",
-                    modifier = Modifier.padding(vertical = 8.dp, horizontal = 40.dp),
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
+                buttonText = "Подтвердить"
+            )
         }
     }
 }
