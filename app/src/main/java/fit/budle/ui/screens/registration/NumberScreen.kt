@@ -3,8 +3,19 @@ package fit.budle.ui.screens.registration
 import android.os.Handler
 import android.os.Looper
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,10 +24,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
 import fit.budle.event.customer.RegistrationEvent
+import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.ui.components.atoms.inputs.text_inputs.BudleNumberInput
 import fit.budle.ui.models.NumberDefaults
 import fit.budle.ui.theme.backgroundError
-import fit.budle.ui.theme.fillPurple
 import fit.budle.ui.theme.textGray
 import fit.budle.viewmodel.customer.RegistrationViewModel
 
@@ -26,7 +37,9 @@ fun NumberScreen(
     viewModel: RegistrationViewModel,
 ) {
     Surface(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = 30.dp)
     ) {
         Column(
             modifier = Modifier
@@ -82,7 +95,7 @@ fun NumberScreen(
                 }
             }
             Spacer(Modifier.weight(1f))
-            Button(
+            BudleButton(
                 onClick = {
                     viewModel.onEvent(RegistrationEvent.GetCode)
                     Handler(Looper.getMainLooper()).postDelayed({
@@ -91,18 +104,8 @@ fun NumberScreen(
                         }
                     }, 1000)
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = fillPurple),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 40.dp)
-                    .padding(bottom = 90.dp)
-            ) {
-                Text(
-                    text = "Подтвердить",
-                    modifier = Modifier.padding(vertical = 8.dp, horizontal = 40.dp),
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
+                buttonText = "Подтвердить"
+            )
         }
     }
 }

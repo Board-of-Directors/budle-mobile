@@ -1,8 +1,14 @@
 package fit.budle.ui.screens.registration
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -10,16 +16,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import fit.budle.R
-import fit.budle.ui.theme.fillPurple
+import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.viewmodel.customer.RegistrationViewModel
 
 @Composable
 fun EndScreen(
     navHostController: NavHostController,
-    viewModel: RegistrationViewModel
+    viewModel: RegistrationViewModel,
 ) {
     Surface(
         modifier = Modifier.fillMaxSize()
@@ -54,20 +59,12 @@ fun EndScreen(
                 style = MaterialTheme.typography.titleMedium,
                 textAlign = TextAlign.Center,
             )
-            Button(
+            BudleButton(
                 onClick = {
                     navHostController.navigate(route = "main")
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = fillPurple),
-
-                ) {
-                Text(
-                    text = "Завершить регистрацию",
-                    fontSize = 16.sp,
-                    modifier = Modifier.padding(vertical = 8.dp, horizontal = 40.dp),
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
+                buttonText = "Завершить регистрацию"
+            )
         }
     }
 }

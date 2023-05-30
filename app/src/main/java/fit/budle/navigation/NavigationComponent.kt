@@ -22,7 +22,7 @@ import fit.budle.ui.screens.customer.UserProfileScreen
 fun NavigationComponent(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = "main"
+        startDestination = "registration/"
     ) {
         composable("main") {
             MainScreen(
