@@ -46,6 +46,7 @@ class MainViewModel @Inject constructor(
     var selectedWorkingHoursTag by mutableStateOf(RectangleActiveTag("", -1))
     var selectedMapTypeTag by mutableStateOf(RectangleActiveTag("", -1))
     var selectedPaymentTypeTag by mutableStateOf(RectangleActiveTag("", -1))
+    var selectedEstablishmentName by mutableStateOf("")
 
     val filteredEstablishmentList = mutableStateListOf<Establishment>()
 
@@ -128,7 +129,7 @@ class MainViewModel @Inject constructor(
 
                     when (val response = repository.getEstablishmentAll(
                         selectedEstType, null, null, null, workingDayCount,
-                        null, hasCardPayment, hasMap
+                        selectedEstablishmentName, hasCardPayment, hasMap
                     )) {
 
                         is EstablishmentListResult.Success -> {

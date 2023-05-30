@@ -13,10 +13,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,6 +21,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import fit.budle.R
+import fit.budle.event.customer.MainEvent
 import fit.budle.ui.theme.backgroundLightBlue
 import fit.budle.ui.theme.mainBlack
 import fit.budle.viewmodel.customer.MainViewModel
@@ -34,7 +31,7 @@ fun BudleSearchBar(
     navHostController: NavController,
     viewModel: MainViewModel,
 ) {
-    var text by remember { mutableStateOf("") }
+
     Row(
         modifier = Modifier
             .padding(horizontal = 10.dp)
@@ -42,10 +39,10 @@ fun BudleSearchBar(
         verticalAlignment = Alignment.CenterVertically
     ) {
         TextField(
-            value = text,
+            value = viewModel.selectedEstablishmentName,
             modifier = Modifier.width(244.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            onValueChange = { text = it },
+            onValueChange = { viewModel.selectedEstablishmentName = it },
             shape = RoundedCornerShape(10.dp),
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = backgroundLightBlue,
@@ -95,5 +92,6 @@ fun BudleSearchBar(
                 tint = mainBlack
             )
         }
+        viewModel.onEvent(MainEvent.GetFilteredEstablishments)
     }
 }
