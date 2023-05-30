@@ -2,6 +2,7 @@ package fit.budle.ui.components.atoms.cards
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -26,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import fit.budle.R
 import fit.budle.dto.establishment.Establishment
 import fit.budle.ui.theme.alphaBlack
@@ -35,6 +37,7 @@ import fit.budle.ui.theme.textGray
 @Composable
 fun BudleEstablishmentCardDescription(
     establishment: Establishment,
+    navHostController: NavHostController,
 ) {
     val gradient = Brush.verticalGradient(listOf(alphaBlack, alphaBlack))
     Row(
@@ -45,6 +48,9 @@ fun BudleEstablishmentCardDescription(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Card(
+            modifier = Modifier.clickable {
+                navHostController.navigate("card")
+            },
             shape = RoundedCornerShape(15.dp)
         ) {
             Box(
