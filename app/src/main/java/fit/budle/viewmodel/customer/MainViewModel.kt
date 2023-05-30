@@ -173,6 +173,8 @@ class MainViewModel @Inject constructor(
                     )
                 }
             }
+        }
+        viewModelScope.launch {
             if (establishment.photos != null) {
                 for (photo in establishment.photos) {
                     val imageBytes: ByteArray = Base64.decode(photo.image, Base64.DEFAULT)
@@ -185,6 +187,9 @@ class MainViewModel @Inject constructor(
                     }
                 }
             }
+        }
+
+        viewModelScope.launch {
 
             if (establishment.tags != null) {
                 establishment.tags.forEach {
@@ -201,6 +206,7 @@ class MainViewModel @Inject constructor(
 
             }
         }
+
         return Establishment(
             establishment.id,
             establishment.name,
