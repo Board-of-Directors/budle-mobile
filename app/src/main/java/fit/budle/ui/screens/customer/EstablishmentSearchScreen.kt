@@ -21,6 +21,7 @@ import androidx.navigation.NavHostController
 import fit.budle.R
 import fit.budle.ui.components.atoms.cards.BudleEstablishmentCardDescription
 import fit.budle.ui.components.moleculas.BudleSearchBar
+import fit.budle.ui.components.organism.BudleFilterPopup
 import fit.budle.ui.theme.mainBlack
 import fit.budle.ui.theme.textGray
 import fit.budle.viewmodel.customer.MainViewModel
@@ -31,6 +32,15 @@ fun EstablishmentSearchScreen(
     viewModel: MainViewModel,
 ) {
 
+    if (viewModel.isFiltersVisible) {
+        BudleFilterPopup(
+            navHostController = navHostController,
+            viewModel = viewModel,
+            onClose = {
+                viewModel.isFiltersVisible = !viewModel.isFiltersVisible
+            }
+        )
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()

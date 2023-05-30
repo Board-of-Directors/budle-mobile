@@ -19,6 +19,7 @@ import fit.budle.dto.establishment.EstablishmentArray
 import fit.budle.dto.establishment.EstablishmentDto
 import fit.budle.dto.establishment.EstablishmentListResult
 import fit.budle.dto.establishment.EstablishmentResult
+import fit.budle.dto.tag.active.RectangleActiveTag
 import fit.budle.dto.tag.standard.IconTag
 import fit.budle.event.customer.MainEvent
 import fit.budle.repository.customer.EstablishmentRepository
@@ -42,9 +43,9 @@ class MainViewModel @Inject constructor(
 
     // selected parameters from filter popup
     var selectedEstType by mutableStateOf<String?>(null)
-    var selectedWorkingHours by mutableStateOf("")
-    var selectedMapType by mutableStateOf("")
-    var selectedPaymentType by mutableStateOf("")
+    var selectedWorkingHoursTag by mutableStateOf(RectangleActiveTag("", -1))
+    var selectedMapTypeTag by mutableStateOf(RectangleActiveTag("", -1))
+    var selectedPaymentTypeTag by mutableStateOf(RectangleActiveTag("", -1))
 
     val filteredEstablishmentList = mutableStateListOf<Establishment>()
 
@@ -116,9 +117,9 @@ class MainViewModel @Inject constructor(
             is MainEvent.GetFilteredEstablishments -> {
                 viewModelScope.launch {
 
-                    val hasCardPayment = selectedPaymentType == "Есть"
-                    val hasMap = selectedMapType == "Есть"
-                    val workingDayCount = when (selectedWorkingHours) {
+                    val hasCardPayment = selectedPaymentTypeTag.tagName == "Есть"
+                    val hasMap = selectedMapTypeTag.tagName == "Есть"
+                    val workingDayCount = when (selectedWorkingHoursTag.tagName) {
                         "Ежедневно" -> 7
                         "Пн-Сб" -> 6
                         "Пн-Пт" -> 5

@@ -17,6 +17,7 @@ import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import fit.budle.R
 import fit.budle.dto.FilterData
+import fit.budle.dto.tag.active.RectangleActiveTag
 import fit.budle.event.customer.MainEvent
 import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.ui.components.atoms.inputs.dropdown.BudleDropDownMenu
@@ -76,8 +77,9 @@ fun BudleFilterPopup(
                     BudleTagList(
                         modifier = Modifier.padding(top = 10.dp),
                         onValueChange = {
-                            viewModel.selectedWorkingHours = it.tagName
+                            viewModel.selectedWorkingHoursTag = it as RectangleActiveTag
                         },
+                        initialState = viewModel.selectedWorkingHoursTag,
                         tagList = FilterData.workingHourList
                     )
                 }
@@ -85,8 +87,9 @@ fun BudleFilterPopup(
                     BudleTagList(
                         modifier = Modifier.padding(top = 10.dp),
                         onValueChange = {
-                            viewModel.selectedMapType = it.tagName
+                            viewModel.selectedMapTypeTag = it as RectangleActiveTag
                         },
+                        initialState = viewModel.selectedMapTypeTag,
                         tagList = FilterData.characteristicData
                     )
                 }
@@ -94,13 +97,15 @@ fun BudleFilterPopup(
                     BudleTagList(
                         modifier = Modifier.padding(top = 10.dp),
                         onValueChange = {
-                            viewModel.selectedPaymentType = it.tagName
+                            viewModel.selectedPaymentTypeTag = it as RectangleActiveTag
                         },
+                        initialState = viewModel.selectedPaymentTypeTag,
                         tagList = FilterData.characteristicData
                     )
                 }
                 BudleButton(
                     onClick = {
+                        viewModel.isFiltersVisible = !viewModel.isFiltersVisible
                         navHostController.navigate("searchScreen")
                     },
                     horizontalPadding = 0.dp,

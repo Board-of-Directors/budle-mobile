@@ -9,30 +9,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a58d49e-1564-42e2-9059-987b6e47ff1a" name="Changes" comment="Added use-case for booking spot on the interactive map">
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="4a58d49e-1564-42e2-9059-987b6e47ff1a" name="Changes" comment="Refactored and connected to the backend BudleBookingMap and BudleFilterPopup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/customer/EstablishmentDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dao/customer/EstablishmentDAO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/establishment/EstablishmentStructue.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/establishment/EstablishmentStructue.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/tag/standard/Tag.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/tag/standard/IconTag.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/tag/standard/TagResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/dto/tag/standard/TagResponse.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/event/customer/MainEvent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/event/customer/MainEvent.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/navigation/NavigationComponent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/navigation/NavigationComponent.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/customer/EstablishmentRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository/customer/EstablishmentRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/customer/EstablishmentRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/customer/EstablishmentRepositoryImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/customer/RegistrationRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/repository_impl/customer/RegistrationRepositoryImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/BudleInfoTag.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/BudleInfoTag.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/BudleInfoTagList.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/BudleInfoTagList.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/inputs/dropdown/BudleDropDownMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/inputs/dropdown/BudleDropDownMenu.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/BudleBlockWithHeader.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/BudleBlockWithHeader.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/establishments/EstablishmentCard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/establishments/EstablishmentCard.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/tag_list/BudleTagList.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/moleculas/tag_list/BudleTagList.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/CardScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/CardScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/MainScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/MainScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/organism/BudleFilterPopup.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/organism/BudleFilterPopup.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/EstablishmentSearchScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/EstablishmentSearchScreen.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/customer/MainViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/customer/MainViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/customer/OrderListViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/viewmodel/customer/OrderListViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-v24/burger.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -676,7 +658,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685356392660</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Refactored and connected to the backend BudleBookingMap and BudleFilterPopup">
+      <created>1685424974378</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1685424974379</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -710,7 +699,8 @@
     <MESSAGE value="Refactored OrderCreateViewModel with all repos and daos, reconnected order create use case to the backend" />
     <MESSAGE value="Refactored OrderScreen and created new components" />
     <MESSAGE value="Added use-case for booking spot on the interactive map" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added use-case for booking spot on the interactive map" />
+    <MESSAGE value="Refactored and connected to the backend BudleBookingMap and BudleFilterPopup" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactored and connected to the backend BudleBookingMap and BudleFilterPopup" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
