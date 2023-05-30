@@ -3,7 +3,7 @@ package fit.budle.dto.establishment
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import fit.budle.dto.WorkingHour
 import fit.budle.dto.customer_user.User
-import fit.budle.dto.tag.standard.Tag
+import fit.budle.dto.tag.standard.IconTag
 
 data class EstablishmentArray(
     val establishments: Array<Establishment> = emptyArray(),
@@ -42,7 +42,7 @@ data class Establishment(
     val rating: Double? = null,
     val price: Int? = 1,
     val workingHours: Array<WorkingHour>? = null,
-    val tags: ArrayList<Tag> = arrayListOf(),
+    val iconTags: ArrayList<IconTag> = arrayListOf(),
     val photos: List<BitmapPainter?> = arrayListOf(),
     val cuisineCountry: String? = "",
     val starsCount: Int? = 1,

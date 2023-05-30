@@ -35,8 +35,8 @@ import fit.budle.ui.theme.textGray
 fun BudleDropDownMenu(
     modifier: Modifier = Modifier,
     onValueChange: (String) -> (Unit),
-    selectedItem: String?,
-    isError: Boolean,
+    selectedItem: String? = null,
+    isError: Boolean = false,
     startMessage: String,
     placeHolder: String,
     items: List<String>,
@@ -104,8 +104,7 @@ fun BudleDropDownMenu(
         ) {
             for (item in items) {
                 BudleDropDownMenuItem(
-                    modifier = Modifier
-                        .padding(top = 15.dp),
+                    modifier = Modifier.padding(top = 15.dp),
                     item = item,
                     isSelected = isSelected,
                     onSelect = onValueChange

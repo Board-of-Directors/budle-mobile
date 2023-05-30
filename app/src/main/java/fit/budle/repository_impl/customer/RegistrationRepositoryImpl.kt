@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import fit.budle.dao.customer.RegistrationDAO
 import fit.budle.di.config.SharedPrefConfig
+import fit.budle.dto.ResponseException
 import fit.budle.dto.code.CodeDto
 import fit.budle.dto.customer_user.RequestUser
 import fit.budle.dto.enums.RegisterType
@@ -24,7 +25,13 @@ class RegistrationRepositoryImpl @Inject constructor(
             registrationDAO.postUserRegistration(requestUserDto)
         } else registrationDAO.postUserLogin(requestUserDto)
 
-        return if (response.body()!!.exception == null) {
+        return if (response.body() == null) {
+
+            Log.w("POST_USER", ResponseException.NULL_BODY)
+            PostUserResult.Failure("Пользователя с такими данными не существует")
+
+        } else if (response.body()!!.exception == null) {
+
             Log.d("POST_USER", "SUCCESS")
             with(prefs.edit()) {
                 if (response.headers().values("Set-Cookie").isNotEmpty()) {
@@ -40,6 +47,7 @@ class RegistrationRepositoryImpl @Inject constructor(
                 result = response.body()!!.result,
                 exception = response.body()!!.exception
             )
+
         } else {
             Log.e("POST_USER", response.body()!!.exception!!.message)
             PostUserResult.Failure(response.body()!!.exception!!.message)

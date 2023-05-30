@@ -19,6 +19,7 @@ interface EstablishmentDAO {
         @Query("name") name: String?,
         @Query("hasCardPayment") hasCardPayment: Boolean?,
         @Query("hasMap") hasMap: Boolean?,
+        @Query("workingDayCount") workingDayCount: Int?,
     ): Response<EstablishmentResponse.EstablishmentDtoArrayResponse>
 
     @GET("establishment/category")

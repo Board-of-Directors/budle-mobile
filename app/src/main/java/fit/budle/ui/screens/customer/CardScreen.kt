@@ -124,7 +124,7 @@ fun CardScreen(
                 establishmentCard = viewModel.establishmentCard
             )
             InfoBar(establishmentCard = viewModel.establishmentCard)
-            BudleInfoTagList(tags = viewModel.establishmentCard.tags)
+            BudleInfoTagList(iconTags = viewModel.establishmentCard.iconTags)
             Column(
                 modifier = Modifier
                     .padding(horizontal = 20.dp)

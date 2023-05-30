@@ -10,9 +10,10 @@ import androidx.navigation.compose.composable
 import fit.budle.navigation.graphs.creatorAccountNavGraph
 import fit.budle.navigation.graphs.establishmentCreationNavGraph
 import fit.budle.navigation.graphs.registrationNavGraph
-import fit.budle.ui.screens.MainScreen
 import fit.budle.ui.screens.UserProfileBookingsScreenBackendConnected
 import fit.budle.ui.screens.customer.CardScreen
+import fit.budle.ui.screens.customer.EstablishmentSearchScreen
+import fit.budle.ui.screens.customer.MainScreen
 import fit.budle.ui.screens.customer.MapScreen
 import fit.budle.ui.screens.customer.OrderScreen
 import fit.budle.ui.screens.customer.UserProfileScreen
@@ -28,6 +29,14 @@ fun NavigationComponent(navController: NavHostController) {
             MainScreen(
                 navHostController = navController,
                 viewModel = hiltViewModel()
+            )
+        }
+        composable("searchScreen") {
+            EstablishmentSearchScreen(
+                navHostController = navController,
+                viewModel = hiltViewModel(
+                    navController.getBackStackEntry("main")
+                )
             )
         }
         composable("card") {
