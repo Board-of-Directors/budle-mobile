@@ -10,6 +10,7 @@ import fit.budle.dto.customer_user.RequestUser
 import fit.budle.dto.enums.RegisterType
 import fit.budle.repository.customer.RegistrationRepository
 import fit.budle.request.result.customer.GetCodeResult
+import fit.budle.request.result.customer.GetUserResult
 import fit.budle.request.result.customer.PostCodeResult
 import fit.budle.request.result.customer.PostUserResult
 import javax.inject.Inject
@@ -83,6 +84,33 @@ class RegistrationRepositoryImpl @Inject constructor(
             GetCodeResult.Failure(
                 exception = response.body()!!.exception!!.message
             )
+        }
+    }
+
+    override suspend fun getUser(): GetUserResult {
+
+        val response = registrationDAO.getUser()
+
+        return if (response.body() == null) {
+
+            Log.e("GET_USER", ResponseException.NULL_BODY)
+            GetUserResult.Failure(ResponseException.NULL_BODY)
+
+        } else if (response.body()!!.exception == null) {
+
+            Log.d("GET_USER", "SUCCESS")
+            GetUserResult.Success(
+                result = response.body()!!.result,
+                exception = response.body()!!.exception
+            )
+
+        } else {
+
+            Log.d("GET_USER", response.body()!!.exception!!.message)
+            GetUserResult.Failure(
+                exception = response.body()!!.exception!!.message
+            )
+
         }
     }
 }

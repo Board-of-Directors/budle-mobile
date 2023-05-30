@@ -38,6 +38,9 @@ fun UserProfileScreen(
     navController: NavHostController,
     viewModel: UserProfileViewModel,
 ) {
+
+    viewModel.onEvent(UserProfileEvent.GetUser)
+
     Surface(Modifier.fillMaxSize()) {
         Column(
             Modifier.fillMaxSize()
