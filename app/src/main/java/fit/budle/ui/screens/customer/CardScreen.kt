@@ -135,7 +135,7 @@ fun CardScreen(
                         description = it
                     )
                 }
-                viewModel.establishmentCard.workingHours?.let { WorkingTime(cardDescription = it.toList()) }
+                viewModel.establishmentCard.workingHours?.let { WorkingTime(it.toList()) }
                 EstablishmentAddress(addressInfo = viewModel.establishmentCard.address)
                 EstablishmentCardPhoto(establishment = viewModel.establishmentCard,
                     onClick = { viewModel.clickedGallery.value = !viewModel.clickedGallery.value })
@@ -280,27 +280,26 @@ fun EstablishmentCardDescription(
 
 @Composable
 fun WorkingTime(
-    cardDescription: List<WorkingHour>,
+    cardTimes: List<WorkingHour>,
 ) {
     BudleBlockWithHeader(headerText = "Время работы") {
         Column {
-            for (i in cardDescription.indices) {
+            for (time in cardTimes) {
                 Row(
                     modifier = Modifier
                         .padding(top = 10.dp)
                         .fillMaxWidth()
                         .height(IntrinsicSize.Max)
                 ) {
-                    // FIXME: исправьте хардкод ПН
                     Text(
                         modifier = Modifier.width(50.dp),
-                        text = "ПН",
+                        text = time.dayOfWeek,
                         style = MaterialTheme.typography.bodyMedium,
                         color = mainBlack
                     )
                     Text(
                         modifier = Modifier.padding(start = 20.dp),
-                        text = cardDescription[i].startTime.dropLast(3) + "-" + cardDescription[i].endTime.dropLast(
+                        text = time.startTime.dropLast(3) + "-" + time.endTime.dropLast(
                             3
                         ),
                         style = MaterialTheme.typography.bodyMedium,
