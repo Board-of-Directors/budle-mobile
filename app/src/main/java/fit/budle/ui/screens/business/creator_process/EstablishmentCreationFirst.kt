@@ -1,4 +1,4 @@
-package fit.budle.ui.screens.business.creator.creator_process
+package fit.budle.ui.screens.business.creator_process
 
 import android.graphics.ImageDecoder
 import android.net.Uri
@@ -24,21 +24,22 @@ import fit.budle.ui.components.moleculas.screens.BudleScreenWithButtonAndProgres
 import fit.budle.ui.theme.mainBlack
 import fit.budle.viewmodel.business.EstCreationViewModel
 
+
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun EstablishmentCreationFirstScreen(
     navHostController: NavHostController,
-    viewModel: EstCreationViewModel,
+    estCreationViewModel: EstCreationViewModel,
 ) {
 
     var buttonClicked by remember { mutableStateOf(false) }
     var emptyImageError by remember { mutableStateOf(false) }
     var emptyNameInputError by remember { mutableStateOf(false) }
 
-    val source = if (viewModel.selectedImageUri != null) {
+    val source = if (estCreationViewModel.selectedImageUri != null) {
         ImageDecoder.createSource(
             LocalContext.current.contentResolver,
-            viewModel.selectedImageUri as Uri
+            estCreationViewModel.selectedImageUri as Uri
         )
     } else null
 
@@ -50,7 +51,7 @@ fun EstablishmentCreationFirstScreen(
             onClick = {
                 buttonClicked = true
                 if (!emptyNameInputError && !emptyImageError) {
-                    viewModel.onEvent(EstCreationEvent.FirstStep(source))
+                    estCreationViewModel.onEvent(EstCreationEvent.FirstStep(source))
                     navHostController.navigate("secondStep")
                 }
             },
@@ -60,11 +61,11 @@ fun EstablishmentCreationFirstScreen(
         ) {
             BudleSingleSelectPhotoInput(
                 onValueChange = {
-                    viewModel.selectedImageUri = it
-                    emptyImageError = viewModel.selectedImageUri == null
+                    estCreationViewModel.selectedImageUri = it
+                    emptyImageError = estCreationViewModel.selectedImageUri == null
                 },
-                initialState = viewModel.selectedImageUri,
-                isError = if (buttonClicked && viewModel.selectedImageUri == null) {
+                initialState = estCreationViewModel.selectedImageUri,
+                isError = if (buttonClicked && estCreationViewModel.selectedImageUri == null) {
                     emptyImageError
                 } else false
             )
@@ -73,13 +74,13 @@ fun EstablishmentCreationFirstScreen(
                     .padding(top = 20.dp)
                     .fillMaxWidth(),
                 onValueChange = {
-                    viewModel.selectedName = it
-                    emptyNameInputError = viewModel.selectedName.isEmpty()
+                    estCreationViewModel.selectedName = it
+                    emptyNameInputError = estCreationViewModel.selectedName.isEmpty()
                 },
                 isError = if (buttonClicked) emptyNameInputError else false,
                 placeHolderColor = mainBlack,
                 placeHolder = "Название",
-                startMessage = viewModel.selectedName,
+                startMessage = estCreationViewModel.selectedName,
                 textFieldMessage = "Введите название"
             )
         }

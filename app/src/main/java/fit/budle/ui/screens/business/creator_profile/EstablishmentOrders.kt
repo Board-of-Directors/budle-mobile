@@ -1,4 +1,4 @@
-package fit.budle.ui.screens.business.creator.creator_profile
+package fit.budle.ui.screens.business.creator_profile
 
 import android.os.Build
 import androidx.annotation.RequiresApi

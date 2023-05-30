@@ -23,4 +23,10 @@ sealed interface EstCreationResponse {
 
     data class GetEstTagListResponse(val result: List<TagResponse>, val exception: Exception?) :
         EstCreationResponse
+
+    data class PutEstablishmentResponse(val result: Boolean?, val exception: Exception?) :
+        EstCreationResponse
+
+    data class DeleteEstablishmentResponse(val result: Boolean?, val exception: Exception?) :
+        EstCreationResponse
 }

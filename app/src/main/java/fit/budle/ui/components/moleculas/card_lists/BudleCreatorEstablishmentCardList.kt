@@ -12,7 +12,8 @@ import fit.budle.ui.components.moleculas.BudleCreatorEstablishmentCard
 fun BudleCreatorEstablishmentCardList(
     navHostController: NavHostController,
     cards: List<EstablishmentShortDto>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onDelete: (Int) -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxWidth()
@@ -20,7 +21,10 @@ fun BudleCreatorEstablishmentCardList(
         for(card in cards){
             BudleCreatorEstablishmentCard(
                 navHostController = navHostController,
-                establishmentCard = card
+                establishmentCard = card,
+                onDelete = {
+                    onDelete(it)
+                }
             )
         }
     }

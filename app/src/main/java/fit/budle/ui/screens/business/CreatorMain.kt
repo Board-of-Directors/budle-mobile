@@ -1,8 +1,5 @@
-package fit.budle.ui.screens.business.creator
+package fit.budle.ui.screens.business
 
-// import fit.budle.ui.components.moleculas.card_lists.BudleCreatorEstablishmentCardList
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -23,18 +20,20 @@ import fit.budle.ui.theme.lightBlue
 import fit.budle.ui.theme.textGray
 import fit.budle.viewmodel.business.OwnerMainViewModel
 
-@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun CreatorMainScreen(
     navHostController: NavHostController,
-    viewModel: OwnerMainViewModel = hiltViewModel()
+    ownerMainViewModel: OwnerMainViewModel = hiltViewModel(),
 ) {
+
+    ownerMainViewModel.onEvent(OwnerMainEvent.GetEstListEvent)
+
     Surface(modifier = Modifier.fillMaxSize()) {
         BudleScreenWithButton(
             iconId = R.drawable.plus,
             buttonText = "Добавить заведение",
             onClick = {
-                  navHostController.navigate("ownerMain/establishmentCreation/")
+                navHostController.navigate("ownerMain/establishmentCreation/")
             },
         ) {
             BudleUserHeader(
@@ -62,10 +61,13 @@ fun CreatorMainScreen(
             ) {
                 BudleCreatorEstablishmentCardList(
                     navHostController = navHostController,
-                    cards = viewModel.establishments
+                    cards = ownerMainViewModel.establishments,
+                    onDelete = {
+                        ownerMainViewModel.establishmentId = it
+                        ownerMainViewModel.onEvent(OwnerMainEvent.DeleteEstablishment)
+                    }
                 )
             }
-            viewModel.onEvent(OwnerMainEvent.GetEstListEvent)
         }
     }
 }

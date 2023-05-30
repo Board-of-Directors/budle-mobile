@@ -23,6 +23,8 @@ import fit.budle.dto.tag.active.RectangleActiveTag
 import fit.budle.dto.tag.standard.IconTag
 import fit.budle.event.customer.MainEvent
 import fit.budle.repository.customer.EstablishmentRepository
+import fit.budle.util.EstablishmentConverter
+import fit.budle.util.EstablishmentConverter.Companion.convertEstablishment
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -60,7 +62,8 @@ class MainViewModel @Inject constructor(
                         repository.getEstablishment(establishmentCardId)) {
                         is EstablishmentResult.Success -> {
                             Log.d("MAINVIEWMODEL", "SUCCESS")
-                            establishmentCard = convertEstablishment(response.result)
+                            establishmentCard =
+                                convertEstablishment(response.result, viewModelScope)
                         }
 
                         is EstablishmentResult.Failure -> {}
@@ -154,7 +157,7 @@ class MainViewModel @Inject constructor(
 
     private fun convertResponseToArray(response: EstablishmentListResult.Success): EstablishmentArray {
         return EstablishmentArray(response.result.establishments.map {
-            convertEstablishment(it)
+            convertEstablishment(it, viewModelScope)
         }.toTypedArray(), response.result.count)
     }
 

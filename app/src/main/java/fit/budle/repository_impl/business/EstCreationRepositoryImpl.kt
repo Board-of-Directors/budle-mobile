@@ -2,11 +2,13 @@ package fit.budle.repository_impl.business
 
 import android.util.Log
 import fit.budle.dao.business.EstCreationDAO
+import fit.budle.dto.ResponseException
 import fit.budle.dto.establishment.etsablishment_type.NewEstablishmentDto
 import fit.budle.dto.result.GetCategoryListResult
 import fit.budle.dto.result.GetCategoryVariantListResult
 import fit.budle.dto.result.GetTagListResult
 import fit.budle.dto.result.PostEstablishmentResult
+import fit.budle.dto.result.PutEstablishmentResult
 import fit.budle.repository.business.EstCreationRepository
 import javax.inject.Inject
 
