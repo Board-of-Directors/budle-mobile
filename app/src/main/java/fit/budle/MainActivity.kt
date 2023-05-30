@@ -1,5 +1,6 @@
 package fit.budle
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,6 +12,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
+import fit.budle.di.config.SharedPrefConfig
 import fit.budle.navigation.NavigationComponent
 import fit.budle.ui.theme.BudleTheme
 
@@ -26,7 +28,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    NavigationComponent(navController)
+                    NavigationComponent(
+                        navController,
+                        this.getSharedPreferences(SharedPrefConfig.fileName, Context.MODE_PRIVATE)
+                            .getString(SharedPrefConfig.sessionId, null) != null
+                    )
                 }
             }
         }
