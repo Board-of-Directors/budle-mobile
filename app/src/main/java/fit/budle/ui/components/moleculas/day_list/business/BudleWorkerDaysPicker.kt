@@ -16,7 +16,7 @@ import androidx.compose.runtime.toMutableStateList
 import androidx.compose.runtime.toMutableStateMap
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import fit.budle.dto.establishment.WorkingHoursDto
+import fit.budle.dto.establishment.RequestWorkingHoursDto
 import fit.budle.dto.tag.active.ActiveCircleTag
 import fit.budle.dto.tag.active.ActiveTagType
 import fit.budle.dto.tag.active.Tag
@@ -29,8 +29,8 @@ import fit.budle.ui.components.moleculas.tag_list.BudleMultiSelectableTagList
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun BudleWorkingDaysPicker(
-    selectedWorkingHoursDto: WorkingHoursDto?,
-    onValueChange: (WorkingHoursDto) -> Unit,
+    selectedWorkingHoursDto: RequestWorkingHoursDto?,
+    onValueChange: (RequestWorkingHoursDto) -> Unit,
 ) {
 
     var enabled by remember { mutableStateOf(true) }
@@ -40,8 +40,8 @@ fun BudleWorkingDaysPicker(
     var fromToTime by remember {
         mutableStateOf(
             Pair(
-                selectedWorkingHoursDto?.fromTime ?: "",
-                selectedWorkingHoursDto?.toTime ?: ""
+                selectedWorkingHoursDto?.startTime ?: "",
+                selectedWorkingHoursDto?.endTime ?: ""
             )
         )
     }
@@ -49,7 +49,7 @@ fun BudleWorkingDaysPicker(
     val selectedTagList = remember {
         if (selectedWorkingHoursDto != null) {
             Log.d("ISNOTNULL", "IT")
-            convertStringListToTagList(selectedWorkingHoursDto.daysOfWork)
+            convertStringListToTagList(selectedWorkingHoursDto.days)
                 .toMutableStateList()
         } else {
             Log.d("ISNULL", "IT")
@@ -67,16 +67,16 @@ fun BudleWorkingDaysPicker(
                     selectedTagList.clear()
                     selectedTagList.addAll(it)
                     onValueChange(
-                        WorkingHoursDto(fromTime = fromToTime.first,
-                            toTime = fromToTime.second,
-                            daysOfWork = selectedTagList.map { tag -> tag.tagName })
+                        RequestWorkingHoursDto(startTime = fromToTime.first,
+                            endTime = fromToTime.second,
+                            days = selectedTagList.map { tag -> tag.tagName })
                     )
                 },
                 showDate = false,
                 tagList = daysTags,
                 tagType = ActiveTagType.CIRCLE,
                 startValue = days.map {
-                    if (selectedWorkingHoursDto?.daysOfWork?.contains(it.tagName) == true) {
+                    if (selectedWorkingHoursDto?.days?.contains(it.tagName) == true) {
                         it to true
                     } else {
                         it to false
@@ -102,10 +102,10 @@ fun BudleWorkingDaysPicker(
             Log.d("ENABLED", enabled.toString())
         }
         if (fromToTime != Pair("", "")) {
-            onValueChange(WorkingHoursDto(
-                fromTime = fromToTime.first,
-                toTime = fromToTime.second,
-                daysOfWork = selectedTagList.map { tag -> tag.tagName }
+            onValueChange(RequestWorkingHoursDto(
+                startTime = fromToTime.first,
+                endTime = fromToTime.second,
+                days = selectedTagList.map { tag -> tag.tagName }
             ))
         }
     }
