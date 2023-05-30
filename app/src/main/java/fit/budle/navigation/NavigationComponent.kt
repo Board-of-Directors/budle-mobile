@@ -19,10 +19,15 @@ import fit.budle.ui.screens.customer.UserProfileScreen
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
-fun NavigationComponent(navController: NavHostController) {
+fun NavigationComponent(navController: NavHostController, isAuthorized: Boolean) {
+    val startDestination = if (isAuthorized) {
+        "main"
+    } else {
+        "registration/"
+    }
     NavHost(
         navController = navController,
-        startDestination = "registration/"
+        startDestination = startDestination
     ) {
         composable("main") {
             MainScreen(
