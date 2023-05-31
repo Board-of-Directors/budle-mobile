@@ -1,5 +1,7 @@
 package fit.budle.ui.screens.customer
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,6 +32,7 @@ import fit.budle.ui.theme.textGray
 import fit.budle.viewmodel.customer.MainViewModel
 import fit.budle.viewmodel.customer.OrderCreateViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun OrderScreen(
     navHostController: NavHostController,

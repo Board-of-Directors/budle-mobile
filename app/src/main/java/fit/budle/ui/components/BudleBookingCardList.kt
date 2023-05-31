@@ -1,7 +1,5 @@
 package fit.budle.ui.components
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -12,7 +10,6 @@ import fit.budle.dto.order.Booking
 import fit.budle.ui.components.atoms.cards.BudleBookingCard
 import fit.budle.viewmodel.customer.OrderListViewModel
 
-@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun BudleBookingCardList(
     bookingList: Array<Booking>, viewModel: OrderListViewModel
