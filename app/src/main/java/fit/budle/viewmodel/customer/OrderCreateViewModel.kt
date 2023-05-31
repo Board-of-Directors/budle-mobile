@@ -1,6 +1,8 @@
 package fit.budle.viewmodel.customer
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -15,6 +17,7 @@ import fit.budle.event.customer.OrderCreateEvent
 import fit.budle.repository.customer.OrderCreateRepository
 import fit.budle.request.result.customer.OrderCreateResult
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -38,6 +41,7 @@ class OrderCreateViewModel @Inject constructor(
     // schedule of the current establishment, which is got from server
     var establishmentSchedule = listOf<ScheduleDay>()
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun onEvent(event: OrderCreateEvent) {
         when (event) {
             is OrderCreateEvent.PostOrder -> {
@@ -70,7 +74,17 @@ class OrderCreateViewModel @Inject constructor(
             }
 
             is OrderCreateEvent.SetDay -> {
-                requestOrderDto.date = "2023-05-$selectedDay"
+                val now = LocalDate.now()
+                val year = now.year
+                val month = if (now.dayOfMonth >= selectedDay.toInt())
+                    now.monthValue else LocalDate.now().monthValue + 1
+                val monthString = if (month.toString().length == 1) "0$month" else "$month";
+                if (selectedDay.length == 1) {
+                    requestOrderDto.date = "$year-$monthString-0$selectedDay"
+                } else {
+                    requestOrderDto.date = "$year-$monthString-$selectedDay"
+                }
+
             }
 
             is OrderCreateEvent.SetTime -> {
@@ -124,7 +138,7 @@ class OrderCreateViewModel @Inject constructor(
     private fun LogOrder(establishmentId: Long) {
         Log.e("ESTID", establishmentId.toString())
         Log.e("GUEST", selectedSeatAmount.toString())
-        Log.e("TIME", "$selectedTime:00")
+        Log.e("TIME", selectedTime)
         Log.e("DATE", "2023-05-$selectedDay")
     }
 }

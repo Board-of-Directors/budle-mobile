@@ -13,11 +13,13 @@ fun BudleWorkingDaysPickerList(
     daysCount: Int,
     onValueChange: (Int, RequestWorkingHoursDto) -> Unit,
     selectedItems: SnapshotStateMap<Int, RequestWorkingHoursDto>,
+    alreadyPicked: (String) -> Boolean,
 ) {
     for (day in 0 until daysCount) {
         BudleWorkingDaysPicker(
             onValueChange = { onValueChange(day, it) },
-            selectedWorkingHoursDto = selectedItems[day]
+            selectedWorkingHoursDto = selectedItems[day],
+            alreadyPicked = alreadyPicked
         )
         Log.d("TAGLIST", selectedItems[day]?.days?.size.toString())
     }

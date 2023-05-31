@@ -160,4 +160,74 @@ class MainViewModel @Inject constructor(
             convertEstablishment(it, viewModelScope)
         }.toTypedArray(), response.result.count)
     }
+
+    private fun convertEstablishment(establishment: EstablishmentDto): Establishment {
+
+        var decodedImage: BitmapPainter? = null
+        val decodedTagsIcons: ArrayList<IconTag> = arrayListOf()
+        val decodedPhotos: ArrayList<BitmapPainter?> = arrayListOf()
+        viewModelScope.launch {
+            if (establishment.image != null) {
+                val imageBytes: ByteArray = Base64.decode(establishment.image, Base64.DEFAULT)
+                val factory = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                if (factory != null) {
+                    decodedImage = BitmapPainter(
+                        factory.asImageBitmap()
+                    )
+                }
+            }
+        }
+        viewModelScope.launch {
+            if (establishment.photos != null) {
+                for (photo in establishment.photos) {
+                    val imageBytes: ByteArray = Base64.decode(photo.image, Base64.DEFAULT)
+                    val factory = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                    if (factory != null) {
+                        decodedImage = BitmapPainter(
+                            factory.asImageBitmap()
+                        )
+                        decodedPhotos.add(decodedImage)
+                    }
+                }
+            }
+        }
+
+        viewModelScope.launch {
+
+            if (establishment.tags != null) {
+                establishment.tags.forEach {
+                    var decodedIcon: BitmapPainter? = null
+                    if (it.image != null) {
+                        val imageBytes: ByteArray = Base64.decode(it.image, Base64.DEFAULT)
+                        decodedIcon = BitmapPainter(
+                            BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                                .asImageBitmap()
+                        )
+                    }
+                    decodedTagsIcons.add(IconTag(name = it.name, image = decodedIcon))
+                }
+
+            }
+        }
+
+        return Establishment(
+            establishment.id,
+            establishment.name,
+            establishment.description,
+            establishment.address,
+            User("Олег"),
+            establishment.hasCardPayment,
+            establishment.hasMap,
+            establishment.map,
+            establishment.category,
+            decodedImage,
+            establishment.rating,
+            establishment.price,
+            establishment.workingHours,
+            decodedTagsIcons,
+            decodedPhotos,
+            establishment.cuisineCountry,
+            establishment.starsCount
+        )
+    }
 }

@@ -1,16 +1,24 @@
 package fit.budle.ui.components.atoms.cards
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -21,11 +29,17 @@ import fit.budle.dto.order.BookingStatus
 import fit.budle.event.customer.OrderListEvent
 import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.ui.components.atoms.PhotoTag
-import fit.budle.ui.theme.*
+import fit.budle.ui.theme.alphaBlack
+import fit.budle.ui.theme.backgroundError
+import fit.budle.ui.theme.backgroundSuccess
+import fit.budle.ui.theme.fillPurple
+import fit.budle.ui.theme.lightBlue
+import fit.budle.ui.theme.mainBlack
+import fit.budle.ui.theme.mainWhite
+import fit.budle.ui.theme.textGray
 import fit.budle.viewmodel.customer.OrderListViewModel
-import java.util.*
 
-@RequiresApi(Build.VERSION_CODES.N)
+
 @Composable
 fun BudleBookingCard(booking: Booking, viewModel: OrderListViewModel) {
     BookingCard(booking = booking)
@@ -102,8 +116,12 @@ fun BookingCard(booking: Booking) {
                                     .background(mainWhite)
                             )
                         }
+                        val additional =
+                            if (booking.establishment.category == "Рестораны") booking.establishment.cuisineCountry
+                            else if (booking.establishment.category == "Отели") "${booking.establishment.starsCount} звезд"
+                            else ""
                         Text(
-                            text = booking.establishment.category,
+                            text = additional!!,
                             style = MaterialTheme.typography.labelSmall,
                             color = mainWhite
                         )
@@ -121,7 +139,6 @@ fun BookingCard(booking: Booking) {
 }
 
 
-@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun BookingInformation(booking: Booking) {
 

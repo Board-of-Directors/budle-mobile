@@ -25,6 +25,7 @@ fun BudleMultiSelectableTagList(
     textColor: Color = mainBlack,
     showDate: Boolean = true,
     startValue: SnapshotStateMap<Tag, Boolean> = tagList.map { it to false }.toMutableStateMap(),
+    isAlreadyPicked: (String) -> Boolean = { false },
 ) {
 
     val selectedItems = remember { startValue }
@@ -33,7 +34,9 @@ fun BudleMultiSelectableTagList(
         selectedItems[it] == true
     }
     val onChangeState: (Tag) -> Unit = {
-        selectedItems[it] = !isSelectedItem(it)
+        if (!isAlreadyPicked(it.tagName) || isSelectedItem(it)) {
+            selectedItems[it] = !isSelectedItem(it)
+        }
     }
 
     LazyRow(

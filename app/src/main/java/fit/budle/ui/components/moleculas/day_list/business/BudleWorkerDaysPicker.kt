@@ -31,6 +31,7 @@ import fit.budle.ui.components.moleculas.tag_list.BudleMultiSelectableTagList
 fun BudleWorkingDaysPicker(
     selectedWorkingHoursDto: RequestWorkingHoursDto?,
     onValueChange: (RequestWorkingHoursDto) -> Unit,
+    alreadyPicked: (String) -> Boolean,
 ) {
 
     var enabled by remember { mutableStateOf(true) }
@@ -81,7 +82,8 @@ fun BudleWorkingDaysPicker(
                     } else {
                         it to false
                     }
-                }.toMutableStateMap()
+                }.toMutableStateMap(),
+                isAlreadyPicked = alreadyPicked
             )
             BudleFromToTimeInput(
                 enabled = enabled,

@@ -54,7 +54,13 @@ fun EstablishmentCreationFourthScreen(
                 onValueChange = { day, workingHoursDto ->
                     viewModel.selectedWorkingHours[day] = workingHoursDto
                 },
-                selectedItems = viewModel.selectedWorkingHours
+                selectedItems = viewModel.selectedWorkingHours,
+                alreadyPicked = { day ->
+                    viewModel.selectedWorkingHours.values.any {
+                        it.days.contains(day)
+                    }
+
+                }
             )
             BudleButton(
                 bottomPadding = 100.dp,
