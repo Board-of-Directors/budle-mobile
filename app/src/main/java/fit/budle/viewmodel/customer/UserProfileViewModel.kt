@@ -9,15 +9,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fit.budle.di.config.SharedPrefConfig
+import fit.budle.dto.UserResponseDto
 import fit.budle.event.customer.UserProfileEvent
 import fit.budle.repository.customer.BusinessLoginRepository
+import fit.budle.repository.customer.RegistrationRepository
 import fit.budle.request.result.customer.BusinessLoginResult
+import fit.budle.request.result.customer.GetUserResult
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class UserProfileViewModel @Inject constructor(
     private val businessLoginRepository: BusinessLoginRepository,
+    private val userRepository: RegistrationRepository,
     private val sharedPreferences: SharedPreferences,
 ) : ViewModel() {
 
@@ -25,6 +29,7 @@ class UserProfileViewModel @Inject constructor(
     var username by mutableStateOf("")
     var buttonText by mutableStateOf("")
     var isLogin by mutableStateOf(false)
+    var currentUser by mutableStateOf(UserResponseDto())
 
     fun onEvent(event: UserProfileEvent) {
         when (event) {
@@ -61,6 +66,20 @@ class UserProfileViewModel @Inject constructor(
                     username = sharedPreferences.getString(SharedPrefConfig.username, null)!!
                     buttonText = "Выйти"
                     isLogin = true
+                }
+            }
+
+            is UserProfileEvent.GetUser -> {
+                viewModelScope.launch {
+                    when (val response = userRepository.getUser()) {
+                        is GetUserResult.Success -> {
+                            if (response.result != null) {
+                                currentUser = response.result
+                            } else Log.w("GET_USER_VM", "NULL")
+                        }
+
+                        else -> {}
+                    }
                 }
             }
         }

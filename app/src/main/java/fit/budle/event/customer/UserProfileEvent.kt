@@ -6,4 +6,5 @@ sealed interface UserProfileEvent {
     data class PostBusinessLoginEvent(val requestUser: RequestUser) : UserProfileEvent
     object Logout : UserProfileEvent
     object GetSession : UserProfileEvent
+    object GetUser : UserProfileEvent
 }

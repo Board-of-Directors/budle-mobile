@@ -21,16 +21,18 @@ class EstOrderListViewModel @Inject constructor(
 ) : ViewModel() {
 
     var state: List<BusinessOrderDto> by mutableStateOf(emptyList())
+    var currentType by mutableStateOf(3)
 
     fun onEvent(event: BookingEvent) {
         when (event) {
             is BookingEvent.GetBookings -> {
                 viewModelScope.launch {
                     when (val result =
-                        estOrderListRepository.getOrderList(event.establishmentId, event.status)) {
+                        estOrderListRepository.getOrderList(event.establishmentId, currentType)) {
                         is GetEstOrderListResult.Success -> {
                             state = result.result
                         }
+
                         is GetEstOrderListResult.Failure -> {
                             Log.d("VM_EST_ORDER_LIST_GET", result.throwable.message!!)
                         }

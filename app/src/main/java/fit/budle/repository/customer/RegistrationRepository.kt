@@ -4,6 +4,7 @@ import fit.budle.dto.code.CodeDto
 import fit.budle.dto.customer_user.RequestUser
 import fit.budle.dto.enums.RegisterType
 import fit.budle.request.result.customer.GetCodeResult
+import fit.budle.request.result.customer.GetUserResult
 import fit.budle.request.result.customer.PostCodeResult
 import fit.budle.request.result.customer.PostUserResult
 
@@ -13,4 +14,5 @@ interface RegistrationRepository {
     suspend fun postCode(codeDto: CodeDto): PostCodeResult
 
     suspend fun getCode(phoneNumber: String): GetCodeResult
+    suspend fun getUser(): GetUserResult
 }

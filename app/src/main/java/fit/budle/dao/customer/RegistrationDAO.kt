@@ -3,6 +3,7 @@ package fit.budle.dao.customer
 import fit.budle.dto.code.CodeDto
 import fit.budle.dto.customer_user.RequestUser
 import fit.budle.request.response.DefaultBooleanResponse
+import fit.budle.request.response.UserResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -22,4 +23,7 @@ interface RegistrationDAO {
 
     @GET("code")
     suspend fun getCode(@Query("phoneNumber") phoneNumber: String): Response<DefaultBooleanResponse>
+
+    @GET("user/me")
+    suspend fun getUser(): Response<UserResponse>
 }
