@@ -9,14 +9,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a58d49e-1564-42e2-9059-987b6e47ff1a" name="Changes" comment="develop/fix junit, add &quot;s&quot; to &quot;http&quot;, add build artifact generation">
+    <list default="true" id="4a58d49e-1564-42e2-9059-987b6e47ff1a" name="Changes" comment="develop/add lint xml, fast fix lint errors">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/AndroidBuild.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/AndroidBuild.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/navigation/NavigationComponent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/navigation/NavigationComponent.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/BudleSlidebar.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/BudleSlidebar.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/MapScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/MapScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/util/SVGParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/util/SVGParser.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,7 +175,7 @@
       <recent name="fit.budle.model" />
     </key>
   </component>
-  <component name="RunManager" selected="Android App.app">
+  <component name="RunManager" selected="Android Instrumented Tests.All Tests">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="Budle.app.main" />
       <option name="DEPLOY" value="true" />
@@ -817,7 +812,14 @@
       <option name="project" value="LOCAL" />
       <updated>1697708919003</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="develop/add lint xml, fast fix lint errors">
+      <created>1697711412956</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1697711412956</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -832,7 +834,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="backend-integration / added viewModel for registering, retrieved JSESSIONID from the response" />
     <MESSAGE value="backend-integration / added registration part (all parts are together!!), changed repositoryImpl, now user can see custom backend exceptions" />
     <MESSAGE value="backend-integration / little-changes of cookie request" />
     <MESSAGE value="Get .svg image from internal storage" />
@@ -857,7 +858,8 @@
     <MESSAGE value="develop/add chmod" />
     <MESSAGE value="develop/fix junit" />
     <MESSAGE value="develop/fix junit, add &quot;s&quot; to &quot;http&quot;, add build artifact generation" />
-    <option name="LAST_COMMIT_MESSAGE" value="develop/fix junit, add &quot;s&quot; to &quot;http&quot;, add build artifact generation" />
+    <MESSAGE value="develop/add lint xml, fast fix lint errors" />
+    <option name="LAST_COMMIT_MESSAGE" value="develop/add lint xml, fast fix lint errors" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />

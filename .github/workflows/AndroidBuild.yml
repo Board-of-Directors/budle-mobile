@@ -24,8 +24,8 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-      - name: Upload a Buld Artifact
+      - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.3
         with:
           name: Budle.apk
-          path: app/build/outputs/apk/app-debug.apk
+          path: app/build/outputs/apk/debug/app-debug.apk
