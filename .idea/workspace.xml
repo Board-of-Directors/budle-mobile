@@ -9,11 +9,14 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a58d49e-1564-42e2-9059-987b6e47ff1a" name="Changes" comment="develop/fix junit">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/AndroidBuild.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/AndroidBuild.yml" afterDir="false" />
+    <list default="true" id="4a58d49e-1564-42e2-9059-987b6e47ff1a" name="Changes" comment="develop/fix junit, add &quot;s&quot; to &quot;http&quot;, add build artifact generation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/RetrofitModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/di/RetrofitModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/navigation/NavigationComponent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/navigation/NavigationComponent.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/BudleSlidebar.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/components/atoms/BudleSlidebar.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/MapScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/screens/customer/MapScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/util/SVGParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fit/budle/ui/util/SVGParser.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,10 +141,10 @@
     &quot;git-widget-placeholder&quot;: &quot;backend-integration&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/NikFive/budle/budle-mobile&quot;,
     &quot;memory.settings.postsync.last.time.stamp&quot;: &quot;1697005322845&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Dependencies&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDK Location&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.scopes&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.notifications&quot;
   }
 }</component>
   <component name="PsdUISettings">
@@ -177,7 +180,7 @@
       <recent name="fit.budle.model" />
     </key>
   </component>
-  <component name="RunManager" selected="Android Instrumented Tests.All Tests">
+  <component name="RunManager" selected="Android App.app">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="Budle.app.main" />
       <option name="DEPLOY" value="true" />
@@ -807,7 +810,14 @@
       <option name="project" value="LOCAL" />
       <updated>1697708092720</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="develop/fix junit, add &quot;s&quot; to &quot;http&quot;, add build artifact generation">
+      <created>1697708919003</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1697708919003</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -822,7 +832,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="backend-integration / deleted acceptOrder, rejectOrder and added putOrderStatus" />
     <MESSAGE value="backend-integration / added viewModel for registering, retrieved JSESSIONID from the response" />
     <MESSAGE value="backend-integration / added registration part (all parts are together!!), changed repositoryImpl, now user can see custom backend exceptions" />
     <MESSAGE value="backend-integration / little-changes of cookie request" />
@@ -847,7 +856,8 @@
     <MESSAGE value="develop/yml conf fixed (added jdk version)" />
     <MESSAGE value="develop/add chmod" />
     <MESSAGE value="develop/fix junit" />
-    <option name="LAST_COMMIT_MESSAGE" value="develop/fix junit" />
+    <MESSAGE value="develop/fix junit, add &quot;s&quot; to &quot;http&quot;, add build artifact generation" />
+    <option name="LAST_COMMIT_MESSAGE" value="develop/fix junit, add &quot;s&quot; to &quot;http&quot;, add build artifact generation" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />

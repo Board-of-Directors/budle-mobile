@@ -1,5 +1,7 @@
 package fit.budle.ui.components.atoms
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Arrangement
@@ -39,6 +41,7 @@ import fit.budle.viewmodel.customer.MainViewModel
 import fit.budle.viewmodel.customer.OrderCreateViewModel
 import kotlin.math.roundToInt
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun BudleSlidebar(

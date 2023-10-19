@@ -1,5 +1,6 @@
 package fit.budle.navigation
 
+import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
@@ -18,6 +19,7 @@ import fit.budle.ui.screens.customer.MapScreen
 import fit.budle.ui.screens.customer.OrderScreen
 import fit.budle.ui.screens.customer.UserProfileScreen
 
+@SuppressLint("UnrememberedGetBackStackEntry")
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun NavigationComponent(navController: NavHostController, isAuthorized: Boolean) {

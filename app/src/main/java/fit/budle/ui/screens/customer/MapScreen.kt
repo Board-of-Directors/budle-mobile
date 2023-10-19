@@ -1,6 +1,8 @@
 package fit.budle.ui.screens.customer
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,6 +39,7 @@ import fit.budle.viewmodel.customer.OrderCreateViewModel
 import moe.tlaster.zoomable.Zoomable
 import moe.tlaster.zoomable.rememberZoomableState
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MapScreen(
     navHostController: NavHostController,

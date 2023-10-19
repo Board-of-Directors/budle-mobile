@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues name="AGP (8.1.1)" by="lint 8.1.1" client="gradle" dependencies="false" format="6"
+    type="baseline" variant="all" version="8.1.1">
+
+    <issue errorLine1="        targetSdk 33"
+        errorLine2="        ~~~~~~~~~~~~"
+        id="OldTargetApi" message="Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the android.os.Build.VERSION_CODES javadoc for details.">
+        <location column="9" file="build.gradle" line="16" />
+    </issue>
+
+    <issue errorLine1="            android:label=&quot;@string/app_name&quot;" errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="RedundantLabel"
+        message="Redundant label can be removed">
+        <location column="13" file="src/main/AndroidManifest.xml" line="31" />
+    </issue>
+
+    <issue errorLine1="    implementation &apos;androidx.core:core-ktx:1.10.1&apos;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="GradleDependency"
+        message="A newer version of androidx.core:core-ktx than 1.10.1 is available: 1.12.0">
+        <location column="20" file="build.gradle" line="68" />
+    </issue>
+
+    <issue errorLine1="    implementation &apos;androidx.activity:activity-compose:1.7.1&apos;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="GradleDependency"
+        message="A newer version of androidx.activity:activity-compose than 1.7.1 is available: 1.8.0">
+        <location column="20" file="build.gradle" line="69" />
+    </issue>
+
+    <issue errorLine1="    implementation &quot;androidx.compose.ui:ui:1.5.0-alpha04&quot;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="GradleDependency"
+        message="A newer version of androidx.compose.ui:ui than 1.5.0-alpha04 is available: 1.6.0-alpha08">
+        <location column="20" file="build.gradle" line="70" />
+    </issue>
+
+    <issue errorLine1="    implementation &quot;androidx.compose.ui:ui-tooling-preview:1.5.0-alpha04&quot;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="GradleDependency"
+        message="A newer version of androidx.compose.ui:ui-tooling-preview than 1.5.0-alpha04 is available: 1.6.0-alpha08">
+        <location column="20" file="build.gradle" line="71" />
+    </issue>
+
+    <issue errorLine1="    implementation &apos;androidx.compose.material3:material3:1.2.0-alpha01&apos;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="GradleDependency"
+        message="A newer version of androidx.compose.material3:material3 than 1.2.0-alpha01 is available: 1.2.0-alpha10">
+        <location column="20" file="build.gradle" line="72" />
+    </issue>
+
+    <issue errorLine1="    androidTestImplementation &quot;androidx.compose.ui:ui-test-junit4:1.5.0-alpha04&quot;"
+        errorLine2="                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="GradleDependency"
+        message="A newer version of androidx.compose.ui:ui-test-junit4 than 1.5.0-alpha04 is available: 1.6.0-alpha08">
+        <location column="31" file="build.gradle" line="81" />
+    </issue>
+
+    <issue errorLine1="    debugImplementation &quot;androidx.compose.ui:ui-tooling:1.5.0-alpha04&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="GradleDependency"
+        message="A newer version of androidx.compose.ui:ui-tooling than 1.5.0-alpha04 is available: 1.6.0-alpha08">
+        <location column="25" file="build.gradle" line="85" />
+    </issue>
+
+    <issue errorLine1="    debugImplementation &quot;androidx.compose.ui:ui-test-manifest:1.5.0-alpha04&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="GradleDependency"
+        message="A newer version of androidx.compose.ui:ui-test-manifest than 1.5.0-alpha04 is available: 1.6.0-alpha08">
+        <location column="25" file="build.gradle" line="86" />
+    </issue>
+
+    <issue errorLine1="    debugImplementation &quot;androidx.test:monitor:1.6.0&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="GradleDependency"
+        message="A newer version of androidx.test:monitor than 1.6.0 is available: 1.6.1">
+        <location column="25" file="build.gradle" line="87" />
+    </issue>
+
+    <issue errorLine1="    implementation &quot;androidx.navigation:navigation-compose:2.5.3&quot;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="GradleDependency"
+        message="A newer version of androidx.navigation:navigation-compose than 2.5.3 is available: 2.7.4">
+        <location column="20" file="build.gradle" line="99" />
+    </issue>
+
+    <issue errorLine1="    implementation &apos;androidx.lifecycle:lifecycle-runtime-ktx:2.6.1&apos;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-runtime-ktx than 2.6.1 is available: 2.6.2">
+        <location column="20" file="build.gradle" line="106" />
+    </issue>
+
+    <issue errorLine1="    implementation &apos;com.squareup.okhttp3:okhttp:4.10.0&apos;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="GradleDependency"
+        message="A newer version of com.squareup.okhttp3:okhttp than 4.10.0 is available: 4.11.0">
+        <location column="20" file="build.gradle" line="109" />
+    </issue>
+
+    <issue errorLine1="    implementation &apos;androidx.compose.material:material:1.4.3&apos;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="GradleDependency"
+        message="A newer version of androidx.compose.material:material than 1.4.3 is available: 1.5.4">
+        <location column="20" file="build.gradle" line="123" />
+    </issue>
+
+    <issue errorLine1="            android:screenOrientation=&quot;portrait&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="LockedOrientationActivity"
+        message="Expecting `android:screenOrientation=&quot;unspecified&quot;` or `&quot;fullSensor&quot;` for this activity so the user can use the application in any orientation and provide a great experience on Chrome OS devices">
+        <location column="13" file="src/main/AndroidManifest.xml" line="32" />
+    </issue>
+
+    <issue errorLine1="@RequiresApi(Build.VERSION_CODES.N)" errorLine2="~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="ObsoleteSdkInt"
+        message="Unnecessary; SDK_INT is always >= 24">
+        <location column="1" file="src/main/java/fit/budle/ui/components/BudleFilterPopup.kt"
+            line="16" />
+    </issue>
+
+    <issue errorLine1="@RequiresApi(Build.VERSION_CODES.N)" errorLine2="~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="ObsoleteSdkInt"
+        message="Unnecessary; SDK_INT is always >= 24">
+        <location column="1" file="src/main/java/fit/budle/ui/components/BudleRectangleTag.kt"
+            line="19" />
+    </issue>
+
+    <issue errorLine1="@RequiresApi(Build.VERSION_CODES.N)" errorLine2="~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="ObsoleteSdkInt"
+        message="Unnecessary; SDK_INT is always >= 24">
+        <location column="1"
+            file="src/main/java/fit/budle/ui/components/moleculas/tag_list/BudleTagList.kt" line="23" />
+    </issue>
+
+    <issue id="ObsoleteSdkInt"
+        message="This folder configuration (`v24`) is unnecessary; `minSdkVersion` is 24. Merge all the resources in this folder into `drawable`.">
+        <location file="src/main/res/drawable-v24" />
+    </issue>
+
+    <issue errorLine1="      android:pathData=&quot;M53.44,11.7C53.1,13.45 52.2,14.76 50.73,15.63C52.24,16.7 52.83,18.21 52.53,20.16C52.28,21.84 51.46,23.18 50.05,24.21C48.66,25.24 46.85,25.75 44.61,25.75H36.17L39.68,5.8H47.31C49.48,5.8 51.12,6.36 52.24,7.48C53.37,8.58 53.76,9.99 53.44,11.7ZM46.4,10.7H44.52L44.04,13.38L46.23,13.35C47.07,13.24 47.55,12.8 47.69,12.04C47.76,11.57 47.67,11.22 47.4,11.02C47.15,10.81 46.82,10.7 46.4,10.7ZM46.97,19.42C47.12,18.61 46.8,18.14 46,18.03L43.24,18L42.73,20.85H45.12C45.6,20.85 45.99,20.72 46.32,20.48C46.66,20.21 46.88,19.86 46.97,19.42ZM64.76,11.5H70.04L67.53,25.75H62.26L62.51,24.35C61.41,25.55 60.05,26.15 58.44,26.15C56.92,26.15 55.76,25.6 54.96,24.5C54.18,23.38 53.97,21.79 54.33,19.74L55.79,11.5H61.06L59.72,19.17C59.49,20.44 59.97,21.08 61.14,21.08C62.36,21.08 63.12,20.39 63.42,19.02L64.76,11.5ZM82.98,5.8H88.25L84.75,25.75H79.48L79.7,24.5C78.6,25.6 77.27,26.15 75.71,26.15C73.81,26.15 72.38,25.41 71.41,23.93C70.46,22.44 70.13,20.66 70.41,18.57C70.7,16.5 71.51,14.74 72.84,13.3C74.18,11.83 75.85,11.1 77.82,11.1C79.65,11.1 80.94,11.77 81.7,13.1L82.98,5.8ZM77.74,21.3C78.5,21.3 79.14,21.08 79.68,20.62C80.21,20.16 80.55,19.56 80.7,18.8L80.76,18.51C80.85,17.75 80.72,17.13 80.36,16.66C80.02,16.18 79.46,15.95 78.68,15.95C77.9,15.95 77.23,16.19 76.68,16.69C76.13,17.18 75.79,17.83 75.66,18.63C75.52,19.4 75.64,20.05 76,20.56C76.36,21.06 76.94,21.3 77.74,21.3ZM87.07,25.75L88.69,16.52L90.72,4.95H95.99L93.94,16.6L92.34,25.75H87.07ZM103.68,11.1C105.88,11.1 107.57,11.83 108.75,13.3C109.95,14.76 110.36,16.52 110,18.57C109.91,19.18 109.73,19.79 109.46,20.42H100.17C100.47,21.37 101.32,21.85 102.71,21.85C103.79,21.85 104.66,21.54 105.33,20.93L108.38,24.01C106.72,25.44 104.67,26.15 102.22,26.15C99.66,26.15 97.76,25.4 96.52,23.9C95.29,22.4 94.86,20.54 95.24,18.34C95.58,16.25 96.54,14.52 98.12,13.15C99.7,11.78 101.55,11.1 103.68,11.1ZM100.68,17.03H105.39C105.31,15.89 104.67,15.32 103.48,15.32C102.2,15.32 101.27,15.89 100.68,17.03Z&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="VectorPath"
+        message="Very long vector path (1926 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location column="25" file="src/main/res/drawable/institutions/drawable/budle_pattern.xml"
+            line="11" />
+    </issue>
+
+    <issue errorLine1="      android:pathData=&quot;M46.92,47H48.8L45.68,55H43.68L40.56,47H42.45L44.69,53.08L46.92,47ZM56.04,43.8H57.64V55H55.8V45.77L53.55,46.41L53.1,44.84L56.04,43.8ZM61.74,54.84C61.51,55.07 61.22,55.19 60.89,55.19C60.56,55.19 60.28,55.07 60.04,54.84C59.81,54.61 59.69,54.32 59.69,53.99C59.69,53.66 59.8,53.38 60.03,53.14C60.26,52.91 60.55,52.79 60.89,52.79C61.22,52.79 61.51,52.91 61.74,53.14C61.97,53.38 62.09,53.66 62.09,53.99C62.09,54.32 61.97,54.61 61.74,54.84ZM70.71,53.62C69.94,54.68 68.86,55.21 67.48,55.21C66.09,55.21 65.01,54.68 64.23,53.62C63.46,52.57 63.08,51.16 63.08,49.4C63.08,47.64 63.46,46.23 64.23,45.18C65.01,44.12 66.09,43.59 67.48,43.59C68.86,43.59 69.94,44.12 70.71,45.18C71.49,46.23 71.88,47.64 71.88,49.4C71.88,51.16 71.49,52.57 70.71,53.62ZM67.48,53.42C68.31,53.42 68.94,53.07 69.38,52.38C69.82,51.68 70.04,50.69 70.04,49.4C70.04,48.11 69.82,47.12 69.38,46.42C68.94,45.73 68.31,45.38 67.48,45.38C66.66,45.38 66.02,45.73 65.57,46.42C65.14,47.12 64.92,48.11 64.92,49.4C64.92,50.69 65.14,51.68 65.57,52.38C66.02,53.07 66.66,53.42 67.48,53.42Z&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="VectorPath"
+        message="Very long vector path (1030 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location column="25" file="src/main/res/drawable/institutions/drawable/budle_pattern.xml"
+            line="14" />
+    </issue>
+
+    <issue errorLine1="        android:pathData=&quot;M16.167,12.5C16.056,12.751 16.023,13.03 16.072,13.3C16.121,13.571 16.25,13.82 16.442,14.017L16.492,14.067C16.647,14.222 16.77,14.405 16.854,14.608C16.937,14.81 16.98,15.027 16.98,15.246C16.98,15.465 16.937,15.682 16.854,15.884C16.77,16.086 16.647,16.27 16.492,16.425C16.337,16.58 16.153,16.703 15.951,16.787C15.748,16.871 15.532,16.914 15.313,16.914C15.094,16.914 14.877,16.871 14.674,16.787C14.472,16.703 14.288,16.58 14.133,16.425L14.083,16.375C13.887,16.183 13.637,16.054 13.367,16.005C13.097,15.956 12.818,15.989 12.567,16.1C12.32,16.206 12.11,16.381 11.962,16.605C11.814,16.828 11.734,17.09 11.733,17.358V17.5C11.733,17.942 11.558,18.366 11.245,18.678C10.933,18.991 10.509,19.167 10.067,19.167C9.625,19.167 9.201,18.991 8.888,18.678C8.576,18.366 8.4,17.942 8.4,17.5V17.425C8.394,17.149 8.304,16.882 8.144,16.657C7.983,16.433 7.759,16.262 7.5,16.167C7.249,16.056 6.97,16.023 6.7,16.072C6.429,16.121 6.18,16.25 5.983,16.442L5.933,16.492C5.779,16.647 5.595,16.77 5.392,16.854C5.19,16.937 4.973,16.98 4.754,16.98C4.535,16.98 4.318,16.937 4.116,16.854C3.914,16.77 3.73,16.647 3.575,16.492C3.42,16.337 3.297,16.153 3.213,15.951C3.129,15.748 3.086,15.532 3.086,15.313C3.086,15.094 3.129,14.877 3.213,14.674C3.297,14.472 3.42,14.288 3.575,14.133L3.625,14.083C3.817,13.887 3.946,13.637 3.995,13.367C4.044,13.097 4.011,12.818 3.9,12.567C3.794,12.32 3.619,12.11 3.395,11.962C3.172,11.814 2.91,11.734 2.642,11.733H2.5C2.058,11.733 1.634,11.558 1.322,11.245C1.009,10.933 0.833,10.509 0.833,10.067C0.833,9.625 1.009,9.201 1.322,8.888C1.634,8.576 2.058,8.4 2.5,8.4H2.575C2.851,8.394 3.118,8.304 3.343,8.144C3.567,7.983 3.738,7.759 3.833,7.5C3.944,7.249 3.977,6.97 3.928,6.7C3.879,6.429 3.75,6.18 3.558,5.983L3.508,5.933C3.353,5.779 3.23,5.595 3.147,5.392C3.063,5.19 3.02,4.973 3.02,4.754C3.02,4.535 3.063,4.318 3.147,4.116C3.23,3.914 3.353,3.73 3.508,3.575C3.663,3.42 3.847,3.297 4.049,3.213C4.252,3.129 4.469,3.086 4.688,3.086C4.907,3.086 5.123,3.129 5.326,3.213C5.528,3.297 5.712,3.42 5.867,3.575L5.917,3.625C6.113,3.817 6.363,3.946 6.633,3.995C6.903,4.044 7.182,4.011 7.433,3.9H7.5C7.747,3.794 7.957,3.619 8.105,3.395C8.253,3.172 8.332,2.91 8.333,2.642V2.5C8.333,2.058 8.509,1.634 8.822,1.322C9.134,1.009 9.558,0.833 10,0.833C10.442,0.833 10.866,1.009 11.179,1.322C11.491,1.634 11.667,2.058 11.667,2.5V2.575C11.668,2.843 11.747,3.105 11.895,3.329C12.043,3.552 12.254,3.728 12.5,3.833C12.751,3.944 13.03,3.977 13.3,3.928C13.571,3.879 13.82,3.75 14.017,3.558L14.067,3.508C14.222,3.353 14.405,3.23 14.608,3.147C14.81,3.063 15.027,3.02 15.246,3.02C15.465,3.02 15.682,3.063 15.884,3.147C16.086,3.23 16.27,3.353 16.425,3.508C16.58,3.663 16.703,3.847 16.787,4.049C16.871,4.252 16.914,4.469 16.914,4.688C16.914,4.907 16.871,5.123 16.787,5.326C16.703,5.528 16.58,5.712 16.425,5.867L16.375,5.917C16.183,6.113 16.054,6.363 16.005,6.633C15.956,6.903 15.989,7.182 16.1,7.433V7.5C16.206,7.747 16.381,7.957 16.605,8.105C16.828,8.253 17.09,8.332 17.358,8.333H17.5C17.942,8.333 18.366,8.509 18.678,8.822C18.991,9.134 19.167,9.558 19.167,10C19.167,10.442 18.991,10.866 18.678,11.179C18.366,11.491 17.942,11.667 17.5,11.667H17.425C17.157,11.668 16.895,11.747 16.671,11.895C16.448,12.043 16.272,12.254 16.167,12.5V12.5Z&quot;"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="VectorPath"
+        message="Very long vector path (3192 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location column="27" file="src/main/res/drawable/institutions/drawable/settings.xml"
+            line="17" />
+    </issue>
+
+    <issue errorLine1="    kapt &apos;com.github.bumptech.glide:compiler:4.15.1&apos;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="KaptUsageInsteadOfKsp"
+        message="This library supports using KSP instead of kapt, which greatly improves performance. Learn more: https://developer.android.com/studio/build/migrate-to-ksp">
+        <location column="5" file="build.gradle" line="96" />
+    </issue>
+
+    <issue errorLine1="    &lt;color name=&quot;purple_200&quot;>#FFBB86FC&lt;/color>" errorLine2="           ~~~~~~~~~~~~~~~~~"
+        id="UnusedResources"
+        message="The resource `R.color.purple_200` appears to be unused">
+        <location column="12" file="src/main/res/values/colors.xml" line="3" />
+    </issue>
+
+    <issue errorLine1="    &lt;color name=&quot;purple_500&quot;>#FF6200EE&lt;/color>" errorLine2="           ~~~~~~~~~~~~~~~~~"
+        id="UnusedResources"
+        message="The resource `R.color.purple_500` appears to be unused">
+        <location column="12" file="src/main/res/values/colors.xml" line="4" />
+    </issue>
+
+    <issue errorLine1="    &lt;color name=&quot;purple_700&quot;>#FF3700B3&lt;/color>" errorLine2="           ~~~~~~~~~~~~~~~~~"
+        id="UnusedResources"
+        message="The resource `R.color.purple_700` appears to be unused">
+        <location column="12" file="src/main/res/values/colors.xml" line="5" />
+    </issue>
+
+    <issue errorLine1="    &lt;color name=&quot;teal_200&quot;>#FF03DAC5&lt;/color>" errorLine2="           ~~~~~~~~~~~~~~~"
+        id="UnusedResources"
+        message="The resource `R.color.teal_200` appears to be unused">
+        <location column="12" file="src/main/res/values/colors.xml" line="6" />
+    </issue>
+
+    <issue errorLine1="    &lt;color name=&quot;teal_700&quot;>#FF018786&lt;/color>" errorLine2="           ~~~~~~~~~~~~~~~"
+        id="UnusedResources"
+        message="The resource `R.color.teal_700` appears to be unused">
+        <location column="12" file="src/main/res/values/colors.xml" line="7" />
+    </issue>
+
+    <issue errorLine1="    &lt;color name=&quot;black&quot;>#FF000000&lt;/color>" errorLine2="           ~~~~~~~~~~~~"
+        id="UnusedResources"
+        message="The resource `R.color.black` appears to be unused">
+        <location column="12" file="src/main/res/values/colors.xml" line="8" />
+    </issue>
+
+    <issue errorLine1="    &lt;color name=&quot;white&quot;>#FFFFFFFF&lt;/color>" errorLine2="           ~~~~~~~~~~~~"
+        id="UnusedResources"
+        message="The resource `R.color.white` appears to be unused">
+        <location column="12" file="src/main/res/values/colors.xml" line="9" />
+    </issue>
+
+    <issue errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;" errorLine2="^"
+        id="UnusedResources"
+        message="The resource `R.drawable.edit` appears to be unused">
+        <location column="1" file="src/main/res/drawable/institutions/drawable/edit.xml" line="1" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.establishment_photo_1` appears to be unused">
+        <location file="src/main/res/drawable/establishment_photo_1.png" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.establishment_photo_2` appears to be unused">
+        <location file="src/main/res/drawable/establishment_photo_2.png" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.establishment_photo_3` appears to be unused">
+        <location file="src/main/res/drawable/establishment_photo_3.png" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.establishment_photo_4` appears to be unused">
+        <location file="src/main/res/drawable/establishment_photo_4.png" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.establishment_photo_5` appears to be unused">
+        <location file="src/main/res/drawable/establishment_photo_5.png" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.establishment_photo_6` appears to be unused">
+        <location file="src/main/res/drawable/establishment_photo_6.png" />
+    </issue>
+
+    <issue errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;" errorLine2="^"
+        id="UnusedResources"
+        message="The resource `R.drawable.gray_corss` appears to be unused">
+        <location column="1" file="src/main/res/drawable/institutions/drawable/gray_corss.xml"
+            line="1" />
+    </issue>
+
+    <issue errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;" errorLine2="^"
+        id="UnusedResources"
+        message="The resource `R.drawable.heart` appears to be unused">
+        <location column="1" file="src/main/res/drawable/institutions/drawable/heart.xml"
+            line="1" />
+    </issue>
+
+    <issue errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^"
+        id="UnusedResources"
+        message="The resource `R.drawable.heart_outline` appears to be unused">
+        <location column="1" file="src/main/res/drawable/institutions/drawable/heart_outline.xml"
+            line="1" />
+    </issue>
+
+    <issue errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^"
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_launcher_foreground` appears to be unused">
+        <location column="1" file="src/main/res/drawable-v24/ic_launcher_foreground.xml" line="1" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.institutions_hotels_1` appears to be unused">
+        <location file="src/main/res/drawable-v24/institutions_hotels_1.png" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.institutions_hotels_2` appears to be unused">
+        <location file="src/main/res/drawable-v24/institutions_hotels_2.png" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.institutions_hotels_3` appears to be unused">
+        <location file="src/main/res/drawable-v24/institutions_hotels_3.png" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.institutions_restaurants_1` appears to be unused">
+        <location file="src/main/res/drawable-v24/institutions_restaurants_1.png" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.institutions_restaurants_2` appears to be unused">
+        <location file="src/main/res/drawable-v24/institutions_restaurants_2.png" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.institutions_restaurants_3` appears to be unused">
+        <location file="src/main/res/drawable-v24/institutions_restaurants_3.png" />
+    </issue>
+
+    <issue errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^"
+        id="UnusedResources"
+        message="The resource `R.drawable.message_circle` appears to be unused">
+        <location column="1" file="src/main/res/drawable/institutions/drawable/message_circle.xml"
+            line="1" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.second_establishment_1` appears to be unused">
+        <location file="src/main/res/drawable/second_establishment_1.png" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.second_establishment_2` appears to be unused">
+        <location file="src/main/res/drawable/second_establishment_2.png" />
+    </issue>
+
+    <issue errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;" errorLine2="^"
+        id="UnusedResources"
+        message="The resource `R.drawable.settings` appears to be unused">
+        <location column="1" file="src/main/res/drawable/institutions/drawable/settings.xml"
+            line="1" />
+    </issue>
+
+    <issue errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;" errorLine2="^"
+        id="UnusedResources"
+        message="The resource `R.drawable.sun` appears to be unused">
+        <location column="1" file="src/main/res/drawable/institutions/drawable/sun.xml" line="1" />
+    </issue>
+
+    <issue errorLine1="&lt;adaptive-icon xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^"
+        id="MonochromeLauncherIcon"
+        message="The application adaptive icon is missing a monochrome tag">
+        <location column="1" file="src/main/res/mipmap-anydpi-v26/ic_launcher.xml" line="2" />
+    </issue>
+
+    <issue errorLine1="&lt;adaptive-icon xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^"
+        id="MonochromeLauncherIcon"
+        message="The application adaptive roundIcon is missing a monochrome tag">
+        <location column="1" file="src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" line="2" />
+    </issue>
+
+    <issue id="IconLocation"
+        message="Found bitmap drawable `res/drawable/carddefault.png` in densityless folder">
+        <location file="src/main/res/drawable/carddefault.png" />
+    </issue>
+
+    <issue id="IconLocation"
+        message="Found bitmap drawable `res/drawable/establishment_photo_1.png` in densityless folder">
+        <location file="src/main/res/drawable/establishment_photo_1.png" />
+    </issue>
+
+    <issue id="IconLocation"
+        message="Found bitmap drawable `res/drawable/establishment_photo_2.png` in densityless folder">
+        <location file="src/main/res/drawable/establishment_photo_2.png" />
+    </issue>
+
+    <issue id="IconLocation"
+        message="Found bitmap drawable `res/drawable/establishment_photo_3.png` in densityless folder">
+        <location file="src/main/res/drawable/establishment_photo_3.png" />
+    </issue>
+
+    <issue id="IconLocation"
+        message="Found bitmap drawable `res/drawable/establishment_photo_4.png` in densityless folder">
+        <location file="src/main/res/drawable/establishment_photo_4.png" />
+    </issue>
+
+    <issue id="IconLocation"
+        message="Found bitmap drawable `res/drawable/establishment_photo_5.png` in densityless folder">
+        <location file="src/main/res/drawable/establishment_photo_5.png" />
+    </issue>
+
+    <issue id="IconLocation"
+        message="Found bitmap drawable `res/drawable/establishment_photo_6.png` in densityless folder">
+        <location file="src/main/res/drawable/establishment_photo_6.png" />
+    </issue>
+
+    <issue id="IconLocation"
+        message="Found bitmap drawable `res/drawable/second_establishment_1.png` in densityless folder">
+        <location file="src/main/res/drawable/second_establishment_1.png" />
+    </issue>
+
+    <issue id="IconLocation"
+        message="Found bitmap drawable `res/drawable/second_establishment_2.png` in densityless folder">
+        <location file="src/main/res/drawable/second_establishment_2.png" />
+    </issue>
+
+    <issue id="IconLocation"
+        message="Found bitmap drawable `res/drawable/success_rocket.jpg` in densityless folder">
+        <location file="src/main/res/drawable/institutions/drawable/success_rocket.jpg" />
+    </issue>
+
+</issues>

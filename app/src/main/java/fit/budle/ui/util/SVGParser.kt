@@ -1,5 +1,6 @@
 package fit.budle.ui.util
 
+import android.annotation.SuppressLint
 import android.graphics.RectF
 import androidx.core.graphics.PathParser
 import fit.budle.ui.util.xml_parser.XMLParser
@@ -8,6 +9,7 @@ import java.io.InputStream
 
 class SVGParser {
     companion object {
+        @SuppressLint("RestrictedApi")
         fun transformPath(shape: XMLShape): Pair<android.graphics.Path, RectF> {
 
             val path = PathParser.createPathFromPathData(shape.pathData)
