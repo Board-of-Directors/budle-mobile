@@ -8,6 +8,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import fit.budle.di.config.SharedPrefConfig
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -15,15 +16,15 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RetrofitModule {
+open class RetrofitModule {
 
-    private const val BASE_URL = "http://80.64.174.33:8080/"
+    open fun baseUrl() = "http://80.89.192.250:8080/".toHttpUrl()
 
     @Singleton
     @Provides
     fun providesAuthRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(baseUrl())
             .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
