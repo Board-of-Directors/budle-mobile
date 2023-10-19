@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a58d49e-1564-42e2-9059-987b6e47ff1a" name="Changes" comment="develop/try to fix permission (attempt 4)">
+    <list default="true" id="4a58d49e-1564-42e2-9059-987b6e47ff1a" name="Changes" comment="develop/try to fix permission (attempt 5)">
       <change beforePath="$PROJECT_DIR$/.github/workflows/AndroidBuild.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/AndroidBuild.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
@@ -861,7 +861,14 @@
       <option name="project" value="LOCAL" />
       <updated>1697727850256</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="develop/try to fix permission (attempt 5)">
+      <created>1697729173838</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1697729173838</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -876,7 +883,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Connected post establishment with map and get it on the all screens, also connected customer user and business user, added BusinessAccount navigation graph" />
     <MESSAGE value="Fixed long loading on the first screen, but on third screen things are really sad :(" />
     <MESSAGE value="Removed nested routes from order use case and added map from the backend" />
     <MESSAGE value="Refactored OrderCreateViewModel with all repos and daos, reconnected order create use case to the backend" />
@@ -901,7 +907,8 @@
     <MESSAGE value="develop/fix user permission" />
     <MESSAGE value="develop/fix user permission again" />
     <MESSAGE value="develop/try to fix permission (attempt 4)" />
-    <option name="LAST_COMMIT_MESSAGE" value="develop/try to fix permission (attempt 4)" />
+    <MESSAGE value="develop/try to fix permission (attempt 5)" />
+    <option name="LAST_COMMIT_MESSAGE" value="develop/try to fix permission (attempt 5)" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />

@@ -24,12 +24,6 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v3.1.3
-        with:
-          name: Budle.apk
-          path: app/build/outputs/apk/debug/app-debug.apk
-
       - name: Build Android Test APK
         run: ./gradlew assembleAndroidTest
 
@@ -38,17 +32,10 @@ jobs:
         with:
           arg-spec: 'android-device.yml:android-pixel-4'
         env:
-          SERVICE_ACCOUNT: '{
-  "type": "service_account",
-  "project_id": "budle-5d393",
-  "private_key_id": "83afac1209e523681af43fd713c3a4d3e4cde7a5",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDsSGtgCjARWM/5\n3ZegWKPzJ7CXIdBZqlLVuhGj+fb19FKiK7HqPR0TcwHqcE5sd5hZWgQG9cyj5Wwb\n406CmXoPNHFRWZW0bMmginSXXxV/BlLxncKWkVrk0FZJJ2L9CuLMlEmMuwBUZhX5\nTaiQyDvuuDgM8IbX0RMqo7gOaHgH0zZ18L/k1dW0LDYqW2ykNLa1j6lYGDbCfJwR\nQvExLaXwGSkU9Aj4VX9cVHd0BV12d1I4MgTniWK/lDWspz9Mb1auk6sHJcGhK8+q\nmrDEgaP6jcbwXxA0Ihz1D39rrwwcLCIh+lZfPVEo2Tmpw4PeePQuArNyiT+JCa34\ncGMQabePAgMBAAECggEAI0nWPi6Mqu08iSDsViZ250f8X+NNG98hZknW/EpG9R52\nFZdOB+GfDTpmGlkx3+blVM7p/roeGTTt9k+hTZsAt52e9kXZYxbDmYZOzxQEgLH1\nQvWgoV54beekQ2JZA9lo3Eyh8XKKTuXnjpISb1EgYPuYD21VeOJWU6Nw8oyYBJ7g\nLRuTI65iGOBUP3hU94WZEsFhrAB6Jul72VZS9gXoE6IsjjXmnGFZqZT3RMokGXY/\nrBmCXP12rAE+oSBWkIm5F/C7VmKiKIkUXZKe2BHVpL4KPimHpNw83PTeX/sNrKbC\nqSFUDlomJYEVqTS0Ustgd5OrCYXFQc/a7jh1C2zf4QKBgQD8FOex4UAHgrYfjxws\nRkqfLOMCr2BObFumqH9p18fij3i9k40TPU7MsTpKrwt99UNEooH/5mMJ0Wk2xFN3\n1CCNrh0Kb0UWUxgXqq5j7dnnqrhGGFlMuZh9Fb/4wvpqta5dt2kuOk5ItDAMocPS\nI4HQUejsrzHasJBpKrmKKpiHoQKBgQDv9KWtUSJI8usHL0TNYorKJTMg4TNNbZhJ\nuWvIwyZRRW18rMJsiC167f13DSudKPlDE1OjEUHNLB9XF5uEYsU3LxE7AkSTUQa8\nRIcb45IyH+rxJvJSjaWYgBDYhgNRXqIoc/c0PrMd0xrFaBUZ7nsh/I4vQ7BIZ4H2\nmk0MS5MxLwKBgDgmV+2xZNfHb9XbxMS/64NFNlO0yNjvHgMjaS4kWGvI1XY01anB\ncDn8CCX2k7K83Pz+zcI4iTr4oF0IoicA4zdr3yAh5NuyKp2q8SllI7KMvnsulUWX\n2bWTEK3SkIEQcwSBBDa92g4rxMArkDjQm+vRMvb1lz9FMQWb9LQoBM3BAoGBAMIc\njsoeEDYjDK3LN0VOqifM4AeBJhdEySUasm6+L4kfOOrado2FvATt8VUVemqwcrQo\nNkh79Vcckl3J4yy9Gf0CPlYWB5OEwIYciY+uEN4ro8thTjYqEAPF1drSzmxMubEv\n3pKNBijiVY3MHQXVPhbIT908TKbF1QTA3gNMP85RAoGACklio2PzNG+iSAxvEB2p\nT7fAjuuI0mwJY8M01+qDSY0BkCBoBxyyy6duNvv+03mbNc0OILXbiW1QsQAGkVtk\nl+iR+qAFaDLrTQSyZfM0/2AZda0hheTz+3V+JsHfKQ+Kcmu0XwTxvkxp4JLxQSkU\n1neJCy7WPgxypm5bIoDtdas=\n-----END PRIVATE KEY-----\n",
-  "client_email": "budletest@budle-5d393.iam.gserviceaccount.com",
-  "client_id": "115231136328791113955",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/budletest%40budle-5d393.iam.gserviceaccount.com",
-  "universe_domain": "googleapis.com"
-}
-'
+          SERVICE_ACCOUNT: ${{ secrets.FIREBASE_TEST_LAB_SERVICE_ACCOUNT }}
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.3
+        with:
+          name: Budle.apk
+          path: app/build/outputs/apk/debug/app-debug.apk
