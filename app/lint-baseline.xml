@@ -112,6 +112,27 @@
         <location column="13" file="src/main/AndroidManifest.xml" line="32" />
     </issue>
 
+    <issue errorLine1="                    override fun checkClientTrusted("
+        errorLine2="                                 ~~~~~~~~~~~~~~~~~~"
+        id="TrustAllX509TrustManager"
+        message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
+        <location column="34" file="src/main/java/fit/budle/di/RetrofitModule.kt" line="47" />
+    </issue>
+
+    <issue errorLine1="                    override fun checkServerTrusted("
+        errorLine2="                                 ~~~~~~~~~~~~~~~~~~"
+        id="TrustAllX509TrustManager"
+        message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
+        <location column="34" file="src/main/java/fit/budle/di/RetrofitModule.kt" line="53" />
+    </issue>
+
+    <issue errorLine1="                object : X509TrustManager {"
+        errorLine2="                ~~~~~~"
+        id="CustomX509TrustManager"
+        message="Implementing a custom `X509TrustManager` is error-prone and likely to be insecure. It is likely to disable certificate validation altogether, and is non-trivial to implement correctly without calling Android&apos;s default implementation.">
+        <location column="17" file="src/main/java/fit/budle/di/RetrofitModule.kt" line="46" />
+    </issue>
+
     <issue errorLine1="@RequiresApi(Build.VERSION_CODES.N)" errorLine2="~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         id="ObsoleteSdkInt"
         message="Unnecessary; SDK_INT is always >= 24">

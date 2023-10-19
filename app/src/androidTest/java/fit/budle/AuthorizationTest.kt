@@ -28,9 +28,9 @@ class AuthorizationTest {
         composeTestRule.onNodeWithText("Подтвердить").assertIsDisplayed()
         composeTestRule.onNodeWithText("Введите Ваше имя")
             .assertIsDisplayed()
-            .performTextInput("user1234")
+            .performTextInput("user123456")
 
-        composeTestRule.onNodeWithText("Введите пароль").performTextInput("user1234user")
+        composeTestRule.onNodeWithText("Введите пароль").performTextInput("user123456")
         composeTestRule.onNodeWithText("Подтвердить").performClick()
 
         composeTestRule.waitUntil(2000) {
