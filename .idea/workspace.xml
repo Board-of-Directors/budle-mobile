@@ -9,8 +9,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a58d49e-1564-42e2-9059-987b6e47ff1a" name="Changes" comment="develop/fix work with https">
+    <list default="true" id="4a58d49e-1564-42e2-9059-987b6e47ff1a" name="Changes" comment="develop/add firebase testing">
       <change beforePath="$PROJECT_DIR$/.github/workflows/AndroidBuild.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/AndroidBuild.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -832,7 +833,14 @@
       <option name="project" value="LOCAL" />
       <updated>1697716358238</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="develop/add firebase testing">
+      <created>1697725295718</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1697725295718</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -847,7 +855,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Get .svg image from internal storage" />
     <MESSAGE value="Added XMLParser and XMLShape" />
     <MESSAGE value="New UI components and trying to create File from the URI" />
     <MESSAGE value="Add get and convert .svg file from the external storage to the base64" />
@@ -872,7 +879,8 @@
     <MESSAGE value="develop/add lint xml, fast fix lint errors" />
     <MESSAGE value="develop/fix apk directory" />
     <MESSAGE value="develop/fix work with https" />
-    <option name="LAST_COMMIT_MESSAGE" value="develop/fix work with https" />
+    <MESSAGE value="develop/add firebase testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="develop/add firebase testing" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
