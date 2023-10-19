@@ -38,4 +38,17 @@ jobs:
         with:
           arg-spec: 'android-device.yml:android-pixel-4'
         env:
-          SERVICE_ACCOUNT: 'firebase-adminsdk-4glpr@budle-5d393.iam.gserviceaccount.com'
+          SERVICE_ACCOUNT: '{
+  "type": "service_account",
+  "project_id": "budle-5d393",
+  "private_key_id": "08943af160aafa78d3d19747116e47d9b39a3d6e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC7LiJ9wPrrSAvT\nXXIUbjfQq+Tu6Gjoc2iTYGDNsOS3VAZJP+kmwiNW+mdV7aQUd2hwJjRkO7bHeDcK\n+O9C4eh0IorIUlxXHPGTB/U3qfAdXNOgAHk3n1Ms62lTGczq+sTjF1dRUUzzZc4s\nraSyKXVJ/A1YV3ger2ENAKMMp5Admg6OGU1wTTuY5CS4bYElQmLNUoQMDfO0aYib\ni+s6I8V3Ipxr4Up+zUtGy/YIYlkpZ1/ppZKxGdqZY+QVADUoXzbBNhQVTEKGRQN0\n8tbd3MJq9LTb3NtNkPs0HVfqcUkm+c49aF8RkE0SkhloFwlZdo8L0cOuLFiNr7Hp\nTncKId+rAgMBAAECgf8NGPhsMGha+dbdaSWvam1bRj6yxAfvYZScF43huAJyBMYu\nZDRGxJMoiAezDlX98xVddRhNTjJKfpuLLiDr/4Mxu+OyfOR+WYnVixN2VRNelDZx\nT1m7ajkhwNxetRhswqfiHVtPAbvPpP/Qzpn9oAspeTA71wG+0gGvHCP6ssJTeMfp\nBp8qbFk8zJthCEilotACo8cNUzUhnD1KiZq6lapBvVzuZlMEoQomZsrO+I76v4uQ\ngtITYSmn8OQS8S+aQ0rAzRjc1kJwz44WBonuN82VmMoeC5I7kTClkv3G9oekqRxN\nHxrNbstb0m53kioRuwdGCJC2CjeKxw5TlpGaR1UCgYEA3Riu9hz6Pcl3S571nqLg\n0hBTjntN9G2bvCNtuYVLNhc8uAao5z2qefk//93FIDYhA0LyqTalc41DkoIsfAUD\nz0dAZGpqO9QwcjXVYc9bKul37taR8634MEdN7H+/fGBE0RsmpUC7KTyMnphWa5/2\nN9DnYnjQGQGEnoLgUkYfke0CgYEA2LrF6wZFo6vGuQRT1MyB3pT+8TRkorkprg5Q\nFeQRVba4KeJGjU08Sb3z34nwGxN57wAGTHd/wz2FNaKNIFjexLYUaIoAxLSBbmwT\netQ+tLim+MoDO03HuUp/zFZ7fQnqhscZJkaIA3g6l4y9Z4LKr/c+nja3Ho3dvclD\n6N/p5PcCgYEAvYomm7iV0pg/G+YHHNr3Lz5t00zjtHKuuqgIra2Wn6VmGUEkVTDp\nT62c7wW4s3eT747aJrRBPIFS92t/JUbLUEv96NfNgMLUUWTTLAmuV2hUt7zc3HE8\nvm6yX9fYWZDSDg1foPWQPba5ulBQbe1xD8KYSjPV+knx3k3GbuHMuLUCgYB5YtKr\nOc4TR4h748KYMxqh8c2Ahxm+UfrYM8gDGsPiv/4R51wglBuqKavHjdhfMd9fTyI3\n/c4fKfvL+IkWju/mORzhGDop8fd0Qy/94ZZlXe6W9X4t3vh3/RPq/J0ZgU5LwoOB\nfot7dgFLFFaY/RZMzCvULU0O3eJOA8X3TkIQLQKBgQDbVNeISdIG845v/bvmb2/h\nRNMzQUR2gayY10Ux/X8I+GOw1gdsC16PPHST8OQw8hdqIwnn4lUO9WG1mhjyvAgj\nZtz7FjszbDx7YA+QYoTfCfwL2R2mEb35jIqe/LIjRKAIS9QPVo6uXR4wsKUxr9vM\noBrYwD+AkWeNUNLaPiKHNQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "testbudle@budle-5d393.iam.gserviceaccount.com",
+  "client_id": "117546560993176241346",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/testbudle%40budle-5d393.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
+'
