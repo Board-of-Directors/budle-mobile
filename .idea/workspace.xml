@@ -9,8 +9,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a58d49e-1564-42e2-9059-987b6e47ff1a" name="Changes" comment="develop/yml added">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/AnroidBuild.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/AnroidBuild.yml" afterDir="false" />
+    <list default="true" id="4a58d49e-1564-42e2-9059-987b6e47ff1a" name="Changes" comment="develop/yml fix">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/AndroidBuild.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/AndroidBuild.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -769,7 +770,14 @@
       <option name="project" value="LOCAL" />
       <updated>1697706165972</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="develop/yml fix">
+      <created>1697706595274</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1697706595274</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -784,7 +792,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="develop/add booking scenario" />
     <MESSAGE value="develop/add deleting" />
     <MESSAGE value="develop/delete useless files, refactoring" />
     <MESSAGE value="backend-integration / reverting" />
@@ -809,7 +816,8 @@
     <MESSAGE value="Now searchBar interacts with user on the main screen, but it's still gets data too long" />
     <MESSAGE value="develop/test init" />
     <MESSAGE value="develop/yml added" />
-    <option name="LAST_COMMIT_MESSAGE" value="develop/yml added" />
+    <MESSAGE value="develop/yml fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="develop/yml fix" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
