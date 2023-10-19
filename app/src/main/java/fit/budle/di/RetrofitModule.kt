@@ -18,7 +18,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 open class RetrofitModule {
 
-    open fun baseUrl() = "http://80.89.192.250:8080/".toHttpUrl()
+    open fun baseUrl() = "https://80.89.192.250:8080/".toHttpUrl()
 
     @Singleton
     @Provides
