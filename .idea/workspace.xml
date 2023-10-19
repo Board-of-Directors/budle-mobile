@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a58d49e-1564-42e2-9059-987b6e47ff1a" name="Changes" comment="develop/add firebase testing">
+    <list default="true" id="4a58d49e-1564-42e2-9059-987b6e47ff1a" name="Changes" comment="develop/fix user permission">
       <change beforePath="$PROJECT_DIR$/.github/workflows/AndroidBuild.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/AndroidBuild.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
@@ -840,7 +840,14 @@
       <option name="project" value="LOCAL" />
       <updated>1697725295718</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="develop/fix user permission">
+      <created>1697725960710</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1697725960710</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -855,7 +862,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added XMLParser and XMLShape" />
     <MESSAGE value="New UI components and trying to create File from the URI" />
     <MESSAGE value="Add get and convert .svg file from the external storage to the base64" />
     <MESSAGE value="Connected post establishment with map and get it on the all screens, also connected customer user and business user, added BusinessAccount navigation graph" />
@@ -880,7 +886,8 @@
     <MESSAGE value="develop/fix apk directory" />
     <MESSAGE value="develop/fix work with https" />
     <MESSAGE value="develop/add firebase testing" />
-    <option name="LAST_COMMIT_MESSAGE" value="develop/add firebase testing" />
+    <MESSAGE value="develop/fix user permission" />
+    <option name="LAST_COMMIT_MESSAGE" value="develop/fix user permission" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
