@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -57,7 +58,7 @@ fun StartScreen(
                     .padding(bottom = 21.dp)
             )
             Text(
-                text = "Бронируйте места в пару кликов!",
+                text = stringResource(id = R.string.caption_budle),
                 modifier = Modifier
                     .padding(bottom = 51.dp)
                     .width(180.dp),
@@ -67,23 +68,22 @@ fun StartScreen(
             BudleButton(
                 onClick = {
                     navHostController.navigate("numberScreen")
-                },
-                buttonText = "Зарегистрироваться"
+                }, buttonText = stringResource(id = R.string.btn_register)
             )
             Row {
                 Text(
-                    text = "Уже есть аккаунт? ",
+                    text = stringResource(id = R.string.caption_login),
                     modifier = Modifier.padding(top = 20.dp),
                     color = textGray,
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Text(
-                    text = "Войти",
+                    text = stringResource(id = R.string.btn_login),
                     modifier = Modifier
                         .padding(top = 20.dp)
                         .clickable {
                             viewModel.onEvent(RegistrationEvent.Login)
-                            navHostController.navigate("dataScreen")
+                            navHostController.navigate("dataScreenLogin")
                         },
                     color = fillPurple,
                     style = MaterialTheme.typography.bodyMedium

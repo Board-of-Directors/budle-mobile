@@ -18,10 +18,10 @@ interface RegistrationDAO {
     @POST("user/login")
     suspend fun postUserLogin(@Body requestUserDto: RequestUser): Response<DefaultBooleanResponse>
 
-    @POST("code")
+    @POST("user/code")
     suspend fun postCode(@Body codeDto: CodeDto): Response<DefaultBooleanResponse>
 
-    @GET("code")
+    @GET("user/code")
     suspend fun getCode(@Query("phoneNumber") phoneNumber: String): Response<DefaultBooleanResponse>
 
     @GET("user/me")

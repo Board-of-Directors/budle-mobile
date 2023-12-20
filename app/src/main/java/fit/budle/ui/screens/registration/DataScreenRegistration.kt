@@ -19,10 +19,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
-import fit.budle.dto.enums.RegisterType
 import fit.budle.event.customer.RegistrationEvent
 import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.ui.components.atoms.inputs.text_fields.BudlePasswordTextField
@@ -32,14 +32,14 @@ import fit.budle.ui.theme.textGray
 import fit.budle.viewmodel.customer.RegistrationViewModel
 
 @Composable
-fun DataScreen(
+fun DataScreenRegistration(
     navHostController: NavHostController,
     viewModel: RegistrationViewModel,
 ) {
-    val nextButtonText = if (viewModel.type == RegisterType.REGISTER) "Далее" else "Подтвердить"
-    val passwordColor = if (viewModel.requestException.isEmpty()) textGray else backgroundError
-    val passwordMessage = viewModel.requestException.ifEmpty {
-        "Придумайте пароль от 8 знаков из\n" + "цифр и латинских букв"
+    val passwordColor =
+        if (viewModel.requestException.value!!.isEmpty()) textGray else backgroundError
+    val passwordMessage = viewModel.requestException.value!!.ifEmpty {
+        stringResource(R.string.message_password_req)
     }
 
     Surface(
@@ -60,12 +60,9 @@ fun DataScreen(
             ) {
                 IconButton(
                     onClick = {
-                        if (viewModel.type == RegisterType.REGISTER) {
-                            navHostController.popBackStack()
-                            viewModel.requestException = ""
-                        } else navHostController.navigate("startScreen")
-                    },
-                    modifier = Modifier.padding(end = 40.dp)
+                        navHostController.popBackStack()
+                        viewModel.requestException.value = ""
+                    }, modifier = Modifier.padding(end = 40.dp)
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_arrow_left_gray),
@@ -86,16 +83,14 @@ fun DataScreen(
                     .padding(top = 60.dp)
             ) {
                 Text(
-                    text = "Имя пользователя",
+                    text = stringResource(R.string.caption_user_name),
                     style = MaterialTheme.typography.bodyMedium,
                     color = textGray,
                     modifier = Modifier.padding(bottom = 10.dp)
                 )
-                BudleSingleLineTextField(
-                    startMessage = "",
-                    placeholder = "Введите Ваше имя",
-                    onValueChange = { viewModel.username = it }
-                )
+                BudleSingleLineTextField(startMessage = "",
+                    placeholder = stringResource(R.string.placeholder_user_name),
+                    onValueChange = { viewModel.username = it })
             }
             Column(
                 horizontalAlignment = Alignment.Start,
@@ -104,16 +99,14 @@ fun DataScreen(
                     .padding(top = 20.dp)
             ) {
                 Text(
-                    text = "Пароль",
+                    text = stringResource(R.string.caption_password),
                     style = MaterialTheme.typography.bodyMedium,
                     color = textGray,
                     modifier = Modifier.padding(bottom = 10.dp)
                 )
-                BudlePasswordTextField(
-                    startMessage = "",
-                    placeholder = "Введите пароль",
-                    onValueChange = { viewModel.password = it }
-                )
+                BudlePasswordTextField(startMessage = "",
+                    placeholder = stringResource(R.string.placeholder_password),
+                    onValueChange = { viewModel.password = it })
                 Text(
                     text = passwordMessage,
                     style = MaterialTheme.typography.bodyMedium,
@@ -124,20 +117,15 @@ fun DataScreen(
             Spacer(Modifier.weight(1f))
             BudleButton(
                 onClick = {
-                    if (viewModel.username.isNotEmpty() && viewModel.password.length > 8) {
+                    if (viewModel.username.isNotEmpty()) {
                         viewModel.onEvent(RegistrationEvent.PostUser(viewModel.type))
                         Handler(Looper.getMainLooper()).postDelayed({
-                            if (viewModel.requestException.isEmpty()) {
-                                if (viewModel.type == RegisterType.REGISTER) {
-                                    navHostController.navigate("endScreen")
-                                } else {
-                                    navHostController.navigate("main")
-                                }
+                            if (viewModel.requestException.value == "SUCCESS") {
+                                navHostController.navigate("endScreen")
                             }
-                        }, 1000)
+                        }, 3000)
                     }
-                },
-                buttonText = nextButtonText
+                }, buttonText = stringResource(R.string.btn_next)
             )
         }
     }

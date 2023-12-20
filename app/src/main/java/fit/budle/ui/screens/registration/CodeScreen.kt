@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -83,7 +84,7 @@ fun CodeScreen(
                 IconButton(
                     onClick = {
                         navHostController.popBackStack()
-                        viewModel.requestException = ""
+                        viewModel.requestException.value = ""
                     },
                     modifier = Modifier.padding(end = 40.dp)
                 ) {
@@ -130,9 +131,9 @@ fun CodeScreen(
                         )
                     }
                 }
-                if (viewModel.requestException.isNotEmpty()) {
+                if (viewModel.requestException.value!!.isNotEmpty()) {
                     Text(
-                        text = viewModel.requestException,
+                        text = viewModel.requestException.value!!,
                         style = MaterialTheme.typography.bodyMedium,
                         color = backgroundError,
                         modifier = Modifier
@@ -157,17 +158,17 @@ fun CodeScreen(
                     if (!errorState.value) {
                         viewModel.onEvent(RegistrationEvent.PostCode)
                         Handler(Looper.getMainLooper()).postDelayed({
-                            if (viewModel.requestException.isEmpty()) {
-                                navHostController.navigate("dataScreen")
+                            if (viewModel.requestException.value == "SUCCESS") {
+                                navHostController.navigate("dataScreenRegistration")
                             } else {
                                 for (i in 0..3) {
                                     viewModel.states[i] = ""
                                 }
                             }
-                        }, 1000)
+                        }, 3000)
                     }
                 },
-                buttonText = "Подтвердить"
+                buttonText = stringResource(id = R.string.btn_accept)
             )
         }
     }

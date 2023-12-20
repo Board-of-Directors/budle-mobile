@@ -21,36 +21,32 @@ class RegistrationRepositoryImpl @Inject constructor(
 ) : RegistrationRepository {
 
     override suspend fun postUser(requestUserDto: RequestUser, type: RegisterType): PostUserResult {
-
         val response = if (type == RegisterType.REGISTER) {
             registrationDAO.postUserRegistration(requestUserDto)
         } else registrationDAO.postUserLogin(requestUserDto)
 
         return if (response.body() == null) {
-
-            Log.w("POST_USER", ResponseException.NULL_BODY)
-            PostUserResult.Failure("Пользователя с такими данными не существует")
-
-        } else if (response.body()!!.exception == null) {
-
+            Log.e(
+                "POST_USER",
+                "SERVER FAILURE: " + response.code() + response.errorBody()?.string().toString()
+            )
+            PostUserResult.Failure("Ошибка на сервере: " + response.message())
+        } else if (response.body()?.exception == null) {
             Log.d("POST_USER", "SUCCESS")
             with(prefs.edit()) {
                 if (response.headers().values("Set-Cookie").isNotEmpty()) {
                     putString(
-                        SharedPrefConfig.sessionId,
-                        response.headers().values("Set-Cookie")[0]
+                        SharedPrefConfig.sessionId, response.headers().values("Set-Cookie")[0]
                     )
                 }
                 putString(SharedPrefConfig.username, requestUserDto.username)
                 apply()
             }
             PostUserResult.Success(
-                result = response.body()!!.result,
-                exception = response.body()!!.exception
+                result = response.body()!!.result, exception = response.body()!!.exception
             )
-
         } else {
-            Log.e("POST_USER", response.body()!!.exception!!.message)
+            Log.e("POST_USER", "FAILURE: " + response.body()!!.exception!!.message)
             PostUserResult.Failure(response.body()!!.exception!!.message)
         }
     }
@@ -60,8 +56,7 @@ class RegistrationRepositoryImpl @Inject constructor(
         return if (response.body()!!.exception == null) {
             Log.d("POST_CODE", "SUCCESS")
             PostCodeResult.Success(
-                result = response.body()!!.result,
-                exception = response.body()!!.exception
+                result = response.body()!!.result, exception = response.body()!!.exception
             )
         } else {
             Log.d("POST_CODE", response.body()!!.exception!!.message)
@@ -73,16 +68,23 @@ class RegistrationRepositoryImpl @Inject constructor(
 
     override suspend fun getCode(phoneNumber: String): GetCodeResult {
         val response = registrationDAO.getCode(phoneNumber)
-        return if (response.body()!!.exception == null) {
+        return if (response.body() == null) {
+            Log.e(
+                "GET_CODE",
+                "SERVER FAILURE: " + response.code() + response.errorBody()?.string().toString()
+            )
+            GetCodeResult.Failure(
+                exception = "Ошибка на сервере"
+            )
+        } else if (response.body()?.exception == null) {
             Log.d("GET_CODE", "SUCCESS")
             GetCodeResult.Success(
-                result = response.body()!!.result,
-                exception = response.body()!!.exception
+                result = response.body()?.result, exception = response.body()?.exception
             )
         } else {
-            Log.d("GET_CODE", response.body()!!.exception!!.message)
+            Log.e("GET_CODE", "FAILURE: " + response.body()?.exception!!.message)
             GetCodeResult.Failure(
-                exception = response.body()!!.exception!!.message
+                exception = response.body()?.exception!!.message
             )
         }
     }
@@ -100,8 +102,7 @@ class RegistrationRepositoryImpl @Inject constructor(
 
             Log.d("GET_USER", "SUCCESS")
             GetUserResult.Success(
-                result = response.body()!!.result,
-                exception = response.body()!!.exception
+                result = response.body()!!.result, exception = response.body()!!.exception
             )
 
         } else {

@@ -18,14 +18,13 @@ import fit.budle.ui.theme.textGray
 fun BudleNumberTextField(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    error: MutableState<Boolean> = mutableStateOf(false),
+    error: MutableState<String> = mutableStateOf(""),
     onValueChange: (String) -> Unit,
     startMessage: String = "",
     inputLength: Int,
     mask: String,
     placeHolder: String = "+7",
 ) {
-
     var text by remember { mutableStateOf(startMessage) }
     val textColor = if (enabled) mainBlack else textGray
     val focusManager = LocalFocusManager.current
@@ -36,13 +35,14 @@ fun BudleNumberTextField(
         value = text,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         onValueChange = { it ->
-            if (it.length <= inputLength) {
-                if (error.value && it.length == inputLength)
-                    error.value = false
-                text = it.filter { it.isDigit() }
-                if (it.length == inputLength) {
-                    focusManager.clearFocus()
-                }
+            text = it.filter { it.isDigit() }
+            if (it.isEmpty()) {
+                error.value = "Введите номер"
+            } else if (it.length < inputLength) {
+                error.value = "Введите номер полностью"
+            } else if (it.length == inputLength) {
+                error.value = ""
+                focusManager.clearFocus()
             }
         },
         shape = RoundedCornerShape(10.dp),

@@ -23,15 +23,18 @@ class AuthorizationTest {
 
     @Test
     fun loginTest() {
-        val loginLabel = composeTestRule.activity.getString(R.string.btn_login)
-        composeTestRule.onNodeWithText(loginLabel).performClick()
-        composeTestRule.onNodeWithText("Подтвердить").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Введите Ваше имя")
+        composeTestRule.onNodeWithText(composeTestRule.activity.getString(R.string.btn_login))
+            .performClick()
+        composeTestRule.onNodeWithText(composeTestRule.activity.getString(R.string.btn_accept))
             .assertIsDisplayed()
-            .performTextInput("user123456")
+        composeTestRule.onNodeWithText(composeTestRule.activity.getString(R.string.placeholder_user_name))
+            .assertIsDisplayed()
+            .performTextInput("user12345")
 
-        composeTestRule.onNodeWithText("Введите пароль").performTextInput("user123456")
-        composeTestRule.onNodeWithText("Подтвердить").performClick()
+        composeTestRule.onNodeWithText(composeTestRule.activity.getString(R.string.placeholder_password))
+            .performTextInput("user12345")
+        composeTestRule.onNodeWithText(composeTestRule.activity.getString(R.string.btn_accept))
+            .performClick()
 
         composeTestRule.waitUntil(2000) {
             val node = try {
@@ -46,15 +49,18 @@ class AuthorizationTest {
     @Test
     fun registrationTest() {
         MockServer.server.dispatcher = MockServer.successDispatcher()
-        val loginLabel = composeTestRule.activity.getString(R.string.btn_login)
-        composeTestRule.onNodeWithText(loginLabel).performClick()
-        composeTestRule.onNodeWithText("Подтвердить").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Введите Ваше имя")
+        composeTestRule.onNodeWithText(composeTestRule.activity.getString(R.string.btn_login))
+            .performClick()
+        composeTestRule.onNodeWithText(composeTestRule.activity.getString(R.string.btn_accept))
+            .assertIsDisplayed()
+        composeTestRule.onNodeWithText(composeTestRule.activity.getString(R.string.placeholder_user_name))
             .assertIsDisplayed()
             .performTextInput("user12345")
 
-        composeTestRule.onNodeWithText("Введите пароль").performTextInput("user12345user")
-        composeTestRule.onNodeWithText("Подтвердить").performClick()
+        composeTestRule.onNodeWithText(composeTestRule.activity.getString(R.string.placeholder_password))
+            .performTextInput("user12345user")
+        composeTestRule.onNodeWithText(composeTestRule.activity.getString(R.string.btn_accept))
+            .performClick()
     }
 
     @Before

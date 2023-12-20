@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="btn_login">Войти</string>
+    <string name="btn_register">Зарегистрироваться</string>
+    <string name="btn_accept">Подтвердить</string>
+    <string name="btn_next">Далее</string>
+
+    <string name="message_password_req">Придумайте пароль</string>
+
+    <string name="caption_budle">Бронируйте места в пару кликов!</string>
+    <string name="caption_user_name">Имя пользователя</string>
+    <string name="caption_password">Пароль</string>
+    <string name="caption_login">Уже есть аккаунт?</string>
+
+    <string name="placeholder_number">Номер телефона</string>
+    <string name="placeholder_user_name">Введите Ваше имя</string>
+    <string name="placeholder_password">Введите пароль</string>
 </resources>

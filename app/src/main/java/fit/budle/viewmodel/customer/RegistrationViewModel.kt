@@ -1,9 +1,11 @@
 package fit.budle.viewmodel.customer
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,50 +31,47 @@ class RegistrationViewModel @Inject constructor(
     var phoneNumber by mutableStateOf("")
     var states = mutableStateListOf("", "", "", "")
 
-    var requestException: String by mutableStateOf("")
+    val requestException: MutableLiveData<String> = MutableLiveData("")
 
     fun onEvent(event: RegistrationEvent) {
         when (event) {
             is RegistrationEvent.GetCode -> {
                 viewModelScope.launch {
-                    requestException =
+                    requestException.value =
                         when (val result = registrationRepository.getCode(phoneNumber)) {
-                            is GetCodeResult.Success -> ""
+                            is GetCodeResult.Success -> "SUCCESS"
                             is GetCodeResult.Failure -> result.exception
                         }
                 }
             }
+
             is RegistrationEvent.PostCode -> {
                 viewModelScope.launch {
-                    requestException = when (val result = registrationRepository.postCode(
+                    requestException.value = when (val result = registrationRepository.postCode(
                         CodeDto(
-                            code = states.joinToString(""),
-                            phoneNumber = phoneNumber
+                            code = states.joinToString(""), phoneNumber = phoneNumber
                         )
                     )) {
-                        is PostCodeResult.Success -> ""
+                        is PostCodeResult.Success -> "SUCCESS"
                         is PostCodeResult.Failure -> result.exception
                     }
                 }
             }
+
             is RegistrationEvent.PostUser -> {
                 viewModelScope.launch {
-                    when (val result = registrationRepository.postUser(
+                    requestException.value = when (val result = registrationRepository.postUser(
                         RequestUser(
-                            password = password,
-                            phoneNumber = phoneNumber,
-                            username = username
+                            password = password, phoneNumber = phoneNumber, username = username
                         ), event.type
                     )) {
-                        is PostUserResult.Success -> {
-                            requestException = ""
-                        }
-                        is PostUserResult.Failure -> {
-                            requestException = result.exception
-                        }
+                        is PostUserResult.Success -> "SUCCESS"
+                        is PostUserResult.Failure -> result.exception
                     }
                 }
+                Log.d("MEME", requestException.value ?: "NULL")
             }
+
             is RegistrationEvent.Login -> {
                 type = RegisterType.LOGIN
             }

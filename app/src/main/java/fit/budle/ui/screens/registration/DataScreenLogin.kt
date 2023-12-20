@@ -1,24 +1,24 @@
 package fit.budle.ui.screens.registration
 
-import android.os.Handler
-import android.os.Looper
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -26,17 +26,22 @@ import androidx.navigation.NavHostController
 import fit.budle.R
 import fit.budle.event.customer.RegistrationEvent
 import fit.budle.ui.components.atoms.BudleButton
-import fit.budle.ui.components.atoms.inputs.text_inputs.BudleNumberInput
-import fit.budle.ui.models.NumberDefaults
+import fit.budle.ui.components.atoms.inputs.text_fields.BudlePasswordTextField
+import fit.budle.ui.components.atoms.inputs.text_fields.BudleSingleLineTextField
+import fit.budle.ui.theme.backgroundError
 import fit.budle.ui.theme.textGray
 import fit.budle.viewmodel.customer.RegistrationViewModel
 
 @Composable
-fun NumberScreen(
+fun DataScreenLogin(
     navHostController: NavHostController,
     viewModel: RegistrationViewModel,
 ) {
-    val screenError = remember { mutableStateOf("") }
+    val lifecycleOwner = LocalLifecycleOwner.current
+    viewModel.requestException.observeAsState().value.let {
+        Log.d("MAINSCREEN", "UPDATED: $it")
+    }
+
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -57,8 +62,7 @@ fun NumberScreen(
                     onClick = {
                         navHostController.popBackStack()
                         viewModel.requestException.value = ""
-                    },
-                    modifier = Modifier.padding(end = 40.dp)
+                    }, modifier = Modifier.padding(end = 40.dp)
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_arrow_left_gray),
@@ -77,29 +81,52 @@ fun NumberScreen(
                 modifier = Modifier
                     .padding(horizontal = 40.dp)
                     .padding(top = 60.dp)
-                    .fillMaxWidth()
             ) {
-                BudleNumberInput(
-                    modifier = Modifier.fillMaxWidth(),
-                    placeHolder = stringResource(R.string.placeholder_number),
-                    inputLength = NumberDefaults.INPUT_LENGTH,
-                    mask = NumberDefaults.MASK,
-                    onValueChange = { viewModel.phoneNumber = it },
-                    exceptionMessage = viewModel.requestException.value.toString()
+                Text(
+                    text = stringResource(id = R.string.caption_user_name),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = textGray,
+                    modifier = Modifier.padding(bottom = 10.dp)
+                )
+                BudleSingleLineTextField(startMessage = "",
+                    placeholder = stringResource(id = R.string.placeholder_user_name),
+                    onValueChange = { viewModel.username = it })
+            }
+            Column(
+                horizontalAlignment = Alignment.Start,
+                modifier = Modifier
+                    .padding(horizontal = 40.dp)
+                    .padding(top = 20.dp)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.caption_password),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = textGray,
+                    modifier = Modifier.padding(bottom = 10.dp)
+                )
+                BudlePasswordTextField(startMessage = "",
+                    placeholder = stringResource(id = R.string.placeholder_password),
+                    onValueChange = { viewModel.password = it })
+                Text(
+                    text = viewModel.requestException.value.toString(),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = backgroundError,
+                    modifier = Modifier.padding(top = 10.dp)
                 )
             }
             Spacer(Modifier.weight(1f))
             BudleButton(
                 onClick = {
-                    screenError.value = viewModel.requestException.value.toString()
-                    viewModel.onEvent(RegistrationEvent.GetCode)
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        if (viewModel.requestException.value == "SUCCESS") {
-                            navHostController.navigate(route = "codeScreen")
+                    if (viewModel.username.isNotEmpty()) {
+                        viewModel.onEvent(RegistrationEvent.PostUser(viewModel.type))
+                        Log.d("MEME", viewModel.requestException.value ?: "NULL")
+                        viewModel.requestException.observe(lifecycleOwner) { exception ->
+                            if (exception == "SUCCESS") {
+                                navHostController.navigate("main")
+                            }
                         }
-                    }, 3000)
-                },
-                buttonText = stringResource(R.string.btn_accept)
+                    }
+                }, buttonText = stringResource(R.string.btn_accept)
             )
         }
     }

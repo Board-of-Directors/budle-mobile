@@ -26,7 +26,7 @@ import javax.net.ssl.X509TrustManager
 @InstallIn(SingletonComponent::class)
 open class RetrofitModule {
 
-    open fun baseUrl() = "https://80.89.192.250:8080/".toHttpUrl()
+    open fun baseUrl() = "https://budle.ru/".toHttpUrl()
 
     @Singleton
     @Provides

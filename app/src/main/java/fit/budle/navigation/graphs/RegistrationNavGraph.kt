@@ -22,8 +22,16 @@ fun NavGraphBuilder.registrationNavGraph(
                 viewModel = hiltViewModel()
             )
         }
-        composable("dataScreen") {
-            DataScreen(
+        composable("dataScreenRegistration") {
+            DataScreenRegistration(
+                navHostController = navHostController,
+                viewModel = hiltViewModel(
+                    navHostController.getBackStackEntry("startScreen")
+                )
+            )
+        }
+        composable("dataScreenLogin") {
+            DataScreenLogin(
                 navHostController = navHostController,
                 viewModel = hiltViewModel(
                     navHostController.getBackStackEntry("startScreen")
