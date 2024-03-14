@@ -1,6 +1,5 @@
 package fit.budle.ui.components.atoms.cards
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,13 +21,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import fit.budle.dto.order.Booking
 import fit.budle.dto.order.BookingStatus
 import fit.budle.event.customer.OrderListEvent
 import fit.budle.ui.components.atoms.BudleButton
-import fit.budle.ui.components.atoms.PhotoTag
 import fit.budle.ui.theme.alphaBlack
 import fit.budle.ui.theme.backgroundError
 import fit.budle.ui.theme.backgroundSuccess
@@ -74,14 +71,14 @@ fun BookingCard(booking: Booking) {
             modifier = Modifier.height(120.dp),
             contentAlignment = Alignment.BottomStart
         ) {
-            if (booking.establishmentImage.image != null) {
-                Image(
-                    painter = booking.establishmentImage.image!!,
-                    contentDescription = "Restaurant Card",
-                    modifier = Modifier.fillMaxWidth(),
-                    contentScale = ContentScale.Crop
-                )
-            }
+//            if (booking.image != null) {
+//                Image(
+//                    painter = booking.image,
+//                    contentDescription = "Restaurant Card",
+//                    modifier = Modifier.fillMaxWidth(),
+//                    contentScale = ContentScale.Crop
+//                )
+//            }
             Box(
                 Modifier
                     .matchParentSize()
@@ -101,11 +98,11 @@ fun BookingCard(booking: Booking) {
                             .padding(bottom = 2.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(
-                            text = booking.establishment.category,
-                            style = MaterialTheme.typography.labelSmall,
-                            color = mainWhite,
-                        )
+//                        Text(
+//                            text = booking.establishment.category,
+//                            style = MaterialTheme.typography.labelSmall,
+//                            color = mainWhite,
+//                        )
                         Card(
                             modifier = Modifier.padding(horizontal = 7.dp),
                             shape = CircleShape
@@ -116,23 +113,23 @@ fun BookingCard(booking: Booking) {
                                     .background(mainWhite)
                             )
                         }
-                        val additional =
-                            if (booking.establishment.category == "Рестораны") booking.establishment.cuisineCountry
-                            else if (booking.establishment.category == "Отели") "${booking.establishment.starsCount} звезд"
-                            else ""
-                        Text(
-                            text = additional!!,
-                            style = MaterialTheme.typography.labelSmall,
-                            color = mainWhite
-                        )
+//                        val additional =
+//                            if (booking.establishment.category == "Рестораны") booking.establishment.cuisineCountry
+//                            else if (booking.establishment.category == "Отели") "${booking.establishment.starsCount} звезд"
+//                            else ""
+//                        Text(
+//                            text = additional,
+//                            style = MaterialTheme.typography.labelSmall,
+//                            color = mainWhite
+//                        )
                     }
-                    Text(
-                        text = booking.establishment.name,
-                        style = MaterialTheme.typography.titleSmall,
-                        color = mainWhite,
-                    )
+//                    Text(
+//                        text = booking.establishment.name,
+//                        style = MaterialTheme.typography.titleSmall,
+//                        color = mainWhite,
+//                    )
                 }
-                PhotoTag(tag = booking.establishment.rating.toString())
+//                PhotoTag(tag = booking.establishment.rating.toString())
             }
         }
     }

@@ -2,6 +2,7 @@ package fit.budle.ui.screens.registration
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -51,6 +53,10 @@ fun CodeScreen(
     val focusManager = LocalFocusManager.current
     val firstInput = 0
     val lastInput = 3
+
+    viewModel.requestException.observeAsState().value.let {
+        Log.d("MAINSCREEN", "ERROR UPDATED: $it")
+    }
     val errorState = remember { mutableStateOf(false) }
 
     val maxTicks = 30
@@ -131,7 +137,7 @@ fun CodeScreen(
                         )
                     }
                 }
-                if (viewModel.requestException.value!!.isNotEmpty()) {
+                if (viewModel.requestException.value!!.isNotEmpty() && (viewModel.requestException.value != "SUCCESS")) {
                     Text(
                         text = viewModel.requestException.value!!,
                         style = MaterialTheme.typography.bodyMedium,

@@ -2,6 +2,7 @@ package fit.budle.ui.screens.registration
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -23,6 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fit.budle.R
+import fit.budle.dto.enums.RegisterType
 import fit.budle.event.customer.RegistrationEvent
 import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.ui.components.atoms.inputs.text_fields.BudlePasswordTextField
@@ -37,9 +40,10 @@ fun DataScreenRegistration(
     viewModel: RegistrationViewModel,
 ) {
     val passwordColor =
-        if (viewModel.requestException.value!!.isEmpty()) textGray else backgroundError
-    val passwordMessage = viewModel.requestException.value!!.ifEmpty {
-        stringResource(R.string.message_password_req)
+        if (viewModel.requestException.value!!.isEmpty() || viewModel.requestException.value!! == "SUCCESS") textGray else backgroundError
+
+    viewModel.requestException.observeAsState().value.let {
+        Log.d("MAINSCREEN", "ERROR UPDATED: $it")
     }
 
     Surface(
@@ -108,7 +112,8 @@ fun DataScreenRegistration(
                     placeholder = stringResource(R.string.placeholder_password),
                     onValueChange = { viewModel.password = it })
                 Text(
-                    text = passwordMessage,
+                    text = if (viewModel.requestException.value != "SUCCESS") viewModel.requestException.value
+                        ?: "" else "",
                     style = MaterialTheme.typography.bodyMedium,
                     color = passwordColor,
                     modifier = Modifier.padding(top = 10.dp)
@@ -118,7 +123,7 @@ fun DataScreenRegistration(
             BudleButton(
                 onClick = {
                     if (viewModel.username.isNotEmpty()) {
-                        viewModel.onEvent(RegistrationEvent.PostUser(viewModel.type))
+                        viewModel.onEvent(RegistrationEvent.PostUser(RegisterType.REGISTER))
                         Handler(Looper.getMainLooper()).postDelayed({
                             if (viewModel.requestException.value == "SUCCESS") {
                                 navHostController.navigate("endScreen")

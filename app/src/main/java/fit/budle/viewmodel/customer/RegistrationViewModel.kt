@@ -71,7 +71,6 @@ class RegistrationViewModel @Inject constructor(
                 }
                 Log.d("MEME", requestException.value ?: "NULL")
             }
-
             is RegistrationEvent.Login -> {
                 type = RegisterType.LOGIN
             }

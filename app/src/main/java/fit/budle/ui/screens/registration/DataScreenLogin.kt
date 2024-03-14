@@ -39,7 +39,7 @@ fun DataScreenLogin(
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
     viewModel.requestException.observeAsState().value.let {
-        Log.d("MAINSCREEN", "UPDATED: $it")
+        Log.d("MAINSCREEN", "ERROR UPDATED: $it")
     }
 
     Surface(

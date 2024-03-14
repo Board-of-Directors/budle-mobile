@@ -17,6 +17,7 @@ import fit.budle.ui.screens.customer.EstablishmentSearchScreen
 import fit.budle.ui.screens.customer.MainScreen
 import fit.budle.ui.screens.customer.MapScreen
 import fit.budle.ui.screens.customer.OrderScreen
+import fit.budle.ui.screens.customer.ReviewsScreen
 import fit.budle.ui.screens.customer.UserProfileScreen
 
 @SuppressLint("UnrememberedGetBackStackEntry")
@@ -48,6 +49,14 @@ fun NavigationComponent(navController: NavHostController, isAuthorized: Boolean)
         }
         composable("card") {
             CardScreen(
+                navHostController = navController,
+                viewModel = hiltViewModel(
+                    navController.getBackStackEntry("main")
+                )
+            )
+        }
+        composable("reviewsScreen") {
+            ReviewsScreen(
                 navHostController = navController,
                 viewModel = hiltViewModel(
                     navController.getBackStackEntry("main")

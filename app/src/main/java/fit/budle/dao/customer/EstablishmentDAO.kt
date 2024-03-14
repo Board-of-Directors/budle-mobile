@@ -25,4 +25,9 @@ interface EstablishmentDAO {
     @GET("establishment/category")
     suspend fun getEstablishmentCategory(
     ): Response<EstablishmentResponse.CategoriesResponse>
+
+    @GET("establishment/review")
+    suspend fun getEstablishmentReviews(
+        @Query("establishmentId") establishmentId: Long,
+    ): Response<EstablishmentResponse.ReviewsResponse>
 }

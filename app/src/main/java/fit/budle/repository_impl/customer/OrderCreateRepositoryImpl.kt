@@ -18,7 +18,7 @@ class OrderCreateRepositoryImpl @Inject constructor(
 
         return if (response.body() == null) {
 
-            Log.e("POST_ORDER", ResponseException.NULL_BODY)
+            Log.e("POST_ORDER1", ResponseException.NULL_BODY)
             DefaultResult.Failure(ResponseException.NULL_BODY)
 
         } else if (response.body()!!.exception == null) {
@@ -30,7 +30,7 @@ class OrderCreateRepositoryImpl @Inject constructor(
             )
 
         } else {
-            Log.e("POST_ORDER", response.body()!!.exception!!.message)
+            Log.e("POST_ORDER2", response.body()!!.exception!!.message)
             DefaultResult.Failure(response.body()!!.exception!!.message)
         }
     }

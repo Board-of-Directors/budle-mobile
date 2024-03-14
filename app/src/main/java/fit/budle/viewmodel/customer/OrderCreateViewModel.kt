@@ -46,6 +46,7 @@ class OrderCreateViewModel @Inject constructor(
         when (event) {
             is OrderCreateEvent.PostOrder -> {
                 viewModelScope.launch {
+                    Log.d("MEMEMEME", "LOHI")
                     LogOrder(event.establishmentId)
                     requestOrderDto.establishmentId = event.establishmentId.toInt()
                     orderCreateRepository.postOrder(requestOrderDto)
@@ -76,8 +77,13 @@ class OrderCreateViewModel @Inject constructor(
             is OrderCreateEvent.SetDay -> {
                 val now = LocalDate.now()
                 val year = now.year
-                val month = if (now.dayOfMonth >= selectedDay.toInt())
-                    now.monthValue else LocalDate.now().monthValue + 1
+                val month = if (now.dayOfMonth <= selectedDay.toInt())
+                    now.monthValue else {
+                    Log.e("МЕМЕ", now.dayOfMonth.toString())
+                    Log.e("МЕМЕ2", selectedDay.toInt().toString())
+                    Log.e("МЕМЕ3", LocalDate.now().monthValue.toString())
+                    LocalDate.now().monthValue + 1
+                }
                 val monthString = if (month.toString().length == 1) "0$month" else "$month";
                 if (selectedDay.length == 1) {
                     requestOrderDto.date = "$year-$monthString-0$selectedDay"
@@ -88,7 +94,7 @@ class OrderCreateViewModel @Inject constructor(
             }
 
             is OrderCreateEvent.SetTime -> {
-                requestOrderDto.time = "$selectedTime:00"
+                requestOrderDto.time = selectedTime
             }
 
             is OrderCreateEvent.SetSpot -> {

@@ -15,7 +15,7 @@ data class EstablishmentArray(
 
         other as EstablishmentArray
 
-        if (!establishments[0].category.equals(other.establishments[0].category)) return false
+        // if (!establishments[0].category.equals(other.establishments[0].category)) return false
         if (count != other.count) return false
 
         return true

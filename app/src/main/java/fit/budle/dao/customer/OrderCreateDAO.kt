@@ -7,7 +7,7 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface OrderCreateDAO {
-    @POST("order")
+    @POST("user/order/create")
     suspend fun postOrder(@Body requestOrderDto: RequestOrderDto): Response<DefaultBooleanResponse>
 
     @GET("establishment/time")

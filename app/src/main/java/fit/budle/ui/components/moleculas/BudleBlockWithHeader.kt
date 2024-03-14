@@ -37,7 +37,7 @@ fun BudleBlockWithHeader(
         ) {
             Text(
                 text = headerText,
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.titleSmall,
                 color = mainBlack
             )
             if (rightText != null) {

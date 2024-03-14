@@ -2,6 +2,7 @@ package fit.budle.ui.screens.registration
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,8 +16,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -36,7 +36,9 @@ fun NumberScreen(
     navHostController: NavHostController,
     viewModel: RegistrationViewModel,
 ) {
-    val screenError = remember { mutableStateOf("") }
+    viewModel.requestException.observeAsState().value.let {
+        Log.d("MAINSCREEN", "ERROR UPDATED: $it")
+    }
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -85,13 +87,13 @@ fun NumberScreen(
                     inputLength = NumberDefaults.INPUT_LENGTH,
                     mask = NumberDefaults.MASK,
                     onValueChange = { viewModel.phoneNumber = it },
-                    exceptionMessage = viewModel.requestException.value.toString()
+                    exceptionMessage = if (viewModel.requestException.value != "SUCCESS") viewModel.requestException.value
+                        ?: "" else ""
                 )
             }
             Spacer(Modifier.weight(1f))
             BudleButton(
                 onClick = {
-                    screenError.value = viewModel.requestException.value.toString()
                     viewModel.onEvent(RegistrationEvent.GetCode)
                     Handler(Looper.getMainLooper()).postDelayed({
                         if (viewModel.requestException.value == "SUCCESS") {

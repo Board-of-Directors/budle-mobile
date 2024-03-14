@@ -29,7 +29,7 @@ val typography = Typography(
         fontFamily = fonts,
         fontWeight = FontWeight.SemiBold,
         fontSize = 16.sp,
-        lineHeight = 24.sp,
+        lineHeight = 21.sp,
     ),
     titleMedium = TextStyle(
         //Headings/Heading 1
@@ -43,6 +43,11 @@ val typography = Typography(
         fontWeight = FontWeight.SemiBold,
         fontSize = 18.sp
     ),
+    labelLarge = TextStyle(
+        fontFamily = fonts,
+        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp
+    ),
     displayLarge = TextStyle(
         //Form/Numbers
         fontFamily = fonts,
@@ -52,7 +57,7 @@ val typography = Typography(
     labelSmall = TextStyle(
         // Label/Label 2
         fontFamily = fonts,
-        fontWeight = FontWeight.SemiBold,
+        fontWeight = FontWeight.Medium,
         fontSize = 14.sp
     ),
     displaySmall = TextStyle(

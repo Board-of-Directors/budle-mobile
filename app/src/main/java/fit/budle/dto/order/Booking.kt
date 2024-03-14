@@ -1,19 +1,15 @@
 package fit.budle.dto.order
 
-import fit.budle.dto.establishment.Establishment
-import fit.budle.dto.establishment.EstablishmentDto
-
 data class Booking(
     val id: Long,
-    val userId: Long,
-    val status: Int,
-    val establishment: EstablishmentDto,
-    @Transient
-    var establishmentImage: Establishment,
     val guestCount: Int,
     var date: String,
     var startTime: String,
-    var endTime: String
+    var endTime: String,
+    val status: Int,
+    val establishmentId: Int,
+    val guestName: String,
+    val image: String,
 )
 
 enum class BookingStatus(val value: Int, val message: String) {

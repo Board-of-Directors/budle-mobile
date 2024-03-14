@@ -6,6 +6,7 @@ import fit.budle.dto.ResponseException
 import fit.budle.dto.establishment.CategoriesListResult
 import fit.budle.dto.establishment.EstablishmentListResult
 import fit.budle.dto.establishment.EstablishmentResult
+import fit.budle.dto.establishment.ReviewsListResult
 import fit.budle.repository.customer.EstablishmentRepository
 import javax.inject.Inject
 
@@ -96,6 +97,28 @@ class EstablishmentRepositoryImpl @Inject constructor(
         } else {
             Log.e("GET_CATEGORY", response.body()!!.exception!!.message)
             CategoriesListResult.Failure(response.body()!!.exception!!.message)
+        }
+    }
+
+    override suspend fun getReviews(establishmentId: Long): ReviewsListResult {
+        val response = establishmentDAO.getEstablishmentReviews(establishmentId)
+
+        return if (response.body() == null) {
+
+            Log.e("GET_REVIEWS", ResponseException.NULL_BODY)
+            ReviewsListResult.Failure(ResponseException.NULL_BODY)
+
+        } else if (response.body()!!.exception == null) {
+
+            Log.d("GET_REVIEWS", "SUCCESS")
+            ReviewsListResult.Success(
+                result = response.body()!!.result,
+                exception = null
+            )
+
+        } else {
+            Log.e("GET_REVIEWS", response.body()!!.exception!!.message)
+            ReviewsListResult.Failure(response.body()!!.exception!!.message)
         }
     }
 }

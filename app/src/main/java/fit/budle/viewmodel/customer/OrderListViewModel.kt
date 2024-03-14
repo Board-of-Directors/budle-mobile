@@ -37,9 +37,9 @@ class OrderListViewModel @Inject constructor(
                 viewModelScope.launch {
                     when (val response = repository.getOrder(event.userId, event.status)) {
                         is OrderListResult.Success -> {
-                            Log.d("ORDERLISTVIEWMODEL", "SUCCESS")
+                            Log.d("ORDERLISTVIEWMODEL", "SUCCESS" + event.status)
                             response.result.map {
-                                it.establishmentImage = convertEstablishment(it.establishment)
+                                // it.establishmentImage = convertEstablishment(it.establishment)
                                 val date =
                                     SimpleDateFormat(
                                         "yyyy-MM-dd",

@@ -20,3 +20,10 @@ sealed class CategoriesListResult {
 
     data class Failure(val exception: String?) : CategoriesListResult()
 }
+
+sealed class ReviewsListResult {
+    data class Success(val result: Array<Review>, val exception: String?) :
+        ReviewsListResult()
+
+    data class Failure(val exception: String?) : ReviewsListResult()
+}

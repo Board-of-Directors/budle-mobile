@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -21,10 +23,14 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,28 +42,37 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fit.budle.R
 import fit.budle.dto.WorkingHour
 import fit.budle.dto.establishment.Establishment
+import fit.budle.dto.establishment.Review
 import fit.budle.event.customer.MainEvent
 import fit.budle.ui.components.BudleIconButton
 import fit.budle.ui.components.BudleInfoTagList
 import fit.budle.ui.components.BudlePhotoTag
 import fit.budle.ui.components.atoms.BudleButton
 import fit.budle.ui.components.moleculas.BudleBlockWithHeader
+import fit.budle.ui.theme.BudleTheme
 import fit.budle.ui.theme.alphaBlack
+import fit.budle.ui.theme.borderColor
 import fit.budle.ui.theme.fillPurple
+import fit.budle.ui.theme.lightBlue
 import fit.budle.ui.theme.mainBlack
 import fit.budle.ui.theme.mainWhite
+import fit.budle.ui.theme.navyBlue
 import fit.budle.ui.theme.textGray
 import fit.budle.viewmodel.customer.MainViewModel
 
@@ -69,11 +84,11 @@ fun CardScreen(
     viewModel.onEvent(MainEvent.GetEstablishment)
 
     ShowPhotoGallery(
-        establishment = viewModel.establishmentCard,
-        isClicked = viewModel.clickedGallery
+        establishment = viewModel.establishmentCard, isClicked = viewModel.clickedGallery
     )
     Surface(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
+        color = Color.White,
     ) {
         Column(
             modifier = Modifier
@@ -127,19 +142,33 @@ fun CardScreen(
             BudleInfoTagList(iconTags = viewModel.establishmentCard.iconTags)
             Column(
                 modifier = Modifier
-                    .padding(horizontal = 20.dp)
                     .fillMaxWidth()
+                    .padding(bottom = 100.dp)
             ) {
-                viewModel.establishmentCard.description?.let {
-                    EstablishmentCardDescription(
-                        description = it
-                    )
+                Column(
+                    modifier = Modifier
+                        .padding(start = 20.dp, end = 20.dp)
+                        .fillMaxWidth()
+                ) {
+                    viewModel.establishmentCard.description?.let {
+                        EstablishmentCardDescription(
+                            description = it
+                        )
+                    }
+                    viewModel.establishmentCard.workingHours?.let { WorkingTime(it.toList()) }
+                    EstablishmentAddress(addressInfo = viewModel.establishmentCard.address)
+                    EstablishmentCardPhoto(establishment = viewModel.establishmentCard,
+                        onClick = {
+                            viewModel.clickedGallery.value = !viewModel.clickedGallery.value
+                        })
                 }
-                viewModel.establishmentCard.workingHours?.let { WorkingTime(it.toList()) }
-                EstablishmentAddress(addressInfo = viewModel.establishmentCard.address)
-                EstablishmentCardPhoto(establishment = viewModel.establishmentCard,
-                    onClick = { viewModel.clickedGallery.value = !viewModel.clickedGallery.value })
+                EstablishmentReviewsBlock(
+                    reviews = viewModel.establishmentReviews,
+                    rating = viewModel.establishmentCard.rating,
+                    navHostController
+                )
             }
+
         }
     }
 }
@@ -365,8 +394,7 @@ fun ShowPhotoGallery(
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.Top
             ) {
-                BudleIconButton(
-                    modifier = Modifier.size(26.dp),
+                BudleIconButton(modifier = Modifier.size(26.dp),
                     iconDescription = "Close",
                     iconId = R.drawable.x,
                     onClick = {
@@ -384,8 +412,7 @@ fun ShowPhotoGallery(
                     shape = RoundedCornerShape(10.dp)
                 ) {
                     Box(
-                        modifier = Modifier.height(screenWidth),
-                        contentAlignment = Alignment.Center
+                        modifier = Modifier.height(screenWidth), contentAlignment = Alignment.Center
                     ) {
                         establishment?.photos?.get(currentIndex)?.let {
                             Image(
@@ -411,18 +438,15 @@ fun ShowPhotoGallery(
                 ) {
                     if (establishment != null) {
                         itemsIndexed(establishment.photos) { i, photo ->
-                            val selectedColor =
-                                if (currentIndex == i) fillPurple else Transparent
+                            val selectedColor = if (currentIndex == i) fillPurple else Transparent
                             val padding =
                                 if (i == (establishment.photos.size.minus(1))) 0.dp else 10.dp
                             Card(
                                 modifier = Modifier
                                     .padding(end = padding)
-                                    .clickable(
-                                        onClick = {
-                                            currentIndex = i
-                                        }
-                                    ),
+                                    .clickable(onClick = {
+                                        currentIndex = i
+                                    }),
                                 shape = RoundedCornerShape(10.dp),
                                 border = BorderStroke(2.dp, selectedColor)
                             ) {
@@ -516,6 +540,184 @@ fun EstablishmentCardPhoto(
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun EstablishmentReviewsBlock(
+    reviews: Array<Review>,
+    rating: Double?,
+    navHostController: NavController?,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 16.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row {
+                Text(
+                    text = "Отзывы",
+                    style = MaterialTheme.typography.titleSmall,
+                )
+                Spacer(modifier = Modifier.width(3.dp))
+                Text(
+                    text = "(" + reviews.size.toString() + ")",
+                    style = MaterialTheme.typography.titleSmall,
+                    color = textGray
+                )
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_star),
+                    contentDescription = null,
+                    tint = fillPurple
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(
+                    text = rating.toString(),
+                    style = MaterialTheme.typography.labelLarge,
+                )
+            }
+        }
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            contentPadding = PaddingValues(horizontal = 20.dp, vertical = 12.dp)
+        ) {
+            items(reviews.size) { index ->
+                EstablishmentReview(review = reviews[index])
+            }
+        }
+        if (reviews.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(4.dp))
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(IntrinsicSize.Max)
+                    .padding(horizontal = 20.dp),
+                shape = RoundedCornerShape(10.dp),
+                onClick = {
+                    navHostController?.navigate("reviewsScreen")
+                },
+                colors = ButtonColors(
+                    containerColor = lightBlue,
+                    contentColor = mainBlack,
+                    lightBlue,
+                    lightBlue
+                )
+            ) {
+                Text(
+                    text = "Посмотреть все",
+                    fontSize = 16.sp,
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    style = MaterialTheme.typography.bodyMedium,
+                    textAlign = TextAlign.Center
+                )
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewEstablishmentReviewsBlock() {
+    val reviews = arrayOf(
+        Review(
+            username = "Артём",
+            date = "2023-02-22",
+            score = 5,
+            text = "Очень крутое заведение! Приду сюда ещё раз с бабушкой!"
+        ),
+        Review(
+            username = "Олег",
+            date = "2023-02-22",
+            score = 3,
+            text = "Очень крутое заведение! Приду сюда ещё раз с бабушкой! " +
+                    "Мне правда здесь очень понравилось, приведу сюда всех своих друзей"
+        )
+    )
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+    ) {
+        BudleTheme {
+            EstablishmentReviewsBlock(reviews, 4.1, null)
+        }
+    }
+
+}
+
+@Composable
+fun EstablishmentReview(
+    review: Review,
+) {
+    OutlinedCard(
+        modifier = Modifier
+            .width(312.dp),
+        shape = RoundedCornerShape(10.dp),
+        border = BorderStroke(1.dp, borderColor),
+        colors = CardColors(Color.White, mainBlack, Color.White, Color.White)
+    ) {
+        Column(
+            modifier = Modifier.padding(horizontal = 20.dp, vertical = 16.dp)
+        ) {
+            StarsRating(review.score)
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = review.text,
+                style = MaterialTheme.typography.bodyMedium,
+                maxLines = 2,
+                minLines = 2,
+                overflow = TextOverflow.Ellipsis
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = review.username,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = textGray
+                )
+                Spacer(modifier = Modifier.width(6.dp))
+                Box(
+                    modifier = Modifier
+                        .size(3.dp)
+                        .background(textGray, shape = CircleShape)
+                )
+                Spacer(modifier = Modifier.width(6.dp))
+                Text(
+                    text = review.date,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = textGray
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun StarsRating(score: Int) {
+    Row {
+        for (i in 1..5) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_star),
+                contentDescription = null,
+                tint = if (i <= score) fillPurple else navyBlue
+            )
+            if (i != 5)
+                Spacer(modifier = Modifier.width(3.dp))
         }
     }
 }

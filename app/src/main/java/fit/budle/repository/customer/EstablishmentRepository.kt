@@ -3,6 +3,7 @@ package fit.budle.repository.customer
 import fit.budle.dto.establishment.CategoriesListResult
 import fit.budle.dto.establishment.EstablishmentListResult
 import fit.budle.dto.establishment.EstablishmentResult
+import fit.budle.dto.establishment.ReviewsListResult
 
 interface EstablishmentRepository {
 
@@ -20,4 +21,5 @@ interface EstablishmentRepository {
     ): EstablishmentListResult
 
     suspend fun getCategory(): CategoriesListResult
+    suspend fun getReviews(establishmentId: Long): ReviewsListResult
 }

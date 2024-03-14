@@ -19,11 +19,12 @@ import fit.budle.dto.establishment.EstablishmentArray
 import fit.budle.dto.establishment.EstablishmentDto
 import fit.budle.dto.establishment.EstablishmentListResult
 import fit.budle.dto.establishment.EstablishmentResult
+import fit.budle.dto.establishment.Review
+import fit.budle.dto.establishment.ReviewsListResult
 import fit.budle.dto.tag.active.RectangleActiveTag
 import fit.budle.dto.tag.standard.IconTag
 import fit.budle.event.customer.MainEvent
 import fit.budle.repository.customer.EstablishmentRepository
-import fit.budle.util.EstablishmentConverter
 import fit.budle.util.EstablishmentConverter.Companion.convertEstablishment
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -54,6 +55,8 @@ class MainViewModel @Inject constructor(
 
     var isFiltersVisible by mutableStateOf(false)
 
+    var establishmentReviews: Array<Review> by mutableStateOf(emptyArray())
+
     fun onEvent(event: MainEvent) {
         when (event) {
             is MainEvent.GetEstablishment -> {
@@ -61,12 +64,23 @@ class MainViewModel @Inject constructor(
                     when (val response =
                         repository.getEstablishment(establishmentCardId)) {
                         is EstablishmentResult.Success -> {
-                            Log.d("MAINVIEWMODEL", "SUCCESS")
+                            Log.d("MAINVIEWMODEL_GET_EST", "SUCCESS")
                             establishmentCard =
                                 convertEstablishment(response.result, viewModelScope)
                         }
 
                         is EstablishmentResult.Failure -> {}
+                    }
+                }
+                viewModelScope.launch {
+                    when (val response =
+                        repository.getReviews(establishmentCardId)) {
+                        is ReviewsListResult.Success -> {
+                            Log.d("MAINVIEWMODEL_GET_EST", "SUCCESS")
+                            establishmentReviews = response.result
+                        }
+
+                        is ReviewsListResult.Failure -> {}
                     }
                 }
             }
@@ -106,9 +120,9 @@ class MainViewModel @Inject constructor(
                                         establishmentsForScreen.remove(establishmentArray)
                                         establishmentsForScreen.add(establishmentArray)
                                     }
-                                    establishmentsForScreen.sortBy { array ->
-                                        array.establishments.first().category
-                                    }
+//                                    establishmentsForScreen.sortBy { array ->
+//                                        array.establishments.first().category
+//                                    }
                                 }
 
                                 is EstablishmentListResult.Failure -> {}
